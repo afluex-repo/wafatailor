@@ -1,0 +1,78 @@
+﻿@model WafaTailor.Models.Customer
+
+@{
+    ViewBag.Title = "CustomerRegistrationList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ @using (Html.BeginForm("CustomerRegistrationList", "Customer", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+ {
+  <div class="container">
+        <div class="row layout-top-spacing">
+            <div class="col-lg-12 col-12 layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                <h4>
+                                    Customer List
+                                    <a href="/Customer/CustomerRegistration" class="btn btn-primary pull-right">Back to Home</a>
+                                </h4>
+                                @*<span style="color:red">
+                                    @TempData["Customer"]
+                                </span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="row">
+                            <table id="html5-extension" class="table table-hover non-hover" data-page-length='20'>
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Name</th>
+                                        <th>Contact Number</th>
+                                        <th>Emailid</th>
+                                        <th>DOB</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstRegistration != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lstRegistration)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@item.CustomerName</td>
+                                                    <td>@item.ContactNo</td>
+                                                    <td>@item.Emailid</td>
+                                                    <td>@item.DOB</td>
+                                                    <td>@item.Gender</td>
+                                                    <td>@item.CustomerAddress</td>
+                                                    <td>
+                                                        <a href="#"><span class="btn btn-primary" >Edit</span> </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Customer/DeleteCustomerRegistration?CustomerId=@item.CustomerId"><span class="btn btn-danger">Delete</span> </a>
+                                                    </td>
+                                                </tr>
+                                                i = i + 1;
+                                            }
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

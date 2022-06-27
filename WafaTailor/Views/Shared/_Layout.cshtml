@@ -1,0 +1,309 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WafaTailor</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="fonts/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="fonts/font-awesome/v6/css/all.css" rel="stylesheet" type="text/css" />
+    <link href="fonts/material-design-icons/material-icon.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!--bootstrap -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/plugins/summernote/summernote.css" rel="stylesheet">
+    <!-- Material Design Lite CSS -->
+    <link rel="stylesheet" href="../assets/plugins/material/material.min.css">
+    <link rel="stylesheet" href="../assets/css/material_style.css">
+    <!-- inbox style -->
+    <link href="../assets/css/pages/inbox.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme Styles -->
+    <link href="../assets/css/theme/light/theme_style.css" rel="stylesheet" id="rt_style_components" type="text/css" />
+    <link href="../assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/theme/light/style.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="https://www.einfosoft.com/templates/admin/smart/source/assets/img/favicon.ico" />
+
+    <style>
+        .errortext {
+            border: 2px solid red;
+            background: #ffa9a9 !important;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
+    <div class="page-wrapper">
+        <!-- start header -->
+        <div class="page-header navbar navbar-fixed-top">
+            <div class="page-header-inner ">
+                <!-- logo start -->
+                <div class="page-logo">
+                    <a href="index.html">
+                        <span class="logo-default">Wafa Tailor</span>
+                    </a>
+                </div>
+                <!-- logo end -->
+                <ul class="nav navbar-nav navbar-left in">
+                    <li><a href="#" class="menu-toggler sidebar-toggler"><i data-feather="menu"></i></a></li>
+                </ul>
+                @*<form class="search-form-opened" action="#" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." name="query">
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn submit">
+                                    <i class="icon-magnifier"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form>*@
+                <!-- start mobile menu -->
+                <a class="menu-toggler responsive-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span></span>
+                </a>
+                <!-- end mobile menu -->
+                <!-- start header menu -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        @*<li><a class="fullscreen-btn"><i data-feather="maximize"></i></a></li>*@
+                        <!-- start manage user dropdown -->
+                        <li class="dropdown dropdown-user">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
+                               data-close-others="true">
+                                <img alt="" class="img-circle " src="../Assets/Images/usericon.jpg" />
+                                <span class="username username-hide-on-mobile"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-user"></i> Profile
+                                    </a>
+                                </li>
+                                @*<li>
+                                    <a href="#">
+                                        <i class="icon-settings"></i> Settings
+                                    </a>
+                                </li>
+                                <li class="divider"> </li>*@
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-lock"></i> Change Password
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-logout"></i> Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- end manage user dropdown -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end header -->
+       
+        <!-- start page container -->
+        <div class="page-container">
+            <!-- start sidebar menu -->
+            <div class="sidebar-container">
+                <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+                    <div id="remove-scroll" class="left-sidemenu">
+                        <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false"
+                            data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                            <li class="sidebar-toggler-wrapper hide">
+                                <div class="sidebar-toggler">
+                                    <span></span>
+                                </div>
+                            </li>
+                            <li class="sidebar-user-panel">
+                                <div class="sidebar-user">
+                                    <div class="sidebar-user-picture">                                        
+                                        <img alt="image" src="../Assets/Images/usericon.jpg">
+                                    </div>
+                                    <div class="sidebar-user-details">
+                                        <div class="user-name">Admin Panel</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/Home/Index" class="nav-link nav-toggle">
+                                    <i data-feather="airplay"></i>
+                                    <span class="title">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="user"></i>
+                                    <span class="title">Master</span> <span class="fa fa-angle-right"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/Master/ShopMaster" class="nav-link ">
+                                            <span class="title">
+                                                Shop Master
+                                            </span>
+                                        </a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <span class="title">Registration</span>
+                                        </a>
+                                    </li>*@
+                                    <li class="nav-item">
+                                        <a href="/Master/Material" class="nav-link ">
+                                            <span class="title">
+                                                Material Type
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i class='fas fa-user'></i>
+                                    <span class="title">Registration</span> <span class="fa fa-angle-right"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/Employee/EmployeeRegistration" class="nav-link ">
+                                            <span class="title">
+                                                Employee Registration
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Customer/CustomerRegistration" class="nav-link ">
+                                            <span class="title">
+                                                CustomerRegistration
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end sidebar menu -->
+            <!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <div class="page-title-breadcrumb">
+                            @*<div class="pull-left">
+                                <div class="page-title">Dashboard</div>
+                            </div>*@
+                            <div class="row">
+                                @RenderBody()
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <!-- end page content -->
+            </div>
+            <!-- end page container -->
+
+
+
+            <!-- start footer -->
+            <div class="page-footer">
+                <div class="page-footer-inner">
+                    2022 &copy; Afluex Multiservices LLP
+                </div>
+                <div class="scroll-to-top">
+                    <i class="icon-arrow-up"></i>
+                </div>
+            </div>
+            <!-- end footer -->
+        </div>
+    </div>
+
+    
+    <script src="~/plugins/highlight/highlight.pack.js"></script>
+    <script src="~/Assets/js/custom.js"></script>
+    <script src="~/Assets/js/scrollspyNav.js"></script>
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <script src="~/Assets/js/scrollspyNav.js"></script>
+    <script src="~/plugins/table/datatable/datatables.js"></script>
+    <!-- NOTE TO ~/Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
+    <script src="~/plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/table/datatable/button-ext/jszip.min.js"></script>
+    <script src="~/plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
+    <script src="~/plugins/table/datatable/button-ext/buttons.print.min.js"></script>
+    <script>
+        $('#html5-extension').DataTable( {
+            "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+        "<'table-responsive'tr>" +
+        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-sm' },
+                    { extend: 'csv', className: 'btn btn-sm' },
+                    { extend: 'excel', className: 'btn btn-sm' },
+                    { extend: 'print', className: 'btn btn-sm' }
+                ]
+            },
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 20
+        } );
+    </script>
+
+
+        <!-- start js include path -->
+        <script src="../Assets/plugins/jquery/jquery.min.js"></script>
+        <script src="../Assets/plugins/popper/popper.js"></script>
+        <script src="../Assets/plugins/jquery-blockui/jquery.blockui.min.js"></script>
+        <script src="../Assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <script src="../Assets/plugins/feather/feather.min.js"></script>
+        <!-- bootstrap -->
+        <script src="../Assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../Assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <script src="../Assets/plugins/sparkline/jquery.sparkline.js"></script>
+        <script src="../Assets/js/pages/sparkline/sparkline-data.js"></script>
+        <!-- Common js-->
+        <script src="../Assets/js/app.js"></script>
+        <script src="../Assets/js/layout.js"></script>
+        <script src="../Assets/js/theme-color.js"></script>
+        <!-- material -->
+        <script src="../Assets/plugins/material/material.min.js"></script>
+        <!--apex chart-->
+        <script src="../Assets/plugins/apexcharts/apexcharts.min.js"></script>
+        <script src="../Assets/js/pages/chart/apex/home-data.js"></script>
+        <!-- summernote -->
+        <script src="../Assets/plugins/summernote/summernote.js"></script>
+        <script src="../Assets/js/pages/summernote/summernote-data.js"></script>
+        <!-- end js include path -->
+</body>
+
+
+<!-- Mirrored from www.einfosoft.com/templates/admin/smart/source/light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Apr 2022 04:46:56 GMT -->
+</html>
