@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "CustomerConfirmRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /*.bg-register {
+        background: url(websitelinks/images/bg/login-bg.jpeg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+    }*/
+
+    .user-account h1 {
+        color: #2b2b2b;
+        font-weight: 300;
+        margin: 30px 0 20px;
+    }
+
+    .registration-block {
+        background-color: rgba(256, 256, 256, 0.8);
+        padding: 15px 40px;
+    }
+
+    h2.big-green {
+        font-size: 35px;
+        color: #3272d8;
+        /*color: #77b43f;*/
+        font-style: italic;
+        /* text-transform: uppercase; */
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .wrapper-thanks h3, .wrapper-thanks h4, .wrapper-thanks h2 {
+        margin-bottom: 15px;
+    }
+
+    .account-info.clearfix {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .account-info .list-inline {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        .account-info .list-inline li {
+            display: inline-block;
+        }
+
+    span.border-box {
+        border: 2px solid #77b43f;
+        padding: 7px 5px;
+        color: #4a9604;
+        background: #f9f9f9;
+    }
+
+    .wrapper-thanks {
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .animated-gif {
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        /* padding-right: 102px; */
+        overflow: hidden;
+        text-align: center;
+        margin: 0 auto;
+        line-height: 92px;
+        border: 0px solid green;
+    }
+</style>
+<style type="text/css">
+    @@media (max-width:560px) {
+
+        .account-info .list-inline li {
+            display: inline-block;
+            margin-top: 18px;
+        }
+    }
+</style>
+<div class="section-body">
+    <div class="card">
+        <div class="card-header">
+            @*<ul class="breadcrumb breadcrumb-style ">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <i data-feather="home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">Registration Successfull</li>
+                </ul>*@
+            <span class="pull-right">
+                <a href="/Customer/CustomerRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
+            </span>
+            @*<p style="color: red">
+                    @TempData["Shop"]
+                </p>*@
+        </div>
+
+        <div class="card-body">
+            <div class="wrapper-thanks">
+                <div class="animated-gif">
+                    <img src="~/Assets/Images/XwHw.gif" alt="" style="width: 100px;" />
+                </div>
+                <h2 class="big-green">Congratulations !!</h2>
+                <div class="clearfix text-center">
+                    <h3>Customer Saved Successfully !</h3>
+                    @*<div class="account-info clearfix">
+                        <div class="clearfix text-left">
+                            <div class="col-md-12 account-info-text text-center">
+                                <ul class="list-inline">
+                                    <li><span class="border-box">Name: @Session["Name"]</span></li>
+                                    <li><span class="border-box">Login ID: @Session["LoginId"]</span></li>
+                                    <li><span class="border-box">Password:  @Session["Password"]</span></li>
+                                </ul>
+                            </div>
+                        </div>*@
+
+
+                </div>
+                <div class="clearfix">
+                    <h2 class="big-green">Thank You!</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
