@@ -51,10 +51,10 @@ namespace WafaTailor.Controllers
             {
                 TempData["Customer"] = ex.Message;
             }
-            return RedirectToAction("CustomerConfirmRegistration", "Customer");
+            return RedirectToAction("CustomerRegistration", "Customer");
         }
 
-        public ActionResult CustomerConfirmRegistration()
+        public ActionResult ConfirmRegistration()
         {
             return View();
         }

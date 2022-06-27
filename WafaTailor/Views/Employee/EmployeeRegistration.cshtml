@@ -8,7 +8,82 @@
 
 @using (Html.BeginForm("EmployeeRegistration", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
-    <div class="row">
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        <div class="page-title"> Employee Registration</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a class="parent-item" href="#">Forms</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Form Layouts</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header> Employee Registration</header>
+                           
+                           @* <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>*@
+                          
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormEmail">Shop Name <span style="color:red">*</span></label>
+                                   @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Employee Name <span style="color:red">*</span></label>
+                                   @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Date Of Birth <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Email-Id <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Gender <span style="color:red">*</span></label>
+                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+        {
+                            new SelectListItem() {Text = "Male"},
+                            new SelectListItem() {Text = "Female"}
+        }, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
+                                    @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
+                                </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card card-box">
                 <div class="card-body " id="bar-parent2">
@@ -19,16 +94,16 @@
                                     Employee Registration
                                     <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
                                 </h4>
-                                @*<span class="text-danger">
+                                <span class="text-danger">
                                     @TempData["Employee"]
-                                </span>*@
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Shop<span style="color:red">*</span></label>
+                                <label class="col-sm-4 col-form-label">Shop Name<span style="color:red">*</span></label>
                                 <div class="col-sm-8">
                                     @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name" })
                                 </div>
@@ -99,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 }
 
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />

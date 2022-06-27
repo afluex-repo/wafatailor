@@ -13,15 +13,5 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-
-        public ActionResult Sign_up()
-        {
-            return View();
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
     }
 }
