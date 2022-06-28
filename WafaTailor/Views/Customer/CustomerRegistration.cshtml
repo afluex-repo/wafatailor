@@ -7,83 +7,69 @@
 
 @using (Html.BeginForm("CustomerRegistration", "Customer", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-body " id="bar-parent2">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>
-                                    Customer Registration
-                                    <a href="/Customer/CustomerRegistrationList" class="btn btn-primary pull-right">Back to List</a>
-                                </h4>
-                                @*<span class="text-danger">
-                                        @TempData["Employee"]
-                                    </span>*@
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Customer Name<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @placeholder = " Customer Name" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Contact No<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Email-Id<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Date Of Birth<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Gender<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
-        {
-                            new SelectListItem() {Text = "Male"},
-                            new SelectListItem() {Text = "Female"}
-        }, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Address<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.CustomerAddress, new { @class = "form-control", @placeholder = "Customer Address" })
-                                </div>
-                            </div>
+     <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                       @* <div class="page-title">Customer Registration</div>*@
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Registration &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Customer Registration</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header> Customer Registration</header>
+                            @*<a href="/Customer/CustomerRegistrationList" class="btn btn-primary pull-right">Back to List</a>*@
+
                         </div>
-                        <div class="col-md-4 mt-5">
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Customer Name <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @placeholder = " Customer Name" })
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Email-Id <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="simpleFormPassword">Date Of Birth <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true" })
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="simpleFormPassword">Gender <span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+                                          {
+                                            new SelectListItem() {Text = "Male"},
+                                            new SelectListItem() {Text = "Female"}
+                                            }, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
+                                        @Html.TextAreaFor(m => m.CustomerAddress, new { @class = "form-control", @placeholder = "Customer Address" })
+                                    </div>
                                 </div>
-                            </div>
+                                <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -104,8 +90,7 @@
 </script>
 
 <script>
-    function Validateform()
-    {
+    function Validateform() {
         $("#divload").css({ 'display': '' })
         $(".errortext").removeClass("errortext");
 

@@ -8,54 +8,54 @@
 
 @using (Html.BeginForm("Material", "Master", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-body " id="bar-parent2">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>
-                                    Material Type
-                                    <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>
-                                </h4>
-                                @*<span class="text-danger">
-                                    @TempData["Material"]
-                                </span>*@
-                            </div>
-                        </div>
+     <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                       @* <div class="page-title">Material Type</div>*@
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Material Name<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Master &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Master Type</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Material Type</header>
+                            
+                           @* <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>*@
+                           
+                        </div>
+                        <div class="card-body " id="bar-parent">
+                            <form>
+                                <div class="form-group">
+                                    <label for="simpleFormEmail">Shop <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.MaterialName, new { @class = "form-control", @Placeholder = "Material Name", @autocomplete = "off" })
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Material Type<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.MaterialType, new { @class = "form-control", @Placeholder = "Material Type", @autocomplete = "off" })
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 mt-5">
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <input type="submit" class="btn btn-primary" name="btnsave" value="Save" onclick="return ValidateMaterial()">
-                                </div>
-                            </div>
+                                <input type="submit" class="btn btn-primary" name="btnsave" value="Save" onclick="return ValidateMaterial()">
+                            </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+    
 }
 <script>
     function ValidateMaterial()
