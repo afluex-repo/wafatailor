@@ -19,7 +19,7 @@
                                     <a href="/Customer/CustomerRegistrationList" class="btn btn-primary pull-right">Back to List</a>
                                 </h4>
                                 <span class="text-danger">
-                                        @TempData["Employee"]
+                                        @TempData["Customer"]
                                     </span>
                             </div>
                         </div>
@@ -81,7 +81,15 @@
                         <div class="col-md-4 mt-5">
                             <div class="form-group">
                                 <div class="col-sm-9">
-                                    <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                                    @Html.HiddenFor(m => m.CustomerId)
+                                    @if (Model.CustomerId != null)
+                                    {
+                                        <input type="submit" class="btn btn-primary" name="update" value="Update" onclick="return Validateform()">
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                                    }
                                 </div>
                             </div>
                         </div>

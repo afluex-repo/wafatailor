@@ -322,6 +322,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Common.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -352,8 +353,6 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Employee\EmployeeRegistrationList.cshtml" />
     <Content Include="Views\Customer\CustomerRegistrationList.cshtml" />
-    <Content Include="Views\Master\ConfirmRegistration.cshtml" />
-    <Content Include="Views\Master\MaterialConfirmRegistration.cshtml" />
     <Content Include="Views\Customer\CustomerConfirmRegistration.cshtml" />
     <Content Include="Views\Customer\CustomerRegistration.cshtml" />
     <Content Include="Views\Employee\EmployeeConfirmRegistration.cshtml" />

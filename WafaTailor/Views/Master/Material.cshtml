@@ -33,10 +33,11 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header>Material Type</header>
-                            
-                           @* <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>*@
-                           
+                            <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
+                        <span class="text-danger">
+                            @TempData["Material"]
+                        </span>
                         <div class="card-body " id="bar-parent">
                             <form>
                                 <div class="form-group">

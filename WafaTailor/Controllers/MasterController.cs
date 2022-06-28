@@ -62,7 +62,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Shop"] = ex.Message;
             }
-            return RedirectToAction("ConfirmRegistration", "Master");
+            return RedirectToAction("ShopMaster", "Master");
         }
 
         public ActionResult ConfirmRegistration()
@@ -161,7 +161,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Material"] = ex.Message;
             }
-            return RedirectToAction("MaterialConfirmRegistration", "Master");
+            return RedirectToAction("Material", "Master");
         }
 
         public ActionResult MaterialConfirmRegistration()

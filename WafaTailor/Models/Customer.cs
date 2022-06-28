@@ -7,7 +7,7 @@ using System.Web;
 
 namespace WafaTailor.Models
 {
-    public class Customer
+    public class Customer: Common
     {
         public List<Customer> lstRegistration { get; set; }
         public string CustomerName { get; set; }
@@ -51,6 +51,23 @@ namespace WafaTailor.Models
                  new SqlParameter("@DeletedBy",1)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteCustomer", para);
+            return ds;
+        }
+
+        public DataSet UpdateCustomerRegistration()
+        {
+            SqlParameter[] para =
+            {
+                 new SqlParameter("@Pk_CustomerId",CustomerId),
+                new SqlParameter("@CustomerName",CustomerName),
+                new SqlParameter("@CustomerAddress",CustomerAddress),
+                 new SqlParameter("@DOB",DOB),
+                new SqlParameter("@ContactNo",ContactNo),
+                 new SqlParameter("@Emailid",Emailid),
+                new SqlParameter("@Gender",Gender),
+                new SqlParameter("@UpdatedBy",1)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateCustomerRegistration", para);
             return ds;
         }
     }

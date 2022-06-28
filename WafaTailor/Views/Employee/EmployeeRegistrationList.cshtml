@@ -14,7 +14,7 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        <div class="page-title">Employee List</div>
+                        @*<div class="page-title">Employee List</div>*@
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
@@ -34,6 +34,7 @@
                     <div class="card">
                         <div class="card-head">
                             <header>Employee List</header>
+                            <a href="/Employee/EmployeeRegistration" class="btn btn-primary pull-right">Back to Home</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -75,7 +76,7 @@
                                                     <td>@item.Gender</td>
                                                     <td>@item.EmployeeAddress</td>
                                                     <td>
-                                                        <a href="#" class="tblEditBtn">
+                                                        <a href="/Employee/EmployeeRegistration?EmployeeId=@item.EmployeeId" class="tblEditBtn">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <a href="/Employee/DeleteEmployeeRegistration?EmployeeId=@item.EmployeeId" class="tblDelBtn">

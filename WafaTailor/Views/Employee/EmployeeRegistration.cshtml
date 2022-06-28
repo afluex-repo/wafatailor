@@ -33,10 +33,11 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header> Employee Registration</header>
-                           
                             <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
-                          
                         </div>
+                        <span class="text-danger">
+                            @TempData["Employee"]
+                        </span>
                         <div class="card-body" id="bar-parent">
                             <form>
                                 <div class="row">
@@ -73,7 +74,15 @@
                                     @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
                                 </div>
                                 </div>
+                                @Html.HiddenFor(m=>m.EmployeeId)
+                                @if(Model.EmployeeId != null)
+                                {
+                                <input type="submit" class="btn btn-primary" name="update" value="Update" onclick="return Validateform()">
+                                }
+                                else
+                                {
                                 <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                                }
                             </form>
                         </div>
                     </div>
