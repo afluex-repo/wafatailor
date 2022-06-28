@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : AdminBaseController
     {
       
     }
