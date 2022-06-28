@@ -213,4 +213,110 @@ E:\Repository-Projects\repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
 E:\Repository-Projects\repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
 E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
-E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
+E:\Repository\wafatailor\WafaTailor\bin\ApplicationInsights.config
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\csc.exe
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\System.Collections.Immutable.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\System.Reflection.Metadata.dll
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\vbc.exe
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\VBCSCompiler.exe
+E:\Repository\wafatailor\WafaTailor\bin\roslyn\VBCSCompiler.exe.config
+E:\Repository\wafatailor\WafaTailor\bin\WafaTailor.dll.config
+E:\Repository\wafatailor\WafaTailor\bin\WafaTailor.dll
+E:\Repository\wafatailor\WafaTailor\bin\WafaTailor.pdb
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.DependencyCollector.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.Web.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.WindowsServer.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.ApplicationInsights.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.Web.Infrastructure.dll
+E:\Repository\wafatailor\WafaTailor\bin\Newtonsoft.Json.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Helpers.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Mvc.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Razor.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.Deployment.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.dll
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.Razor.dll
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.DependencyCollector.xml
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.Web.xml
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.AI.WindowsServer.xml
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.ApplicationInsights.xml
+E:\Repository\wafatailor\WafaTailor\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Razor.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.Deployment.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Webpages.Razor.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Helpers.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Mvc.xml
+E:\Repository\wafatailor\WafaTailor\bin\Newtonsoft.Json.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
+E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
+E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
+E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
+E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\ApplicationInsights.config
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\csc.exe
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\System.Collections.Immutable.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\System.Reflection.Metadata.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\vbc.exe
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\VBCSCompiler.exe
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\roslyn\VBCSCompiler.exe.config
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\WafaTailor.dll.config
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\WafaTailor.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\WafaTailor.pdb
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.Agent.Intercept.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.DependencyCollector.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.Web.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.WindowsServer.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.ApplicationInsights.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.Web.Infrastructure.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Newtonsoft.Json.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Helpers.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Http.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Mvc.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Razor.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.Deployment.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.Razor.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.DependencyCollector.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.Web.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.AI.WindowsServer.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.ApplicationInsights.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Razor.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.Deployment.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Webpages.Razor.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Helpers.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Mvc.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Newtonsoft.Json.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Http.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
+F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb

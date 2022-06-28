@@ -21,9 +21,27 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-        public ActionResult EmployeeRegistration()
+        public ActionResult EmployeeRegistration(String EmployeeId)
         {
-            return View();
+            Employee obj = new Employee();
+
+            if (EmployeeId != null)
+            {
+                obj.EmployeeId = EmployeeId;
+                DataSet ds = obj.GetEmployeeDetails();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    obj.EmployeeId = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
+                    obj.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                    obj.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                    obj.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                    obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                    obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+                    obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                    obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                }
+            }
+            return View(obj);
         }
 
         [HttpPost]
@@ -89,6 +107,42 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ActionName("EmployeeRegistration")]
+        [OnAction(ButtonName = "update")]
+        public ActionResult UpdateEmployeeRegistration(Employee model)
+        {
+            try
+            {
+                if(model.EmployeeId != null)
+                {
+                    DataSet ds = model.updateEmployeeRegistration();
+                    if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Employee"] = "Employee Registration Updated Successfully";
+                        }
+                        else
+                        {
+                            TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Employee"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeRegistration", "Employee");
+        }
+
         public ActionResult DeleteEmployeeRegistration(string EmployeeId)
         {
             Employee obj = new Employee();
@@ -114,5 +168,58 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeRegistrationList", "Employee");
         }
+
+        public ActionResult EmployeeChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmployeeChangePassword(Employee model)
+        {
+            try
+            {
+                DataSet ds = model.EmployeeChangePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["EmployeeChangePassword"] = "Employee Changed Password Successfully!";
+                    }
+                    else
+                    {
+                        TempData["EmployeeChangePassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["EmployeeChangePassword"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeChangePassword", "Employee");
+        }
+
+
+
+        public ActionResult Profile(Employee model)
+        {
+            model.LoginId = "Employee2";
+            DataSet ds = model.GetProfileDetails();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                ViewBag.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                ViewBag.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                ViewBag.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                ViewBag.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                ViewBag.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                ViewBag.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                ViewBag.Profile = ds.Tables[0].Rows[0]["Profile"].ToString();
+            }
+            return View(model);
+        }
+
+
+
     }
 }

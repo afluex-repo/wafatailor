@@ -62,7 +62,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Shop"] = ex.Message;
             }
-            return RedirectToAction("ConfirmRegistration", "Master");
+            return RedirectToAction("ShopMaster", "Master");
         }
 
         public ActionResult ConfirmRegistration()
@@ -101,7 +101,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["Shop"] = "Shop Master Deleted Successfully!";
+                        TempData["Shop"] = "Shop Deleted Successfully!";
                     }
                     else
                     {
@@ -161,7 +161,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Material"] = ex.Message;
             }
-            return RedirectToAction("MaterialConfirmRegistration", "Master");
+            return RedirectToAction("Material", "Master");
         }
 
         public ActionResult MaterialConfirmRegistration()

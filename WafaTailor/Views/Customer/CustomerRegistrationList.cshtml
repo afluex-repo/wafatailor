@@ -36,6 +36,10 @@
                     <div class="card">
                         <div class="card-head">
                             <header>Customer List</header>
+                            <span class="text-danger">
+                                @TempData["Customer"]
+                            </span>
+                            <a href="/Customer/CustomerRegistration" class="btn btn-primary pull-right">Back to Home</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -74,7 +78,7 @@
                                                     <td>@item.Gender</td>
                                                     <td>@item.CustomerAddress</td>
                                                     <td>
-                                                        <a href="#" class="tblEditBtn">
+                                                        <a href="/Customer/CustomerRegistration?CustomerId=@item.CustomerId" class="tblEditBtn">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <a href="/Customer/DeleteCustomerRegistration?CustomerId=@item.CustomerId" class="tblDelBtn">
