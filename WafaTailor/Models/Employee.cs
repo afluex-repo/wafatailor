@@ -83,5 +83,23 @@ namespace WafaTailor.Models
         }
         
 
+
+        public DataSet updateEmployeeRegistration()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_EmployeeId",EmployeeId),
+                new SqlParameter("@ShopName",ShopName),
+                new SqlParameter("@EmployeeName",EmployeeName),
+                 new SqlParameter("@EmployeeAddress",EmployeeAddress),
+                new SqlParameter("@DOB",DOB),
+                 new SqlParameter("@ContactNo",ContactNo),
+                new SqlParameter("@Emailid",Emailid),
+                new SqlParameter("@Gender",Gender),
+                new SqlParameter("@UpdatedBy",1)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateEmployeeRegistration", para);
+            return ds;
+        }
     }
 }

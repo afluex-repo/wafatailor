@@ -34,8 +34,10 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header>Shop Master</header>
-                            @*<a href="/Master/ShopMasterList" class="btn btn-primary pull-right">Back to List</a>*@
-                            
+                            <span class="text-danger">
+                                @TempData["Shop"]
+                            </span>
+                            <a href="/Master/ShopMasterList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
                         <div class="card-body " id="bar-parent">
                             <form>

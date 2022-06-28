@@ -16,9 +16,26 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-        public ActionResult CustomerRegistration()
+        public ActionResult CustomerRegistration(String CustomerId)
         {
-            return View();
+            Customer obj = new Customer();
+
+            if (CustomerId != null)
+            {
+                obj.CustomerId = CustomerId;
+                DataSet ds = obj.GetCustomerDetails();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    obj.CustomerId = ds.Tables[0].Rows[0]["Pk_CustomerId"].ToString();
+                    obj.CustomerName = ds.Tables[0].Rows[0]["CustomerName"].ToString();
+                    obj.CustomerAddress = ds.Tables[0].Rows[0]["CustomerAddress"].ToString();
+                    obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                    obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+                    obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                    obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                }
+            }
+            return View(obj);
         }
 
         [HttpPost]
@@ -28,6 +45,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/mm/yyyy");
                 DataSet ds = model.CustomerRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
@@ -80,6 +98,43 @@ namespace WafaTailor.Controllers
                 model.lstRegistration = lst;
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("CustomerRegistration")]
+        [OnAction(ButtonName = "update")]
+        public ActionResult UpdateCustomerRegistration(Customer model)
+        {
+            try
+            {
+                if(model.CustomerId != null)
+                {
+                    model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/mm/yyyy");
+                    DataSet ds = model.UpdateCustomerRegistration();
+                    if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Customer"] = "Customer Registration Updated Successfully";
+                        }
+                        else
+                        {
+                            TempData["Customer"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Customer"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Customer"] = ex.Message;
+            }
+            return RedirectToAction("CustomerRegistration", "Customer");
         }
 
         public ActionResult DeleteCustomerRegistration(string CustomerId)

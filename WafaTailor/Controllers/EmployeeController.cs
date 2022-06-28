@@ -21,9 +21,27 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-        public ActionResult EmployeeRegistration()
+        public ActionResult EmployeeRegistration(String EmployeeId)
         {
-            return View();
+            Employee obj = new Employee();
+
+            if (EmployeeId != null)
+            {
+                obj.EmployeeId = EmployeeId;
+                DataSet ds = obj.GetEmployeeDetails();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    obj.EmployeeId = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
+                    obj.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                    obj.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                    obj.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                    obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                    obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+                    obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                    obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                }
+            }
+            return View(obj);
         }
 
         [HttpPost]
@@ -87,6 +105,42 @@ namespace WafaTailor.Controllers
                 model.lstRegistration = lst;
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("EmployeeRegistration")]
+        [OnAction(ButtonName = "update")]
+        public ActionResult UpdateEmployeeRegistration(Employee model)
+        {
+            try
+            {
+                if(model.EmployeeId != null)
+                {
+                    DataSet ds = model.updateEmployeeRegistration();
+                    if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Employee"] = "Employee Registration Updated Successfully";
+                        }
+                        else
+                        {
+                            TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Employee"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeRegistration", "Employee");
         }
 
         public ActionResult DeleteEmployeeRegistration(string EmployeeId)
