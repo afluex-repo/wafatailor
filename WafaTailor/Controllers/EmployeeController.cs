@@ -168,5 +168,58 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeRegistrationList", "Employee");
         }
+
+        public ActionResult EmployeeChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmployeeChangePassword(Employee model)
+        {
+            try
+            {
+                DataSet ds = model.EmployeeChangePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["EmployeeChangePassword"] = "Employee Changed Password Successfully!";
+                    }
+                    else
+                    {
+                        TempData["EmployeeChangePassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["EmployeeChangePassword"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeChangePassword", "Employee");
+        }
+
+
+
+        public ActionResult Profile(Employee model)
+        {
+            model.LoginId = "Employee2";
+            DataSet ds = model.GetProfileDetails();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                ViewBag.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                ViewBag.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                ViewBag.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                ViewBag.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                ViewBag.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                ViewBag.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                ViewBag.Profile = ds.Tables[0].Rows[0]["Profile"].ToString();
+            }
+            return View(model);
+        }
+
+
+
     }
 }

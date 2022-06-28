@@ -15,7 +15,7 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        <div class="page-title">Shop Master</div>
+                       @* <div class="page-title">Shop Master</div>*@
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
@@ -34,11 +34,11 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header>Shop Master</header>
+                            <span class="text-danger">
+                                @TempData["Shop"]
+                            </span>
                             <a href="/Master/ShopMasterList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
-                        <span class="text-danger">
-                            @TempData["Shop"]
-                        </span>
                         <div class="card-body " id="bar-parent">
                             <form>
                                 <div class="form-group">

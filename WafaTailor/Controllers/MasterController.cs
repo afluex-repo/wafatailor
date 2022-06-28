@@ -101,7 +101,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["Shop"] = "Shop Master Deleted Successfully!";
+                        TempData["Shop"] = "Shop Deleted Successfully!";
                     }
                     else
                     {

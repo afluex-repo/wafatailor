@@ -14,7 +14,7 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        <div class="page-title"> Employee Registration</div>
+                        @*<div class="page-title"> Employee Registration</div>*@
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
@@ -33,11 +33,11 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header> Employee Registration</header>
+                            <span class="text-danger">
+                                @TempData["Employee"]
+                            </span>
                             <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
-                        <span class="text-danger">
-                            @TempData["Employee"]
-                        </span>
                         <div class="card-body" id="bar-parent">
                             <form>
                                 <div class="row">
