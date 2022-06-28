@@ -17,6 +17,10 @@ namespace WafaTailor.Controllers
             return View();
         }
 
+        public ActionResult EmployeeDashBoard()
+        {
+            return View();
+        }
         public ActionResult EmployeeRegistration()
         {
             return View();

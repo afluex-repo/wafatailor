@@ -105,3 +105,4 @@ F:\Ashwani Afluex\repository\WafaTailor\WafaTailor\bin\System.Web.Http.xml
 F:\Ashwani Afluex\repository\WafaTailor\WafaTailor\bin\System.Web.Http.WebHost.xml
 F:\Ashwani Afluex\repository\WafaTailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\Ashwani Afluex\repository\WafaTailor\WafaTailor\obj\Debug\WafaTailor.pdb
+F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
