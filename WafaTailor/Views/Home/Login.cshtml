@@ -1,7 +1,7 @@
 ﻿@model WafaTailor.Models.Home
 
 @{
-    Layout = null;  
+    Layout = null;
 }
 
 <html>
@@ -34,22 +34,22 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="~/Assets/Images/signin.jpg"  alt="sing up image"></figure>
-                        <a href="/Home/Sign_up" class="signup-image-link">Create an account</a>
+                        <figure><img src="~/Assets/Images/signin.jpg" alt="sing up image"></figure>
+                        @*<a href="/Home/Sign_up" class="signup-image-link">Create an account</a>*@
                     </div>
                     <div class="signin-form">
                         <h2 class="form-title">Login</h2>
-                        <form class="register-form" id="login-form">
+
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+                        {
                             <div class="form-group">
                                 <div class="">
-                                    <input name="uname" type="text" placeholder="User Name"
-                                           class="form-control input-height" />
+                                    @Html.TextBoxFor(M => M.LoginId, new { @class = "form-control input-height", @placeholder = "User Name" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="">
-                                    <input name="pwd" type="password" placeholder="Password"
-                                           class="form-control input-height" />
+                                    @Html.PasswordFor(M => M.Password, new { @class = "form-control input-height", @placeholder = "Password" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -60,9 +60,9 @@
                                 </label>
                             </div>
                             <div class="form-group form-button">
-                                <button class="btn btn-round btn-primary" name="signin" id="signin">Login</button>
+                                <button class="btn btn-round btn-primary" name="btnlogin">Login</button>
                             </div>
-                        </form>
+                        }
                         <div class="social-login">
                             <span class="social-label">Or login with</span>
                             <ul class="socials">
