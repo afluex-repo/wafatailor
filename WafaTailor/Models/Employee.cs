@@ -18,6 +18,10 @@ namespace WafaTailor.Models
         public string Emailid { get; set; }
         public string Gender { get; set; }
         public string EmployeeId { get; set; }
+        public string Password { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmNewPassword { get; set; }
+        public string LoginId { get; set; }
 
         public DataSet EmployeeRegistration()
         {
@@ -56,5 +60,28 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("DeleteEmployee", para);
             return ds;
         }
+        public DataSet EmployeeChangePassword()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@OldPassword",Password),
+                new SqlParameter("@NewPassword",NewPassword),
+                 new SqlParameter("@UpdatedBy",1)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("EmployeeChangePassword", para);
+            return ds;
+        }
+
+        public DataSet GetProfileDetails()
+        {
+                 SqlParameter[] para =
+            {
+                new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetProfileDetails",para);
+            return ds;
+        }
+        
+
     }
 }
