@@ -23,6 +23,9 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!--bootstrap -->
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- data tables -->
+    <link href="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.css" rel="stylesheet"
+          type="text/css" />
     <link href="~/assets/plugins/summernote/summernote.css" rel="stylesheet">
     <!-- Material Design Lite CSS -->
     <link rel="stylesheet" href="~/assets/plugins/material/material.min.css">
@@ -31,8 +34,8 @@
     <link href="~/assets/css/pages/inbox.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme Styles -->
     <link href="~/assets/css/theme/light/theme_style.css" rel="stylesheet" id="rt_style_components" type="text/css" />
-    <link href="~/assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/theme/light/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
     <!-- favicon -->
@@ -53,9 +56,9 @@
             <div class="page-header-inner ">
                 <!-- logo start -->
                 <div class="page-logo">
-                    <a href="index.html">
-                        <span class="logo-icon material-icons">Wafa</span>
-                        <span class="logo-default">Tailor</span>
+                    <a href="/Home/Index">
+                        @*<span class="logo-icon material-icons">Wafa</span>*@
+                        <span class="logo-default">Wafa Tailor</span>
                     </a>
                 </div>
                 <!-- logo end -->
@@ -75,7 +78,7 @@
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
                                 <img alt="" class="img-circle " src="../assets/images/dp.jpg" />
-                                <span class="username username-hide-on-mobile"> Sneha</span>
+                               @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
@@ -194,8 +197,8 @@
             <!-- start footer -->
             <div class="page-footer">
                 <div class="page-footer-inner">
-                    2017 &copy; Smart University Theme By
-                    <a href="mailto:redstartheme@gmail.com" target="_top" class="makerCss">Redstar Theme</a>
+                    2022 &copy; Wafa Tailor. All Rights Reserved || Developed by 
+                    <a href="http://afluex.com/" target="_top" class="makerCss">Afluex Multiservices LLP.</a>
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
@@ -392,16 +395,6 @@
             <!-- end footer --
         </div>
     </div>
-
-    
-    @*<script src="../assets/plugins/highlight/highlight.pack.js"></script>*@-->
-   @* <script src="~/assets/js/custom.js"></script>*@
-  
-
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-    @*<script src="~/assets/js/scrollspyNav.js"></script>*@
- 
-   
         <!-- start js include path -->
         <script src="~/assets/plugins/jquery/jquery.min.js"></script>
         <script src="~/assets/plugins/popper/popper.js"></script>
@@ -411,6 +404,10 @@
         <!-- bootstrap -->
         <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <!-- data tables -->
+        <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
+        <script src="~/assets/js/pages/table/table_data.js"></script>
         <script src="~/assets/plugins/sparkline/jquery.sparkline.js"></script>
         <script src="~/assets/js/pages/sparkline/sparkline-data.js"></script>
         <!-- Common js-->
@@ -418,8 +415,5 @@
         <script src="~/assets/js/layout.js"></script>
         <!-- material -->
         <script src="~/assets/plugins/material/material.min.js"></script>
-        <!--apex chart-->
-       @*<script src="~/assets/plugins/apexcharts/apexcharts.min.js"></script>
-        <script src="~/assets/js/pages/chart/apex/home-data.js"></script>*@
 </body>
 </html>

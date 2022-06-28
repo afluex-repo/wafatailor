@@ -352,6 +352,8 @@
     <Content Include="Views\Customer\CustomerRegistrationList.cshtml" />
     <Content Include="Views\Master\ConfirmRegistration.cshtml" />
     <Content Include="Views\Master\MaterialConfirmRegistration.cshtml" />
+    <Content Include="Views\Customer\CustomerConfirmRegistration.cshtml" />
+    <Content Include="Views\Customer\CustomerRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
