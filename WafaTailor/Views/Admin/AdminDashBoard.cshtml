@@ -1,14 +1,13 @@
-﻿@model WafaTailor.Models.Employee
+﻿@model WafaTailor.Models.Admin
 
 @{
-    ViewBag.Title = "EmployeeDashBoard";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    ViewBag.Title = "AdminDashBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("EmployeeDashBoard", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+
+@using (Html.BeginForm("AdminDashBoard", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
-
-
 <div class="page-content">
     <div class="page-bar">
         <div class="page-title-breadcrumb">
@@ -31,13 +30,7 @@
                     <span class="info-box-icon push-bottom"><i data-feather="users"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Employee</span>
-                        <span class="info-box-number">450</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 45%"></div>
-                        </div>
-                        <span class="progress-description">
-                            45% Increase in 28 Days
-                        </span>
+                        <span class="info-box-number">@ViewBag.TotalEmployee</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -48,14 +41,8 @@
                 <div class="info-box bg-b-yellow">
                     <span class="info-box-icon push-bottom"><i data-feather="user"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Active</span>
-                        <span class="info-box-number">155</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 40%"></div>
-                        </div>
-                        <span class="progress-description">
-                            40% Increase in 28 Days
-                        </span>
+                        <span class="info-box-text">Total Customer</span>
+                        <span class="info-box-number">0</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -64,16 +51,10 @@
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="info-box bg-b-blue">
-                    <span class="info-box-icon push-bottom"><i data-feather="book"></i></span>
+                    <span class="info-box-icon push-bottom"><i data-feather="user"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">InActive</span>
-                        <span class="info-box-number">52</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 85%"></div>
-                        </div>
-                        <span class="progress-description">
-                            85% Increase in 28 Days
-                        </span>
+                        <span class="info-box-text">Total Vendor</span>
+                        <span class="info-box-number">0</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -84,14 +65,8 @@
                 <div class="info-box bg-b-pink">
                     <span class="info-box-icon push-bottom"><i data-feather="book"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Block</span>
-                        <span class="info-box-number">52</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 85%"></div>
-                        </div>
-                        <span class="progress-description">
-                            85% Increase in 28 Days
-                        </span>
+                        <span class="info-box-text">Total Purchage Order</span>
+                        <span class="info-box-number">0</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

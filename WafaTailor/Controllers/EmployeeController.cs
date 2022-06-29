@@ -16,7 +16,7 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-
+      
         public ActionResult EmployeeDashBoard()
         {
             return View();
@@ -178,6 +178,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = model.EmployeeChangePassword();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -202,7 +203,7 @@ namespace WafaTailor.Controllers
 
         public ActionResult Profile(Employee model)
         {
-            model.LoginId = "Employee2";
+            model.LoginId = Session["LoginId"].ToString();
             DataSet ds = model.GetProfileDetails();
             if (ds != null && ds.Tables.Count > 0)
             {

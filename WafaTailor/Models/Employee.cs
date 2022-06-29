@@ -22,6 +22,8 @@ namespace WafaTailor.Models
         public string NewPassword { get; set; }
         public string ConfirmNewPassword { get; set; }
         public string LoginId { get; set; }
+        public string AddedBy { get; set; }
+        
 
         public DataSet EmployeeRegistration()
         {
@@ -66,7 +68,7 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@OldPassword",Password),
                 new SqlParameter("@NewPassword",NewPassword),
-                 new SqlParameter("@UpdatedBy",1)
+                 new SqlParameter("@UpdatedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("EmployeeChangePassword", para);
             return ds;
@@ -101,5 +103,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateEmployeeRegistration", para);
             return ds;
         }
+      
     }
 }
