@@ -84,8 +84,8 @@ namespace WafaTailor.Models
         {
             List<SelectListItem> Gender = new List<SelectListItem>();
             Gender.Add(new SelectListItem { Text = "-Select-", Value = "0" });
-            Gender.Add(new SelectListItem { Text = "Male", Value = "M" });
-            Gender.Add(new SelectListItem { Text = "Female", Value = "F" });
+            Gender.Add(new SelectListItem { Text = "Male", Value = "Male" });
+            Gender.Add(new SelectListItem { Text = "Female", Value = "FeMale" });
             return Gender;
         }
         public DataSet GetStateCity()
