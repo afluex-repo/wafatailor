@@ -1,11 +1,11 @@
-﻿@model WafaTailor.Models.Admin
+﻿@model WafaTailor.Models.Vendor
 
 @{
-    ViewBag.Title = "AdminProfile";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "VendorProfile";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
 
-@using (Html.BeginForm("AdminProfile", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+@using (Html.BeginForm("VendorProfile", "Vendor", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
      <!-- start page content -->
     <div class="page-content-wrapper">
@@ -18,12 +18,12 @@
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                                                               href="/Admin/AdminDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                                               href="/Vendor/VendorDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li>
                             Profile &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
-                        <li class="active">Admin Profile</li>
+                        <li class="active">Vendor Profile</li>
                     </ol>
                 </div>
             </div>
