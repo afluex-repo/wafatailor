@@ -10,6 +10,10 @@ namespace WafaTailor.Models
     public class Admin
     {
         public string LoginId { get; set; }
+        public string Password { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmNewPassword { get; set; }
+        public string AddedBy { get; set; }
 
         public DataSet GetAdminDashBoardDetails()
         {
@@ -26,8 +30,16 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetAdminProfileDetails", para);
             return ds;
         }
-
-
-
+        public DataSet ChangePassword()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@OldPassword",Password),
+                new SqlParameter("@NewPassword",NewPassword),
+                 new SqlParameter("@UpdatedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("AdminChangePassword", para);
+            return ds;
+        }
     }
 }

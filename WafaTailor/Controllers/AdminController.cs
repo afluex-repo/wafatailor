@@ -30,12 +30,41 @@ namespace WafaTailor.Controllers
                 ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
                 ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
                 ViewBag.ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
-
-                
-
-
             }
             return View(model);
+        }
+
+
+
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(Admin model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.ChangePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ChangePassword"] = "Employee Changed Password Successfully!";
+                    }
+                    else
+                    {
+                        TempData["ChangePassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ChangePassword"] = ex.Message;
+            }
+            return RedirectToAction("ChangePassword", "Admin");
         }
 
 

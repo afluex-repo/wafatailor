@@ -77,18 +77,18 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="@Session["Profile"]" />
+                                <img alt="" class="img-circle " src="@Session["ProfilePic"]" />
                                 @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="/Employee/Profile">
+                                    <a href="/Customer/CustomerProfile">
                                         <i class="icon-user"></i> Profile
                                     </a>
                                 </li>
                                 <li class="divider"> </li>
                                 <li>
-                                    <a href="/Employee/EmployeeChangePassword">
+                                    <a href="/Customer/CustomerChangePassword">
                                         <i class="icon-lock"></i> Change Password
                                     </a>
                                 </li>
@@ -120,10 +120,10 @@
                             <li class="sidebar-user-panel">
                                 <div class="sidebar-user">
                                     <div class="sidebar-user-picture">
-                                        <img alt="image" src="@Session["Profile"]">
+                                        <img alt="image" src="@Session["ProfilePic"]">
                                     </div>
                                     <div class="sidebar-user-details">
-                                        <div class="user-name">@Session["EmployeeName"]</div>
+                                        <div class="user-name">@Session["CustomerName"]</div>
                                         @*<div class="user-role">Administrator</div>*@
                                     </div>
                                 </div>
@@ -136,27 +136,27 @@
                                 </a>
                             </li>
                             @*<li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle">
-                                    <i data-feather="user"></i>
-                                    <span class="title">Master</span> <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a href="/Master/ShopMaster" class="nav-link ">
-                                            <span class="title">
-                                                Shop Master
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Master/Material" class="nav-link ">
-                                            <span class="title">
-                                                Material Type
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*@
+                                    <a href="#" class="nav-link nav-toggle">
+                                        <i data-feather="user"></i>
+                                        <span class="title">Master</span> <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="/Master/ShopMaster" class="nav-link ">
+                                                <span class="title">
+                                                    Shop Master
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/Master/Material" class="nav-link ">
+                                                <span class="title">
+                                                    Material Type
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>*@
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
@@ -171,12 +171,12 @@
                                         </a>
                                     </li>
                                     @*<li class="nav-item">
-                                        <a href="/Customer/CustomerRegistration" class="nav-link ">
-                                            <span class="title">
-                                                Customer Registration
-                                            </span>
-                                        </a>
-                                    </li>*@
+                                            <a href="/Customer/CustomerRegistration" class="nav-link ">
+                                                <span class="title">
+                                                    Customer Registration
+                                                </span>
+                                            </a>
+                                        </li>*@
                                 </ul>
                             </li>
                         </ul>
