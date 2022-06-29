@@ -1,11 +1,9 @@
 @charset "ISO-8859-1";
-/*
- *  Document   : responsive.css
- *  Author     : RedStar Theme
- *  Description: A common stylesheet for responsive layout
- */
-
 /* MEDIA QUERIES */
+.font-600
+{
+    font-weight:600;
+}
 
 @media (max-width: 768px) {
   .dropzone-file-area {
