@@ -14,6 +14,7 @@ namespace WafaTailor.Models
         public string NewPassword { get; set; }
         public string ConfirmNewPassword { get; set; }
         public string AddedBy { get; set; }
+        public string EmployeeId { get; set; }
 
         public DataSet GetAdminDashBoardDetails()
         {
@@ -25,7 +26,7 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
        {
-                new SqlParameter("@LoginId",LoginId)
+                new SqlParameter("@Pk_EmployeeId",EmployeeId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetAdminProfileDetails", para);
             return ds;
