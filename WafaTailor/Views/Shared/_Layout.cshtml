@@ -77,7 +77,7 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="@Session["ProfilePic"]" />
+                                <img alt="" class="img-circle " src="@Session["Profile"]" />
                                @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
@@ -120,11 +120,11 @@
                             <li class="sidebar-user-panel">
                                 <div class="sidebar-user">
                                     <div class="sidebar-user-picture">
-                                        <img alt="image" src="@Session["ProfilePic"]">
+                                        <img alt="image" src="@Session["Profile"]">
                                     </div>
                                     <div class="sidebar-user-details">
-                                        <div class="user-name">@Session["LoginId"]</div>
-                                        @*<div class="user-role">Administrator</div>*@
+                                        <div class="user-name">@Session["Name"]</div>
+                                        <div class="user-role">@Session["UsertypeName"]</div>
                                     </div>
                                 </div>
                             </li>

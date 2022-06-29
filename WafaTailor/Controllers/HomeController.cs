@@ -46,6 +46,7 @@ namespace WafaTailor.Controllers
                         Session["UsertypeName"] = ds.Tables[0].Rows[0]["UsertypeName"].ToString();
                         Session["Name"] = ds.Tables[0].Rows[0]["Name"].ToString();
                         Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                        Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
                         FormName = "AdminDashBoard";
                         Controller = "Admin";
                     }
@@ -57,7 +58,7 @@ namespace WafaTailor.Controllers
                             Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
                             Session["Password"] = ds.Tables[0].Rows[0]["Password"].ToString();
                             Session["CustomerName"] = ds.Tables[0].Rows[0]["CustomerName"].ToString();
-                            Session["ProfilePic"] = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
+                            Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
 
                             FormName = "CustomerDashBoard";
                             Controller = "Customer";
