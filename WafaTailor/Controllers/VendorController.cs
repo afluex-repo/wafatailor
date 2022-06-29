@@ -108,5 +108,33 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
+        public ActionResult VendorList()
+        {
+            Vendor model = new Vendor();
+            List<Vendor> lst = new List<Vendor>();
+            model.PK_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = model.GetVendorList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Vendor obj = new Vendor();
+                    obj.PK_UserId = r["PK_UserId"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Password = r["Password"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Address = r["Address"].ToString();
+                    obj.DOB = r["DOB"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.Email = r["Email"].ToString();
+                    obj.Gender = r["Sex"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstVendor = lst;
+            }
+            return View(model);
+        }
+
+
     }
 }

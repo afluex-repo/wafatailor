@@ -9,6 +9,7 @@ namespace WafaTailor.Models
 {
     public class Vendor
     {
+        public List<Vendor> lstVendor { get; set; }
         public string Password { get; set; }
         public string NewPassword { get; set; }
         public string ConfirmNewPassword { get; set; }
@@ -27,8 +28,10 @@ namespace WafaTailor.Models
         public string Fk_RoleId { get; set; }
         public string Gender { get; set; }
         public string PK_UserId { get; set; }
+        public string LoginId { get; set; }
+        public string Name { get; set; }
 
-        
+
 
         public DataSet VendorRegistration()
         {
@@ -77,8 +80,18 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetVendorProfileDetails", para);
             return ds;
         }
-        
 
+
+        public DataSet GetVendorList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_UserId",PK_UserId),
+                  new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetVendorList", para);
+            return ds;
+        }
     }
 }
 
