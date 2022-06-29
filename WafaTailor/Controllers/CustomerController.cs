@@ -162,5 +162,9 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("CustomerRegistrationList", "Customer");
         }
+        public ActionResult CustomerConfirmRegistration()
+        {
+            return View();
+        }
     }
 }

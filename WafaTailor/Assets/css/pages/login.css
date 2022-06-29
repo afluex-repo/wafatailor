@@ -42,7 +42,7 @@ h2 {
 }
 
 .main {
-  background: #f8f8f8;
+  background: #eaeef3;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -222,7 +222,7 @@ figure {
   -webkit-align-items: center;
   -o-align-items: center;
   -ms-align-items: center;
-  margin-top: 80px;
+  margin-top: 40px;
 }
 
 .social-label {
@@ -266,15 +266,18 @@ figure {
   transform: scale(1.3) translateZ(0);
 }
 
-.zmdi-facebook {
+.fa-facebook {
+    padding-top:8px;
   background: #3b5998;
 }
 
-.zmdi-twitter {
+.fa-twitter {
+    padding-top:8px;
   background: #1da0f2;
 }
 
-.zmdi-google {
+.fa-google {
+    padding-top:8px;
   background: #e72734;
 }
 
