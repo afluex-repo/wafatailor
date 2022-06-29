@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @using (Html.BeginForm("Material", "Master", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
      <!-- start page content -->
@@ -33,11 +32,12 @@
                     <div class="card card-box">
                         <div class="card-head">
                             <header>Material Type</header>
-                            
-                           @* <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>*@
-                           
+                            <span class="text-danger">
+                                @TempData["Material"]
+                            </span>
+                            <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
-                        <div class="card-body " id="bar-parent">
+                        <div class="card-body" id="bar-parent">
                             <form>
                                 <div class="form-group">
                                     <label for="simpleFormEmail">Shop <span style="color:red">*</span></label>
