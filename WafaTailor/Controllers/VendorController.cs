@@ -11,6 +11,14 @@ namespace WafaTailor.Controllers
     public class VendorController : Controller
     {
         // GET: Vendor
+
+
+
+        public ActionResult VendorDashBoard()
+        {
+            return View();
+        }
+        
         public ActionResult VendorRegistration()
         {
             return View();

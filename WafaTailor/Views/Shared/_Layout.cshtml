@@ -77,28 +77,23 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="../assets/images/dp.jpg" />
+                                <img alt="" class="img-circle " src="@Session["ProfilePic"]" />
                                @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="#">
+                                    <a href="/Admin/AdminProfile">
                                         <i class="icon-user"></i> Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-settings"></i> Settings
                                     </a>
                                 </li>
                                 <li class="divider"> </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/Admin/AdminChangePassword">
                                         <i class="icon-lock"></i> Change Password
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/Home/Login">
                                         <i class="icon-logout"></i> Log Out
                                     </a>
                                 </li>
@@ -125,16 +120,16 @@
                             <li class="sidebar-user-panel">
                                 <div class="sidebar-user">
                                     <div class="sidebar-user-picture">
-                                        <img alt="image" src="../assets/images/dp.jpg">
+                                        <img alt="image" src="@Session["ProfilePic"]">
                                     </div>
                                     <div class="sidebar-user-details">
-                                        <div class="user-name">Sneha Patel</div>
-                                        <div class="user-role">Administrator</div>
+                                        <div class="user-name">@Session["LoginId"]</div>
+                                        @*<div class="user-role">Administrator</div>*@
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item start active open">
-                                <a href="/Home/Index" class="nav-link">
+                                <a href="/Admin/AdminDashBoard" class="nav-link">
                                     <i data-feather="airplay"></i>
                                     <span class="title">Dashboard</span>
                                     <span class="selected"></span>
