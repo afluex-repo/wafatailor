@@ -220,7 +220,10 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-
+        public ActionResult EmployeeConfirmRegistration()
+        {
+            return View();
+        }
 
     }
 }

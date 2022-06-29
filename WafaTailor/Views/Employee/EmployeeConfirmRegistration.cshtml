@@ -10,91 +10,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    /*.bg-register {
-        background: url(websitelinks/images/bg/login-bg.jpeg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        min-height: 100vh;
-    }*/
 
-    .user-account h1 {
-        color: #2b2b2b;
-        font-weight: 300;
-        margin: 30px 0 20px;
-    }
-
-    .registration-block {
-        background-color: rgba(256, 256, 256, 0.8);
-        padding: 15px 40px;
-    }
-
-    h2.big-green {
-        font-size: 35px;
-        color: #3272d8;
-        /*color: #77b43f;*/
-        font-style: italic;
-        /* text-transform: uppercase; */
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .wrapper-thanks h3, .wrapper-thanks h4, .wrapper-thanks h2 {
-        margin-bottom: 15px;
-    }
-
-    .account-info.clearfix {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 10px 0;
-    }
-
-    .account-info .list-inline {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-
-        .account-info .list-inline li {
-            display: inline-block;
-        }
-
-    span.border-box {
-        border: 2px solid #77b43f;
-        padding: 7px 5px;
-        color: #4a9604;
-        background: #f9f9f9;
-    }
-
-    .wrapper-thanks {
-        width: 100%;
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-
-    .animated-gif {
-        width: 92px;
-        height: 92px;
-        border-radius: 50%;
-        /* padding-right: 102px; */
-        overflow: hidden;
-        text-align: center;
-        margin: 0 auto;
-        line-height: 92px;
-        border: 0px solid green;
-    }
-</style>
-<style type="text/css">
-    @@media (max-width:560px) {
-
-        .account-info .list-inline li {
-            display: inline-block;
-            margin-top: 18px;
-        }
-    }
-</style>
-<div class="section-body">
+<!-- start page content -->
+<div class="page-content-wrapper mt-5">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card mt-5 pb-4">
+                    <div class="text-center">
+                        <h2 class="text-uppercase font-600">Congratulations !!</h2>
+                        @* <img src="~/Assets/Images/tick.gif" style="width:70%" />*@
+                        <img src="~/Assets/Images/user.png" class="pb-3" style="width:25%" />
+                        <h4 class="font-600">Employee details has been saved successfully !</h4>
+                        <p>User Name- ABCD, <br /> User Id- 1234567890 &  Password- ABCD1234</p>
+                        <a href="/Admin/AdminDashBoard" class="btn btn-circle btn-primary m-b-10">
+                            Go To Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="section-body">
     <div class="card">
         <div class="card-header">
             @*<ul class="breadcrumb breadcrumb-style ">
@@ -104,13 +43,13 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">Registration Successfull</li>
-                </ul>*@
+                </ul>
             <span class="pull-right">
                 <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
             </span>
             @*<p style="color: red">
                     @TempData["Shop"]
-                </p>*@
+                </p>
         </div>
 
         <div class="card-body">
@@ -130,7 +69,7 @@
                                     <li><span class="border-box">Password:  @Session["Password"]</span></li>
                                 </ul>
                             </div>
-                        </div>*@
+                        </div>
 
 
                 </div>
@@ -140,7 +79,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 
