@@ -17,53 +17,85 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public JsonResult SaveSaleOrderDetails(SaleOrder userDetail)
+
+        public ActionResult SaveSaleOrderDetails(SaleOrder order, string SaleorderdataValue)
         {
-            var profile = Request.Files;
-            bool status = false;
-            var datavaluewaking = Request["SaleorderdataValue"];
-            var jssSaleorder = new JavaScriptSerializer();
-            var jdvSaleorder = jssSaleorder.Deserialize<dynamic>(Request["SaleorderdataValue"]);
-            DataTable dtSaleOrderDetails = new DataTable();
-            DataTable dt = new DataTable();
-            dtSaleOrderDetails.Columns.Add("Description", typeof(string));
-            dtSaleOrderDetails.Columns.Add("Amount", typeof(string));
-            dtSaleOrderDetails.Columns.Add("DeliveryDate", typeof(string));
-            dt = JsonConvert.DeserializeObject<DataTable>(jdvSaleorder["SaleorderAddData"]);
-            
-            foreach (DataRow row in dt.Rows)
+
+            try
             {
-                var Description = row["Description"].ToString();
-                var Amount = row["Amount"].ToString();
-                var DeliveryDate = row["DeliveryDate"].ToString();
-                dtSaleOrderDetails.Rows.Add(Description);
-                dtSaleOrderDetails.Rows.Add(Amount);
-                dtSaleOrderDetails.Rows.Add(DeliveryDate);
-            }
-            userDetail.dtSaleOrderDetails = dtSaleOrderDetails;
-            userDetail.AddedBy = "1";
-            userDetail.DeliveryDate = string.IsNullOrEmpty(userDetail.DeliveryDate) ? null : Common.ConvertToSystemDate(userDetail.DeliveryDate, "dd/MM/yyyy");
-            DataSet ds = new DataSet();
-            ds = userDetail.SaveSaleOrderDetails();
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
-            {
-                if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                string Description = "";
+                string Amount = "";
+                string DeliveryDate = "";
+                string OrderDate = "";
+                var isValidModel = TryUpdateModel(order);
+                var jss = new JavaScriptSerializer();
+                var jdv = jss.Deserialize<dynamic>(SaleorderdataValue);
+                DataTable dtSaleOrderDetails = new DataTable();
+                dtSaleOrderDetails.Columns.Add("Description");
+                dtSaleOrderDetails.Columns.Add("Amount");
+                dtSaleOrderDetails.Columns.Add("DeliveryDate");
+                dtSaleOrderDetails.Columns.Add("OrderDate");
+
+                DataTable dt = new DataTable();
+                dt = JsonConvert.DeserializeObject<DataTable>(jdv["SaleorderAddData"]);
+                int numberOfRecords = dt.Rows.Count;
+                foreach (DataRow row in dt.Rows)
                 {
-                    TempData["SaleOrder"] = "Sale Order Details saved successfully";
-                    status = true;
+                    Description = row["Description"].ToString();
+                    Amount = row["Amount"].ToString();
+                    DeliveryDate = row["DeliveryDate"].ToString();
+                    OrderDate = row["OrderDate"].ToString();
+
+                    DeliveryDate = string.IsNullOrEmpty(row["DeliveryDate"].ToString()) ? null : Common.ConvertToSystemDate(row["DeliveryDate"].ToString(), "dd/MM/yyyy");
+                    OrderDate = string.IsNullOrEmpty(row["OrderDate"].ToString()) ? null : Common.ConvertToSystemDate(row["OrderDate"].ToString(), "dd/MM/yyyy");
+                    dtSaleOrderDetails.Rows.Add(Description, Amount, DeliveryDate, OrderDate);
                 }
-                else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                order.dtSaleOrderDetails = dtSaleOrderDetails;
+                order.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = new DataSet();
+                ds = order.SaveSaleOrderDetails();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["SaleOrder"] = "Sale Order Details saved successfully";
+
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
                 {
                     TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                 }
             }
+            catch (Exception ex)
+            {
+
+                TempData["SaleOrder"] = ex.Message;
+            }
+
+            return Json(order, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetDetails()
+        {
+            SaleOrder model = new SaleOrder();
+            DataSet ds = model.GetDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                model.Result = "yes";
+                model.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+            }
             else
             {
-                TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
             }
-            return new JsonResult { Data = new { status = status } };
+            return View(model);
         }
+
 
     }
 }
