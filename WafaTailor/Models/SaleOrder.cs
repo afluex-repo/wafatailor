@@ -17,7 +17,7 @@ namespace WafaTailor.Models
         public string DeliveryDate { get; set; }
         public string AddedBy { get; set; }
         public string LoginId { get; set; }
-        public string OnWakingUp { get; set; }
+        public string Result { get; set; }
         
         public DataTable dtSaleOrderDetails { get; set; }
         
@@ -31,5 +31,16 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
             return ds;
         }
+
+        public DataSet GetDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUserDetails", para);
+            return ds;
+        }
+        
     }
 }
