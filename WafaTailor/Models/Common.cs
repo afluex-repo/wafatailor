@@ -80,71 +80,13 @@ namespace WafaTailor.Models
             }
 
         }
-        public static List<SelectListItem> AssociateStatus()
-        {
-            List<SelectListItem> AssociateStatus = new List<SelectListItem>();
-            AssociateStatus.Add(new SelectListItem { Text = "All", Value = null });
-            AssociateStatus.Add(new SelectListItem { Text = "Active", Value = "P" });
-            AssociateStatus.Add(new SelectListItem { Text = "Inactive", Value = "T" });
-            //AssociateStatus.Add(new SelectListItem { Text = "TopUp ID", Value = "P" });
-            return AssociateStatus;
-        }
-        public static List<SelectListItem> LegType()
-        {
-            List<SelectListItem> LegType = new List<SelectListItem>();
-            LegType.Add(new SelectListItem { Text = "All", Value = null });
-            LegType.Add(new SelectListItem { Text = "Left", Value = "L" });
-            LegType.Add(new SelectListItem { Text = "Right", Value = "R" });
-
-            return LegType;
-        }
-        public static List<SelectListItem> BindTopupStatus()
-        {
-            List<SelectListItem> IncomeStatus = new List<SelectListItem>();
-            IncomeStatus.Add(new SelectListItem { Text = "All", Value = null });
-            IncomeStatus.Add(new SelectListItem { Text = "Calculated", Value = "1" });
-            IncomeStatus.Add(new SelectListItem { Text = "Pending", Value = "0" });
-
-            return IncomeStatus;
-        }
         public static List<SelectListItem> BindGender()
         {
             List<SelectListItem> Gender = new List<SelectListItem>();
+            Gender.Add(new SelectListItem { Text = "-Select-", Value = "0" });
             Gender.Add(new SelectListItem { Text = "Male", Value = "M" });
             Gender.Add(new SelectListItem { Text = "Female", Value = "F" });
             return Gender;
-        }
-
-        public static List<SelectListItem> BindPaymentMode()
-        {
-            List<SelectListItem> PaymentMode = new List<SelectListItem>();
-            PaymentMode.Add(new SelectListItem { Text = "Select Payment Mode", Value = "0" });
-            PaymentMode.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-            PaymentMode.Add(new SelectListItem { Text = "Cheque", Value = "Cheque" });
-            PaymentMode.Add(new SelectListItem { Text = "NEFT", Value = "NEFT" });
-            PaymentMode.Add(new SelectListItem { Text = "RTGS", Value = "RTGS" });
-            PaymentMode.Add(new SelectListItem { Text = "Demand Draft", Value = "DD" });
-            return PaymentMode;
-        }
-
-        public static List<SelectListItem> BindPaymentType()
-        {
-            List<SelectListItem> PaymentType = new List<SelectListItem>();
-            PaymentType.Add(new SelectListItem { Text = "Offline", Value = "Offline" });
-            //PaymentType.Add(new SelectListItem { Text = "Online", Value = "Online" });
-            return PaymentType;
-        }
-
-
-        public DataSet GetMemberDetails()
-        {
-            SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
-
-                                  };
-            DataSet ds = DBHelper.ExecuteQuery("GetMemberName", para);
-
-            return ds;
         }
         public DataSet GetStateCity()
         {
@@ -153,88 +95,6 @@ namespace WafaTailor.Models
                                     
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetStateCity", para);
-
-            return ds;
-        }
-        public int GenerateRandomNo()
-        {
-            int _min = 0000;
-            int _max = 9999;
-            Random _rdm = new Random();
-            return _rdm.Next(_min, _max);
-        }
-        public DataSet BindProduct()
-        {
-            SqlParameter[] para =
-            {
-                  new SqlParameter("@ProductId", Package),
-            };
-            DataSet ds = DBHelper.ExecuteQuery("GetProductList",para);
-            return ds;
-        }
-        public DataSet BindPackageType()
-        {
-            
-            DataSet ds = DBHelper.ExecuteQuery("GetPackageType");
-            return ds;
-        }
-        public DataSet PaymentList()
-        {
-            SqlParameter[] para =
-            {
-                  new SqlParameter("@FK_paymentID", Fk_Paymentid),
-            };
-            DataSet ds = DBHelper.ExecuteQuery("GetPaymentModeList", para);
-            return ds;
-        }
-        public DataSet BindProductForTopUp()
-        {
-            DataSet ds = DBHelper.ExecuteQuery("GetProductListForTopUp");
-            return ds;
-        }
-        public DataSet BindProductForJoining()
-        {
-            DataSet ds = DBHelper.ExecuteQuery("GetProductListForJoining");
-            return ds;
-        }
-        public DataSet BindUserTypeForRegistration()
-        {
-
-            DataSet ds = DBHelper.ExecuteQuery("GetUserTypeForRegistration");
-
-            return ds;
-
-        }
-        public DataSet BindFormTypeMaster()
-        {
-            SqlParameter[] para = {
-                new SqlParameter("@Parameter", 4)
-            };
-            DataSet ds = DBHelper.ExecuteQuery("FormTypeMasterManage", para);
-
-            return ds;
-
-        }
-        public DataSet GetWalletBalance()
-        {
-            SqlParameter[] para = { new SqlParameter("@PK_USerID", Fk_UserId) };
-            DataSet ds = DBHelper.ExecuteQuery("GetWalletBalance", para);
-
-            return ds;
-
-        }
-        public DataSet BindTenureMonth()
-        {
-            SqlParameter[] para = 
-            {
-                new SqlParameter("@Pk_PPPId", Pk_PPPId)
-            };
-            DataSet ds = DBHelper.ExecuteQuery("GetPPPList", para);
-            return ds;
-        }
-        public DataSet BindProductForJoiningForUser()
-        {
-            DataSet ds = DBHelper.ExecuteQuery("GetProductListForJoiningUser");
             return ds;
         }
     }

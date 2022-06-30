@@ -318,6 +318,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
+    <Compile Include="Controllers\VendorBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Filters\SimpleAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -369,6 +370,12 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\AdminDashBoard.cshtml" />
     <Content Include="Views\Admin\AdminProfile.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\CustomerDashBoard.cshtml" />
+    <Content Include="Views\Customer\CustomerProfile.cshtml" />
+    <Content Include="Views\Vendor\VendorChangePassword.cshtml" />
+    <Content Include="Views\Vendor\VendorProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -379,7 +386,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
+    <Folder Include="VendorProfilePic\" />
     <Folder Include="Views\EmployeeBase\" />
+    <Folder Include="Views\VendorBase\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

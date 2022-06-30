@@ -17,6 +17,9 @@ namespace WafaTailor.Models
         public string Emailid { get; set; }
         public string Gender { get; set; }
         public string CustomerId { get; set; }
+        public string LoginId { get; set; }
+        
+
 
         public DataSet CustomerRegistration()
         {
@@ -70,5 +73,16 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateCustomerRegistration", para);
             return ds;
         }
+
+        public DataSet GetCustomerProfileDetails()
+        {
+            SqlParameter[] para =
+       {
+                new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerProfileDetails", para);
+            return ds;
+        }
+
     }
 }

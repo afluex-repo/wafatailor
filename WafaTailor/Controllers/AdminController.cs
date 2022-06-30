@@ -24,18 +24,51 @@ namespace WafaTailor.Controllers
 
         public ActionResult AdminProfile(Admin model)
         {
+            model.EmployeeId = Session["Pk_EmployeeId"].ToString();
             DataSet ds = model.GetAdminProfileDetails();
             if (ds != null && ds.Tables.Count > 0)
             {
                 ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
                 ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                ViewBag.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.Address = ds.Tables[0].Rows[0]["Address"].ToString();
+                ViewBag.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                ViewBag.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
+                ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                ViewBag.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
                 ViewBag.ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
-
-                
-
-
             }
             return View(model);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(Admin model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.ChangePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ChangePassword"] = "Password Changed Successfully!";
+                    }
+                    else
+                    {
+                        TempData["ChangePassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ChangePassword"] = ex.Message;
+            }
+            return RedirectToAction("ChangePassword", "Admin");
         }
 
 

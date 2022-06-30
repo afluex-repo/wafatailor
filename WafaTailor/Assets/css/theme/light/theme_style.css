@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*
  *  Document   : theme_style.css
  *  Author     : RedStar Theme
@@ -4678,7 +4678,7 @@ textarea.form-control-textarea {
 }
 .sidebar-user .sidebar-user-picture img {
   width: 70px;
-  border-radius: 20%;
+  border-radius: 50%;
   box-shadow: 0px 5px 5px 0px rgba(44, 44, 44, 0.2);
 }
 .sidebar-user .sidebar-user-details .user-name {
@@ -8840,16 +8840,16 @@ nav-tabs > li {
 }
 .info-box-icon {
   float: left;
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   text-align: center;
   font-size: 30px;
-  line-height: 70px;
+  line-height: 55px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 100%;
 }
 .info-box-icon.push-bottom {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .info-box-icon > img {
   max-width: 100%;

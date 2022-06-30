@@ -16,6 +16,32 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
+        public ActionResult CustomerDashBoard()
+        {
+            return View();
+        }
+
+        public ActionResult CustomerProfile(Customer model)
+        {
+            model.LoginId = Session["LoginId"].ToString();
+            DataSet ds = model.GetCustomerProfileDetails();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                ViewBag.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                ViewBag.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                ViewBag.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                ViewBag.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                ViewBag.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                ViewBag.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                ViewBag.Profile = ds.Tables[0].Rows[0]["Profile"].ToString();
+            }
+            return View(model);
+        }
+
+
+
         public ActionResult CustomerRegistration(String CustomerId)
         {
             Customer obj = new Customer();
