@@ -9,13 +9,21 @@ namespace WafaTailor.Models
 {
     public class Admin
     {
+        public List<Admin> lstVendor { get; set; }
         public string LoginId { get; set; }
         public string Password { get; set; }
         public string NewPassword { get; set; }
         public string ConfirmNewPassword { get; set; }
         public string AddedBy { get; set; }
         public string EmployeeId { get; set; }
-
+        public string FK_UserId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string DOB { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string Gender { get; set; }
+        
         public DataSet GetAdminDashBoardDetails()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetAdminDashBoardDetails");
@@ -40,6 +48,17 @@ namespace WafaTailor.Models
                  new SqlParameter("@UpdatedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("AdminChangePassword", para);
+            return ds;
+        }
+
+        public DataSet GetVendorList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_UserId",FK_UserId),
+                 new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetVendorList", para);
             return ds;
         }
     }
