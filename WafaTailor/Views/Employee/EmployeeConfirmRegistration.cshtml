@@ -4,12 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@{
-    ViewBag.Title = "CustomerConfirmRegistration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 <style>
     /*.bg-register {
         background: url(websitelinks/images/bg/login-bg.jpeg);
@@ -105,9 +99,9 @@
                     </li>
                     <li class="breadcrumb-item">Registration Successfull</li>
                 </ul>*@
-            <span class="pull-right">
+            @*<span class="pull-right">
                 <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
-            </span>
+            </span>*@
             @*<p style="color: red">
                     @TempData["Shop"]
                 </p>*@
@@ -120,27 +114,32 @@
                 </div>
                 <h2 class="big-green">Congratulations !!</h2>
                 <div class="clearfix text-center">
-                    <h3>Employee Saved Successfully !</h3>
-                    @*<div class="account-info clearfix">
+                    <h3><i>Employee Registration Saved Successfully !</i></h3>
+                    <div class="account-info clearfix">
                         <div class="clearfix text-left">
                             <div class="col-md-12 account-info-text text-center">
                                 <ul class="list-inline">
                                     <li><span class="border-box">Name: @Session["Name"]</span></li>
                                     <li><span class="border-box">Login ID: @Session["LoginId"]</span></li>
-                                    <li><span class="border-box">Password:  @Session["Password"]</span></li>
+                                    <li><span class="border-box">Password: @Session["Password"]</span></li>
                                 </ul>
                             </div>
-                        </div>*@
+                        </div>
 
 
-                </div>
-                <div class="clearfix">
-                    <h2 class="big-green">Thank You!</h2>
+                    </div>
+                    <div class="clearfix">
+                        <h2 class="big-green">Thank You!</h2>
+                    </div>
+                    <span class="pull-center">
+                        <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

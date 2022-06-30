@@ -10,30 +10,34 @@ namespace WafaTailor.Models
     public class Customer: Common
     {
         public List<Customer> lstRegistration { get; set; }
-        public string CustomerName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string CustomerAddress { get; set; }
         public string DOB { get; set; }
         public string ContactNo { get; set; }
         public string Emailid { get; set; }
         public string Gender { get; set; }
-        public string CustomerId { get; set; }
+        public string UserID { get; set; }
         public string LoginId { get; set; }
-        
+        public string Password { get; set; }
+
 
 
         public DataSet CustomerRegistration()
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@CustomerName",CustomerName),
+                new SqlParameter("@FirstName",FirstName),
+                new SqlParameter("@LastName",LastName),
                 new SqlParameter("@CustomerAddress",CustomerAddress),
                  new SqlParameter("@DOB",DOB),
                 new SqlParameter("@ContactNo",ContactNo),
                  new SqlParameter("@Emailid",Emailid),
                 new SqlParameter("@Gender",Gender),
+                new SqlParameter("@Password",Password),
                 new SqlParameter("@AddedBy",1)
             };
-            DataSet ds = DBHelper.ExecuteQuery("SaveCustomerRegistration", para);
+            DataSet ds = DBHelper.ExecuteQuery("CustomerRegistration", para);
             return ds;
         }
 
@@ -41,7 +45,7 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_CustomerId",CustomerId)
+                new SqlParameter("@PK_UserID",UserID)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetCustomerDetails", para);
             return ds;
@@ -50,7 +54,7 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_CustomerId",CustomerId),
+                new SqlParameter("@PK_UserID",UserID),
                  new SqlParameter("@DeletedBy",1)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteCustomer", para);
@@ -61,13 +65,15 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                 new SqlParameter("@Pk_CustomerId",CustomerId),
-                new SqlParameter("@CustomerName",CustomerName),
+                 new SqlParameter("@PK_UserID",UserID),
+               new SqlParameter("@FirstName",FirstName),
+                new SqlParameter("@LastName",LastName),
                 new SqlParameter("@CustomerAddress",CustomerAddress),
                  new SqlParameter("@DOB",DOB),
-                new SqlParameter("@ContactNo",ContactNo),
-                 new SqlParameter("@Emailid",Emailid),
+                new SqlParameter("@Mobile",ContactNo),
+                 new SqlParameter("@Email",Emailid),
                 new SqlParameter("@Gender",Gender),
+                new SqlParameter("@Password",Password),
                 new SqlParameter("@UpdatedBy",1)
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateCustomerRegistration", para);

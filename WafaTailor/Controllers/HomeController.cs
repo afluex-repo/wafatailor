@@ -54,7 +54,7 @@ namespace WafaTailor.Controllers
                     {
                         if (ds.Tables[0].Rows[0]["Password"].ToString() == obj.Password)
                         {
-                            Session["Pk_CustomerId"] = ds.Tables[0].Rows[0]["Pk_CustomerId"].ToString();
+                            Session["PK_UserID"] = ds.Tables[0].Rows[0]["PK_UserID"].ToString();
                             Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
                             Session["Password"] = ds.Tables[0].Rows[0]["Password"].ToString();
                             Session["CustomerName"] = ds.Tables[0].Rows[0]["CustomerName"].ToString();
