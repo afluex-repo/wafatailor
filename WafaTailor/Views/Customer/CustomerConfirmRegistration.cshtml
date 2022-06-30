@@ -80,8 +80,6 @@
         }
     }
 </style>
-
-
  <!-- start page content -->
 <div class="page-content-wrapper mt-5">
     <div class="page-content">
@@ -93,7 +91,22 @@
                         <img src="~/Assets/Images/trophy-1.gif" style="width:100%" />
                         <h2 class="text-uppercase font-600">Congratulations !!</h2>
                        <h4 class="font-600">Customer Save Successfully.</h4>
-                       <p>Your UserId- 1234567890 &  Password- ABCD1234</p>
+                       @*<p>Your UserId- 1234567890 &  Password- ABCD1234</p>*@
+                        <div class="account-info clearfix">
+                            <div class="clearfix text-left">
+                                <div class="col-md-12 account-info-text text-center">
+                                    <ul class="list-inline">
+                                        <li><span class="border-box">Name: @Session["Name"]</span></li>
+                                        <li><span class="border-box">Login ID: @Session["LoginId"]</span></li>
+                                        <li><span class="border-box">Password: @Session["Password"]</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="pull-center">
+                            <a href="/Customer/CustomerRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
+                        </span>
                     </div>
                 </div>
             </div>

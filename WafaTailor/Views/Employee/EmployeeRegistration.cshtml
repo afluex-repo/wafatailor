@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "EmployeeRegistration";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -16,7 +16,7 @@
                     <div class="pull-left">
                         @*<div class="page-title"> Employee Registration</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Employee/EmployeeDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -25,7 +25,7 @@
                             Registration &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Employee Registration</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
             <div class="row">
@@ -43,22 +43,26 @@
                                 <div class="row">
                                 <div class="form-group col-sm-4">
                                     <label for="simpleFormEmail">Shop Name <span style="color:red">*</span></label>
-                                   @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name" })
+                                    @Html.DropDownListFor(m => m.Fk_ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
                                 </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Type <span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.UserTypeId, new SelectList(ViewBag.ddlType, "Value", "Text"), new { @class = "form-control", @placeholder = "Type" })
+                                    </div>
                                 <div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Employee Name <span style="color:red">*</span></label>
                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
+                                    <label for="simpleFormPassword">Contact No </label>
+                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="10", @Minlength="10" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Date Of Birth <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true" })
+                                    <label for="simpleFormPassword">Date Of Birth</label>
+                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true", @Placeholder = "Date of Birth" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Email-Id <span style="color:red">*</span></label>
+                                    <label for="simpleFormPassword">Email-Id </label>
                                     @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -69,7 +73,7 @@
                             new SelectListItem() {Text = "Female"}
         }, new { @class = "form-control" })
                                 </div>
-                                <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-8">
                                     <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
                                     @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
                                 </div>
@@ -90,100 +94,6 @@
             </div>
         </div>
     </div>
-
-
-    @*<div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-body " id="bar-parent2">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>
-                                    Employee Registration
-                                    <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
-                                </h4>
-                                <span class="text-danger">
-                                    @TempData["Employee"]
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Shop Name<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Employee Name<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Contact No<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Date Of Birth<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control",@readonly="true"})
-                                </div>
-                            </div>
-                        </div>
-                   
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Email-Id<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Gender<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
-        {
-                            new SelectListItem() {Text = "Male"},
-                            new SelectListItem() {Text = "Female"}
-        }, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Address<span style="color:red">*</span></label>
-                                <div class="col-sm-8">
-                                    @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mt-5">
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
 }
 
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -203,15 +113,24 @@
         $("#divload").css({ 'display': '' })
         $(".errortext").removeClass("errortext");
 
-        if ($("#ShopName").val() == "") {
-            $("#ShopName").addClass('errortext');
-            $("#ShopName").focus();
+        if ($("#Fk_ShopId").val() == "0") {
+            $("#Fk_ShopId").addClass('errortext');
+            $("#Fk_ShopId").focus();
             return false;
         }
-
+        if ($("#UserTypeId").val() == "0") {
+            $("#UserTypeId").addClass('errortext');
+            $("#UserTypeId").focus();
+            return false;
+        }
         if ($("#EmployeeName").val() == "") {
             $("#EmployeeName").addClass('errortext');
             $("#EmployeeName").focus();
+            return false;
+        }
+        if ($("#Gender").val() == "0") {
+            $("#Gender").addClass('errortext');
+            $("#Gender").focus();
             return false;
         }
         if ($("#EmployeeAddress").val() == "") {
@@ -220,27 +139,12 @@
             return false;
         }
 
-        if ($("#DOB").val() == "") {
-            $("#DOB").addClass('errortext');
-            $("#DOB").focus();
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
             return false;
-        }
-        if ($("#ContactNo").val() == "") {
-            $("#ContactNo").addClass('errortext');
-            $("#ContactNo").focus();
-            return false;
-        }
-
-        if ($("#Emailid").val() == "") {
-            $("#Emailid").addClass('errortext');
-            $("#Emailid").focus();
-            return false;
-        }
-        //if ($("#Gender").val() == "") {
-        //    $("#Gender").addClass('errortext');
-        //    $("#Gender").focus();
-        //    return false;
-        //}
-
+        return true;
     }
 </script>

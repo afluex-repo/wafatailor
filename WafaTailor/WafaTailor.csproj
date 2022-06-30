@@ -326,6 +326,7 @@
     </Compile>
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Common.cs" />
+    <Compile Include="Models\Crypto.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Employee.cs" />
