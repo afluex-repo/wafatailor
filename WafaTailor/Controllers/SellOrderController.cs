@@ -24,26 +24,28 @@ namespace WafaTailor.Controllers
         {
             var profile = Request.Files;
             bool status = false;
-            var datavaluewaking = Request["sellorderdataValue"];
+            var datavaluesellorder = Request["sellorderdataValue"];
             var jsssellorder = new JavaScriptSerializer();
             var jdvsellorder = jsssellorder.Deserialize<dynamic>(Request["sellorderdataValue"]);
             DataTable dtSellOrderDetails = new DataTable();
             DataTable dt = new DataTable();
             dtSellOrderDetails.Columns.Add("Description", typeof(string));
-            dtSellOrderDetails.Columns.Add("Amount", typeof(string));
-            dtSellOrderDetails.Columns.Add("DeliveryDate", typeof(string));
+            //dtSellOrderDetails.Columns.Add("Amount", typeof(string));
+            //dtSellOrderDetails.Columns.Add("DeliveryDate", typeof(string));
             dt = JsonConvert.DeserializeObject<DataTable>(jdvsellorder["sellorderAddData"]);
             
             foreach (DataRow row in dt.Rows)
             {
                 var Description = row["Description"].ToString();
-                var Amount = row["Amount"].ToString();
-                var DeliveryDate = row["DeliveryDate"].ToString();
+                //var Amount = row["Amount"].ToString();
+                //var DeliveryDate = row["DeliveryDate"].ToString();
                 dtSellOrderDetails.Rows.Add(Description);
-                dtSellOrderDetails.Rows.Add(Amount);
-                dtSellOrderDetails.Rows.Add(DeliveryDate);
+              
             }
             userDetail.dtSellOrderDetails = dtSellOrderDetails;
+           
+
+
             userDetail.AddedBy = "1";
             userDetail.DeliveryDate = string.IsNullOrEmpty(userDetail.DeliveryDate) ? null : Common.ConvertToSystemDate(userDetail.DeliveryDate, "dd/MM/yyyy");
             DataSet ds = new DataSet();
