@@ -1,11 +1,11 @@
-﻿@model WafaTailor.Models.SellOrder
+﻿@model WafaTailor.Models.SaleOrder
 
 @{
-    ViewBag.Title = "SellOrder";
+    ViewBag.Title = "SaleOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("SellOrder", "SellOrder", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("SaleOrder", "SaleOrder", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
         <!-- start page content -->
     <div class="page-content-wrapper">
@@ -21,9 +21,9 @@
                                                                href="#">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            Sell Order &nbsp;<i class="fa fa-angle-right"></i>
+                            Sale Order &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
-                        <li class="active">Sell Order</li>
+                        <li class="active">Sale Order</li>
                     </ol>
                 </div>
             </div>
@@ -31,8 +31,8 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="card card-box">
                         <div class="card-head">
-                            <header>Sell Order</header>
-                            <span style="color:red;">@TempData["SellOrder"]</span>
+                            <header>Sale Order</header>
+                            <span style="color:red;">@TempData["SaleOrder"]</span>
                             @*<a href="/Vendor/VendorList" class="btn btn-success pull-right">Back to List</a>*@
                         </div>
                         <div class="card-body" id="bar-parent">
@@ -51,7 +51,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="TextBoxContainer">
-                                                <tr class="wakingupcontainer" id="sellorderrow">
+                                                <tr class="wakingupcontainer" id="Saleorderrow">
                                                     <td>
                                                         @Html.TextAreaFor(m => m.Description, new { @class = "Description form-control", @Placeholder = "Description" })
 
@@ -65,7 +65,7 @@
 
                                                     </td>
                                                     <td>
-                                                        <input type="button" id="addSellOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn bg-orange" />
+                                                        <input type="button" id="addSaleOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn bg-orange" />
                                                     </td>
                                                 </tr>
                                         </table>
@@ -73,9 +73,9 @@
                                 </div>
                             </div>
                             <br />
-                            <div id="SellOrdertable">
-                                <table class="table  table-striped table-bordered" id="SellOrderDetails"></table>
-                                <span id="SellOrderDetailsError" style="color:red"></span>
+                            <div id="SaleOrdertable">
+                                <table class="table  table-striped table-bordered" id="SaleOrderDetails"></table>
+                                <span id="SaleOrderDetailsError" style="color:red"></span>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
     });
     $(document).ready(function () {
 
-        $('#addSellOrder').click(function () {
+        $('#addSaleOrder').click(function () {
             debugger;
             var isAllValid = true;
             if (!($('#Description').val().trim() != '' && ($('#Description').val().trim()))) {
@@ -123,24 +123,24 @@
             }
             debugger
             if (isAllValid) {
-                var $newRow = $('#sellorderrow').clone().removeAttr('id');
+                var $newRow = $('#Saleorderrow').clone().removeAttr('id');
                 $('.Description', $newRow).removeClass('errortext').prop('disabled', true).val($('#Description').val());
                 $('.Amount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Amount').val());
                 $('.DeliveryDate', $newRow).removeClass('errortext').prop('disabled', true).val($('#DeliveryDate').val());
                 //Replace add button with remove button
-                $('#addSellOrder', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-success');
+                $('#addSaleOrder', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-success');
                 //remove id attribute from new clone row
-                $('#Description,#Amount,#DeliveryDate,#addSellOrder', $newRow).removeAttr('id');
+                $('#Description,#Amount,#DeliveryDate,#addSaleOrder', $newRow).removeAttr('id');
                 $('span.error', $newRow).remove();
                 //append clone row
-                $('#SellOrderDetails').append($newRow);
+                $('#SaleOrderDetails').append($newRow);
                 //clear select data
                 $('#Description,#Amount,#DeliveryDate').val('');
-                $('#SellOrderDetailsError').empty();
+                $('#SaleOrderDetailsError').empty();
             }
         })
         //remove button click event
-        $('#SellOrderDetails').on('click', '.remove', function () {
+        $('#SaleOrderDetails').on('click', '.remove', function () {
             $(this).parents('tr').remove();
         });
 
@@ -148,31 +148,31 @@
     $('#btnfinalsubmit').click(function () {
         var isAllValid = true;
 
-        $('#SellOrderDetailsError').text('');
-        var sellorderlist = [];
-        var sellordererrorItemCount = 0;
-        $('#SellOrderDetails tr').each(function (index, ele) {
+        $('#SaleOrderDetailsError').text('');
+        var Saleorderlist = [];
+        var SaleordererrorItemCount = 0;
+        $('#SaleOrderDetails tr').each(function (index, ele) {
             if (
                 $('.OnWakingUp', this).val() == "") {
-                sellordererrorItemCount++;
+                SaleordererrorItemCount++;
                 $(this).addClass('error');
             } else {
-                var sellorderorderItem = {
+                var SaleorderorderItem = {
                     Description: ($('.Description', this).val()),
                     Amount: $('.Amount', this).val(),
                     DeliveryDate: $('.DeliveryDate', this).val()
                 }
-                sellorderlist.push(sellorderorderItem);
+                Saleorderlist.push(SaleorderorderItem);
             }
         })
-        console.log(sellorderlist)
-        if (sellordererrorItemCount > 0) {
-            $('#SellOrderDetailsError').text(sellordererrorItemCount + " invalid entry in order item list.");
+        console.log(Saleorderlist)
+        if (SaleordererrorItemCount > 0) {
+            $('#SaleOrderDetailsError').text(SaleordererrorItemCount + " invalid entry in order item list.");
             isAllValid = false;
         }
 
-        if (sellorderlist.length == 0) {
-            $('#SellOrderDetailsError').text('At least 1 row data required in sell order.');
+        if (Saleorderlist.length == 0) {
+            $('#SaleOrderDetailsError').text('At least 1 row data required in Sale order.');
             isAllValid = false;
             $("#divload").css({ 'display': 'none' });
             return false;
@@ -181,16 +181,16 @@
 
         if (isAllValid) {
             debugger;
-            var sellorderdata = {
-                sellorderAddData: JSON.stringify(sellorderlist),
+            var Saleorderdata = {
+                SaleorderAddData: JSON.stringify(Saleorderlist),
             }
 
             debugger
             var formData = new FormData();
-            formData.append("sellorderdataValue", JSON.stringify(sellorderdata));
+            formData.append("SaleorderdataValue", JSON.stringify(Saleorderdata));
             $.ajax({
                 type: 'POST',
-                url: 'SaveSellOrderDetails',
+                url: 'SaveSaleOrderDetails',
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -200,7 +200,7 @@
                     if (response.status == true) {
                         // here we will clear the form
                         list = [];
-                        window.location.href = '@Url.Action("SellOrder", "SellOrder")';
+                        window.location.href = '@Url.Action("SaleOrder", "SaleOrder")';
                     }
                     else {
                         //alert('Error');

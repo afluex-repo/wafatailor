@@ -7,9 +7,9 @@ using System.Web;
 
 namespace WafaTailor.Models
 {
-    public class SellOrder
+    public class SaleOrder
     {
-        public string SellOrderId { get; set; }
+        public string SaleOrderId { get; set; }
         public string Fk_UserId { get; set; }
         public string Description { get; set; }
         public string Amount { get; set; }
@@ -19,19 +19,17 @@ namespace WafaTailor.Models
         public string LoginId { get; set; }
         public string OnWakingUp { get; set; }
         
-        public DataTable dtSellOrderDetails { get; set; }
+        public DataTable dtSaleOrderDetails { get; set; }
         
-        public DataSet SaveSellOrderDetails()
+        public DataSet SaveSaleOrderDetails()
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@dtSellOrderDetails",dtSellOrderDetails),
+                new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
                  new SqlParameter("@AddedBy",AddedBy)
             };
-            DataSet ds = DBHelper.ExecuteQuery("SaveSellOrderDetails", para);
+            DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
             return ds;
         }
-
-
     }
 }
