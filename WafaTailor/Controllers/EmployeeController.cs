@@ -129,6 +129,9 @@ namespace WafaTailor.Controllers
                 {
                     Employee obj = new Employee();
                     obj.EmployeeId = r["Pk_EmployeeId"].ToString();
+                    //obj.ShopName = r["ShopName"].ToString();
+                    obj.EmployeeName = r["EmployeeName"].ToString();
+                    obj.EmployeeAddress = r["EmployeeAddress"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.EmployeeName = r["Name"].ToString();
                     obj.EmployeeAddress = r["Address"].ToString();

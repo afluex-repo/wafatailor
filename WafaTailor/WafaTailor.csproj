@@ -375,6 +375,10 @@
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Customer\CustomerDashBoard.cshtml" />
     <Content Include="Views\Customer\CustomerProfile.cshtml" />
+    <Content Include="Views\Vendor\VendorChangePassword.cshtml" />
+    <Content Include="Views\Vendor\VendorProfile.cshtml" />
+    <Content Include="Views\Vendor\VendorList.cshtml" />
+    <Content Include="Views\Admin\VendorListForAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -385,6 +389,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
+    <Folder Include="VendorProfilePic\" />
     <Folder Include="Views\EmployeeBase\" />
     <Folder Include="Views\VendorBase\" />
   </ItemGroup>
