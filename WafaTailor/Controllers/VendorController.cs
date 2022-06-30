@@ -12,7 +12,7 @@ namespace WafaTailor.Controllers
     public class VendorController : Controller
     {
         // GET: Vendor
-        
+
         public ActionResult VendorDashBoard()
         {
             return View();
@@ -136,5 +136,37 @@ namespace WafaTailor.Controllers
         }
 
 
+
+
+
+        public ActionResult DeleteVendor(string Id)
+        {
+            try
+            {
+               if(Id!=null)
+                {
+                    Vendor model = new Vendor();
+                    model.PK_UserId = Id;
+                    model.AddedBy = Session["Pk_userId"].ToString();
+                    DataSet ds = model.DeleteVendor();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["Vendor"] = "Vendor deleted Successfully!";
+                        }
+                        else
+                        {
+                            TempData["Vendor"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Vendor"] = ex.Message;
+            }
+            return RedirectToAction("VendorList", "Vendor");
+        }
     }
 }

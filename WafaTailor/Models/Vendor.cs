@@ -92,6 +92,17 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetVendorList", para);
             return ds;
         }
+
+        public DataSet DeleteVendor()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_UserId",PK_UserId),
+                  new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteVendor", para);
+            return ds;
+        }
     }
 }
 
