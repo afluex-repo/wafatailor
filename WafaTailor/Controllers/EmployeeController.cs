@@ -24,6 +24,42 @@ namespace WafaTailor.Controllers
         public ActionResult EmployeeRegistration(String EmployeeId)
         {
             Employee obj = new Employee();
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = obj.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+            #region Type
+            List<SelectListItem> ddlType = new List<SelectListItem>();
+            DataSet ds2 = obj.GetUserTypeDetails();
+            if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds2.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlType.Add(new SelectListItem { Text = "Select Type", Value = "0" });
+                    }
+                    ddlType.Add(new SelectListItem { Text = r["UserType"].ToString(), Value = r["PK_UserTypeId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlType = ddlType;
+            #endregion
 
             if (EmployeeId != null)
             {
@@ -33,8 +69,8 @@ namespace WafaTailor.Controllers
                 {
                     obj.EmployeeId = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
                     obj.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
-                    obj.EmployeeName = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
-                    obj.EmployeeAddress = ds.Tables[0].Rows[0]["EmployeeAddress"].ToString();
+                    obj.EmployeeName = ds.Tables[0].Rows[0]["Name"].ToString();
+                    obj.EmployeeAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                     obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
                     obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
                     obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
@@ -74,10 +110,10 @@ namespace WafaTailor.Controllers
             {
                 TempData["Employee"] = ex.Message;
             }
-            return RedirectToAction("EmployeeRegistration", "Employee");
+            return RedirectToAction("EmployeeConfirmRegistration", "Employee");
         }
 
-        public ActionResult ConfirmRegistration()
+        public ActionResult EmployeeConfirmRegistration()
         {
             return View();
         }
@@ -96,6 +132,9 @@ namespace WafaTailor.Controllers
                     //obj.ShopName = r["ShopName"].ToString();
                     obj.EmployeeName = r["EmployeeName"].ToString();
                     obj.EmployeeAddress = r["EmployeeAddress"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    obj.EmployeeName = r["Name"].ToString();
+                    obj.EmployeeAddress = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
                     obj.ContactNo = r["ContactNo"].ToString();
                     obj.Emailid = r["Emailid"].ToString();
