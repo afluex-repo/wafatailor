@@ -15,7 +15,7 @@
                                         <div class="pull-left">
                                             @* <div class="page-title">Customer Registration</div>*@
                                         </div>
-                                        <ol class="breadcrumb page-breadcrumb pull-right">
+                                        @*<ol class="breadcrumb page-breadcrumb pull-right">
                                             <li>
                                                 <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                                    href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -24,7 +24,7 @@
                                                 Registration &nbsp;<i class="fa fa-angle-right"></i>
                                             </li>
                                             <li class="active">Customer Registration</li>
-                                        </ol>
+                                        </ol>*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -46,19 +46,19 @@
                                                             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = " First Name" })
                                                         </div>
                                                         <div class="form-group col-sm-4">
-                                                            <label for="simpleFormEmail">Last Name <span style="color:red">*</span></label>
+                                                            <label for="simpleFormEmail">Last Name</label>
                                                             @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = " Last Name" })
                                                         </div>
                                                         <div class="form-group col-sm-4">
                                                             <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
-                                                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);" })
+                                                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "10", @Minlength = "10" })
                                                         </div>
                                                         <div class="form-group col-sm-4">
-                                                            <label for="simpleFormPassword">Email-Id <span style="color:red">*</span></label>
+                                                            <label for="simpleFormPassword">Email-Id</label>
                                                             @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
                                                         </div>
                                                         <div class="form-group col-sm-4">
-                                                            <label for="simpleFormPassword">Date Of Birth <span style="color:red">*</span></label>
+                                                            <label for="simpleFormPassword">Date Of Birth</label>
                                                             @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true",@Placeholder="Date of Birth" })
                                                         </div>
                                                         <div class="form-group col-sm-4">
@@ -70,7 +70,7 @@
                                             }, new { @class = "form-control" })
                                                         </div>
                                                         <div class="form-group col-sm-12">
-                                                            <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
+                                                            <label for="simpleFormPassword">Address</label>
                                                             @Html.TextAreaFor(m => m.CustomerAddress, new { @class = "form-control", @placeholder = "Address" })
                                                         </div>
                                                     </div>
@@ -115,37 +115,17 @@
             $("#FirstName").focus();
             return false;
         }
-
-        if ($("#LastName").val() == "") {
-            $("#LastName").addClass('errortext');
-            $("#LastName").focus();
-            return false;
-        }
         if ($("#ContactNo").val() == "") {
             $("#ContactNo").addClass('errortext');
             $("#ContactNo").focus();
             return false;
         }
-        if ($("#Emailid").val() == "") {
-            $("#Emailid").addClass('errortext');
-            $("#Emailid").focus();
+        if ($("#Gender").val() == "") {
+            $("#Gender").addClass('errortext');
+            $("#Gender").focus();
             return false;
         }
-        if ($("#DOB").val() == "") {
-            $("#DOB").addClass('errortext');
-            $("#DOB").focus();
-            return false;
-        }
-        //if ($("#Gender").val() == "") {
-        //    $("#Gender").addClass('errortext');
-        //    $("#Gender").focus();
-        //    return false;
-        //}
-        if ($("#CustomerAddress").val() == "") {
-            $("#CustomerAddress").addClass('errortext');
-            $("#CustomerAddress").focus();
-            return false;
-        }
+        
     }
 
     function isNumberKey(evt) {

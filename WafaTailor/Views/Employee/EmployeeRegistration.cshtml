@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "EmployeeRegistration";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -16,7 +16,7 @@
                     <div class="pull-left">
                         @*<div class="page-title"> Employee Registration</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Employee/EmployeeDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -25,7 +25,7 @@
                             Registration &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Employee Registration</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
             <div class="row">
@@ -54,15 +54,15 @@
                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);" })
+                                    <label for="simpleFormPassword">Contact No </label>
+                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="10", @Minlength="10" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Date Of Birth <span style="color:red">*</span></label>
+                                    <label for="simpleFormPassword">Date Of Birth</label>
                                     @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true", @Placeholder = "Date of Birth" })
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="simpleFormPassword">Email-Id <span style="color:red">*</span></label>
+                                    <label for="simpleFormPassword">Email-Id </label>
                                     @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -113,15 +113,24 @@
         $("#divload").css({ 'display': '' })
         $(".errortext").removeClass("errortext");
 
-        if ($("#ShopName").val() == "") {
-            $("#ShopName").addClass('errortext');
-            $("#ShopName").focus();
+        if ($("#Fk_ShopId").val() == "0") {
+            $("#Fk_ShopId").addClass('errortext');
+            $("#Fk_ShopId").focus();
             return false;
         }
-
+        if ($("#UserTypeId").val() == "0") {
+            $("#UserTypeId").addClass('errortext');
+            $("#UserTypeId").focus();
+            return false;
+        }
         if ($("#EmployeeName").val() == "") {
             $("#EmployeeName").addClass('errortext');
             $("#EmployeeName").focus();
+            return false;
+        }
+        if ($("#Gender").val() == "0") {
+            $("#Gender").addClass('errortext');
+            $("#Gender").focus();
             return false;
         }
         if ($("#EmployeeAddress").val() == "") {
@@ -130,28 +139,13 @@
             return false;
         }
 
-        if ($("#DOB").val() == "") {
-            $("#DOB").addClass('errortext');
-            $("#DOB").focus();
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
             return false;
-        }
-        if ($("#ContactNo").val() == "") {
-            $("#ContactNo").addClass('errortext');
-            $("#ContactNo").focus();
-            return false;
-        }
-
-        if ($("#Emailid").val() == "") {
-            $("#Emailid").addClass('errortext');
-            $("#Emailid").focus();
-            return false;
-        }
-        //if ($("#Gender").val() == "") {
-        //    $("#Gender").addClass('errortext');
-        //    $("#Gender").focus();
-        //    return false;
-        //}
-
+        return true;
     }
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode;
