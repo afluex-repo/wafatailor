@@ -23,13 +23,16 @@ namespace WafaTailor.Models
         public string ConfirmNewPassword { get; set; }
         public string LoginId { get; set; }
         public string AddedBy { get; set; }
-        
+        public string Fk_ShopId { get; set; }
+        public string UserTypeId { get; set; }
+
 
         public DataSet EmployeeRegistration()
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@ShopName",ShopName),
+                new SqlParameter("@Fk_ShopId",Fk_ShopId),
+                 new SqlParameter("@Fk_UserTypeId",UserTypeId),
                 new SqlParameter("@EmployeeName",EmployeeName),
                  new SqlParameter("@EmployeeAddress",EmployeeAddress),
                 new SqlParameter("@DOB",DOB),
@@ -38,7 +41,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Gender",Gender),
                 new SqlParameter("@AddedBy",1)
             };
-            DataSet ds = DBHelper.ExecuteQuery("SaveEmployeeRegistration", para);
+            DataSet ds = DBHelper.ExecuteQuery("EmployeeRegistration", para);
             return ds;
         }
 
@@ -49,6 +52,19 @@ namespace WafaTailor.Models
                 new SqlParameter("@Pk_EmployeeId",EmployeeId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetEmployeeDetails", para);
+            return ds;
+        }
+
+
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
+            return ds;
+        }
+
+        public DataSet GetUserTypeDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetUserTypeDetails");
             return ds;
         }
 
@@ -92,8 +108,8 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@Pk_EmployeeId",EmployeeId),
                 new SqlParameter("@ShopName",ShopName),
-                new SqlParameter("@EmployeeName",EmployeeName),
-                 new SqlParameter("@EmployeeAddress",EmployeeAddress),
+                new SqlParameter("@Name",EmployeeName),
+                 new SqlParameter("@Address",EmployeeAddress),
                 new SqlParameter("@DOB",DOB),
                  new SqlParameter("@ContactNo",ContactNo),
                 new SqlParameter("@Emailid",Emailid),
