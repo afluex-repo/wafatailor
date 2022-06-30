@@ -69,6 +69,7 @@ namespace WafaTailor.Controllers
                 {
                     obj.EmployeeId = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
                     obj.ShopName = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                    obj.Fk_ShopId = ds.Tables[0].Rows[0]["Pk_ShopId"].ToString();
                     obj.EmployeeName = ds.Tables[0].Rows[0]["Name"].ToString();
                     obj.EmployeeAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                     obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
@@ -85,24 +86,36 @@ namespace WafaTailor.Controllers
         [OnAction(ButtonName = "Save")]
         public ActionResult SaveEmployeeRegistration(Employee model)
         {
+            string FormName = "";
+            string Controller = "";
             try
             {
+               
                 DataSet ds = model.EmployeeRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        TempData["Employee"] = "Employee Registration Saved Successfully";
+                        //TempData["Employee"] = "Employee Registration Saved Successfully";
+                        Session["EmployeeName"] = ds.Tables[0].Rows[0]["EmployeeName"].ToString();
+                        Session["EmployeeLoginId"] = ds.Tables[0].Rows[0]["Loginid"].ToString();
+                        Session["EmployeePassword"] = ds.Tables[0].Rows[0]["Password"].ToString();
+                        FormName = "EmployeeConfirmRegistration";
+                        Controller = "Employee";
                     }
                     else
                     {
                         TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "EmployeeRegistration";
+                        Controller = "Employee";
                     }
 
                 }
                 else
                 {
                     TempData["Employee"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "EmployeeRegistration";
+                    Controller = "Employee";
                 }
 
             }
@@ -110,7 +123,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Employee"] = ex.Message;
             }
-            return RedirectToAction("EmployeeConfirmRegistration", "Employee");
+            return RedirectToAction(FormName,Controller);
         }
 
         public ActionResult EmployeeConfirmRegistration()
@@ -129,9 +142,6 @@ namespace WafaTailor.Controllers
                 {
                     Employee obj = new Employee();
                     obj.EmployeeId = r["Pk_EmployeeId"].ToString();
-                    //obj.ShopName = r["ShopName"].ToString();
-                    obj.EmployeeName = r["EmployeeName"].ToString();
-                    obj.EmployeeAddress = r["EmployeeAddress"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.EmployeeName = r["Name"].ToString();
                     obj.EmployeeAddress = r["Address"].ToString();
