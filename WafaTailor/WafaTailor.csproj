@@ -317,6 +317,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\SellOrderController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\VendorBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Master.cs" />
+    <Compile Include="Models\SellOrder.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -375,6 +377,11 @@
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Customer\CustomerDashBoard.cshtml" />
     <Content Include="Views\Customer\CustomerProfile.cshtml" />
+    <Content Include="Views\Vendor\VendorChangePassword.cshtml" />
+    <Content Include="Views\Vendor\VendorProfile.cshtml" />
+    <Content Include="Views\Vendor\VendorList.cshtml" />
+    <Content Include="Views\Admin\VendorListForAdmin.cshtml" />
+    <Content Include="Views\SellOrder\SellOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -385,6 +392,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
+    <Folder Include="VendorProfilePic\" />
     <Folder Include="Views\EmployeeBase\" />
     <Folder Include="Views\VendorBase\" />
   </ItemGroup>

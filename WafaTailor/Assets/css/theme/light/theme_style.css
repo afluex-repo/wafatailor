@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*
  *  Document   : theme_style.css
  *  Author     : RedStar Theme
@@ -1994,6 +1994,7 @@ form.search-form-opened .btn.submit {
   margin-top: -2px;
   margin-right: 5px;
   height: 29px;
+  width:29px;
   display: inline-block;
 }
 .page-header.navbar
@@ -4678,7 +4679,8 @@ textarea.form-control-textarea {
 }
 .sidebar-user .sidebar-user-picture img {
   width: 70px;
-  border-radius: 20%;
+  height:70px;
+  border-radius: 50%;
   box-shadow: 0px 5px 5px 0px rgba(44, 44, 44, 0.2);
 }
 .sidebar-user .sidebar-user-details .user-name {
