@@ -19,14 +19,9 @@ namespace WafaTailor.Models
         public string AddedBy { get; set; }
         public string LoginId { get; set; }
         public string Result { get; set; }
-
         public string Name { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-
-
-
-
         public DataTable dtSaleOrderDetails { get; set; }
 
         public DataSet SaveSaleOrderDetails()
