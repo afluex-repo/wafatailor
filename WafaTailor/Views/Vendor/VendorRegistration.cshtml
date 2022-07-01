@@ -33,57 +33,45 @@
                         <div class="card-head">
                             <header> Vendor Registration</header>
                             <span style="color:red;">@TempData["Vendor"]</span>
-                            <a href="/Vendor/VendorList" class="btn btn-success pull-right">Back to List</a>
+                            <a href="/Vendor/VendorList" class="btn btn-primary pull-right mr-10"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <form>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">First Name<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">First Name<span style="color:red">*</span></label>
                                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name", @onkeypress = "return onlyAlphabets();" })
-                                            </div>
-                                        </div>
+                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Last Name<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">Last Name<span style="color:red">*</span></label>
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name", @onkeypress = "return onlyAlphabets();" })
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">DOB<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">DOB<span style="color:red">*</span></label>
                                                 @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @placeholder = "DOB", @readonly = true })
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Mobile<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">Mobile<span style="color:red">*</span></label>
                                                 @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile", @onkeypress = "return isNumberKey(event);", @maxlength = "10" })
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Email<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">Email<span style="color:red">*</span></label>
                                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Placeholder = "Email", })
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Gender<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">Gender<span style="color:red">*</span></label>
                                                 @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), new { @class = "form-control"})
-                                            </div>
                                         </div>
                                     </div>
                                     @*<div class="col-md-4">
@@ -110,20 +98,16 @@
                                             </div>
                                         </div>
                                     </div>*@
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="col-sm-4 col-form-label">Profile Pic</label>
-                                                <div class="col-sm-8">
+                                                <label class="col-form-label">Profile Pic</label>
                                                     <input type="file" name="postedFile" id="postedFile" class="form-control" />
-                                                </div>
-                                            </div>
+                                             </div>
                                         </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Address<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
+                                            <label class="col-form-label">Address<span style="color:red">*</span></label>
                                                 @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
