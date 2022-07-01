@@ -17,7 +17,7 @@
                     <div class="pull-left">
                        @* <div class="page-title">Material List</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -26,7 +26,7 @@
                             Master&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active"> Material List</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                                                     <td>@item.MaterialName</td>
                                                     <td>@item.MaterialType</td>
                                                     <td>
-                                                        <a href="/Master/DeleteMaterial?MaterialId=@item.MaterialId" class="tblDelBtn">
+                                                        <a href="/Master/DeleteMaterial?MaterialId=@item.MaterialId" class="tblDelBtn"  onclick="return confirm('Are you sure you want to delete this Material')">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

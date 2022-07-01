@@ -4,12 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<<<<<<< HEAD
 
 @{
     ViewBag.Title = "CustomerConfirmRegistration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+=======
+<style>
+    /*.bg-register {
+        background: url(websitelinks/images/bg/login-bg.jpeg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+    }*/
+>>>>>>> 2fab24d57d716c132feee4c8882cdfecfacca47e
 
 <!-- start page content -->
 <div class="page-content-wrapper mt-5">
@@ -42,10 +53,15 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">Registration Successfull</li>
+<<<<<<< HEAD
                 </ul>
             <span class="pull-right">
+=======
+                </ul>*@
+            @*<span class="pull-right">
+>>>>>>> 2fab24d57d716c132feee4c8882cdfecfacca47e
                 <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
-            </span>
+            </span>*@
             @*<p style="color: red">
                     @TempData["Shop"]
                 </p>
@@ -58,27 +74,32 @@
                 </div>
                 <h2 class="big-green">Congratulations !!</h2>
                 <div class="clearfix text-center">
-                    <h3>Employee Saved Successfully !</h3>
-                    @*<div class="account-info clearfix">
+                    <h3><i>Employee Registration Saved Successfully !</i></h3>
+                    <div class="account-info clearfix">
                         <div class="clearfix text-left">
                             <div class="col-md-12 account-info-text text-center">
                                 <ul class="list-inline">
-                                    <li><span class="border-box">Name: @Session["Name"]</span></li>
-                                    <li><span class="border-box">Login ID: @Session["LoginId"]</span></li>
-                                    <li><span class="border-box">Password:  @Session["Password"]</span></li>
+                                    <li><span class="border-box">Name: @Session["EmployeeName"]</span></li>
+                                    <li><span class="border-box">Login ID: @Session["EmployeeLoginId"]</span></li>
+                                    <li><span class="border-box">Password: @Session["EmployeePassword"]</span></li>
                                 </ul>
                             </div>
                         </div>
 
 
-                </div>
-                <div class="clearfix">
-                    <h2 class="big-green">Thank You!</h2>
+                    </div>
+                    <div class="clearfix">
+                        <h2 class="big-green">Thank You!</h2>
+                    </div>
+                    <span class="pull-center">
+                        <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </div>*@
+
 
 
 

@@ -15,7 +15,7 @@
                     <div class="pull-left">
                        @* <div class="page-title">Material Type</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -24,7 +24,7 @@
                             Master &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Master Type</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
             <div class="row">
@@ -40,12 +40,12 @@
                         <div class="card-body" id="bar-parent">
                             <form>
                                 <div class="form-group">
-                                    <label for="simpleFormEmail">Shop <span style="color:red">*</span></label>
+                                    <label for="simpleFormEmail">Material <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.MaterialName, new { @class = "form-control", @Placeholder = "Material Name", @autocomplete = "off" })
                                 </div>
                                 <div class="form-group">
-                                    <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
-                                    @Html.TextAreaFor(m => m.MaterialType, new { @class = "form-control", @Placeholder = "Material Type", @autocomplete = "off" })
+                                    <label for="simpleFormPassword">Material Type <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.MaterialType, new { @class = "form-control", @Placeholder = "Material Type", @autocomplete = "off" })
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="btnsave" value="Save" onclick="return ValidateMaterial()">
                             </form>

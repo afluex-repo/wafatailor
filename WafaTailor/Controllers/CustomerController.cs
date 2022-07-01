@@ -42,23 +42,24 @@ namespace WafaTailor.Controllers
 
 
 
-        public ActionResult CustomerRegistration(String CustomerId)
+        public ActionResult CustomerRegistration(String UserID)
         {
             Customer obj = new Customer();
 
-            if (CustomerId != null)
+            if (UserID != null)
             {
-                obj.CustomerId = CustomerId;
+                obj.UserID = UserID;
                 DataSet ds = obj.GetCustomerDetails();
                 if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
-                    obj.CustomerId = ds.Tables[0].Rows[0]["Pk_CustomerId"].ToString();
-                    obj.CustomerName = ds.Tables[0].Rows[0]["CustomerName"].ToString();
-                    obj.CustomerAddress = ds.Tables[0].Rows[0]["CustomerAddress"].ToString();
+                    obj.UserID = ds.Tables[0].Rows[0]["PK_UserID"].ToString();
+                    obj.FirstName = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                    obj.LastName = ds.Tables[0].Rows[0]["LastName"].ToString();
+                    obj.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                     obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
-                    obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-                    obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
-                    obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                    obj.ContactNo = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                    obj.Emailid = ds.Tables[0].Rows[0]["Email"].ToString();
+                    obj.Gender = ds.Tables[0].Rows[0]["Sex"].ToString();
                 }
             }
             return View(obj);
@@ -71,7 +72,10 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/mm/yyyy");
+               //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
+                Random RND = new Random();
+                String pass = RND.Next(111111,999999).ToString();
+                model.Password = Crypto.Encrypt(pass);
                 DataSet ds = model.CustomerRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
@@ -95,10 +99,10 @@ namespace WafaTailor.Controllers
             {
                 TempData["Customer"] = ex.Message;
             }
-            return RedirectToAction("CustomerRegistration", "Customer");
+            return RedirectToAction("CustomerConfirmRegistration", "Customer");
         }
 
-        public ActionResult ConfirmRegistration()
+        public ActionResult CustomerConfirmRegistration()
         {
             return View();
         }
@@ -112,13 +116,14 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Customer obj = new Customer();
-                    obj.CustomerId = r["Pk_CustomerId"].ToString();
-                    obj.CustomerName = r["CustomerName"].ToString();
-                    obj.CustomerAddress = r["CustomerAddress"].ToString();
+                    obj.UserID = r["PK_UserID"].ToString();
+                    obj.FirstName = r["FirstName"].ToString();
+                    obj.LastName = r["LastName"].ToString();
+                    obj.CustomerAddress = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
-                    obj.ContactNo = r["ContactNo"].ToString();
-                    obj.Emailid = r["Emailid"].ToString();
-                    obj.Gender = r["Gender"].ToString();
+                    obj.ContactNo = r["Mobile"].ToString();
+                    obj.Emailid = r["Email"].ToString();
+                    obj.Gender = r["Sex"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -133,8 +138,11 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                if(model.CustomerId != null)
+                if(model.UserID != null)
                 {
+                    Random RND = new Random();
+                    String pass = RND.Next(111111, 999999).ToString();
+                    model.Password = Crypto.Encrypt(pass);
                     model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/mm/yyyy");
                     DataSet ds = model.UpdateCustomerRegistration();
                     if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
@@ -163,12 +171,12 @@ namespace WafaTailor.Controllers
             return RedirectToAction("CustomerRegistration", "Customer");
         }
 
-        public ActionResult DeleteCustomerRegistration(string CustomerId)
+        public ActionResult DeleteCustomerRegistration(string UserID)
         {
             Customer obj = new Customer();
             try
             {
-                obj.CustomerId = CustomerId;
+                obj.UserID = UserID;
                 DataSet ds = obj.DeleteCustomer();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -188,9 +196,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("CustomerRegistrationList", "Customer");
         }
-        public ActionResult CustomerConfirmRegistration()
-        {
-            return View();
-        }
+        
     }
 }

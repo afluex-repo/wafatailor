@@ -1,0 +1,280 @@
+﻿@model WafaTailor.Models.SaleOrder
+
+@{
+    ViewBag.Title = "SaleOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SaleOrder", "SaleOrder", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+        <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title">Customer Registration</div>*@
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="#">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Sale Order &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Sale Order</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Sale Order</header>
+                            <span style="color:red;">@TempData["SaleOrder"]</span>
+                            @*<a href="/Vendor/VendorList" class="btn btn-success pull-right">Back to List</a>*@
+                        </div>
+                        <div class="card-body" id="bar-parent">
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-form-label">LoginId<span style="color:red">*</span></label>
+
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "LoginId", @onchange = "return GetDetails();" })
+
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div class="col-md-12">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description<span style="color: red">*</span> </th>
+                                                    <th>Amount<span style="color: red">*</span> </th>
+                                                    <th>Delivery Date<span style="color: red">*</span> </th>
+                                                    <th>Order Date</th>
+                                                    <th>Action<span style="color: red">*</span> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="TextBoxContainer">
+                                                <tr class="wakingupcontainer" id="Saleorderrow">
+                                                    <td>
+                                                        @Html.TextAreaFor(m => m.Description, new { @class = "Description form-control", @Placeholder = "Description" })
+
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(m => m.Amount, new { @class = "Amount form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
+
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "DeliveryDate form-control", @Placeholder = "Delivery Date", @readonly = true })
+
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(m => m.OrderDate, new { @class = "OrderDate form-control", @Placeholder = "Order Date ", @readonly = true })
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" id="addSaleOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn bg-orange" />
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="SaleOrdertable">
+                                <table class="table  table-striped table-bordered" id="SaleOrderDetails"></table>
+                                <span id="SaleOrderDetailsError" style="color:red"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input class="btn bg-orange btn-lg pull-left py-2" type="submit" value="Save" id="btnfinalsubmit" name="Save" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script type="text/javascript">
+    $('#DeliveryDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        yearRange: "1800:2040"
+    });
+    $('#OrderDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        yearRange: "1800:2040"
+    });
+
+    $(document).ready(function () {
+
+        $('#addSaleOrder').click(function () {
+            debugger;
+            var isAllValid = true;
+            if (!($('#Description').val().trim() != '' && ($('#Description').val().trim()))) {
+                $("#Description").addClass('errortext');
+                $('#Description').focus();
+                isAllValid = false;
+            }
+            else if (!($('#Amount').val().trim() != '' && ($('#Amount').val().trim()))) {
+                $("#Amount").addClass('errortext');
+                $('#Amount').focus();
+                isAllValid = false;
+            }
+            else if (!($('#DeliveryDate').val().trim() != '' && ($('#Description').val().trim()))) {
+                $("#DeliveryDate").addClass('errortext');
+                $('#DeliveryDate').focus();
+                isAllValid = false;
+            }
+            debugger
+            if (isAllValid) {
+                var $newRow = $('#Saleorderrow').clone().removeAttr('id');
+                $('.Description', $newRow).removeClass('errortext').prop('disabled', true).val($('#Description').val());
+                $('.Amount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Amount').val());
+                $('.DeliveryDate', $newRow).removeClass('errortext').prop('disabled', true).val($('#DeliveryDate').val());
+                $('.OrderDate', $newRow).removeClass('errortext').prop('disabled', true).val($('#OrderDate').val());
+
+                //Replace add button with remove button
+                $('#addSaleOrder', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-success');
+                //remove id attribute from new clone row
+                $('#Description,#Amount,#DeliveryDate,#OrderDate,#addSaleOrder', $newRow).removeAttr('id');
+                $('span.error', $newRow).remove();
+                //append clone row
+                $('#SaleOrderDetails').append($newRow);
+                //clear select data
+                $('#Description,#Amount,#DeliveryDate,#OrderDate').val('');
+                $('#SaleOrderDetailsError').empty();
+            }
+        })
+        //remove button click event
+        $('#SaleOrderDetails').on('click', '.remove', function () {
+            $(this).parents('tr').remove();
+        });
+
+    });
+    $('#btnfinalsubmit').click(function () {
+        var isAllValid = true;
+
+        $('#SaleOrderDetailsError').text('');
+        var Saleorderlist = [];
+        var SaleordererrorItemCount = 0;
+        $('#SaleOrderDetails tr').each(function (index, ele) {
+            if (
+                $('.OnWakingUp', this).val() == "") {
+                SaleordererrorItemCount++;
+                $(this).addClass('error');
+            } else {
+                var SaleorderorderItem = {
+                    Description: ($('.Description', this).val()),
+                    Amount: $('.Amount', this).val(),
+                    DeliveryDate: $('.DeliveryDate', this).val(),
+                    OrderDate: $('.OrderDate', this).val()
+                }
+                Saleorderlist.push(SaleorderorderItem);
+            }
+        })
+        console.log(Saleorderlist)
+        if (SaleordererrorItemCount > 0) {
+            $('#SaleOrderDetailsError').text(SaleordererrorItemCount + " invalid entry in order item list.");
+            isAllValid = false;
+        }
+
+        if (Saleorderlist.length == 0) {
+            $('#SaleOrderDetailsError').text('At least 1 row data required in Sale order.');
+            isAllValid = false;
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+
+        if (isAllValid) {
+            debugger;
+            var Saleorderdata = {
+                SaleorderAddData: JSON.stringify(Saleorderlist),
+            }
+
+            debugger
+            var formData = new FormData();
+            formData.append("SaleorderdataValue", JSON.stringify(Saleorderdata));
+            $.ajax({
+                type: 'POST',
+                url: 'SaveSaleOrderDetails',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    //alert(result);
+                    if (response.status == true) {
+                        list = [];
+                        window.location.href = '@Url.Action("SaleOrder", "SaleOrder")';
+                    }
+                    else {
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function GetDetails() {
+        debugger;
+        var LoginId = $("#LoginId").val();
+        $.ajax({
+            type: 'post',
+            url: '/SaleOrder/GetDetails',
+            data: { 'LoginId': LoginId },
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result == "yes") {
+                    $("#LoginId").val(data.LoginId);
+                }
+                else {
+                    alert('Invalid LoginId');
+                    $("#LoginId").val('');
+                    $("#LoginId").addClass('errortext');
+                    $("#LoginId").focus();
+                }
+            }
+        });
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+
+

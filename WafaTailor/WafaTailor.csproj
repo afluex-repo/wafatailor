@@ -317,6 +317,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\VendorBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -326,11 +327,13 @@
     </Compile>
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Common.cs" />
+    <Compile Include="Models\Crypto.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Master.cs" />
+    <Compile Include="Models\SaleOrder.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -378,6 +381,7 @@
     <Content Include="Views\Vendor\VendorProfile.cshtml" />
     <Content Include="Views\Vendor\VendorList.cshtml" />
     <Content Include="Views\Admin\VendorListForAdmin.cshtml" />
+    <Content Include="Views\SaleOrder\SaleOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
