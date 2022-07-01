@@ -1,32 +1,20 @@
-﻿@model WafaTailor.Models.Master
+﻿@model WafaTailor.Models.SaleOrder
 
 @{
-    ViewBag.Title = "MaterialList";
+    ViewBag.Title = "SaleOrderList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@using (Html.BeginForm("MaterialList", "Master", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("SaleOrderList", "SaleOrder", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
-
-    <!-- start page content -->
+      <!-- start page content -->
     <div class="page-content-wrapper">
         <div class="page-content">
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                       @* <div class="page-title">Material List</div>*@
+                        @*<div class="page-title">Shop List</div>*@
                     </div>
-                    @*<ol class="breadcrumb page-breadcrumb pull-right">
-                        <li>
-                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                                                               href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            Master&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li class="active"> Material List</li>
-                    </ol>*@
                 </div>
             </div>
 
@@ -34,11 +22,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Material List</header>
+                            <header>Sale Order List</header>
                             <span class="text-danger">
-                                @TempData["Material"]
+                                @TempData["SaleOrder"]
                             </span>
-                            <a href="/Master/Material" class="btn btn-primary pull-right">Back to Material </a>
+                            <a href="/SaleOrder/SaleOrder" class="btn btn-primary pull-right">Back to Sale Order</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -51,12 +39,14 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
-                                        <th>Material Name</th>
-                                        <th>Material Type</th>
+                                        <th> Amount</th>
+                                        <th>Order Date</th>
+                                        <th> Delivery Date</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                             <tbody>
                                     @if (Model != null)
                                     {
                                         if (Model.lstRegistration != null)
@@ -66,10 +56,12 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.MaterialName</td>
-                                                    <td>@item.MaterialType</td>
+                                                    <td>@item.Amount</td>
+                                                    <td>@item.OrderDate</td>
+                                                    <td>@item.DeliveryDate</td>
+                                                    <td>@item.Description</td>
                                                     <td>
-                                                        <a href="/Master/DeleteMaterial?MaterialId=@item.MaterialId" class="tblDelBtn"  onclick="return confirm('Are You Sure You Want To Delete This Material Details?')">
+                                                        <a href="/SaleOrder/DeleteSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Sale Order Details?')">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>
@@ -86,4 +78,6 @@
             </div>
         </div>
     </div>
+   <!-- end page container -->
 }
+

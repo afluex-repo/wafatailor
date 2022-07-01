@@ -90,15 +90,14 @@
                     <div class="card-body text-center">
                         <img src="~/Assets/Images/trophy-1.gif" style="width:100%" />
                         <h2 class="text-uppercase font-600">Congratulations !!</h2>
-                       <h4 class="font-600">Customer Save Successfully.</h4>
-                       @*<p>Your UserId- 1234567890 &  Password- ABCD1234</p>*@
+                       <h4 class="font-600"><i>Customer Records Save Successfully!</i></h4>
                         <div class="account-info clearfix">
                             <div class="clearfix text-left">
                                 <div class="col-md-12 account-info-text text-center">
                                     <ul class="list-inline">
-                                        <li><span class="border-box">Name: @Session["Name"]</span></li>
-                                        <li><span class="border-box">Login ID: @Session["LoginId"]</span></li>
-                                        <li><span class="border-box">Password: @Session["Password"]</span></li>
+                                        @*<li><span class="border-box">Name: @Session["Name"]</span></li>*@
+                                        <li><span class="border-box">Login ID: @Session["CustomerLoginId"]</span></li>
+                                        <li><span class="border-box">Password: @Session["CustomerPassword"]</span></li>
                                     </ul>
                                 </div>
                             </div>

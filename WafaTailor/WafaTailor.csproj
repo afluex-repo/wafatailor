@@ -382,6 +382,7 @@
     <Content Include="Views\Vendor\VendorList.cshtml" />
     <Content Include="Views\Admin\VendorListForAdmin.cshtml" />
     <Content Include="Views\SaleOrder\SaleOrder.cshtml" />
+    <Content Include="Views\SaleOrder\SaleOrderList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

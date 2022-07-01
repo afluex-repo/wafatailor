@@ -36,7 +36,7 @@
                             <span class="text-danger">
                                 @TempData["Employee"]
                             </span>
-                            @*<a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>*@
+                            <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <form>
@@ -101,7 +101,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script>
     $("#DOB").datepicker({
-        dateFormate: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yy',
         changeYear: 'true',
         changeMonth: 'true'
     })

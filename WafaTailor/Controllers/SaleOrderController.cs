@@ -65,5 +65,25 @@ namespace WafaTailor.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        public ActionResult SaleOrderList(SaleOrder model)
+        {
+            List<SaleOrder> lst = new List<SaleOrder>();
+            DataSet ds = model.GetSaleOrderDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    SaleOrder obj = new SaleOrder();
+                    obj.SaleOrderId = r["Pk_SaleOrderDetailsId"].ToString();
+                    obj.Description = r["Description"].ToString();
+                    obj.Amount = r["Amount"].ToString();
+                    obj.OrderDate = r["OrderDate"].ToString();
+                    obj.DeliveryDate = r["DeliveryDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistration = lst;
+            }
+            return View(model);
+        }
     }
 }

@@ -15,7 +15,7 @@
                     <div class="pull-left">
                         @* <div class="page-title">Customer Registration</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="#">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -24,7 +24,7 @@
                             Sale Order &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Sale Order</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                         <div class="card-head">
                             <header>Sale Order</header>
                             <span style="color:red;">@TempData["SaleOrder"]</span>
-                            @*<a href="/Vendor/VendorList" class="btn btn-success pull-right">Back to List</a>*@
+                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right">Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
 
