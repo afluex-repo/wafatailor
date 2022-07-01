@@ -90,7 +90,7 @@ namespace WafaTailor.Controllers
             string Controller = "";
             try
             {
-               
+                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
                 DataSet ds = model.EmployeeRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
@@ -165,6 +165,7 @@ namespace WafaTailor.Controllers
             {
                 if(model.EmployeeId != null)
                 {
+                    model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
                     DataSet ds = model.updateEmployeeRegistration();
                     if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                     {
