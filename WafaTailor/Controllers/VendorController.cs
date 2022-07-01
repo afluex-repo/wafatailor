@@ -37,7 +37,7 @@ namespace WafaTailor.Controllers
                 model.AddedBy = Session["Pk_userId"].ToString();
                 Random rnd = new Random();
                 string Pass = rnd.Next(111111, 999999).ToString();
-                model.Password = Pass;
+                model.Password =Crypto.Encrypt(Pass);
                 model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
                 DataSet ds = model.VendorRegistration();
                 if (ds != null && ds.Tables.Count > 0)

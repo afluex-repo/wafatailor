@@ -82,42 +82,42 @@
                                         <div class="form-group">
                                             <label class="col-sm-4 col-form-label">Gender<span style="color:red">*</span></label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), new { @class = "form-control"})
+                                                @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
                                     @*<div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">Pin Code<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
-                                                @Html.TextBoxFor(m => m.PinCode, new { @class = "form-control", @placeholder = "Pin Code", @onkeypress = "return isNumberKey(event);", @maxlength = "6" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">State<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
-                                                @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State", })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 col-form-label">City<span style="color:red">*</span></label>
-                                            <div class="col-sm-8">
-                                                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", })
-                                            </div>
-                                        </div>
-                                    </div>*@
-                                    <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="col-sm-4 col-form-label">Profile Pic</label>
+                                                <label class="col-sm-4 col-form-label">Pin Code<span style="color:red">*</span></label>
                                                 <div class="col-sm-8">
-                                                    <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                                                    @Html.TextBoxFor(m => m.PinCode, new { @class = "form-control", @placeholder = "Pin Code", @onkeypress = "return isNumberKey(event);", @maxlength = "6" })
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-form-label">State<span style="color:red">*</span></label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State", })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-form-label">City<span style="color:red">*</span></label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", })
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-form-label">Profile Pic</label>
+                                            <div class="col-sm-8">
+                                                <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-sm-4 col-form-label">Address<span style="color:red">*</span></label>
