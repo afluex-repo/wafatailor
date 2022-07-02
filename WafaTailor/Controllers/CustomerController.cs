@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : UserBaseController
     {
         // GET: Customer
         public ActionResult Index()

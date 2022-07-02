@@ -14,7 +14,7 @@ namespace WafaTailor.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpSessionStateBase session = filterContext.HttpContext.Session;
-            if (session.IsNewSession || Session["AdminID"] == null)
+            if (session.IsNewSession || Session["Pk_EmployeeId"] == null)
             {
                 // filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
                 // new { action = "Login", Controller = "Home" }));

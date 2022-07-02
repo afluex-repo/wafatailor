@@ -25,14 +25,14 @@
         <!-- Sing in  Form -->
         <section class="sign-in">
             <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
+                <div class="signin-conten row">
+                    <div class="col-sm-6 signin-imag margin-top-10 mt-5 mb-5">
                         <figure><img src="~/Assets/Images/signin.jpg" alt="sing up image"></figure>
                         @*<a href="/Home/Sign_up" class="signup-image-link">Create an account</a>*@
                     </div>
-                    <div class="signin-form">
-                        <h2 class="form-title">Login</h2>
-
+                    <div class="col-sm-6 signin_form signin-for">
+                        <div class="ml-25">
+                        <h2 class="form-title mt-5 text-white">Admin Login</h2>
                         @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
                         {
                             <div class="form-group">
@@ -47,19 +47,20 @@
                             </div>
                             <div class="form-group form-button">
 
-                                <input type="submit"  class="btn btn-round btn-primary" value="Login" name="btnlogin" /><br /><br />
+                                <input type="submit" class="btn btn-lg btn-round btn-primary" value="Login" name="btnlogin" /><br /><br />
                                 <span style="color:red;">
                                     @TempData["Login"] 
                                 </span>
                             </div>
                         }
                         <div class="social-login">
-                            <span class="social-label">Or login with</span>
+                            <span class="social-label text-white">Or login with</span>
                             <ul class="socials">
                                 <li><a href="#"><i class="display-flex-center fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="display-flex-center fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="display-flex-center fa fa-google"></i></a></li>
                             </ul>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class MasterController : Controller
+    public class MasterController : AdminBaseController
     {
         // GET: Admin
         public ActionResult Index()
