@@ -319,7 +319,6 @@ E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
 E:\Repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
 E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
-F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\ApplicationInsights.config
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\roslyn\csc.exe
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
