@@ -103,6 +103,8 @@ namespace WafaTailor.Controllers
         public ActionResult VendorListForAdmin(Admin model)
         {
             List<Admin> lst = new List<Admin>();
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             DataSet ds = model.GetVendorList();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {

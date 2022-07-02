@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("EmployeeRegistrationList", "Employee", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
-
    <!-- start page content -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -36,12 +37,38 @@
                             <header>Employee List</header>
                             <span class="text-danger">
                                 @TempData["Employee"]
-                            </span>
-                            
-                            <div class="tools">
+                            </span><div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Login Id </label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label> From Date</label>
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label> To Date</label>
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="form-group">
+                                        <input class="btn btn-success pull-left mt-4" type="submit" value="Search" id="btnSearch" name="btnSearch" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body table-responsive">
@@ -51,10 +78,11 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
-                                        <th>LoginId</th>
-                                        <th>password</th>
+                                        @*<th>LoginId</th>*@
+                                        <th>Name</th>
+                                        <th>Password</th>
+                                        <th>Joining Date</th>
                                         <th>Shop</th>
-                                        <th>Employee Name</th>
                                         <th>Contact Number</th>
                                         <th>DOB</th>
                                         <th>Email-Id</th>
@@ -74,10 +102,11 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.LoginId</td>
+                                                    @*<td>@item.LoginId</td>*@
+                                                    <td>@item.EmployeeDetails</td>
                                                     <td>@item.Password</td>
+                                                    <td>@item.JoiningDate</td>
                                                     <td>@item.ShopName</td>
-                                                    <td>@item.EmployeeName</td>
                                                     <td>@item.ContactNo</td>
                                                     <td>@item.DOB</td>
                                                     <td>@item.Emailid</td>
@@ -106,3 +135,17 @@
     </div>
 }
 
+
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('FromDate'),
+        {
+            // mode: "range"
+        });
+    var f3 = flatpickr(document.getElementById('ToDate'),
+        {
+            // mode: "range"
+        });
+</script>

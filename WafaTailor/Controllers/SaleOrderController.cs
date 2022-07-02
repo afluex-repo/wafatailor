@@ -10,7 +10,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class SaleOrderController : Controller
+    public class SaleOrderController : AdminBaseController
     {
         // GET: SaleOrder
         public ActionResult SaleOrder()

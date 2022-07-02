@@ -77,8 +77,11 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="@Session["Profile"]" />
-                                @*<span class="username username-hide-on-mobile"> Sneha</span>*@
+                                <div class="p-1 profile-img">
+                                    <img src="@Session["Profile"]" class="p-1" style="height:40px;" />
+                                </div>
+                                @*<img alt="" class="img-circle " src="@Session["Profile"]" />
+    <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
@@ -171,6 +174,13 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="/Vendor/VendorRegistration" class="nav-link ">
+                                            <span class="title">
+                                              Vendor Registration
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="/Customer/CustomerRegistration" class="nav-link ">
                                             <span class="title">
                                                 Customer Registration
@@ -179,7 +189,28 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="users"></i>
+                                    <span class="title">Sale Order</span><span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/SaleOrder" class="nav-link ">
+                                            <span class="title">
+                                               Sale Order
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/SaleOrderList" class="nav-link ">
+                                            <span class="title">
+                                                Sale Order List
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>

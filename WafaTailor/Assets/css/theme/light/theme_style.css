@@ -1992,7 +1992,7 @@ form.search-form-opened .btn.submit {
   > img {
   float: left;
   margin-top: -2px;
-  margin-right: 5px;
+  margin-right: 12px;
   height: 29px;
   width:29px;
   display: inline-block;
@@ -6219,6 +6219,12 @@ ul.chat.nice-chat {
 						[14. PROFILE ]
 							
 **************************************************************************/
+.profile-img
+{
+  margin-top:-12px;
+  border-radius:50%;
+  box-shadow:1px 1px 2px;
+}
 
 .doctor-pic {
   padding: 3px;

@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : AdminBaseController
     {
         // GET: Employee
         public ActionResult Index()
@@ -144,13 +144,15 @@ namespace WafaTailor.Controllers
                     obj.EmployeeId = r["Pk_EmployeeId"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.EmployeeName = r["Name"].ToString();
+                    obj.EmployeeDetails = r["EmployeeDetails"].ToString();
                     obj.EmployeeAddress = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
                     obj.ContactNo = r["ContactNo"].ToString();
                     obj.Emailid = r["Emailid"].ToString();
                     obj.Gender = r["Gender"].ToString();
                     obj.Password = r["Password"].ToString();
-                    obj.LoginId = r["LoginId"].ToString();
+                    obj.JoiningDate = r["JoiningDate"].ToString();
+                    //obj.LoginId = r["LoginId"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -167,7 +169,7 @@ namespace WafaTailor.Controllers
             {
                 if(model.EmployeeId != null)
                 {
-                    model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
+                   // model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
                     DataSet ds = model.updateEmployeeRegistration();
                     if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                     {
@@ -271,5 +273,40 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        [ActionName("EmployeeRegistrationList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult EmployeeRegistrationListBy(Employee model)
+        {
+            model.LoginId = model.LoginId == "0" ? null : model.LoginId;
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "MM/dd/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "MM/dd/yyyy");
+            List<Employee> lst = new List<Employee>();
+            DataSet ds = model.GetEmployeeDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.EmployeeId = r["Pk_EmployeeId"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    //obj.EmployeeName = r["Name"].ToString();
+                    obj.EmployeeDetails = r["EmployeeDetails"].ToString();
+                    obj.EmployeeAddress = r["Address"].ToString();
+                    obj.DOB = r["DOB"].ToString();
+                    obj.ContactNo = r["ContactNo"].ToString();
+                    obj.Emailid = r["Emailid"].ToString();
+                    obj.Gender = r["Gender"].ToString();
+                    obj.Password = r["Password"].ToString();
+                    obj.JoiningDate = r["JoiningDate"].ToString();
+                    //obj.LoginId = r["LoginId"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistration = lst;
+            }
+            return View(model);
+        }
+
     }
 }

@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class VendorController : Controller
+    public class VendorController : AdminBaseController
     {
         // GET: Vendor
 
@@ -29,12 +29,16 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                if (Session["Fk_AdminId"] == null)
+                {
+                    return RedirectToAction("Login", "home");
+                }
                 if (postedFile != null)
                 {
                     model.ProfilePic = "../VendorProfilePic/" + Guid.NewGuid() + Path.GetExtension(postedFile.FileName);
                     postedFile.SaveAs(Path.Combine(Server.MapPath(model.ProfilePic)));
                 }
-                model.AddedBy = Session["Pk_userId"].ToString();
+                model.AddedBy = Session["Fk_AdminId"].ToString();
                 Random rnd = new Random();
                 string Pass = rnd.Next(111111, 999999).ToString();
                 model.Password =Crypto.Encrypt(Pass);
@@ -68,7 +72,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                model.AddedBy = Session["Pk_userId"].ToString();
+                model.AddedBy = Session["Fk_AdminId"].ToString();
                 DataSet ds = model.ChangePassword();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -91,7 +95,7 @@ namespace WafaTailor.Controllers
 
         public ActionResult VendorProfile(Vendor model)
         {
-            model.PK_UserId = Session["Pk_userId"].ToString();
+            model.PK_UserId = Session["Fk_AdminId"].ToString();
             DataSet ds = model.GetVendorProfileDetails();
             if (ds != null && ds.Tables.Count > 0)
             {
@@ -112,7 +116,7 @@ namespace WafaTailor.Controllers
         {
             Vendor model = new Vendor();
             List<Vendor> lst = new List<Vendor>();
-            model.PK_UserId = Session["Pk_userId"].ToString();
+            model.PK_UserId = Session["Fk_AdminId"].ToString();
             DataSet ds = model.GetVendorList();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -147,7 +151,7 @@ namespace WafaTailor.Controllers
                 {
                     Vendor model = new Vendor();
                     model.PK_UserId = Id;
-                    model.AddedBy = Session["Pk_userId"].ToString();
+                    model.AddedBy = Session["Fk_AdminId"].ToString();
                     DataSet ds = model.DeleteVendor();
                     if (ds != null && ds.Tables.Count > 0)
                     {
