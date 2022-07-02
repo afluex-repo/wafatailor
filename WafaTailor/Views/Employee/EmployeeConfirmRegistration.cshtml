@@ -4,14 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<<<<<<< HEAD
-
-@{
-    ViewBag.Title = "CustomerConfirmRegistration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
 <!-- start page content -->
     <div class="page-content-wrapper mt-5">
         <div class="page-content">
@@ -54,10 +46,9 @@
                         <h2 class="text-uppercase font-600">Congratulations !!</h2>
                         <img src="~/Assets/Images/user.png" class="pb-3" style="width:25%" />
                         <h4 class="font-600">Employee details has been saved successfully !</h4>
-                        <p>@*User Name- ABCD, <br />*@ Login Id- @Session["EmployeeLoginId"] <br /> 
-                         Password- @Session["EmployeePassword"]</p>
+                        <p>User Name- @Session["EmployeeName"], <br /> User Id- @Session["EmployeeLoginId"] &  Password- @Session["EmployeePassword"]</p>
                         <a href="/Employee/EmployeeRegistration" class="btn btn-circle btn-primary m-b-10">
-                            Back
+                            Go To Back
                         </a>
                     </div>
                 </div>
@@ -75,14 +66,6 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">Registration Successfull</li>
-<<<<<<< HEAD
-                </ul>
-            <span class="pull-right">
-=======
-                </ul>*@
-            @*<span class="pull-right">
->>>>>>> 2fab24d57d716c132feee4c8882cdfecfacca47e
-                <a href="/Employee/EmployeeRegistration" class="btn btn-primary btn-sm" title="Back">Back</a>
             </span>*@
             @*<p style="color: red">
                     @TempData["Shop"]
