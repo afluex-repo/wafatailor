@@ -1,0 +1,157 @@
+﻿@model WafaTailor.Models.Employee
+
+@{
+    ViewBag.Title = "EmployeeRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("EmployeeRegistration", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title"> Employee Registration</div>*@
+                    </div>
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="/Employee/EmployeeDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Registration &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Employee Registration</li>
+                    </ol>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header> Employee Registration</header>
+                            <span class="text-danger">
+                                @TempData["Employee"]
+                            </span>
+                            <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormEmail">Shop Name <span style="color:red">*</span></label>
+                                    @Html.DropDownListFor(m => m.Fk_ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
+                                </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Type <span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.UserTypeId, new SelectList(ViewBag.ddlType, "Value", "Text"), new { @class = "form-control", @placeholder = "Type" })
+                                    </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Employee Name <span style="color:red">*</span></label>
+                                   @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Contact No </label>
+                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="10", @Minlength="10" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Date Of Birth</label>
+                                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true", @Placeholder = "Date of Birth" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Email-Id </label>
+                                    @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="simpleFormPassword">Gender <span style="color:red">*</span></label>
+                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+        {
+                            new SelectListItem() {Text = "Male"},
+                            new SelectListItem() {Text = "Female"}
+        }, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-sm-8">
+                                    <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
+                                    @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
+                                </div>
+                                </div>
+                                @Html.HiddenFor(m=>m.EmployeeId)
+                                @if(Model.EmployeeId != null)
+                                {
+                                <input type="submit" class="btn btn-primary" name="update" value="Update" onclick="return Validateform()">
+                                }
+                                else
+                                {
+                                <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script>
+    $("#DOB").datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: 'true',
+        changeMonth: 'true'
+    })
+</script>
+
+<script>
+    function Validateform()
+    {
+        $("#divload").css({ 'display': '' })
+        $(".errortext").removeClass("errortext");
+
+        if ($("#Fk_ShopId").val() == "0") {
+            $("#Fk_ShopId").addClass('errortext');
+            $("#Fk_ShopId").focus();
+            return false;
+        }
+        if ($("#UserTypeId").val() == "0") {
+            $("#UserTypeId").addClass('errortext');
+            $("#UserTypeId").focus();
+            return false;
+        }
+        if ($("#EmployeeName").val() == "") {
+            $("#EmployeeName").addClass('errortext');
+            $("#EmployeeName").focus();
+            return false;
+        }
+        if ($("#Gender").val() == "0") {
+            $("#Gender").addClass('errortext');
+            $("#Gender").focus();
+            return false;
+        }
+        if ($("#EmployeeAddress").val() == "") {
+            $("#EmployeeAddress").addClass('errortext');
+            $("#EmployeeAddress").focus();
+            return false;
+        }
+
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>

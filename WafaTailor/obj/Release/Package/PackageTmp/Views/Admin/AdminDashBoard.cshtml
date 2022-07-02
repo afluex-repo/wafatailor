@@ -1,0 +1,83 @@
+﻿@model WafaTailor.Models.Admin
+
+@{
+    ViewBag.Title = "AdminDashBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AdminDashBoard", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+<div class="page-content">
+    <div class="page-bar">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+                <div class="page-title">Admin Dashboard</div>
+            </div>
+            @*<ol class="breadcrumb page-breadcrumb pull-right">
+                    <li>
+                        <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">Dashboard</li>
+                </ol>*@
+        </div>
+    </div>
+    <!-- start widget -->
+    <div class="state-overview">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="info-box bg-b-green">
+                    <span class="info-box-icon push-bottom"><i data-feather="users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Employee</span>
+                        <span class="info-box-number">@ViewBag.TotalEmployee</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="info-box bg-b-yellow">
+                    <span class="info-box-icon push-bottom"><i data-feather="user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Customer</span>
+                        <span class="info-box-number">@ViewBag.TotalCustomer</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="info-box bg-b-blue">
+                    <span class="info-box-icon push-bottom"><i data-feather="user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Vendor</span>
+                        <span class="info-box-number">@ViewBag.TotalVendor </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="info-box bg-b-pink">
+                    <span class="info-box-icon push-bottom"><i data-feather="book"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Purchage Order</span>
+                        <span class="info-box-number">0</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+    <!-- end widget -->
+
+
+
+</div>
+}

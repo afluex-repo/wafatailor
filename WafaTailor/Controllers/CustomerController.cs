@@ -70,28 +70,39 @@ namespace WafaTailor.Controllers
         [OnAction(ButtonName = "Save")]
         public ActionResult SaveCustomerRegistration(Customer model)
         {
+           string FormName= "";
+            string Controller = "";
             try
             {
-               //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
                 Random RND = new Random();
                 String pass = RND.Next(111111,999999).ToString();
                 model.Password = Crypto.Encrypt(pass);
+                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
                 DataSet ds = model.CustomerRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        TempData["Customer"] = "Customer Registration Saved Successfully";
+                        //TempData["Customer"] = "Customer Registration Saved Successfully";
+                        //Session["Name"] = ds.Tables[0].Rows[0]["CustomerName"].ToString();
+                        Session["CustomerLoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString(); 
+                        Session["CustomerPassword"] = ds.Tables[0].Rows[0]["Password"].ToString();
+                        FormName = "CustomerConfirmRegistration";
+                        Controller = "Customer";
                     }
                     else
                     {
                         TempData["Customer"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "CustomerRegistration";
+                        Controller = "Customer";
                     }
 
                 }
                 else
                 {
                     TempData["Customer"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "CustomerRegistration";
+                    Controller = "Customer";
                 }
 
             }
@@ -99,7 +110,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Customer"] = ex.Message;
             }
-            return RedirectToAction("CustomerConfirmRegistration", "Customer");
+            return RedirectToAction(FormName,Controller);
         }
 
         public ActionResult CustomerConfirmRegistration()

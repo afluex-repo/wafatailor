@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "VendorRegistration";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("VendorRegistration", "Vendor", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
@@ -15,7 +15,7 @@
                     <div class="pull-left">
                         @* <div class="page-title">Customer Registration</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Vendor/VendorDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -24,7 +24,7 @@
                             Registration &nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Vendor Registration</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
             <div class="row">
