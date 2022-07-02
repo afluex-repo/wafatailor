@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "EmployeeRegistrationList";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("EmployeeRegistrationList", "Employee", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
@@ -37,7 +37,7 @@
                             <span class="text-danger">
                                 @TempData["Employee"]
                             </span>
-                            <a href="/Employee/EmployeeRegistration" class="btn btn-primary pull-right">Back to Registration</a>
+                            
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -45,11 +45,14 @@
                             </div>
                         </div>
                         <div class="card-body table-responsive">
+                            <a href="/Employee/EmployeeRegistration" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back to Registration</a>
                             <table class="table table-striped table-bordered table-hover table-checkable order-column"
                                    style="width: 100%" id="example4">
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
+                                        <th>LoginId</th>
+                                        <th>password</th>
                                         <th>Shop</th>
                                         <th>Employee Name</th>
                                         <th>Contact Number</th>
@@ -71,6 +74,8 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
+                                                    <td>@item.LoginId</td>
+                                                    <td>@item.Password</td>
                                                     <td>@item.ShopName</td>
                                                     <td>@item.EmployeeName</td>
                                                     <td>@item.ContactNo</td>
@@ -82,7 +87,7 @@
                                                         <a href="/Employee/EmployeeRegistration?EmployeeId=@item.EmployeeId" class="tblEditBtn">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a href="/Employee/DeleteEmployeeRegistration?EmployeeId=@item.EmployeeId" class="tblDelBtn" onclick="return confirm('Are you sure you want to delete this employee')">
+                                                        <a href="/Employee/DeleteEmployeeRegistration?EmployeeId=@item.EmployeeId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Employee Details?')">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

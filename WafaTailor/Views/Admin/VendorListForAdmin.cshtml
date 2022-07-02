@@ -15,7 +15,7 @@
                     <div class="pull-left">
                         @* <div class="page-title">Customer List</div>*@
                     </div>
-                    <ol class="breadcrumb page-breadcrumb pull-right">
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                         <li>
                             <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                href="/Admin/AdminDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -24,7 +24,7 @@
                             Reports&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Vendor List</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
 
@@ -45,15 +45,13 @@
                         <div class="card-body table-responsive">
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="col-sm-4 col-form-label">LoginId</label>
-                                        <div class="col-sm-8">
+                                        <label class="col-form-label">LoginId</label>
                                             @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control" })
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 mt-1">
                                     <div class="form-group">
                                             <input type="submit" class="btn btn-primary" name="Search" value="Search" style="margin-top:30px;">
                                     </div>

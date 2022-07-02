@@ -90,7 +90,7 @@ namespace WafaTailor.Controllers
             string Controller = "";
             try
             {
-               
+                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
                 DataSet ds = model.EmployeeRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
@@ -149,6 +149,8 @@ namespace WafaTailor.Controllers
                     obj.ContactNo = r["ContactNo"].ToString();
                     obj.Emailid = r["Emailid"].ToString();
                     obj.Gender = r["Gender"].ToString();
+                    obj.Password = r["Password"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -165,6 +167,7 @@ namespace WafaTailor.Controllers
             {
                 if(model.EmployeeId != null)
                 {
+                    model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
                     DataSet ds = model.updateEmployeeRegistration();
                     if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                     {
@@ -268,8 +271,5 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
-
-
     }
 }
