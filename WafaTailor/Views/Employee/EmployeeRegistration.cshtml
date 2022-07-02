@@ -29,14 +29,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12 col-12">
                     <div class="card card-box">
                         <div class="card-head">
                             <header> Employee Registration</header>
                             <span class="text-danger">
                                 @TempData["Employee"]
                             </span>
-                            <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right">Back to List</a>
+                            <a href="/Employee/EmployeeRegistrationList" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <form>
@@ -68,10 +68,10 @@
                                 <div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Gender <span style="color:red">*</span></label>
                                     @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
-        {
-                            new SelectListItem() {Text = "Male"},
-                            new SelectListItem() {Text = "Female"}
-        }, new { @class = "form-control" })
+                                    {
+                                       new SelectListItem() {Text = "Male"},
+                                       new SelectListItem() {Text = "Female"}
+                                    }, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group col-sm-8">
                                     <label for="simpleFormPassword">Address <span style="color:red">*</span></label>

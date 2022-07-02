@@ -733,7 +733,7 @@ h4.vew-mail-header b {
   position: relative;
 }
 .user-bg .overlay-box {
-  background: #9675ce;
+  background: #7781fd;
   opacity: 0.9;
   top: 0;
   left: 0;
@@ -1199,4 +1199,9 @@ tr.group:hover {
 }
 .col-gray-dark {
   color: #343a40 !important;
+}
+
+.mr-10
+{
+    margin-right:10px;
 }

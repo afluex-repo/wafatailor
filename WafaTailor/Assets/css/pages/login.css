@@ -8,7 +8,10 @@ display-flex,
   display: flex;
   display: -webkit-flex;
 }
-
+.ml-25
+{
+    margin-left:25px;
+}
 list-type-ulli,
 .socials {
   list-style-type: none;
@@ -412,4 +415,14 @@ figure {
   color: rgb(149 149 149);
   font-size: 13px;
   font-weight: 700;
+}
+
+.form-control 
+{
+    width:90% !important;
+}
+
+.signin_form
+{
+    background:#6961b6;
 }

@@ -271,8 +271,5 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
-
-
     }
 }
