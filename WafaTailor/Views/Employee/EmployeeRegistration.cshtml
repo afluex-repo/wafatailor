@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("EmployeeRegistration", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
     <!-- start page content -->
@@ -81,7 +82,7 @@
                                 @Html.HiddenFor(m=>m.EmployeeId)
                                 @if(Model.EmployeeId != null)
                                 {
-                                <input type="submit" class="btn btn-primary" name="update" value="Update" onclick="return Validateform()">
+                                <input type="submit" class="btn btn-primary" name="update" value="Update">
                                 }
                                 else
                                 {
@@ -96,15 +97,18 @@
     </div>
 }
 
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
-    $("#DOB").datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeYear: 'true',
-        changeMonth: 'true'
-    })
+    var f3 = flatpickr(document.getElementById('DOB'),
+        {
+            // mode: "range"
+        });
+    //var f3 = flatpickr(document.getElementById('ToDate'),
+    //    {
+    //        // mode: "range"
+    //    });
 </script>
 
 <script>
