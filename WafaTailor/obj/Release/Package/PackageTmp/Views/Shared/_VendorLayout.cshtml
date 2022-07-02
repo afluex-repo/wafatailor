@@ -77,7 +77,9 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="@Session["Profile"]" />
+                                <div class="p-1 profile-img">
+                                    <img src="@Session["Profile"]" class="p-1" style="height:40px;" />
+                                </div>
                                 @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
@@ -107,7 +109,7 @@
         <!-- start page container -->
         <div class="page-container">
             <!-- start sidebar menu -->
-            <div class="sidebar-container">
+            <div class="sidebar-container" style="display:none">
                 <div class="sidemenu-container navbar-collapse collapse fixed-menu">
                     <div id="remove-scroll" class="left-sidemenu">
                         <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false"
@@ -157,7 +159,7 @@
                                         </li>
                                     </ul>
                                 </li>*@
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
                                     <span class="title">Registration</span><span class="arrow"></span>
@@ -169,7 +171,7 @@
                                                 Vendor Registration
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     @*<li class="nav-item">
                                             <a href="/Customer/CustomerRegistration" class="nav-link ">
                                                 <span class="title">
@@ -177,8 +179,8 @@
                                                 </span>
                                             </a>
                                         </li>*@
-                                </ul>
-                            </li>
+                                @*</ul>
+                            </li>*@
                         </ul>
                     </div>
                 </div>

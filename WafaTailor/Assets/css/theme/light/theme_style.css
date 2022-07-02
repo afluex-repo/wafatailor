@@ -1992,7 +1992,7 @@ form.search-form-opened .btn.submit {
   > img {
   float: left;
   margin-top: -2px;
-  margin-right: 5px;
+  margin-right: 12px;
   height: 29px;
   width:29px;
   display: inline-block;
@@ -4506,9 +4506,14 @@ select.form-control.form-control-sm {
 }
 .input-height {
   height: 45px !important;
+  border-radius:20px;
 }
 .form-control.height-auto {
   height: auto;
+}
+.btn-round
+{
+    border-radius:25px !important;
 }
 .form-horizontal .control-label.small-label {
   float: left;
@@ -6004,6 +6009,7 @@ ul.chat.nice-chat {
   font-size: 17px;
   letter-spacing: 1px;
 }
+
 .card-head header > h1,
 .card-head header > h2,
 .card-head header > h3,
@@ -6213,6 +6219,12 @@ ul.chat.nice-chat {
 						[14. PROFILE ]
 							
 **************************************************************************/
+.profile-img
+{
+  margin-top:-12px;
+  border-radius:50%;
+  box-shadow:1px 1px 2px;
+}
 
 .doctor-pic {
   padding: 3px;
@@ -8842,11 +8854,11 @@ nav-tabs > li {
 }
 .info-box-icon {
   float: left;
-  height: 70px;
-  width: 70px;
+  height: 55px;
+  width: 55px;
   text-align: center;
   font-size: 30px;
-  line-height: 70px;
+  line-height: 50px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 100%;
 }
@@ -9412,4 +9424,11 @@ nav-tabs > li {
 }
 .feedBody li.active-feed .feed-user-img:after {
   border-color: #2ed8b6;
+}
+@media(max-width:600px)
+{
+    .card-head header
+    {
+        font-size:14px !important;
+    }
 }

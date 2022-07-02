@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="assets/css/pages/login.css">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="assets/css/pages/typography.css">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -34,7 +34,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="assets/css/responsive.css">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="assets/css/theme/boxed/images/arrow-down.html">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -91,13 +91,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="assets/css/theme/light/style.css">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="assets/css/theme/light/theme-color.css">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="assets/css/theme/light/theme_style.css">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="assets/css/theme/right/images/arrow-down.html">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -640,13 +640,394 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="bin/WafaTailor.dll">
-      <publishTime>07/01/2022 19:23:21</publishTime>
+      <publishTime>07/02/2022 15:33:58</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>07/01/2022 19:19:05</publishTime>
+    </File>
+    <File Include="plugins/animate/animate.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/apex/apexcharts.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/apex/apexcharts.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/apex/custom-apexcharts.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/autocomplete/autocomplete.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/autocomplete/countries.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/autocomplete/demo.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/autocomplete/jquery.autocomplete.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/autocomplete/jquery.mockjax.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/blockui/custom-blockui.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/blockui/jquery.blockUI.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-maxlength/bootstrap-maxlength.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-maxlength/custom-bs-maxlength.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-range-Slider/bootstrap-rangeSlider.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-range-Slider/bootstrap-slider.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-select/bootstrap-select.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-select/bootstrap-select.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/countdown/jquery.countdown.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/counter/jquery.countTo.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/drag-and-drop/dragula/custom-dragula.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/drag-and-drop/dragula/dragula.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/drag-and-drop/dragula/dragula.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/drag-and-drop/dragula/example.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/dropify.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/dropify.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/fonts/dropify.eot">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/fonts/dropify.svg">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/fonts/dropify.ttf">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/dropify/fonts/dropify.woff">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/markdown/custom-markdown.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/markdown/simplemde.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/markdown/simplemde.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/quill/custom-quill.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/quill/quill.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/editors/quill/quill.snow.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/file-upload/file-upload-with-preview.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/file-upload/file-upload-with-preview.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/flatpickr/custom-flatpickr.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/flatpickr/custom-flatpickr.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/flatpickr/flatpickr.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/flatpickr/flatpickr.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/feather/feather.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/css/fontawesome.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/css/regular.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400.eot">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400.svg">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400.ttf">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400.woff">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400.woff2">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/font-icons/fontawesome/webfonts/fa-regular-400d41d.eot">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/fullcalendar/custom-fullcalendar.advance.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/fullcalendar/custom-fullcalendar.advance.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/fullcalendar/fullcalendar.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/fullcalendar/fullcalendar.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/fullcalendar/moment.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/highlight/highlight.pack.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/highlight/styles/monokai-sublime.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/input-mask/input-mask.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/input-mask/jquery.inputmask.bundle.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-step/custom-jquery.steps.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-step/jquery.steps.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-step/jquery.steps.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_444444_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_555555_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_777620_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_777777_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_cc0000_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/images/ui-icons_ffffff_256x240.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/jquery-ui.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jquery-ui/jquery-ui.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/africa/jquery-jvectormap-africa-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/asia/jquery-jvectormap-asia-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/continents/jquery-jvectormap-continents-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/europe/jquery-jvectormap-europe-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/jquery-jvectormap-2.0.3.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/jquery-jvectormap-2.0.3.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/jvector_script.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/north_america/jquery-jvectormap-north-america-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/oceania/jquery-jvectormap-oceanina-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/south-america/jquery-jvectormap-south-america-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/jvector/worldmap_script/jquery-jvectormap-world-mill-en.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/custom-photswipe.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/custom-photswipe.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/default-skin/default-skin.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/default-skin/default-skin.png">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/default-skin/default-skin.svg">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/default-skin/preloader.gif">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/default-skin/Spinner-1s-200px.gif">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/photoswipe-ui-default.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/photoswipe.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/lightbox/photoswipe.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/loaders/custom-loader.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/notification/snackbar/snackbar.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/notification/snackbar/snackbar.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/noUiSlider/custom-nouiSlider.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/noUiSlider/custom-nouiSlider.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/noUiSlider/nouislider.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/noUiSlider/nouislider.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/perfect-scrollbar/perfect-scrollbar.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/perfect-scrollbar/perfect-scrollbar.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/pricing-table/css/component.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/select2/custom-select2.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/select2/select2.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/select2/select2.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/sweetalerts/custom-sweetalert.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/sweetalerts/promise-polyfill.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/sweetalerts/sweetalert.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/sweetalerts/sweetalert2.min.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/sweetalerts/sweetalert2.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/button-ext/buttons.html5.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/button-ext/buttons.print.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/button-ext/dataTables.buttons.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/button-ext/jszip.min.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/custom_dt_custom.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/custom_dt_html5.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/custom_dt_miscellaneous.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/custom_dt_multiple_tables.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/custom_miscellaneous.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/datatables.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/datatables.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/table/datatable/dt-global_style.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/tagInput/tags-input.css">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/tagInput/tags-input.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
+    </File>
+    <File Include="plugins/treeview/custom-jstree.js">
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="scripts/ai.0.22.9-build00167.js">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -655,19 +1036,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Admin/AdminDashBoard.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 10:16:44</publishTime>
     </File>
     <File Include="Views/Admin/AdminProfile.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Admin/ChangePassword.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Admin/VendorListForAdmin.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Customer/CustomerConfirmRegistration.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Customer/CustomerDashBoard.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -676,28 +1057,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Customer/CustomerRegistration.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Customer/CustomerRegistrationList.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Customer/Index.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Employee/EmployeeChangePassword.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Employee/EmployeeConfirmRegistration.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Employee/EmployeeDashBoard.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Employee/EmployeeRegistration.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Employee/EmployeeRegistrationList.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Employee/Index.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -706,25 +1087,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Master/Index.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Master/Material.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Master/MaterialList.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Master/ShopMaster.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Master/ShopMasterList.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/SaleOrder/SaleOrder.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -733,22 +1114,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Shared/_CustomerLayout.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Shared/_EmployeeLayout.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Shared/_VendorLayout.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Vendor/VendorChangePassword.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/Vendor/VendorDashBoard.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 10:22:13</publishTime>
     </File>
     <File Include="Views/Vendor/VendorList.cshtml">
       <publishTime>07/01/2022 19:19:05</publishTime>
@@ -757,7 +1138,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2022 19:19:05</publishTime>
     </File>
     <File Include="Views/Vendor/VendorRegistration.cshtml">
-      <publishTime>07/01/2022 19:19:05</publishTime>
+      <publishTime>07/02/2022 15:29:57</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>07/01/2022 19:19:05</publishTime>
