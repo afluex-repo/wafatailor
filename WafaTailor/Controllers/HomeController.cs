@@ -44,6 +44,7 @@ namespace WafaTailor.Controllers
                     {
                         Session["Pk_EmployeeId"] = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
                         Session["UsertypeName"] = ds.Tables[0].Rows[0]["UsertypeName"].ToString();
+                        Session["Fk_AdminId"] = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
                         Session["Name"] = ds.Tables[0].Rows[0]["Name"].ToString();
                         Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
                         Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();

@@ -23,7 +23,9 @@ namespace WafaTailor.Models
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string Gender { get; set; }
-        
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+
         public DataSet GetAdminDashBoardDetails()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetAdminDashBoardDetails");
@@ -56,7 +58,9 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@PK_UserId",FK_UserId),
-                 new SqlParameter("@LoginId",LoginId)
+                 new SqlParameter("@LoginId",LoginId),
+                   new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetVendorList", para);
             return ds;

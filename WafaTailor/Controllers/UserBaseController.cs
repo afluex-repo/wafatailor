@@ -15,7 +15,7 @@ namespace WafaTailor.Controllers
             // code involving this.Session // edited to simplify
             HttpSessionStateBase session = filterContext.HttpContext.Session;
             // If the browser session or authentication session has expired...
-            if (session.IsNewSession || Session["UserID"] == null)
+            if (session.IsNewSession || Session["Pk_userId"] == null)
             {
 
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(

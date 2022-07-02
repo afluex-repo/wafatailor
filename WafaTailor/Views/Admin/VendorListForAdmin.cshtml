@@ -4,10 +4,9 @@
     ViewBag.Title = "VendorListForAdmin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@using (Html.BeginForm("VendorListForAdmin", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
-{
-       <!-- start page content -->
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css" />
+      @using (Html.BeginForm("VendorListForAdmin", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" })) { <!-- start page content -->
     <div class="page-content-wrapper">
         <div class="page-content">
             <div class="page-bar">
@@ -45,10 +44,22 @@
                         <div class="card-body table-responsive">
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-lg-4 col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label">LoginId</label>
                                             @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3">
+                                    <div class="form-group">
+                                        <label> From Date</label>
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3">
+                                    <div class="form-group">
+                                        <label> To Date</label>
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mt-1">
@@ -111,4 +122,16 @@
         <!-- end page container -->
 }
 <!-- data tables -->
-
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('FromDate'),
+        {
+            // mode: "range"
+        });
+    var f3 = flatpickr(document.getElementById('ToDate'),
+        {
+            // mode: "range"
+        });
+</script>
