@@ -85,13 +85,14 @@ namespace WafaTailor.Controllers
                     Admin obj = new Admin();
                     obj.FK_UserId = r["PK_UserId"].ToString();
                     obj.LoginId = r["LoginId"].ToString();
-                    obj.Password = r["Password"].ToString();
+                    obj.Password = Crypto.Decrypt(r["Password"].ToString());
                     obj.Name = r["Name"].ToString();
                     obj.Address = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.Email = r["Email"].ToString();
                     obj.Gender = r["Sex"].ToString();
+                    obj.JoiningDate = r["JoiningDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstVendor = lst;
@@ -113,13 +114,14 @@ namespace WafaTailor.Controllers
                     Admin obj = new Admin();
                     obj.FK_UserId = r["PK_UserId"].ToString();
                     obj.LoginId = r["LoginId"].ToString();
-                    obj.Password = r["Password"].ToString();
+                    obj.Password =Crypto.Decrypt(r["Password"].ToString());
                     obj.Name = r["Name"].ToString();
                     obj.Address = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.Email = r["Email"].ToString();
                     obj.Gender = r["Sex"].ToString();
+                    obj.JoiningDate = r["JoiningDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstVendor = lst;

@@ -25,6 +25,8 @@ namespace WafaTailor.Models
         public string Gender { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string JoiningDate { get; set; }
+        
 
         public DataSet GetAdminDashBoardDetails()
         {
