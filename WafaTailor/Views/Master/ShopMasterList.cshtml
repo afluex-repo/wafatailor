@@ -60,7 +60,6 @@
                                             {
                                                 if (Model.lstRegistration != null)
                                                 {
-<<<<<<< HEAD
                                                     int i = 1;
                                                     foreach (var item in Model.lstRegistration)
                                                     {
@@ -79,22 +78,6 @@
                                                         </tr>
                                                         i = i + 1;
                                                     }
-=======
-                                                    <tr>
-                                                        <td>@i</td>
-                                                        <td>@item.ShopName</td>
-                                                        <td>@item.Address</td>
-                                                        <td>
-                                                            <span class="label label-sm label-danger"> Active </span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="tblDelBtn"  onclick="return confirm('Are you sure you want to delete this shop')">
-                                                                <i class="fa fa-trash-o"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    i = i + 1;
->>>>>>> 2fab24d57d716c132feee4c8882cdfecfacca47e
                                                 }
                                             }
                                         </tbody>
