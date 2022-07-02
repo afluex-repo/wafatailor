@@ -149,6 +149,8 @@ namespace WafaTailor.Controllers
                     obj.ContactNo = r["ContactNo"].ToString();
                     obj.Emailid = r["Emailid"].ToString();
                     obj.Gender = r["Gender"].ToString();
+                    obj.Password = r["Password"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;

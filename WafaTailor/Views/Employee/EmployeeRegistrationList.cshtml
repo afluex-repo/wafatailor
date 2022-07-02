@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "EmployeeRegistrationList";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("EmployeeRegistrationList", "Employee", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
@@ -50,6 +50,8 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
+                                        <th>LoginId</th>
+                                        <th>password</th>
                                         <th>Shop</th>
                                         <th>Employee Name</th>
                                         <th>Contact Number</th>
@@ -71,6 +73,8 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
+                                                    <td>@item.LoginId</td>
+                                                    <td>@item.Password</td>
                                                     <td>@item.ShopName</td>
                                                     <td>@item.EmployeeName</td>
                                                     <td>@item.ContactNo</td>

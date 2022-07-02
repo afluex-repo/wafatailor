@@ -1,0 +1,89 @@
+﻿@model WafaTailor.Models.Master
+
+@{
+    ViewBag.Title = "Material";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Material", "Master", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+     <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                       @* <div class="page-title">Material Type</div>*@
+                    </div>
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Master &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Master Type</li>
+                    </ol>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Material Type</header>
+                            <span class="text-danger">
+                                @TempData["Material"]
+                            </span>
+                            <a href="/Master/MaterialList" class="btn btn-primary pull-right">Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="form-group">
+                                    <label for="simpleFormEmail">Material <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.MaterialName, new { @class = "form-control", @Placeholder = "Material Name", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="simpleFormPassword">Material Type <span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.MaterialType, new { @class = "form-control", @Placeholder = "Material Type", @autocomplete = "off" })
+                                </div>
+                                <input type="submit" class="btn btn-primary" name="btnsave" value="Save" onclick="return ValidateMaterial()">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+<script>
+    function ValidateMaterial()
+    {
+        $("#divload").css({ 'display': '' })
+        $(".errortext").removeClass("errortext");
+
+        if ($("#Material").val() == "") {
+            $("#Material").addClass('errortext');
+            $("#Material").focus();
+            return false;
+        }
+
+        if ($("#MaterialName").val() == "") {
+            $("#MaterialName").addClass('errortext');
+            $("#MaterialName").focus();
+            return false;
+        }
+        if ($("#MaterialType").val() == "") {
+            $("#MaterialType").addClass('errortext');
+            $("#MaterialType").focus();
+            return false;
+        }
+    }
+</script>
+
+
+
+
+
+
