@@ -77,7 +77,9 @@
                         <li class="dropdown dropdown-user">
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                data-close-others="true">
-                                <img alt="" class="img-circle " src="@Session["ProfilePic"]" />
+                                <div class="p-1 profile-img">
+                                    <img src="@Session["Profile"]" class="p-1" style="height:40px;" />
+                                </div>
                                 @* <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
