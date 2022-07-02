@@ -26,6 +26,11 @@ namespace WafaTailor.Models
         public string Fk_ShopId { get; set; }
         public string UserTypeId { get; set; }
 
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string JoiningDate { get; set; }
+        public string EmployeeDetails { get; set; }
+
 
         public DataSet EmployeeRegistration()
         {
@@ -49,7 +54,10 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_EmployeeId",EmployeeId)
+                new SqlParameter("@Pk_EmployeeId",EmployeeId),
+                new SqlParameter("@LoginId", LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetEmployeeDetails", para);
             return ds;

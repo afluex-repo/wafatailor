@@ -55,6 +55,7 @@ namespace WafaTailor.Controllers
                     obj.UserID = ds.Tables[0].Rows[0]["PK_UserID"].ToString();
                     obj.FirstName = ds.Tables[0].Rows[0]["FirstName"].ToString();
                     obj.LastName = ds.Tables[0].Rows[0]["LastName"].ToString();
+                    obj.Password = ds.Tables[0].Rows[0]["Password"].ToString();
                     obj.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                     obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
                     obj.ContactNo = ds.Tables[0].Rows[0]["Mobile"].ToString();
@@ -120,6 +121,9 @@ namespace WafaTailor.Controllers
 
         public ActionResult CustomerRegistrationList(Customer model)
         {
+            model.LoginId = model.LoginId == "0" ? null : model.LoginId;
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             List<Customer> lst = new List<Customer>();
             DataSet ds = model.GetCustomerDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
@@ -130,6 +134,9 @@ namespace WafaTailor.Controllers
                     obj.UserID = r["PK_UserID"].ToString();
                     obj.FirstName = r["FirstName"].ToString();
                     obj.LastName = r["LastName"].ToString();
+                    obj.CustomerDetails = r["CustomerDetails"].ToString();
+                    obj.Password = Crypto.Decrypt(r["Password"].ToString());
+                    obj.JoiningDate = r["JoiningDate"].ToString();
                     obj.CustomerAddress = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
                     obj.ContactNo = r["Mobile"].ToString();
@@ -207,6 +214,39 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("CustomerRegistrationList", "Customer");
         }
-        
+
+        [HttpPost]
+        [ActionName("CustomerRegistrationList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult CustomerRegistrationListBy(Customer model)
+        {
+            model.LoginId = model.LoginId == "0" ? null : model.LoginId;
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "MM/dd/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "MM/dd/yyyy");
+            List<Customer> lst = new List<Customer>();
+            DataSet ds = model.GetCustomerDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Customer obj = new Customer();
+                    obj.UserID = r["PK_UserID"].ToString();
+                    //obj.FirstName = r["FirstName"].ToString();
+                    //obj.LastName = r["LastName"].ToString();
+                    obj.CustomerDetails = r["CustomerDetails"].ToString();
+                    obj.Password = Crypto.Decrypt(r["Password"].ToString());
+                    obj.JoiningDate = r["JoiningDate"].ToString();
+                    obj.CustomerAddress = r["Address"].ToString();
+                    obj.DOB = r["DOB"].ToString();
+                    obj.ContactNo = r["Mobile"].ToString();
+                    obj.Emailid = r["Email"].ToString();
+                    obj.Gender = r["Sex"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistration = lst;
+            }
+            return View(model);
+        }
+
     }
 }

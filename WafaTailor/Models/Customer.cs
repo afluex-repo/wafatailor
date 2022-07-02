@@ -21,6 +21,10 @@ namespace WafaTailor.Models
         public string LoginId { get; set; }
         public string Password { get; set; }
 
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string JoiningDate { get; set; }
+        public string CustomerDetails { get; set; }
 
 
         public DataSet CustomerRegistration()
@@ -45,7 +49,11 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@PK_UserID",UserID)
+                new SqlParameter("@PK_UserID",UserID),
+                 new SqlParameter("@LoginId", LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
+
             };
             DataSet ds = DBHelper.ExecuteQuery("GetCustomerDetails", para);
             return ds;

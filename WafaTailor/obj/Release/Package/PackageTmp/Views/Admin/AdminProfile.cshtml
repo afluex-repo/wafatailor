@@ -1,0 +1,118 @@
+﻿@model WafaTailor.Models.Admin
+
+@{
+    ViewBag.Title = "AdminProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AdminProfile", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+     <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @* <div class="page-title">Customer Registration</div>*@
+                    </div>
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                               href="/Admin/AdminDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Profile &nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Admin Profile</li>
+                    </ol>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header> Profile</header>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN PROFILE SIDEBAR -->
+                                        <div class="profile-sidebar">
+                                            <div class="card">
+                                                <div class="card-body no-padding height-10">
+                                                    <div class="row">
+                                                        <div class="profile-userpic">
+                                                            <img src="@ViewBag.ProfilePic" class="img-responsive" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-usertitle m-b-10">
+                                                        <div class="profile-usertitle-name">@ViewBag.loginid</div>
+                                                    </div>
+                                                    <ul class="list-group list-group-unbordered">
+                                                        <li class="list-group-item">
+                                                            <b>Name</b> <a class="pull-right">@ViewBag.Name</a>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Email</b> <a class="pull-right">@ViewBag.Email</a>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Gender</b> <a class="pull-right">@ViewBag.Gender</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END BEGIN PROFILE SIDEBAR -->
+                                        <!-- BEGIN PROFILE CONTENT -->
+                                        <div class="profile-content">
+                                            <div class="row">
+                                                <div class="card">
+                                                    @*<div class="white-box">*@
+                                                    <div class="card-body no-padding height-9">
+                                                        <ul class="list-group list-group-unbordered">
+                                                            <li class="list-group-item">
+                                                                <b>LoginId</b> <a class="pull-right">@ViewBag.LoginId</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Password</b> <a class="pull-right">@ViewBag.Password</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b> Name</b> <a class="pull-right">@ViewBag.Name</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Address</b> <a class="pull-right">@ViewBag.Address</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Date Of Birth</b> <a class="pull-right">@ViewBag.DOB</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Contact Number</b> <a class="pull-right">@ViewBag.ContactNo</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Email</b> <a class="pull-right">@ViewBag.Email</a>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Gender</b> <a class="pull-right">@ViewBag.Gender</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    @*</div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END PROFILE CONTENT -->
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
