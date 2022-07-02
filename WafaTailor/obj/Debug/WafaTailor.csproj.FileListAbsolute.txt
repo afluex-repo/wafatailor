@@ -265,7 +265,6 @@ F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\Sys
 F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
 F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\Ashwani Afluex\repository\wafatailor\wafatailor\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
-E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 E:\Repository\wafatailor\WafaTailor\bin\ApplicationInsights.config
 E:\Repository\wafatailor\WafaTailor\bin\roslyn\csc.exe
 E:\Repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -374,3 +373,4 @@ E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.WebH
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
+E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
