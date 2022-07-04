@@ -510,6 +510,7 @@
     <Content Include="plugins\font-icons\fontawesome\webfonts\fa-regular-400.woff2" />
     <Content Include="plugins\font-icons\fontawesome\webfonts\fa-regular-400d41d.eot" />
     <None Include="Properties\PublishProfiles\WafaTailor.pubxml" />
+    <Content Include="Views\SaleOrder\PrintSaleOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

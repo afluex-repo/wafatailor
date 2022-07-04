@@ -10,6 +10,7 @@ namespace WafaTailor.Models
     public class SaleOrder
     {
         public List<SaleOrder> lstRegistration { get; set; }
+        public List<SaleOrder> lstsaleorder { get; set; }
         public string SaleOrderId { get; set; }
         public string Fk_UserId { get; set; }
         public string Fk_ShopeId { get; set; }
@@ -24,6 +25,10 @@ namespace WafaTailor.Models
         public string Email { get; set; }
         public string Mobile { get; set; }
         public DataTable dtSaleOrderDetails { get; set; }
+
+        public DataTable CustomerName { get; set; }
+        public DataTable CustomerAddress { get; set; }
+        public DataTable SalesOrderNo { get; set; }
 
         public DataSet SaveSaleOrderDetails()
         {
@@ -56,6 +61,16 @@ namespace WafaTailor.Models
                 new SqlParameter("@Pk_SaleOrderDetailsId",SaleOrderId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
+            return ds;
+        }
+
+        public DataSet PrintSO()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_UserId", SalesOrderNo)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder",para);
             return ds;
         }
     }

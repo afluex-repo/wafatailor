@@ -1,0 +1,115 @@
+﻿@model WafaTailor.Models.SaleOrder
+
+@{
+    ViewBag.Title = "PrintSaleOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-wrapper">
+        <div class="page-container">
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <div class="page-title-breadcrumb">
+                            <div class="pull-left">
+                                <div class="page-title">Sale Order Receipt</div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="white-box">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="pull-left">
+                                                <address>
+                                                    <img src="~/assets/Images/logo.png" alt="logo"
+                                                         class="logo-default" height="40" />
+                                                    <p class="text-muted m-l-5">
+                                                        Wafa Tailor, <br>  Doha-Qatar<br />
+                                                        P.O. Box: 45134,<br />Tel/Fax: 44442464,
+                                                        <br />Mob: 66630898
+                                                    </p>
+                                                </address>
+                                            </div>
+                                            <div class="pull-right text-right">
+                                                <address>
+                                                    <p class="font-bold addr-font-h4">Jayesh Patel</p>
+                                                    <p class="text-muted m-l-30">
+                                                        207, Prem Sagar Appt., <br> Near Income Tax Office, <br>
+                                                        Ashram Road, <br> Ahmedabad - 380057
+                                                    </p>
+                                                    <p class="m-t-30">
+                                                        <b>Receipt Date :</b> <i class="fa fa-calendar"></i> 14th
+                                                        July 2017
+                                                    </p>
+                                                    <p>
+                                                        <b>Course :</b> Engineering
+                                                    </p>
+                                                </address>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive m-t-40">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Sr.No.</th>
+                                                            <th class="text-right">Payment</th>
+                                                            <th class="text-right">Material</th>
+                                                            <th class="text-right">Date</th>
+                                                            <th class="text-right">Invoice number</th>
+                                                            <th class="text-right">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center">1</td>
+                                                            <td class="text-right">Annual Fees</td>
+                                                            <td class="text-right">Yearly</td>
+                                                            <td class="text-right">2016-11-19</td>
+                                                            <td class="text-right">#IN-345609865</td>
+                                                            <td class="text-right">$100</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-center">2</td>
+                                                            <td class="text-right">Tuition Fees</td>
+                                                            <td class="text-right">Monthly</td>
+                                                            <td class="text-right">2016-11-19</td>
+                                                            <td class="text-right">#IN-345604565</td>
+                                                            <td class="text-right">$50</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="pull-right m-t-30 text-right">
+                                                <p>Total amount: $150</p>
+                                                <p>Discount : $10 </p>
+                                                <p>Tax (10%) : $14 </p>
+                                                <hr>
+                                                <h3><b>Total :</b> $164</h3>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <hr>
+                                            <div class="text-right">
+                                                <button class="btn btn-danger" type="submit"> Proceed to payment </button>
+                                                <button onclick="javascript:window.print();"
+                                                        class="btn btn-default btn-outline" type="button">
+                                                    <span>
+                                                        <i class="fa fa-print"></i> Print
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+      </div>
+</div>
+   

@@ -124,5 +124,72 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult PrintSaleOrder()
+        {
+            return View();
+        }
+
+        #region PrintSaleOrder
+
+        public ActionResult PrintSO(string SaleOrderId, string no)
+        {
+            SaleOrder model = new SaleOrder();
+            List<SaleOrder> lstSaleOrderDetails = new List<SaleOrder>();
+
+            //ViewBag.CompanyName = CompanyProfile.CompanyName;
+            //ViewBag.CompanyMobile = CompanyProfile.CompanyMobile;
+            //ViewBag.CompanyEmail = CompanyProfile.CompanyEmail;
+            //ViewBag.CompanyAddress = CompanyProfile.CompanyAddress;
+            //ViewBag.BankName = CompanyProfile.BankName;
+            //ViewBag.AccountNo = CompanyProfile.AccountNo;
+            //ViewBag.IFSC = CompanyProfile.IFSC;
+
+            model.SalesOrderNo = Crypto.Decrypt(no);
+            DataSet ds = model.PrintSO();
+            model.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+            model.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+            //ViewBag.SaleOrderDate = ds.Tables[0].Rows[0]["SalesOrderDate"].ToString();
+
+
+            if (ds != null && ds.Tables[1].Rows.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                ViewBag.FinalAmount = 0;
+                ViewBag.CGST = ViewBag.SGST = ViewBag.IGST = 0;
+                ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["CustomerAddress"].ToString();
+                ViewBag.InvoiceNumber = ds.Tables[0].Rows[0]["SalesOrderNo"].ToString();
+                foreach (DataRow r in ds.Tables[1].Rows)
+                {
+                    SaleOrder obj = new SaleOrder();
+                    obj.Description = r["Description"].ToString();
+                    obj.HSNCode = r["HSNCode"].ToString();
+                    obj.Width = r["Width"].ToString();
+                    obj.Height = r["Height"].ToString();
+                    obj.Area = r["Area"].ToString();
+                    obj.Quantity = r["Quantity"].ToString();
+                    obj.Rate = r["Rate"].ToString();
+                    obj.TotalAmount = r["TotalAmount"].ToString();
+                    ViewBag.HSNCode = r["HSNCode"].ToString();
+                    ViewBag.AmountInWords = r["FinalAmountWords"].ToString();
+                    ViewBag.Rate = r["Rate"].ToString();
+                    ViewBag.CGST = Math.Round(Convert.ToDecimal(ViewBag.CGST) + Convert.ToDecimal(r["CGSTAmt"].ToString()), 2);
+                    ViewBag.SGST = Math.Round(Convert.ToDecimal(ViewBag.SGST) + Convert.ToDecimal(r["SGSTAmt"].ToString()), 2);
+                    ViewBag.IGST = Math.Round(Convert.ToDecimal(ViewBag.IGST) + Convert.ToDecimal(r["IGSTAmt"].ToString()), 2);
+
+                    ViewBag.FinalAmount = Convert.ToDecimal(ViewBag.FinalAmount) + Convert.ToDecimal(r["FinalAmount"].ToString());
+                    //ViewBag.FinalAmountGST = Convert.ToDecimal(ViewBag.FinalAmount) + Convert.ToDecimal(ViewBag.SGST) + Convert.ToDecimal(ViewBag.CGST) + Convert.ToDecimal(ViewBag.IGST);
+
+                    ViewBag.CentralTax = (Convert.ToDecimal(ViewBag.FinalAmount) * 9 / 100);
+                    ViewBag.StateTax = (Convert.ToDecimal(ViewBag.FinalAmount) * 9 / 100);
+                    ViewBag.TotalTax = Convert.ToDecimal(ViewBag.CentralTax) + Convert.ToDecimal(ViewBag.StateTax);
+
+                    lstSaleOrderDetails.Add(obj);
+                }
+                model.lstsaleorder = lstSaleOrderDetails;
+            }
+            return View(model);
+        }
+
+        #endregion
     }
 }
