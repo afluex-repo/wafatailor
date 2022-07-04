@@ -39,7 +39,7 @@
     <link href="~/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
     <!-- favicon -->
-  
+
     <style>
         .errortext {
             border: 2px solid red;
@@ -81,7 +81,7 @@
                                     <img src="@Session["Profile"]" class="p-1" style="height:40px;" />
                                 </div>
                                 @*<img alt="" class="img-circle " src="@Session["Profile"]" />
-    <span class="username username-hide-on-mobile"> Sneha</span>*@
+                                    <span class="username username-hide-on-mobile"> Sneha</span>*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
@@ -174,6 +174,13 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="/Vendor/VendorRegistration" class="nav-link ">
+                                            <span class="title">
+                                                Vendor Registration
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="/Customer/CustomerRegistration" class="nav-link ">
                                             <span class="title">
                                                 Customer Registration
@@ -182,7 +189,28 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="users"></i>
+                                    <span class="title">Sale Order</span><span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/SaleOrder" class="nav-link ">
+                                            <span class="title">
+                                                Sale Order
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/SaleOrderList" class="nav-link ">
+                                            <span class="title">
+                                                Sale Order List
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
@@ -192,7 +220,7 @@
                                     <li class="nav-item">
                                         <a href="/Admin/VendorListForAdmin" class="nav-link ">
                                             <span class="title">
-                                              Vendor List
+                                                Vendor List
                                             </span>
                                         </a>
                                     </li>
@@ -205,41 +233,41 @@
             <!-- end sidebar menu -->
             <!-- start page content -->
             <div class="page-content-wrapper">
-               @RenderBody()
+                @RenderBody()
             </div>
             <!-- end page container -->
             <!-- start footer -->
             <div class="page-footer">
                 <div class="page-footer-inner">
-                    2022 &copy; Wafa Tailor. All Rights Reserved || Developed by 
+                    2022 &copy; Wafa Tailor. All Rights Reserved || Developed by
                     <a href="http://afluex.com/" target="blank" class="makerCss">Afluex Multiservices LLP.</a>
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
                 </div>
-            </div> 
+            </div>
             <!-- end footer -->
         </div>
-     </div>
-        <!-- start js include path -->
-        <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="~/assets/plugins/popper/popper.js"></script>
-        <script src="~/assets/plugins/jquery-blockui/jquery.blockui.min.js"></script>
-        <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-        <script src="~/assets/plugins/feather/feather.min.js"></script>
-        <!-- bootstrap -->
-        <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-        <!-- data tables -->
-        <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
-        <script src="~/assets/js/pages/table/table_data.js"></script>
-        <script src="~/assets/plugins/sparkline/jquery.sparkline.js"></script>
-        <script src="~/assets/js/pages/sparkline/sparkline-data.js"></script>
-        <!-- Common js-->
-        <script src="~/assets/js/app.js"></script>
-        <script src="~/assets/js/layout.js"></script>
-        <!-- material -->
-        <script src="~/assets/plugins/material/material.min.js"></script>
+    </div>
+    <!-- start js include path -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="~/assets/plugins/popper/popper.js"></script>
+    <script src="~/assets/plugins/jquery-blockui/jquery.blockui.min.js"></script>
+    <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/assets/plugins/feather/feather.min.js"></script>
+    <!-- bootstrap -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- data tables -->
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
+    <script src="~/assets/js/pages/table/table_data.js"></script>
+    <script src="~/assets/plugins/sparkline/jquery.sparkline.js"></script>
+    <script src="~/assets/js/pages/sparkline/sparkline-data.js"></script>
+    <!-- Common js-->
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/assets/js/layout.js"></script>
+    <!-- material -->
+    <script src="~/assets/plugins/material/material.min.js"></script>
 </body>
 </html>
