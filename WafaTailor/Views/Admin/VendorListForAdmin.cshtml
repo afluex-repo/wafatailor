@@ -4,26 +4,29 @@
     ViewBag.Title = "VendorListForAdmin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css" />
-      @using (Html.BeginForm("VendorListForAdmin", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" })) { <!-- start page content -->
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@using (Html.BeginForm("VendorListForAdmin", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+{
+   <!-- start page content -->
     <div class="page-content-wrapper">
         <div class="page-content">
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        @* <div class="page-title">Customer List</div>*@
                     </div>
                     @*<ol class="breadcrumb page-breadcrumb pull-right">
-                        <li>
-                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                                                               href="/Admin/AdminDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            Reports&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li class="active">Vendor List</li>
-                    </ol>*@
+                            <li>
+                                <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                                   href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                Registration&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="active">Customer List</li>
+                        </ol>*@
                 </div>
             </div>
 
@@ -31,22 +34,22 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Vendor List</header>
+                            <header>Customer List</header>
                             <span class="text-danger">
-                                @TempData["Vendor"]
+                                @TempData["Customer"]
                             </span>
+
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                             </div>
                         </div>
-                        <div class="card-body table-responsive">
-
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
-                                        <label>LoginId</label>
+                                        <label class="col-form-label">LoginId</label>
                                             @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control" })
                                     </div>
                                 </div>
@@ -79,6 +82,7 @@
                                         <th>Email</th>
                                         <th>Mobile</th>
                                         <th>Address</th>
+                                        <th>Date</th>
                                         @*<th>Actions</th>*@
                                     </tr>
                                 </thead>
@@ -98,14 +102,15 @@
                                                     <td>@item.Email</td>
                                                     <td>@item.Mobile</td>
                                                     <td>@item.Address</td>
+                                                    <td>@item.JoiningDate</td>
                                                     @*<td>
-                                                            <a href="/Customer/CustomerRegistration?CustomerId=@item.CustomerId" class="tblEditBtn">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                            <a href="/Customer/DeleteCustomerRegistration?CustomerId=@item.CustomerId" class="tblDelBtn">
-                                                                <i class="fa fa-trash-o"></i>
-                                                            </a>
-                                                        </td>*@
+                                <a href="/Customer/CustomerRegistration?CustomerId=@item.CustomerId" class="tblEditBtn">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="/Customer/DeleteCustomerRegistration?CustomerId=@item.CustomerId" class="tblDelBtn">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>*@
                                                 </tr>
                                                 i = i + 1;
                                             }
@@ -119,19 +124,19 @@
             </div>
         </div>
     </div>
-        <!-- end page container -->
+            <!-- end page container -->
 }
-<!-- data tables -->
+
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
-    var f3 = flatpickr(document.getElementById('FromDate'),
-        {
-            // mode: "range"
-        });
-    var f3 = flatpickr(document.getElementById('ToDate'),
-        {
-            // mode: "range"
-        });
+        var f3 = flatpickr(document.getElementById('FromDate'),
+            {
+                // mode: "range"
+            });
+        var f3 = flatpickr(document.getElementById('ToDate'),
+            {
+                // mode: "range"
+            });
 </script>
