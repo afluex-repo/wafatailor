@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class CustomerController : UserBaseController
+    public class CustomerController : Controller
     {
         // GET: Customer
         public ActionResult Index()
@@ -20,7 +20,6 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-
         public ActionResult CustomerProfile(Customer model)
         {
             model.LoginId = Session["LoginId"].ToString();
@@ -39,9 +38,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
-
-
         public ActionResult CustomerRegistration(String UserID)
         {
             Customer obj = new Customer();
@@ -65,7 +61,6 @@ namespace WafaTailor.Controllers
             }
             return View(obj);
         }
-
         [HttpPost]
         [ActionName("CustomerRegistration")]
         [OnAction(ButtonName = "Save")]
@@ -113,12 +108,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName,Controller);
         }
-
         public ActionResult CustomerConfirmRegistration()
         {
             return View();
         }
-
         public ActionResult CustomerRegistrationList(Customer model)
         {
             model.LoginId = model.LoginId == "0" ? null : model.LoginId;
@@ -148,7 +141,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         [HttpPost]
         [ActionName("CustomerRegistration")]
         [OnAction(ButtonName = "update")]
@@ -188,7 +180,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("CustomerRegistration", "Customer");
         }
-
         public ActionResult DeleteCustomerRegistration(string UserID)
         {
             Customer obj = new Customer();
@@ -214,7 +205,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("CustomerRegistrationList", "Customer");
         }
-
         [HttpPost]
         [ActionName("CustomerRegistrationList")]
         [OnAction(ButtonName = "btnSearch")]
