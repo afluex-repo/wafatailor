@@ -46,7 +46,7 @@
                                 <div class="col-md-3" style="display:none;" id="divuserid">
                                     <div class="form-group">
                                         <label><b>UserId</b>  </label><br />
-                                        <label id="txtFk_UserId">  </label>
+                                        <label id="txtFk_UserId"></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3"  style="display:none;" id="divname">
@@ -216,6 +216,8 @@
 
             debugger
             var formData = new FormData();
+            Fk_UserId= $("#txtFk_UserId").text();
+            formData.append("Fk_UserId", Fk_UserId);
             formData.append("SaleorderdataValue", JSON.stringify(Saleorderdata));
             $.ajax({
                 type: 'POST',
