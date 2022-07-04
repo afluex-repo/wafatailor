@@ -64,14 +64,14 @@ namespace WafaTailor.Models
             return ds;
         }
 
-        public DataSet PrintSO()
-        {
-            SqlParameter[] para =
-            {
-                new SqlParameter("@PK_UserId", SalesOrderNo)
-            };
-            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder",para);
-            return ds;
-        }
+        //public DataSet PrintSO()
+        //{
+        //    SqlParameter[] para =
+        //    {
+        //        new SqlParameter("@PK_UserId", SalesOrderNo)
+        //    };
+        //    DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder",para);
+        //    return ds;
+        //}
     }
 }
