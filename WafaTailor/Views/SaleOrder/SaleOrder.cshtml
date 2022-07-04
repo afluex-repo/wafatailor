@@ -33,14 +33,14 @@
                         <div class="card-head">
                             <header>Sale Order</header>
                             <span style="color:red;">@TempData["SaleOrder"]</span>
-                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right">Back to List</a>
+                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right mt-1 mb-1 mr-10"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label><b>LoginId</b></label><br />
-                                        @Html.TextBoxFor(m => m.LoginId, new { @placeholder = "LoginId", @onchange = "return GetUserDetails();" })
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "LoginId", @onchange = "return GetUserDetails();" })
                                     </div>
                                 </div>
                                 <div class="col-md-3" style="display:none;" id="divuserid">
