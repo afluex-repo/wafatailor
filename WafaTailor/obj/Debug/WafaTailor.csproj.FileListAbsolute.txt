@@ -369,7 +369,6 @@ E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\Newtonsoft.Json.xml
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.xml
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
-E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
 F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
