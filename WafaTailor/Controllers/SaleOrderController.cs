@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WafaTailor.Filter;
 using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
@@ -154,5 +155,74 @@ namespace WafaTailor.Controllers
 
                 return View(model);
         }
+
+       
+
+        //public ActionResult GenerateInvoice()
+        //{
+        //    SaleOrder obj = new SaleOrder();
+        //    List<SaleOrder> lst = new List<SaleOrder>();
+
+        //    DataSet ds = obj.GetInvoiceNoList();
+        //    if (ds != null && ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        foreach (DataRow dr in ds.Tables[0].Rows)
+        //        {
+        //            SaleOrder objInvoice = new SaleOrder();
+
+        //            //objInvoice.PK_InvoiceNoID = Crypto.Encrypt(dr["PK_InvoiceNoID"].ToString());
+        //            //objInvoice.SaleOrderNoEncrypt = Crypto.Encrypt(dr["InvoiceNo"].ToString());
+        //            //objInvoice.InvoiceNo = dr["InvoiceNo"].ToString();
+        //            //objInvoice.InvoiceDate = dr["InvoiceDate"].ToString();
+        //            //objInvoice.LineStatus = dr["Status"].ToString();
+
+        //            lst.Add(objInvoice);
+        //        }
+        //        obj.lstInvoiceNo = lst;
+        //    }
+        //    return View(obj);
+        //}
+
+        //[HttpPost]
+        //[ActionName("GenerateInvoice")]
+        //[OnAction(ButtonName = "btnGenerateInvoiceNo")]
+        //public ActionResult GenerateInvoiceNo(SaleOrder model)
+        //{
+        //    try
+        //    {
+        //        model.AddedBy = Session["UserID"].ToString();
+        //        DataSet ds = model.GenerateInvoiceNo();
+        //        if (ds != null && ds.Tables[0].Rows.Count > 0)
+        //        {
+        //            if (ds.Tables[0].Rows[0][0].ToString() == "1")
+        //            {
+        //                TempData["Class"] = "alert alert-success";
+        //                TempData["InvoiceNo"] = "Invoice Number generated successfully";
+        //            }
+        //            else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+        //            {
+        //                TempData["Class"] = "alert alert-danger";
+        //                TempData["InvoiceNo"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["Class"] = "alert alert-danger";
+        //        TempData["InvoiceNo"] = "ERROR : " + ex.Message;
+        //    }
+        //    return RedirectToAction("InvoiceNo");
+        //}
+
+        //public ActionResult GenerateBill(string invid, string no)
+        //{
+        //    SaleOrder model = new Models.SaleOrder();
+        //    model.PK_InvoiceNoID = Crypto.Decrypt(invid);
+        //    model.InvoiceNo = Crypto.Decrypt(no);
+
+        //    return View(model);
+        //}
+
+
     }
 }
