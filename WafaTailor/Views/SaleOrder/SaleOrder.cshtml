@@ -13,103 +13,92 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        @*<div class="page-title">Customer Registration</div>*@
                     </div>
-                    @*<ol class="breadcrumb page-breadcrumb pull-right">
-                        <li>
-                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                                                               href="#">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            Sale Order &nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li class="active">Sale Order</li>
-                    </ol>*@
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="card card-box">
-                        <div class="card-head">
-                            <header>Sale Order</header>
-                            <span style="color:red;">@TempData["SaleOrder"]</span>
-                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
-                        </div>
-                        <div class="card-body" id="bar-parent">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label><b>LoginId</b></label><br />
-                                        @Html.TextBoxFor(m => m.LoginId, new {@class="form-control", @placeholder = "LoginId", @onchange = "return GetUserDetails();" })
-                                    </div>
-                                </div>
-                                <div class="col-md-3" style="display:none;" id="divuserid">
-                                    <div class="form-group">
-                                        <label><b>UserId</b>  </label><br />
-                                        <label id="txtFk_UserId">  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divname">
-                                    <div class="form-group">
-                                        <label><b>Name</b>  </label><br />
-                                        <label id="txtName">  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divemail">
-                                    <div class="form-group">
-                                        <label><b>Email</b>   </label><br />
-                                        <label id="txtEmail">  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divmobile">
-                                    <div class="form-group">
-                                        <label><b>Mobile</b> </label><br />
-                                        <label id="txtMobile">  </label>
-                                    </div>
-                                </div>
-                                <br /><br /><br />
-                                <div class="col-md-12"   style="display:none;" id="divorderdetails">
-                                    <div class="table-responsive text-nowrap">
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Description<span style="color: red">*</span> </th>
-                                                    <th>Amount<span style="color: red">*</span> </th>
-                                                    <th>Delivery Date<span style="color: red">*</span> </th>
-                                                    <th>Action<span style="color: red">*</span> </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="TextBoxContainer">
-                                                <tr class="Saleordercontainer" id="Saleorderrow">
-                                                    <td>
-                                                        @Html.TextAreaFor(m => m.Description, new { @class = "Description form-control", @Placeholder = "Description" })
-
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(m => m.Amount, new { @class = "Amount form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
-
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "DeliveryDate form-control", @Placeholder = "dd/mm/yyyy", @readonly = true })
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="button" id="addSaleOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn btn-primary" />
-                                                    </td>
-                                                </tr>
-                                        </table>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card card-box">
+                            <div class="card-head">
+                                <header>Sale Order</header>
+                                <span style="color:red;">@TempData["SaleOrder"]</span>
+                                <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                             </div>
-                            <br />
-                            <div id="SaleOrdertable">
-                                <table class="table  table-striped table-bordered" id="SaleOrderDetails"></table>
-                                <span id="SaleOrderDetailsError" style="color:red"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input class="btn btn-primary btn-lg pull-left" type="submit" value="Save" id="btnfinalsubmit" name="Save" />
+                            <div class="card-body" id="bar-parent">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label><b>LoginId</b></label><br />
+                                            @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "LoginId", @onchange = "return GetUserDetails();" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="display:none;" id="divuserid">
+                                        <div class="form-group">
+                                            <label><b>UserId</b>  </label><br />
+                                            <label id="txtFk_UserId">  </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="display:none;" id="divname">
+                                        <div class="form-group">
+                                            <label><b>Name</b>  </label><br />
+                                            <label id="txtName">  </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="display:none;" id="divemail">
+                                        <div class="form-group">
+                                            <label><b>Email</b>   </label><br />
+                                            <label id="txtEmail">  </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="display:none;" id="divmobile">
+                                        <div class="form-group">
+                                            <label><b>Mobile</b> </label><br />
+                                            <label id="txtMobile">  </label>
+                                        </div>
+                                    </div>
+                                    <br /><br /><br />
+                                    <div class="col-md-12" style="display:none;" id="divorderdetails">
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Description<span style="color: red">*</span> </th>
+                                                        <th>Amount<span style="color: red">*</span> </th>
+                                                        <th>Delivery Date<span style="color: red">*</span> </th>
+                                                        <th>Action<span style="color: red">*</span> </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="TextBoxContainer">
+                                                    <tr class="Saleordercontainer" id="Saleorderrow">
+                                                        <td>
+                                                            @Html.TextAreaFor(m => m.Description, new { @class = "Description form-control", @Placeholder = "Description" })
+
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => m.Amount, new { @class = "Amount form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
+
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "DeliveryDate form-control", @Placeholder = "dd/mm/yyyy", @readonly = true })
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="button" id="addSaleOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn btn-primary" />
+                                                        </td>
+                                                    </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="SaleOrdertable">
+                                    <table class="table table-striped table-bordered" id="SaleOrderDetails"></table>
+                                    <span id="SaleOrderDetailsError" style="color:red"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="btn btn-primary btn-lg pull-left" type="submit" value="Save" id="btnfinalsubmit" name="Save" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +144,7 @@
                 var $newRow = $('#Saleorderrow').clone().removeAttr('id');
                 $('.Description', $newRow).removeClass('errortext').prop('disabled', true).val($('#Description').val());
                 $('.Amount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Amount').val());
-                $('.DeliveryDate', $newRow).removeClass('errortext').prop('disabled', true).val($('#DeliveryDate').val());              
+                $('.DeliveryDate', $newRow).removeClass('errortext').prop('disabled', true).val($('#DeliveryDate').val());
                 //Replace add button with remove button
                 $('#addSaleOrder', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-success');
                 //remove id attribute from new clone row
