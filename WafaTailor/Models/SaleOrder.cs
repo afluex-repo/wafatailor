@@ -9,7 +9,10 @@ namespace WafaTailor.Models
 {
     public class SaleOrder
     {
+        public List<SaleOrder> lstInvoiceNo { get; set; }
         public List<SaleOrder> lstRegistration { get; set; }
+        public List<SaleOrder> lstsaleorder { get; set; }
+        public List<SaleOrder> lstCompaign { get; set; }
         public string SaleOrderId { get; set; }
         public string Fk_UserId { get; set; }
         public string Fk_ShopeId { get; set; }
@@ -25,6 +28,18 @@ namespace WafaTailor.Models
         public string Mobile { get; set; }
         public DataTable dtSaleOrderDetails { get; set; }
 
+        public DataTable CustomerName { get; set; }
+        public DataTable CustomerAddress { get; set; }
+        
+        //public string InvoiceNo { get; set; }
+        //public string PK_InvoiceNoID { get; set; }
+        //public string InvoiceDate { get; set; }
+        //public string LineStatus { get; set; }
+        //public string SaleOrderNo { get; set; }
+
+
+        public string SaleOrderNoEncrypt { get; set; }
+
         public DataSet SaveSaleOrderDetails()
         {
             SqlParameter[] para =
@@ -34,7 +49,7 @@ namespace WafaTailor.Models
                    new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
                  new SqlParameter("@AddedBy",AddedBy)
             };
-            DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
+              DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
             return ds;
         }
 
@@ -58,5 +73,31 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
             return ds;
         }
+
+        public DataSet PrintSO()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SaleOrderId", SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder", para);
+            return ds;
+        }
+
+        //public DataSet GenerateInvoiceNo()
+        //{
+        //    SqlParameter[] para = { new SqlParameter("@AddedBy", AddedBy), };
+        //    DataSet ds = DBHelper.ExecuteQuery("GenerateInvoiceNo", para);
+        //    return ds;
+        //}
+
+        //public DataSet GetInvoiceNoList()
+        //{
+        //    SqlParameter[] para = { new SqlParameter("@InvoiceNo", InvoiceNo), };
+        //    DataSet ds = DBHelper.ExecuteQuery("GetInvoiceNoList", para);
+        //    return ds;
+        //}
+
+       
     }
 }
