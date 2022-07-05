@@ -49,6 +49,9 @@ namespace WafaTailor.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
                         TempData["Vendor"] = "Vendor Registration Successfully!";
+                        Session["Name"] = ds.Tables[0].Rows[0]["VendorName"].ToString();
+                        Session["VendorLoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                        Session["VendorPassword"] = Crypto.Decrypt(ds.Tables[0].Rows[0]["Password"].ToString());
                     }
                     else
                     {
@@ -60,7 +63,7 @@ namespace WafaTailor.Controllers
             {
                 TempData["Vendor"] = ex.Message;
             }
-            return RedirectToAction("VendorRegistration", "Vendor");
+            return RedirectToAction("VendorConfirmRegistration", "Vendor");
         }
 
         public ActionResult VendorChangePassword()
@@ -171,6 +174,11 @@ namespace WafaTailor.Controllers
                 TempData["Vendor"] = ex.Message;
             }
             return RedirectToAction("VendorList", "Vendor");
+        }
+
+        public ActionResult VendorConfirmRegistration()
+        {
+            return View();
         }
     }
 }
