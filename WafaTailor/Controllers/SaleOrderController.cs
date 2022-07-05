@@ -124,5 +124,35 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult PrintSaleOrder(string SaleOrderId)
+        {
+            List<SaleOrder> lstSaleOrderDetails = new List<SaleOrder>();
+            SaleOrder model = new SaleOrder();
+            model.SaleOrderId = SaleOrderId;
+            DataSet ds = model.PrintSO();
+            if (ds !=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+            }
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[1].Rows)
+                {
+                    model.Description = ds.Tables[0].Rows[0]["Description"].ToString();
+                    model.Amount = ds.Tables[0].Rows[0]["Amount"].ToString();
+                    model.OrderDate = ds.Tables[0].Rows[0]["OrderDate"].ToString();
+                    model.DeliveryDate = ds.Tables[0].Rows[0]["DeliveryDate"].ToString();
+                    lstSaleOrderDetails.Add(model);
+                }
+                model.lstsaleorder = lstSaleOrderDetails;
+                //ViewBag.Amount = double.Parse(ds.Tables[1].Compute("sum(Amount)", "").ToString()).ToString("n2");
+            }
+
+                return View(model);
+        }
     }
 }
