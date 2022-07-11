@@ -40,7 +40,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_ShopId",ShopId),
-                //new SqlParameter("@Status", Status),
+               //new SqlParameter("@Status", Status),
             };
             DataSet ds = DBHelper.ExecuteQuery("Getshopmaster", para);
             return ds;
