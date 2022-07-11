@@ -82,7 +82,7 @@ namespace WafaTailor.Controllers
                     obj.ShopId = r["Pk_ShopId"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.Address = r["ShopAddress"].ToString();
-                    //obj.Status = r["Status"].ToString();
+                    obj.Status = r["Status"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -213,6 +213,79 @@ namespace WafaTailor.Controllers
                 TempData["Material"] = ex.Message;
             }
             return RedirectToAction("MaterialList", "Master");
+        }
+
+        
+        public ActionResult ActiveShop(string ShopId)
+        {
+            string FormName = " ";
+            string Controller = "";
+            try
+            {
+                if (ShopId != null)
+                {
+                    Master model = new Master();
+                    model.ShopId = ShopId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.ActiveShop();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["Active"] = "Shop Status Active!";
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                        else
+                        {
+                            TempData["Active"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult InactiveShop(string ShopId)
+        {
+            string FormName = " ";
+            string Controller = "";
+            try
+            {
+                if (ShopId != null)
+                {
+                    Master model = new Master();
+                    model.ShopId = ShopId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.InactiveShop();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["Active"] = "Shop Status Inactive!";
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                        else
+                        {
+                            TempData["Active"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return RedirectToAction(FormName, Controller);
         }
     }
 }
