@@ -514,6 +514,9 @@
     <Content Include="Views\Vendor\VendorConfirmRegistration.cshtml" />
     <Content Include="Views\SaleOrder\GenerateInvoice.cshtml" />
     <Content Include="Views\SaleOrder\GenerateBill.cshtml" />
+    <Content Include="Views\Employee\EmployeeSalaryManagement.cshtml" />
+    <Content Include="Views\Employee\SalaryList.cshtml" />
+    <Content Include="Views\Employee\SalaryLedger.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

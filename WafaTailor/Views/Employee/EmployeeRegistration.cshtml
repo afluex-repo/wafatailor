@@ -74,7 +74,13 @@
                                        new SelectListItem() {Text = "Female"}
                                     }, new { @class = "form-control" })
                                 </div>
-                                <div class="form-group col-sm-8">
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Salary<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control",  @Placeholder = "Salary" })
+                                    </div>
+
+                                <div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
                                     @Html.TextAreaFor(m => m.EmployeeAddress, new { @class = "form-control", @Placeholder = "Employee Address", })
                                 </div>
@@ -135,6 +141,11 @@
         if ($("#Gender").val() == "0") {
             $("#Gender").addClass('errortext');
             $("#Gender").focus();
+            return false;
+        }
+        if ($("#Salary").val() == "") {
+            $("#Salary").addClass('errortext');
+            $("#Salary").focus();
             return false;
         }
         if ($("#EmployeeAddress").val() == "") {
