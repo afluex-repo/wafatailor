@@ -218,7 +218,7 @@ namespace WafaTailor.Controllers
         
         public ActionResult ActiveShop(string ShopId)
         {
-            string FormName = " ";
+            string FormName = "";
             string Controller = "";
             try
             {
