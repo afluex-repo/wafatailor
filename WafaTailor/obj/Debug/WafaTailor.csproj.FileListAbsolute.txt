@@ -427,3 +427,4 @@ F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
 E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
+E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache

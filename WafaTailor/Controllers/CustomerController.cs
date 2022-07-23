@@ -82,7 +82,7 @@ namespace WafaTailor.Controllers
                         //TempData["Customer"] = "Customer Registration Saved Successfully";
                         //Session["Name"] = ds.Tables[0].Rows[0]["CustomerName"].ToString();
                         Session["CustomerLoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString(); 
-                        Session["CustomerPassword"] = ds.Tables[0].Rows[0]["Password"].ToString();
+                        Session["CustomerPassword"] = Crypto.Decrypt(ds.Tables[0].Rows[0]["Password"].ToString());
                         FormName = "CustomerConfirmRegistration";
                         Controller = "Customer";
                     }
