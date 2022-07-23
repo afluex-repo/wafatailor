@@ -19,6 +19,9 @@ namespace WafaTailor.Models
         public String MaterialId { get; set; }
         public String Status { get; set; }
 
+        public string LoginId { get; set; }
+        public string AddedBy { get; set; }
+
 
         public DataSet ShopMaster()
         {
@@ -37,7 +40,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_ShopId",ShopId),
-                //new SqlParameter("@Status", Status),
+               //new SqlParameter("@Status", Status),
             };
             DataSet ds = DBHelper.ExecuteQuery("Getshopmaster", para);
             return ds;
@@ -85,6 +88,26 @@ namespace WafaTailor.Models
                  new SqlParameter("@DeletedBy",1)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteMaterial", para);
+            return ds;
+        }
+
+        public DataSet ActiveShop()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@ShopId", ShopId),
+                                      new SqlParameter("@ApprovedBy", AddedBy)
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("ActiveShop", para);
+            return ds;
+        }
+
+        public DataSet InactiveShop()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@ShopId", ShopId),
+                                      new SqlParameter("@RejectedBy", AddedBy)
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("InactiveShop", para);
             return ds;
         }
     }
