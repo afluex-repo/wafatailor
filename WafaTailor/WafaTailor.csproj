@@ -531,6 +531,8 @@
     <Content Include="Views\Shop\ShopDashBoard.cshtml" />
     <Content Include="Views\Shop\ShopSaleOrder.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shop\PrintShopSaleOrder.cshtml" />
+    <Content Include="Views\Shop\ShopSaleOrderList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,6 +9,8 @@ namespace WafaTailor.Models
 {
     public class Shop :Common
     {
+        public List<Shop> lstShopRegistration { get; set; }
+        public List<Shop> lstshopsaleorder { get; set; }
         public string CustomerId { get; set; }
         public string Mobile { get; set; }
         public string BillNo { get; set; }
@@ -22,6 +24,11 @@ namespace WafaTailor.Models
         public string Pk_UserId { get; set;}
         public string Description { get; set; }
         public DataTable dt { get; set; }
+
+        public string SaleOrderId { get; set; }
+        public string SaleDate { get; set; }
+        public string FinalPrice { get; set; }
+
         public DataSet GetCustomerDetails()
         {
              SqlParameter[] para =
@@ -43,5 +50,34 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
             return ds;
         }
+
+
+        public DataSet GetShopSaleOrderDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SaleOrderDetailsId",SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
+            return ds;
+        }
+        public DataSet PrintShopSO()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SaleOrderId", SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder", para);
+            return ds;
+        }
+        //public DataSet DeleteShopSaleOrder()
+        //{
+        //    SqlParameter[] para =
+        //    {
+        //        new SqlParameter("@Pk_SaleOrderId", SaleOrderId)
+        //    };
+        //    DataSet ds = DBHelper.ExecuteQuery("DeleteShopSaleOrder", para);
+        //    return ds;
+        //}
     }
 }

@@ -30,6 +30,13 @@ namespace WafaTailor.Models
 
         public DataTable CustomerName { get; set; }
         public DataTable CustomerAddress { get; set; }
+
+        public string SaleDate { get; set; }
+        public string PieceName{ get; set; }
+        public string NoOfPiece { get; set; }
+        public string OriginalPrice { get; set; }
+        public string Discount { get; set; }
+        public string FinalPrice { get; set; }
         
         //public string InvoiceNo { get; set; }
         //public string PK_InvoiceNoID { get; set; }
