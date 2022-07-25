@@ -39,12 +39,15 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = model.ShopMaster();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        TempData["Shop"] = "Shop Saved Successfully";
+                        //TempData["Shop"] = "Shop Saved Successfully";
+                        TempData["LoginId"] ="LoginId : "+ ds.Tables[0].Rows[0]["LoginId"].ToString() +" And" ;
+                        TempData["Password"] ="Password : "+ ds.Tables[0].Rows[0]["Password"].ToString();
                     }
                     else
                     {
@@ -96,6 +99,7 @@ namespace WafaTailor.Controllers
             try
             {
                 obj.ShopId = ShopId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = obj.DeleteShopMaster();
                 if (ds != null && ds.Tables.Count > 0)
                 {
