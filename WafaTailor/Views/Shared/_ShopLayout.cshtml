@@ -1,7 +1,7 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +56,6 @@
                 <!-- logo start -->
                 <div class="page-logo">
                     <a href="/Home/Index">
-                        @*<span class="logo-icon material-icons">Wafa</span>*@
                         <span class="logo-default">Wafa Tailor</span>
                     </a>
                 </div>
@@ -84,13 +83,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="/Admin/AdminProfile">
+                                    <a href="/Shop/ShopProfile">
                                         <i class="icon-user"></i> Profile
                                     </a>
                                 </li>
                                 <li class="divider"> </li>
                                 <li>
-                                    <a href="/Admin/ChangePassword">
+                                    <a href="/Shop/ChangePassword">
                                         <i class="icon-lock"></i> Change Password
                                     </a>
                                 </li>
@@ -125,13 +124,13 @@
                                         <img alt="image" src="@Session["Profile"]">
                                     </div>
                                     <div class="sidebar-user-details">
-                                        <div class="user-name">@Session["Name"]</div>
-                                        <div class="user-role">@Session["UsertypeName"]</div>
+                                        <div class="user-name">@Session["ShopName"]</div>
+                                        <div class="user-role">@Session["LoginId"]</div>
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item start active open">
-                                <a href="/Admin/AdminDashBoard" class="nav-link">
+                                <a href="/Shop/ShopDashBoard" class="nav-link">
                                     <i data-feather="airplay"></i>
                                     <span class="title">Dashboard</span>
                                     <span class="selected"></span>
@@ -139,87 +138,12 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
-                                    <i data-feather="user"></i>
-                                    <span class="title">Master</span> <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a href="/Master/ShopMaster" class="nav-link ">
-                                            <span class="title">
-                                                Shop Master
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Master/Material" class="nav-link ">
-                                            <span class="title">
-                                                Material Type
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle">
-                                    <i data-feather="users"></i>
-                                    <span class="title">Registration</span><span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a href="/Employee/EmployeeRegistration" class="nav-link ">
-                                            <span class="title">
-                                                Employee Registration
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Vendor/VendorRegistration" class="nav-link ">
-                                            <span class="title">
-                                                Vendor Registration
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Customer/CustomerRegistration" class="nav-link ">
-                                            <span class="title">
-                                                Customer Registration
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle">
-                                    <i data-feather="users"></i>
-                                    <span class="title">Salary Management</span><span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a href="/Employee/EmployeeSalaryManagement" class="nav-link ">
-                                            <span class="title">
-                                                Salary/Advance
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Employee/SalaryList" class="nav-link ">
-                                            <span class="title">
-                                              Salary List
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
                                     <span class="title">Sale Order</span><span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item">
-                                        <a href="/SaleOrder/SaleOrder" class="nav-link ">
+                                        <a href="/Shop/ShopSaleOrder" class="nav-link ">
                                             <span class="title">
                                                 Sale Order
                                             </span>
@@ -234,21 +158,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle">
-                                    <i data-feather="users"></i>
-                                    <span class="title">Reports</span><span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item">
-                                        <a href="/Admin/VendorListForAdmin" class="nav-link ">
-                                            <span class="title">
-                                                Vendor List
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -294,3 +204,4 @@
     <script src="~/assets/plugins/material/material.min.js"></script>
 </body>
 </html>
+

@@ -65,7 +65,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("VendorConfirmRegistration", "Vendor");
         }
-
         public ActionResult VendorChangePassword()
         {
             return View();
@@ -95,7 +94,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("VendorChangePassword", "Vendor");
         }
-
         public ActionResult VendorProfile(Vendor model)
         {
             model.PK_UserId = Session["Fk_AdminId"].ToString();
@@ -114,7 +112,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult VendorList()
         {
             Vendor model = new Vendor();
@@ -141,11 +138,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
-
-
-
-
         public ActionResult DeleteVendor(string Id)
         {
             try
