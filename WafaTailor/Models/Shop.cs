@@ -29,6 +29,9 @@ namespace WafaTailor.Models
         public string SaleDate { get; set; }
         public string FinalPrice { get; set; }
 
+        public string SalesOrderNo { get; set; }
+        public string customerName { get; set; }
+
         public DataSet GetCustomerDetails()
         {
              SqlParameter[] para =
@@ -56,9 +59,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_SaleOrderDetailsId",SaleOrderId)
+                new SqlParameter("@Fk_ShopId",AddedBy)
             };
-            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
         }
         public DataSet PrintShopSO()

@@ -121,19 +121,18 @@ namespace WafaTailor.Controllers
         public ActionResult ShopSaleOrderList(Shop model)
         {
             List<Shop> lst = new List<Shop>();
+            model.AddedBy = Session["Pk_userId"].ToString();
             DataSet ds = model.GetShopSaleOrderDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Shop obj = new Shop();
-                    obj.SaleOrderId = r["Pk_SaleOrderDetailsId"].ToString();
-                    obj.SaleDate = r["SaleDate"].ToString();
-                    obj.PieceName = r["PieceName"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
-                    obj.Discount = r["Discount"].ToString();
-                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    obj.SaleOrderId = r["Pk_SaleOrderId"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.customerName = r["customerName"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
                     lst.Add(obj);
                 }
                 model.lstShopRegistration = lst;

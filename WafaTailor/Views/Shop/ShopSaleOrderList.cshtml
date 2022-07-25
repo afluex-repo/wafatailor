@@ -22,7 +22,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Shop Sale Order List</header>
+                            <header>Sale Order List</header>
                             <span class="text-danger">
                                 @TempData["ShopSaleOrder"]
                             </span>
@@ -40,12 +40,10 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
-                                        <th> Sale Date</th>
-                                        <th>Piece Name</th>
-                                        <th> No.Of.Piece</th>
-                                        <th>Original Price</th>
-                                        <th>Discount</th>
-                                        <th>Final Price</th>
+                                        <th> Customer Name</th>
+                                        <th>Contact No</th>
+                                        <th> Bill No</th>
+                                        <th>Sales Order No</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -59,16 +57,14 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.SaleDate</td>
-                                                    <td>@item.PieceName</td>
-                                                    <td>@item.NoOfPiece</td>
-                                                    <td>@item.OriginalPrice</td>
-                                                    <td>@item.Discount</td>
-                                                    <td>@item.FinalPrice</td>
+                                                    <td>@item.customerName</td>
+                                                    <td>@item.Mobile</td>
+                                                    <td>@item.BillNo</td>
+                                                    <td>@item.SalesOrderNo</td>
                                                     <td>
-                                                        <a href="/Shop/DeleteShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Shop Sale Order Details?')">
+                                                        @*<a href="/Shop/DeleteShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Shop Sale Order Details?')">
         <i class="fa fa-trash-o" title="Delete"></i>
-    </a>
+    </a>*@
                                                         <a href="/Shop/PrintShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
                                                             <i class="fa  fa-print" title="Print"></i>
                                                         </a>
