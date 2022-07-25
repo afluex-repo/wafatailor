@@ -114,5 +114,89 @@ namespace WafaTailor.Controllers
 
             return new JsonResult { Data = new { status = order.Result } };
         }
+
+
+
+
+        public ActionResult ShopSaleOrderList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            DataSet ds = model.GetShopSaleOrderDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.SaleOrderId = r["Pk_SaleOrderDetailsId"].ToString();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstShopRegistration = lst;
+            }
+            return View(model);
+        }
+        public ActionResult PrintShopSaleOrder(String SaleOrderId)
+        {
+            List<Shop> lstShopSaleOrderDetails = new List<Shop>();
+            Shop model = new Shop();
+            model.SaleOrderId = SaleOrderId;
+            DataSet ds = model.PrintShopSO();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+            }
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[1].Rows)
+                {
+                    model.SaleDate = ds.Tables[0].Rows[0]["SaleDate"].ToString();
+                    model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                    model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                    model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
+                    model.FinalPrice = ds.Tables[0].Rows[0]["FinalPrice"].ToString();
+                    lstShopSaleOrderDetails.Add(model);
+                }
+                model.lstshopsaleorder = lstShopSaleOrderDetails;
+                ViewBag.FinalPrice = double.Parse(ds.Tables[1].Compute("sum(FinalPrice)", "").ToString()).ToString("n2");
+            }
+
+            return View(model);
+        }
+
+        //public ActionResult DeleteShopSaleOrder(String SaleOrderId)
+        //{
+        //    Shop obj = new Shop();
+        //    try
+        //    {
+        //        obj.SaleOrderId = SaleOrderId;
+        //        DataSet ds = obj.DeleteShopSaleOrder();
+        //        if (ds != null && ds.Tables.Count > 0)
+        //        {
+        //            if (ds.Tables[0].Rows[0][0].ToString() == "1")
+        //            {
+        //                TempData["ShopSaleOrder"] = "Shop Sale Order Deleted Successfully!";
+        //            }
+        //            else
+        //            {
+        //                TempData["ShopSaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["ShopSaleOrder"] = ex.Message;
+        //    }
+        //    return RedirectToAction("ShopSaleOrderList", "Shop");
+        //}
     }
 }
