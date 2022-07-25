@@ -37,12 +37,11 @@ namespace WafaTailor.Models
         public string OriginalPrice { get; set; }
         public string Discount { get; set; }
         public string FinalPrice { get; set; }
-        
-        //public string InvoiceNo { get; set; }
-        //public string PK_InvoiceNoID { get; set; }
-        //public string InvoiceDate { get; set; }
-        //public string LineStatus { get; set; }
-        //public string SaleOrderNo { get; set; }
+
+        public string ShopName { get; set; }
+        public string BillNo { get; set; }
+        public string SalesOrderNo { get; set; }
+        public string customerName { get; set; }
 
 
         public string SaleOrderNoEncrypt { get; set; }
@@ -75,9 +74,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_SaleOrderDetailsId",SaleOrderId)
+                new SqlParameter("@Fk_ShopId",AddedBy)
             };
-            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
         }
 
