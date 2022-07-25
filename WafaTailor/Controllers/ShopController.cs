@@ -121,6 +121,7 @@ namespace WafaTailor.Controllers
         public ActionResult ShopSaleOrderList(Shop model)
         {
             List<Shop> lst = new List<Shop>();
+            model.AddedBy = Session["Pk_userId"].ToString();
             DataSet ds = model.GetShopSaleOrderDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
