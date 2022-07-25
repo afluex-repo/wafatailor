@@ -29,7 +29,7 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@ShopName",ShopName),
                 new SqlParameter("@ShopAddress",Address),
-                new SqlParameter("@AddedBy",1)
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("ShopMaster", para);
             return ds;
@@ -50,7 +50,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_ShopId",ShopId),
-                new SqlParameter("@DeletedBy",1)
+                new SqlParameter("@DeletedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteShopMaster", para);
             return ds;
