@@ -114,13 +114,12 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     SaleOrder obj = new SaleOrder();
-                    obj.SaleOrderId = r["Pk_SaleOrderDetailsId"].ToString();
-                    obj.SaleDate = r["SaleDate"].ToString();
-                    obj.PieceName = r["PieceName"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
-                    obj.Discount = r["Discount"].ToString();
-                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    obj.SaleOrderId = r["Pk_SaleOrderId"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.customerName = r["customerName"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
