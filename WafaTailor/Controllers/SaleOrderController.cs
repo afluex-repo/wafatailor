@@ -115,10 +115,12 @@ namespace WafaTailor.Controllers
                 {
                     SaleOrder obj = new SaleOrder();
                     obj.SaleOrderId = r["Pk_SaleOrderDetailsId"].ToString();
-                    obj.Description = r["Description"].ToString();
-                    obj.Amount = r["Amount"].ToString();
-                    obj.OrderDate = r["OrderDate"].ToString();
-                    obj.DeliveryDate = r["DeliveryDate"].ToString();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -138,19 +140,22 @@ namespace WafaTailor.Controllers
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                 ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
             }
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
             {
                 foreach (DataRow r in ds.Tables[1].Rows)
                 {
-                    model.Description = ds.Tables[0].Rows[0]["Description"].ToString();
-                    model.Amount = ds.Tables[0].Rows[0]["Amount"].ToString();
-                    model.OrderDate = ds.Tables[0].Rows[0]["OrderDate"].ToString();
-                    model.DeliveryDate = ds.Tables[0].Rows[0]["DeliveryDate"].ToString();
+                    model.SaleDate = ds.Tables[0].Rows[0]["SaleDate"].ToString();
+                    model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                    model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                    model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
+                    model.FinalPrice = ds.Tables[0].Rows[0]["FinalPrice"].ToString();
                     lstSaleOrderDetails.Add(model);
                 }
                 model.lstsaleorder = lstSaleOrderDetails;
-                //ViewBag.Amount = double.Parse(ds.Tables[1].Compute("sum(Amount)", "").ToString()).ToString("n2");
+                ViewBag.FinalPrice = double.Parse(ds.Tables[1].Compute("sum(FinalPrice)", "").ToString()).ToString("n2");
             }
 
                 return View(model);

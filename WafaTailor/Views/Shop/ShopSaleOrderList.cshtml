@@ -1,11 +1,11 @@
-﻿@model WafaTailor.Models.SaleOrder
+﻿@model WafaTailor.Models.Shop
 
 @{
-    ViewBag.Title = "SaleOrderList";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ShopSaleOrderList";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-@using (Html.BeginForm("SaleOrderList", "SaleOrder", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ShopSaleOrderList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
       <!-- start page content -->
     <div class="page-content-wrapper">
@@ -22,11 +22,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Sale Order List</header>
+                            <header>Shop Sale Order List</header>
                             <span class="text-danger">
-                                @TempData["SaleOrder"]
+                                @TempData["ShopSaleOrder"]
                             </span>
-                            <a href="/SaleOrder/SaleOrder" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Sale Order</a>
+                            <a href="#" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Shop SO</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="card-body table-responsive">
-                            
+
                             <table class="table table-striped table-bordered table-hover table-checkable order-column"
                                    style="width: 100%" id="example4">
                                 <thead>
@@ -49,13 +49,13 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                             <tbody>
+                                <tbody>
                                     @if (Model != null)
                                     {
-                                        if (Model.lstRegistration != null)
+                                        if (Model.lstShopRegistration != null)
                                         {
                                             int i = 1;
-                                            foreach (var item in Model.lstRegistration)
+                                            foreach (var item in Model.lstShopRegistration)
                                             {
                                                 <tr>
                                                     <td>@i</td>
@@ -66,10 +66,10 @@
                                                     <td>@item.Discount</td>
                                                     <td>@item.FinalPrice</td>
                                                     <td>
-                                                        <a href="/SaleOrder/DeleteSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Sale Order Details?')">
-                                                            <i class="fa fa-trash-o" title="Delete"></i>
-                                                        </a>
-                                                        <a href="/SaleOrder/PrintSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
+                                                        <a href="/Shop/DeleteShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Shop Sale Order Details?')">
+        <i class="fa fa-trash-o" title="Delete"></i>
+    </a>
+                                                        <a href="/Shop/PrintShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
                                                             <i class="fa  fa-print" title="Print"></i>
                                                         </a>
                                                     </td>
@@ -88,4 +88,6 @@
     </div>
    <!-- end page container -->
 }
+
+
 

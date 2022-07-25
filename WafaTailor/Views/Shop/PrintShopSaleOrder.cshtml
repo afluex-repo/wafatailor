@@ -1,9 +1,10 @@
-﻿@model WafaTailor.Models.SaleOrder
+﻿@model WafaTailor.Models.Shop
 
 @{
-    ViewBag.Title = "PrintSaleOrder";
-    Layout = null;
+    ViewBag.Title = "PrintShopSaleOrder";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,9 +127,9 @@
                     <tbody>
                         @if (Model != null)
                         {
-                            if (Model.lstsaleorder != null)
+                            if (Model.lstshopsaleorder != null)
                             {
-                                var i = 1; foreach (var item in Model.lstsaleorder)
+                                var i = 1; foreach (var item in Model.lstshopsaleorder)
                                 {
                                     <tr>
                                         <td>@i</td>
