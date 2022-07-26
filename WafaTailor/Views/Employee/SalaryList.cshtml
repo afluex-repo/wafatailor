@@ -40,12 +40,12 @@
                                     <thead>
                                         <tr>
                                             <th>Sr No.</th>
-                                            <th>Employee Id</th>
-                                            <th>Cr Amount</th>
-                                            <th>Dr Amount</th>
-                                            <th>Salary Type</th>
-                                            <th>Date</th>
-                                            <th>Remark</th>
+                                            <th>Employee</th>
+                                            <th>Salary</th>
+                                            <th>Total Advance</th>
+                                            <th>Remaining Salary</th>
+                                            @*<th>Date</th>
+                                            <th>Remark</th>*@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -60,14 +60,12 @@
                                                     {
                                                         <tr>
                                                             <td>@i</td>
-                                                            <td>@item.EmployeeId</td>
-                                                            <td>@item.CrAmount</td>
+                                                            <td>@item.EmployeeName</td>
+                                                            <td>@item.Salary</td>
                                                             <td>@item.DrAmount</td>
-                                                            <td>@item.Type</td>
-                                                            <td>@item.Date</td>
-                                                            <td>@item.Remark</td>
+                                                            <td>@item.RemainingSalary</td>
                                                             <td>
-                                                        <a href="/Employee/SalaryLedger?SalaryId=@item.SalaryId">
+                                                        <a href="/Employee/SalaryLedger?SalaryId=@item.EmployeeId">
                                                              <i class="btn btn-danger">Ledger</i>
                                                                 </a>
                                                             </td>

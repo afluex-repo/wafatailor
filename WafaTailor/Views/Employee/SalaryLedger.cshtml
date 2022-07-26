@@ -41,14 +41,15 @@
                                     <thead>
                                         <tr>
                                             <th>Sr No.</th>
-                                            <th>Employee Name</th>
                                             <th>Salary</th>
-                                            <th>Advance Salary</th>
-                                            <th>Remaining Salary</th>
-                                            <th>Action</th>
+                                            <th>Advance/Salary</th>
+                                            <th>Remaining</th>
+                                            <th>Type</th>
+                                            <th>Payment Date</th>
+                                            <th>Payment Mode</th>
                                         </tr>
                                     </thead>
-                                    @*<tbody>
+                                    <tbody>
 
                                         @if (Model != null)
                                         {
@@ -59,23 +60,18 @@
                                                 {
                                                     <tr>
                                                         <td>@i</td>
-                                                        <td>@item.EmployeeId</td>
-                                                        <td>@item.CrAmount</td>
+                                                        <td>@item.Salary</td>
                                                         <td>@item.DrAmount</td>
+                                                        <td>@item.RemainingSalary</td>
                                                         <td>@item.Type</td>
                                                         <td>@item.Date</td>
-                                                        <td>@item.Remark</td>
-                                                        <td>
-                                                            <a href="/Employee/Ledgar?SalaryId=@item.SalaryId">
-                                                                <i class="btn btn-danger">Ledgar</i>
-                                                            </a>
-                                                        </td>
+                                                        <td>@item.PaymentMode</td>
                                                     </tr>
                                                     i = i + 1;
                                                 }
                                             }
                                         }
-                                    </tbody>*@
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

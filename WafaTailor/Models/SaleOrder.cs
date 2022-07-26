@@ -51,22 +51,24 @@ namespace WafaTailor.Models
         public string CustomerId { get; set; }
         public string Pk_UserId { get; set; }
         public DataTable dt { get; set; }
-        public DataTable ShopId { get; set; }
+        public string ShopId { get; set; }
+        public string ShopLoginId { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
 
 
-
-        public DataSet SaveSaleOrderDetails()
-        {
-            SqlParameter[] para =
-            {
-                    new SqlParameter("@Fk_UserId",Fk_UserId),
-                   new SqlParameter("@Fk_ShopeId",Fk_ShopeId),
-                   new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
-                 new SqlParameter("@AddedBy",AddedBy)
-            };
-              DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
-            return ds;
-        }
+        //public DataSet SaveSaleOrderDetails()
+        //{
+        //    SqlParameter[] para =
+        //    {
+        //            new SqlParameter("@Fk_UserId",Fk_UserId),
+        //           new SqlParameter("@Fk_ShopeId",Fk_ShopeId),
+        //           new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
+        //         new SqlParameter("@AddedBy",AddedBy)
+        //    };
+        //      DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
+        //    return ds;
+        //}
 
         public DataSet GetUserDetails()
         {
@@ -83,7 +85,10 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Fk_ShopId",AddedBy)
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
@@ -128,7 +133,7 @@ namespace WafaTailor.Models
             SqlParameter[] para ={
                 new SqlParameter("@AddedBy",AddedBy),
                 new SqlParameter("@BillNo",BillNo),
-                new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@Fk_ShopId",ShopId),
                 new SqlParameter("@Fk_CustomerId",CustomerId),
                 new SqlParameter("@dt",dt)
             };
