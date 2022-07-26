@@ -26,7 +26,7 @@
                             <span class="text-danger">
                                 @TempData["ShopSaleOrder"]
                             </span>
-                            <a href="#" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Shop SO</a>
+                            <a href="/shop/ShopSaleorder" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Shop SO</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -65,7 +65,7 @@
                                                         @*<a href="/Shop/DeleteShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Shop Sale Order Details?')">
         <i class="fa fa-trash-o" title="Delete"></i>
     </a>*@
-                                                        <a href="/Shop/PrintShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
+                                                        <a target="_blank" href="/Shop/PrintShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
                                                             <i class="fa  fa-print" title="Print"></i>
                                                         </a>
                                                     </td>

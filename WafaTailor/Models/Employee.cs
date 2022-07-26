@@ -35,7 +35,7 @@ namespace WafaTailor.Models
         public string Salary { get; set; }
         public string Remark { get; set; }
         public string Date { get; set; }
-
+        public string RemainingSalary { get; set; }
         public string CrAmount { get; set; }
         public string DrAmount { get; set; }
         public string Type { get; set; }
@@ -183,9 +183,18 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_EmpSalaryId",SalaryId)
+                new SqlParameter("@Pk_EmpId",EmployeeId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSalaryDetails", para);
+            return ds;
+        }
+        public DataSet GetSalaryLedger()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_EmpId",EmployeeId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetEmployeeSalaryLedger", para);
             return ds;
         }
 

@@ -400,10 +400,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeSalaryManagement", "Employee");
         }
-
-
-
-
         public ActionResult SalaryList(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -413,23 +409,49 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Employee obj = new Employee();
-                    obj.SalaryId = r["Pk_EmpSalaryId"].ToString();
-                    obj.EmployeeId = r["Fk_EmployeeId"].ToString();
-                    obj.CrAmount = r["CrAmount"].ToString();
-                    obj.DrAmount = r["DrAmount"].ToString();
-                    obj.Type = r["SalaryType"].ToString();
-                    obj.Date = r["SalaryDate"].ToString();
-                    obj.Remark = r["Remarks"].ToString();
+                    obj.EmployeeId = r["pk_EmployeeId"].ToString();
+                    obj.Salary= r["Salary"].ToString();
+                    obj.EmployeeName = r["Name"].ToString();
+                    obj.CrAmount = r["TotalCrAmount"].ToString();
+                    obj.DrAmount = r["TotalDrAmount"].ToString();
+                    obj.RemainingSalary = r["RemainingSalary"].ToString();
+                    //obj.Type = r["SalaryType"].ToString();
+                    //obj.Date = r["SalaryDate"].ToString();
+                    //obj.Remark = r["Remarks"].ToString();
                     lst.Add(obj);
                 }
                 model.lstSalary = lst;
             }
             return View(model);
         }
-
-        public ActionResult SalaryLedger()
+        public ActionResult SalaryLedger(string SalaryId)
         {
-            return View();
+            Employee model = new Employee();
+            model.EmployeeId = SalaryId;
+            List<Employee> lst = new List<Employee>();
+            DataSet ds = model.GetSalaryLedger();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                   
+                    obj.Salary = r["LeftAmount"].ToString();
+                    obj.TransactionDate = r["TransactionDate"].ToString();
+                    obj.PaymentMode = r["PaymentMode"].ToString();
+                    obj.DrAmount = r["DrAmount"].ToString();
+                    obj.RemainingSalary = r["RemainingSalary"].ToString();
+                    obj.Type = r["SalaryType"].ToString();
+                    obj.Date = r["SalaryDate"].ToString();
+                    obj.Remark = r["Remarks"].ToString();
+                    obj.TransactionNo = r["TransactionNo"].ToString();
+                    obj.BankBranch = r["BankBranch"].ToString();
+                    obj.BankName = r["BankName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstSalary = lst;
+            }
+            return View(model);
         }
     }
 }

@@ -86,6 +86,8 @@ namespace WafaTailor.Controllers
                     obj.ShopName = r["ShopName"].ToString();
                     obj.Address = r["ShopAddress"].ToString();
                     obj.Status = r["Status"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Password = r["Password"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;

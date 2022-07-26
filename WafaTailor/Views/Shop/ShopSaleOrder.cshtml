@@ -27,7 +27,7 @@
                             <span class="text-danger">
                                 @TempData["Sale Order"]
                             </span>
-                            <a href="/Shop/SaleOrder List" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                            <a href="/Shop/ShopSaleOrderList" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
@@ -40,7 +40,7 @@
                                 <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = "BillNo", })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm">
@@ -208,6 +208,7 @@
             debugger
             var formData = new FormData();
             formData.append("CustomerId", $('#CustomerId').val());
+            formData.append("BillNo", $('#BillNo').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
@@ -217,13 +218,13 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response.status == true) {
+                    if (response.status == "Yes") {
                         alert('Data Save Successfully !!')
                         list = [];
                         window.location.href = '@Url.Action("ShopSaleOrder", "Shop")';
                     }
                     else {
-                        alert(response.Result);
+                        alert(response.status);
                     }
                  
                 },
