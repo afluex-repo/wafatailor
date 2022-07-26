@@ -4,6 +4,9 @@
     ViewBag.Title = "ShopSaleOrder";
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
+
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("ShopSaleOrder", "Shop", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
 
@@ -72,7 +75,7 @@
                                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumber(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
                                                     <td>@Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control netamount", @placeholder = "Final Amount", @style = "width:150px", @readonly="true" })</td>
-                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control mydatepicker", @placeholder = "Sale Date", @style = "width:150px" })</td>
+                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control", @placeholder = "Sale Date", @style = "width:150px" })</td>
                                                     <td>@Html.TextAreaFor(m => m.Description, new { @class = "form-control description", @placeholder = "Description", @style = "width:150px" })</td>
                                                     <td><input type="button" id="btnAddLine" name="btnAddLine" value="Add Line" class="btn btn-success list-button" />
                                                     </td>
@@ -269,10 +272,12 @@
         return true;
     }
   
-    jQuery('.mydatepicker').datepicker(
+    </script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('SaleOrderDate'),
         {
-            dateFormat: 'dd/mm/yy',
-            changeYear: true,
-            changeMonth: true
+            // mode: "range"
         });
 </script>

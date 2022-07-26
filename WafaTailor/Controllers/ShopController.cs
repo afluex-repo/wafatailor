@@ -10,7 +10,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class ShopController : Controller
+    public class ShopController : ShopBaseController
     {
         // GET: Shop
         public ActionResult ShopDashBoard()
@@ -46,6 +46,7 @@ namespace WafaTailor.Controllers
 
             try
             {
+                //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
                 string Name = "";
                 string Piece = "";
                 string OriginalPrice = "";

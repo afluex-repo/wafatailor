@@ -445,6 +445,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
+    <Compile Include="Controllers\ShopBaseController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -545,6 +546,7 @@
     <Folder Include="fonts\" />
     <Folder Include="VendorProfilePic\" />
     <Folder Include="Views\EmployeeBase\" />
+    <Folder Include="Views\ShopBase\" />
     <Folder Include="Views\VendorBase\" />
   </ItemGroup>
   <PropertyGroup>
@@ -562,7 +564,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51134</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51130/</IISUrl>
+          <IISUrl>http://localhost:51131/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

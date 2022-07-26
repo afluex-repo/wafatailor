@@ -28,7 +28,8 @@ namespace WafaTailor.Models
         public string Mobile { get; set; }
         public DataTable dtSaleOrderDetails { get; set; }
 
-        public DataTable CustomerName { get; set; }
+        public string CustomerName { get; set; }
+        //public DataTable CustomerName { get; set; }
         public DataTable CustomerAddress { get; set; }
 
         public string SaleDate { get; set; }
@@ -41,10 +42,18 @@ namespace WafaTailor.Models
         public string ShopName { get; set; }
         public string BillNo { get; set; }
         public string SalesOrderNo { get; set; }
-        public string customerName { get; set; }
 
 
         public string SaleOrderNoEncrypt { get; set; }
+        public string PriceName { get; set; }
+        public string NetAmount { get; set; }
+        public string SaleOrderDate { get; set; }
+        public string CustomerId { get; set; }
+        public string Pk_UserId { get; set; }
+        public DataTable dt { get; set; }
+        public DataTable ShopId { get; set; }
+
+
 
         public DataSet SaveSaleOrderDetails()
         {
@@ -104,6 +113,32 @@ namespace WafaTailor.Models
         //    return ds;
         //}
 
-       
+        public DataSet GetCustomerDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_CustomerId",Pk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet SaveSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@Fk_CustomerId",CustomerId),
+                new SqlParameter("@dt",dt)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
+            return ds;
+        }
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
+            return ds;
+        }
     }
 }
