@@ -445,8 +445,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
-    <Compile Include="Controllers\ShopBaseController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShopBaseController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Filters\SimpleAttribute.cs" />
@@ -546,7 +546,6 @@
     <Folder Include="fonts\" />
     <Folder Include="VendorProfilePic\" />
     <Folder Include="Views\EmployeeBase\" />
-    <Folder Include="Views\ShopBase\" />
     <Folder Include="Views\VendorBase\" />
   </ItemGroup>
   <PropertyGroup>

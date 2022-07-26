@@ -96,8 +96,8 @@ namespace WafaTailor.Controllers
                     Discount = row["Discount"].ToString();
                     FinalPrice = row["NetAmount"].ToString();
                     SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
-                    Description = "";
-                    //row["Description"].ToString()
+                    Description = row["Description"].ToString();
+
                     //rowsno = rowsno + 1;
                     dtorder.Rows.Add(Name, Piece, OriginalPrice, Discount, FinalPrice, SaleDate, Description);
                 }
@@ -256,12 +256,12 @@ namespace WafaTailor.Controllers
             {
                 foreach (DataRow r in ds.Tables[1].Rows)
                 {
-                    model.SaleDate = ds.Tables[0].Rows[0]["SaleDate"].ToString();
-                    model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
-                    model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
-                    model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
-                    model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
-                    model.FinalPrice = ds.Tables[0].Rows[0]["FinalPrice"].ToString();
+                    model.SaleDate = ds.Tables[1].Rows[0]["SaleDate"].ToString();
+                    model.PieceName = ds.Tables[1].Rows[0]["PieceName"].ToString();
+                    model.NoOfPiece = ds.Tables[1].Rows[0]["NoOfPiece"].ToString();
+                    model.OriginalPrice = ds.Tables[1].Rows[0]["OriginalPrice"].ToString();
+                    model.Discount = ds.Tables[1].Rows[0]["Discount"].ToString();
+                    model.FinalPrice = ds.Tables[1].Rows[0]["FinalPrice"].ToString();
                     lstSaleOrderDetails.Add(model);
                 }
                 model.lstsaleorder = lstSaleOrderDetails;

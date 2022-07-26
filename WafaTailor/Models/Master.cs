@@ -10,14 +10,15 @@ namespace WafaTailor.Models
     public class Master
     {
         public List<Master> lstRegistration { get; set; }
-        public String @ShopName { get; set; }
-        public String Address { get; set; }
-        public String MaterialName { get; set; }
-        public String MaterialType { get; set; }
+        public string ShopName { get; set; }
+        public string Address { get; set; }
+        public string MaterialName { get; set; }
+        public string MaterialType { get; set; }
 
-        public String ShopId { get; set; }
-        public String MaterialId { get; set; }
-        public String Status { get; set; }
+        public string ShopId { get; set; }
+        public string MaterialId { get; set; }
+        public string Status { get; set; }
+        public string Password { get; set; }
 
         public string LoginId { get; set; }
         public string AddedBy { get; set; }
