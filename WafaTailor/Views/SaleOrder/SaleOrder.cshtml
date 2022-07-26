@@ -86,7 +86,7 @@
                                                         @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumber(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
                                                     <td>@Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control netamount", @placeholder = "Final Amount", @style = "width:150px", @readonly = "true" })</td>
-                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control", @placeholder = "Sale Date", @style = "width:150px" })</td>
+                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control mydatepicker", @placeholder = "Sale Date", @style = "width:150px" })</td>
                                                     <td>@Html.TextAreaFor(m => m.Description, new { @class = "form-control description", @placeholder = "Description", @style = "width:150px" })</td>
                                                     <td>
                                                         <input type="button" id="btnAddLine" name="btnAddLine" value="Add Line" class="btn btn-success list-button" />
@@ -237,22 +237,22 @@
         }
             var $newRow = $('#originaltable').clone().removeAttr('id');
             //clonevalue
-            $('.name', $newRow).removeClass('errortext').prop('disabled', false).val($('#PriceName').val());
-            $('.piece', $newRow).removeClass('errortext').prop('disabled', false).val($('#NoOfPiece').val());
-            $('.originalprice', $newRow).removeClass('errortext').prop('disabled', false).val($('#OriginalPrice').val());
-            $('.discount', $newRow).removeClass('errortext').prop('disabled', false).val($('#Discount').val());
-            $('.netamount', $newRow).removeClass('errortext').prop('disabled', false).val($('#NetAmount').val());
-            $('.mydatepicker', $newRow).removeClass('errortext').prop('disabled', false).val($('#SaleOrderDate').val());
-            $('.description', $newRow).removeClass('errortext').prop('disabled', false).val($('#Description').val());
+            $('.name', $newRow).removeClass('errortext').prop('disabled', true).val($('#PriceName').val());
+            $('.piece', $newRow).removeClass('errortext').prop('disabled', true).val($('#NoOfPiece').val());
+            $('.originalprice', $newRow).removeClass('errortext').prop('disabled', true).val($('#OriginalPrice').val());
+            $('.discount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Discount').val());
+            $('.netamount', $newRow).removeClass('errortext').prop('disabled', true).val($('#NetAmount').val());
+            $('.mydatepicker', $newRow).removeClass('errortext').prop('disabled', true).val($('#SaleOrderDate').val());
+            $('.description', $newRow).removeClass('errortext').prop('disabled', true).val($('#Description').val());
             //Replace add button with remove button
             $('#btnAddLine', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
             //remove id attribute from new clone row
-            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate', $newRow).removeAttr('id');
+            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description', $newRow).removeAttr('id');
             $('span.error', $newRow).remove();
             //append clone row
             $('#clonetable').append($newRow);
             //clear select data
-            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate').val('');
+            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description').val('');
             $('#error').empty();
 
     })
@@ -278,6 +278,7 @@
                     Discount: $('.discount', this).val(),
                     Netamount: $('.netamount', this).val(),
                     SaleDate: $('.mydatepicker', this).val(),
+                    Description: $('.description', this).val(),
                 }
                 clonelist.push(totalItem)
             }
@@ -311,6 +312,8 @@
             debugger
             var formData = new FormData();
             formData.append("CustomerId", $('#CustomerId').val());
+            formData.append("ShopId", $('#ShopId').val());
+            formData.append("BillNo", $('#BillNo').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
@@ -320,13 +323,13 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response.status == true) {
+                    if (response.status == "Yes") {
                         alert('Data Save Successfully !!')
                         list = [];
                         window.location.href = '@Url.Action("SaleOrder", "SaleOrder")';
                     }
                     else {
-                        alert(response.Result);
+                        alert(response.status);
                     }
 
                 },

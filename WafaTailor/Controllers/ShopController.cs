@@ -81,8 +81,8 @@ namespace WafaTailor.Controllers
                     Discount = row["Discount"].ToString();
                     FinalPrice = row["NetAmount"].ToString();
                     SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
-                    Description = "";
-                    //row["Description"].ToString()
+                    Description = row["Description"].ToString();
+                    //
                     //rowsno = rowsno + 1;
                     dtorder.Rows.Add(Name, Piece, OriginalPrice, Discount, FinalPrice, SaleDate,Description);
                 }
