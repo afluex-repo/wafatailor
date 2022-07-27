@@ -52,7 +52,9 @@ namespace WafaTailor.Models
         public string Pk_UserId { get; set; }
         public DataTable dt { get; set; }
         public string ShopId { get; set; }
-
+        public string ShopLoginId { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
 
 
         //public DataSet SaveSaleOrderDetails()
@@ -83,7 +85,10 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Fk_ShopId",AddedBy)
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;

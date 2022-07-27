@@ -79,8 +79,13 @@
                                                             <a href="/Master/InactiveShop?ShopId=@item.ShopId" class="label label-sm label-success" onclick="return confirm('Are You Sure You want to do InActive This Shop ?')"> Active </a> }
                                                     </td>
                                                     <td>
-                                                        <a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
+                                                      <a href="/Master/BillReport?ShopId=@item.ShopId" class="label label-sm label-success">View Ledger</a>
+
+                                                        @*<a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
                                                             <i class="fa fa-trash-o"></i>
+                                                        </a>*@
+                                                        <a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="label label-sm label-danger"  onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
+                                                            Delete
                                                         </a>
                                                     </td>
                                                 </tr>

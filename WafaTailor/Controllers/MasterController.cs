@@ -293,9 +293,35 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
+
+        public ActionResult BillReport(string ShopId)
+        {
+            Master model = new Master();
+            model.ShopId = ShopId;
+            List<Master> lst = new List<Master>();
+            DataSet ds = model.GetBillReport();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.ShopId = r["Fk_ShopeId"].ToString();
+                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistration = lst;
+            }
+            return View(model);
+        }
     }
 }
 
 
-
- 
+   

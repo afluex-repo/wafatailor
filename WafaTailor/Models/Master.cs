@@ -23,6 +23,14 @@ namespace WafaTailor.Models
         public string LoginId { get; set; }
         public string AddedBy { get; set; }
 
+        public string SalesOrderNo { get; set; }
+        public string BillNo { get; set; }
+        public string PieceName { get; set; }
+        public string NoOfPiece { get; set; }
+        public string OriginalPrice { get; set; }
+        public string Discount { get; set; }
+        public string FinalPrice { get; set; }
+        public string SaleDate { get; set; }
 
         public DataSet ShopMaster()
         {
@@ -109,6 +117,16 @@ namespace WafaTailor.Models
                                       new SqlParameter("@RejectedBy", AddedBy)
                                      };
             DataSet ds = DBHelper.ExecuteQuery("InactiveShop", para);
+            return ds;
+        }
+
+        public DataSet GetBillReport()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_ShopId",ShopId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("getShopBillreport", para);
             return ds;
         }
     }
