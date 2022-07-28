@@ -40,19 +40,28 @@
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Shop<span style="color:red">*</span></label>
                                         @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
-                                        @Html.DropDownListFor(m => m.CustomerId, new SelectList(ViewBag.ddlcustomer, "Value", "Text"), new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class="form-control", @Placeholder="Customer Name", @onchange = "return changeCustomer();" })
+                                         @Html.HiddenFor(m => m.Pk_UserId)
+                                        @*@Html.DropDownListFor(m => m.CustomerId, new SelectList(ViewBag.ddlcustomer, "Value", "Text"), new { @class = "form-control" })*@
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No" })
+                                      
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
@@ -105,87 +114,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        @*<div class="card-body" id="bar-parent">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label><b>LoginId</b></label><br />
-                                        @Html.TextBoxFor(m => m.LoginId, new {@class="form-control", @placeholder = "LoginId", @onchange = "return GetUserDetails();" })
-                                    </div>
-                                </div>
-                                <div class="col-md-3" style="display:none;" id="divuserid">
-                                    <div class="form-group">
-                                        <label><b>UserId</b>  </label><br />
-                                        <label id="txtFk_UserId"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divname">
-                                    <div class="form-group">
-                                        <label><b>Name</b>  </label><br />
-                                        <label id="txtName">  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divemail">
-                                    <div class="form-group">
-                                        <label><b>Email</b>   </label><br />
-                                        <label id="txtEmail">  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3"  style="display:none;" id="divmobile">
-                                    <div class="form-group">
-                                        <label><b>Mobile</b> </label><br />
-                                        <label id="txtMobile">  </label>
-                                    </div>
-                                </div>
-                                <br /><br /><br />
-                                <div class="col-md-12"   style="display:none;" id="divorderdetails">
-                                    <div class="table-responsive text-nowrap">
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Description<span style="color: red">*</span> </th>
-                                                    <th>Amount<span style="color: red">*</span> </th>
-                                                    <th>Delivery Date<span style="color: red">*</span> </th>
-                                                    <th>Action<span style="color: red">*</span> </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="TextBoxContainer">
-                                                <tr class="Saleordercontainer" id="Saleorderrow">
-                                                    <td>
-                                                        @Html.TextAreaFor(m => m.Description, new { @class = "Description form-control", @Placeholder = "Description" })
-
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(m => m.Amount, new { @class = "Amount form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
-
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "DeliveryDate form-control", @Placeholder = "dd/mm/yyyy", @readonly = true })
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="button" id="addSaleOrder" data-toggle="tooltip" data-original-title="Add" value="Add" style="width:80px" class="btn btn-primary" />
-                                                    </td>
-                                                </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <div id="SaleOrdertable">
-                                <table class="table  table-striped table-bordered" id="SaleOrderDetails"></table>
-                                <span id="SaleOrderDetailsError" style="color:red"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input class="btn btn-primary btn-lg pull-left" type="submit" value="Save" id="btnfinalsubmit" name="Save" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
                     </div>
                 </div>
             </div>
@@ -193,9 +121,51 @@
     </div>
 }
 
-<script src="~/assets/plugins/jquery/jquery.min.js"></script>
+@*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
-
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/SaleOrder/GetcustomerList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.Name + "(" + item.Mobile + ")");
+                    });
+                    debugger
+                    $('#LoginId').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            debugger
+                            $('#Pk_UserId').val('');
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#Pk_UserId').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+    function changeCustomer() {
+        var Mobile = $("#Pk_UserId").val();
+        if(Mobile=="")
+        {
+            $("#Mobile").val("");
+        }
+        else {
+            $("#Mobile").val(Mobile);
+        }
+    }
     $("#btnAddLine").click(function () {
         var valid = true;
         $(".errortext").removeClass("errortext");
@@ -292,9 +262,16 @@
             isvallid = false;
             return false;
         }
-        if ($("#CustomerId").val() == "0") {
-            $("#CustomerId").addClass('errortext');
-            $('#CustomerId').focus();
+        if ($("#LoginId").val() == "") {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            $("#divload").css({ 'display': 'none' });
+            isvallid = false;
+            return false;
+        }
+        if ($("#Mobile").val() == "") {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
             $("#divload").css({ 'display': 'none' });
             isvallid = false;
             return false;
@@ -311,9 +288,12 @@
             }
             debugger
             var formData = new FormData();
-            formData.append("CustomerId", $('#CustomerId').val());
+            //formData.append("CustomerId", $('#CustomerId').val());
             formData.append("ShopId", $('#ShopId').val());
             formData.append("BillNo", $('#BillNo').val());
+            formData.append("Pk_UserId", $('#Pk_UserId').val());
+            formData.append("LoginId", $('#LoginId').val());
+            formData.append("Mobile", $('#Mobile').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
