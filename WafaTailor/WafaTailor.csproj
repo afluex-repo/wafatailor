@@ -168,6 +168,7 @@
     <Content Include="assets\Images\usericon.jpg" />
     <Content Include="assets\Images\ViewProfile.jpg" />
     <Content Include="assets\Images\XwHw.gif" />
+    <Content Include="assets\jquery.min.js" />
     <Content Include="assets\js\app.js" />
     <Content Include="assets\js\layout.js" />
     <Content Include="assets\js\pages\calendar\calendar.min.js" />

@@ -187,7 +187,23 @@ namespace WafaTailor.Controllers
 
         //    return Json(order, JsonRequestBehavior.AllowGet);
         //}
-
+        public ActionResult GetcustomerList()
+        {
+            SaleOrder obj = new SaleOrder();
+            List<SaleOrder> lst = new List<SaleOrder>();
+            DataSet ds = obj.GetCustomerDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    SaleOrder objList = new SaleOrder();
+                    objList.Name = dr["CustomerName"].ToString();
+                    objList.Mobile = dr["Mobile"].ToString();
+                    lst.Add(objList);
+                }
+            }
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetUserDetails(string LoginId)
         {
             SaleOrder model = new SaleOrder();
