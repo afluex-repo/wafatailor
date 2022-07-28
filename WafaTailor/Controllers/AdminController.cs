@@ -239,22 +239,16 @@ namespace WafaTailor.Controllers
                 ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                 ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+
+                model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.Advance = ds.Tables[0].Rows[0]["AdvanceAmount"].ToString();
+                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
+                model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
+                lstbill.Add(model);
             }
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds.Tables[1].Rows)
-                {
-                    model.BillDate = ds.Tables[1].Rows[0]["BillDate"].ToString();
-                    model.Advance = ds.Tables[1].Rows[0]["AdvanceAmount"].ToString();
-                    model.NoOfPiece = ds.Tables[1].Rows[0]["NoOfPiece"].ToString();
-                    model.OriginalPrice = ds.Tables[1].Rows[0]["OriginalPrice"].ToString();
-                    model.Discount = ds.Tables[1].Rows[0]["Discount"].ToString();
-                    model.FinalPrice = ds.Tables[1].Rows[0]["FinalAmount"].ToString();
-                    lstbill.Add(model);
-                }
-                model.lstList = lstbill;
-                ViewBag.FinalPrice = double.Parse(ds.Tables[1].Compute("sum(FinalPrice)", "").ToString()).ToString("n2");
-            }
+            model.lstList = lstbill;
 
             return View(model);
         }
