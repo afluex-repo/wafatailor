@@ -53,7 +53,7 @@
                                         <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "10", @Minlength = "10" })
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    @*<div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Email-Id</label>
                                         @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
                                     </div>
@@ -72,7 +72,7 @@
                                     <div class="form-group col-sm-12">
                                         <label for="simpleFormPassword">Address</label>
                                         @Html.TextAreaFor(m => m.CustomerAddress, new { @class = "form-control", @placeholder = "Address" })
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     @Html.HiddenFor(m => m.UserID)
