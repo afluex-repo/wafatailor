@@ -1,0 +1,187 @@
+﻿@model WafaTailor.Models.Admin
+
+@{
+    ViewBag.Title = "PrintBill";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+    p, span, th, td, h5, h4, li, div {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+    }
+
+    .text-primary {
+        color: #6673fc !important;
+        font-weight: bold;
+    }
+
+    body {
+        background: #f2f2f2;
+    }
+
+    .box-shadow {
+        box-shadow: 1px 1px 3px gray;
+    }
+
+    .invoice-id {
+        border-radius: 0px 0 0 200px;
+        background-image: linear-gradient(to bottom, #6673fc, #6673fc);
+    }
+
+    th {
+        font-weight: 400;
+        background: #6673fc !important;
+    }
+
+    thead {
+        background: #6673fc;
+        color: #fff;
+    }
+
+    .info {
+        padding: 10px;
+    }
+
+    .btn-primary {
+        background: #6673fc;
+        border: 1px solid #6673fc;
+    }
+
+    @@media print {
+        #print_btn {
+            display: none !important;
+        }
+    }
+</style>
+
+<div class="container mb-5 mt-2">
+    <div class="card box-shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="mt-4 font-weight-bold">Wafa Tailor</h2>
+                    @* <img src="~/assets/Images/logo.png" alt="logo" class="mt-4" style="width: 35%">*@
+                </div>
+                <div class="col-sm-6 text-right invoice-id">
+                    <div class="info text-white">
+                        <h3>Invoice</h3>
+                        <p>
+                            Invoice Date: 14-04-2022
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h6 class="font-weight-bold">Wafa Tailor</h6>
+                    <div>
+                    </div>
+                    <div>
+                        <p>
+                            <b>Address:</b> 2nd Floor Arjun Tower Near Ola Office, <br /> Vibhuti Khand, Lucknow, Uttar Pradesh 226010 <br />
+                            <b>Email :</b> wafatailor@gmail.com<br />
+                            <b>Phone No.</b> 9876543210
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <h6 class="mb-3">Invoice To</h6>
+                    <div>
+                        <strong>@ViewBag.CustomerName</strong>
+                    </div>
+                    <div>Address: @ViewBag.CustomerAddress </div>
+                    <div>Email: @ViewBag.Email</div>
+                    <div>Phone: @ViewBag.CustomerMobile</div>
+                    <div>Bill No: @ViewBag.BillNo</div>
+                </div>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="background: #6673fc !important;">Sr.No.</th>
+                            <th style="background: #6673fc !important;">Bill Date</th>
+                            <th style="background: #6673fc !important;">No.Of Piece</th>
+                            <th style="background: #6673fc !important;">Original Price</th>
+                            <th style="background: #6673fc !important;">Discount</th>
+                            <th style="background: #6673fc !important;">Advance Amount</th>
+                            <th style="background: #6673fc !important;">Final Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                            {
+                                if (Model.lstList != null)
+                                {
+                                    var i = 1; foreach (var item in Model.lstList)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.BillDate</td>
+                                            <td>@item.NoOfPiece</td>
+                                            <td>@item.OriginalPrice</td>
+                                            <td>@item.Discount</td>
+                                            <td>@item.Advance</td>
+                                            <td>@item.FinalPrice</td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-5">
+                </div>
+                <div class="col-lg-4 col-sm-5 ml-auto">
+                    <table class="table table-clear">
+                        <tbody>
+                            <tr>
+                                <td class="left">
+                                    <strong>Total :</strong>
+                                </td>
+                                <td class="right">
+                                    <strong>@ViewBag.FinalPrice</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12 mb-2">
+                    <h5 class="text-primary">Terms and Conditions :-</h5>
+                    <ol>
+                        <li>Taxes will be charge 18% extra as per GST applicable.</li>
+                        <li>Payments will be 100% advance in BTL branding.</li>
+                    </ol>
+                </div>
+                <div class="col-sm-12 text-right">
+                    <h5>Authorized Signature</h5>
+                    <p>..............................................</p>
+                </div>
+                <div class="col-sm-12 text-center mt-2">
+                    <p>Thank you for your business.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="print_btn">
+            <div class="col-sm-3 mb-3">
+                <button class="btn btn-primary btn-sm btn-print ml-3" onclick="javascript: window.print();">
+                    <i class="fa fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

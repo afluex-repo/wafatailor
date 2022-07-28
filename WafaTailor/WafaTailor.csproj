@@ -536,6 +536,9 @@
     <Content Include="Views\Shop\PrintShopSaleOrder.cshtml" />
     <Content Include="Views\Shop\ShopSaleOrderList.cshtml" />
     <Content Include="Views\Master\BillReport.cshtml" />
+    <Content Include="Views\Admin\BillEntry.cshtml" />
+    <Content Include="Views\Admin\BillList.cshtml" />
+    <Content Include="Views\Admin\PrintBill.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
