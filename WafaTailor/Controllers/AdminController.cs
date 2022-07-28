@@ -236,8 +236,8 @@ namespace WafaTailor.Controllers
             {
                 ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
-                ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
 
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
