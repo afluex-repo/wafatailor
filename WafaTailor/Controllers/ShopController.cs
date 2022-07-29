@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WafaTailor.Filter;
 using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
@@ -95,7 +96,6 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-
                         order.Result = "Yes";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
@@ -199,5 +199,129 @@ namespace WafaTailor.Controllers
         //    }
         //    return RedirectToAction("ShopSaleOrderList", "Shop");
         //}
+
+        public ActionResult GetcustomerList()
+        {
+            Shop obj = new Shop();
+            List<Shop> lst = new List<Shop>();
+            DataSet ds = obj.GetCustomerDetail();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    Shop objList = new Shop();
+                    objList.Name = dr["CustomerName"].ToString();
+                    objList.Mobile = dr["Mobile"].ToString();
+                    lst.Add(objList);
+                }
+            }
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult BillEntry(Shop model)
+        {
+            #region Customer
+            List<SelectListItem> ddlcustomer = new List<SelectListItem>();
+            DataSet ds = model.GetCustomerDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlcustomer.Add(new SelectListItem { Text = "Select Customer", Value = "0" });
+                    }
+                    ddlcustomer.Add(new SelectListItem { Text = r["CustomerName"].ToString(), Value = r["PK_UserId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlcustomer = ddlcustomer;
+            #endregion
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("BillEntry")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult BillEntryAction(Shop model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = new DataSet();
+                ds = model.SaveBillEntry();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["BillEntry"] = "Bill Entry saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["BillEntry"] = ex.Message;
+            }
+            return RedirectToAction("BillEntry", "Shop");
+        }
+
+        public ActionResult BillList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            DataSet ds = model.GetBillDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.BillDate = r["BillDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult PrintBill(string BillId)
+        {
+            List<Shop> lstbill = new List<Shop>();
+            Shop model = new Shop();
+            model.BillId = BillId;
+            DataSet ds = model.PrintBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+
+                model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.Advance = ds.Tables[0].Rows[0]["AdvanceAmount"].ToString();
+                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
+                model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
+                lstbill.Add(model);
+            }
+            model.lstList = lstbill;
+
+            return View(model);
+        }
     }
 }
