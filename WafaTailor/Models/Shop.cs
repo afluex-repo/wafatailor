@@ -9,6 +9,7 @@ namespace WafaTailor.Models
 {
     public class Shop :Common
     {
+        public List<Shop> lstList { get; set; }
         public List<Shop> lstShopRegistration { get; set; }
         public List<Shop> lstshopsaleorder { get; set; }
         public string CustomerId { get; set; }
@@ -32,6 +33,16 @@ namespace WafaTailor.Models
         public string SalesOrderNo { get; set; }
         public string customerName { get; set; }
 
+        # region
+        public string LoginId { get; set; }
+        public string Advance { get; set; }
+        public string RemainningBalance { get; set; }
+        public string BillDate { get; set; }
+        public string Name { get; set; }
+        public string ShopId { get; set; }
+        public string BillId { get; set; }
+        #endregion
+
         public DataSet GetCustomerDetails()
         {
              SqlParameter[] para =
@@ -47,8 +58,10 @@ namespace WafaTailor.Models
                 new SqlParameter("@AddedBy",AddedBy),
                 new SqlParameter("@BillNo",BillNo),
                 new SqlParameter("@Fk_ShopId",AddedBy),
-                new SqlParameter("@Fk_CustomerId",CustomerId),
-                new SqlParameter("@dt",dt)
+                new SqlParameter("@Fk_Userid",AddedBy),
+                new SqlParameter("@dt",dt),
+                  new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Mobile",Mobile),
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
             return ds;
@@ -59,7 +72,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Fk_ShopId",AddedBy)
+                //new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@ShopLoginId",AddedBy),
+                new SqlParameter("@CustomerLoginId",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
@@ -82,5 +97,56 @@ namespace WafaTailor.Models
         //    DataSet ds = DBHelper.ExecuteQuery("DeleteShopSaleOrder", para);
         //    return ds;
         //}
+
+        public DataSet GetCustomerDetail()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_CustomerId",Pk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet SaveBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",Fk_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveBillingDetails", para);
+            return ds;
+        }
+
+        public DataSet GetBillDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
+            return ds;
+        }
+        public DataSet PrintBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintBill", para);
+            return ds;
+        }
     }
 }

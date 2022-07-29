@@ -214,7 +214,8 @@ namespace WafaTailor.Controllers
                 {
                     Admin obj = new Admin();
                     obj.BillId = r["Pk_BillId"].ToString();
-                    obj.ShopName = r["ShopName"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();

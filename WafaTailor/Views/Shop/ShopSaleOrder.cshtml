@@ -37,9 +37,20 @@
                                 <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
-                                        @Html.DropDownListFor(m=>m.CustomerId,new SelectList(ViewBag.ddlcustomer,"Value","Text"),new {@class= "form-control" })
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                        @Html.HiddenFor(m => m.Pk_UserId)
                                     </div>
                                 </div>
+
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                                    </div>
+                                </div>
+
+
+
                                 <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
@@ -75,7 +86,7 @@
                                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumber(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
                                                     <td>@Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control netamount", @placeholder = "Final Amount", @style = "width:150px", @readonly="true" })</td>
-                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control", @placeholder = "Sale Date", @style = "width:150px" })</td>
+                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control mydatepicker", @placeholder = "Sale Date", @style = "width:150px" })</td>
                                                     <td>@Html.TextAreaFor(m => m.Description, new { @class = "form-control description", @placeholder = "Description", @style = "width:150px" })</td>
                                                     <td><input type="button" id="btnAddLine" name="btnAddLine" value="Add Line" class="btn btn-success list-button" />
                                                     </td>
@@ -199,6 +210,13 @@
             isvallid = false;
             return false;
         }
+        if ($("#Mobile").val() == "0") {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            $("#divload").css({ 'display': 'none' });
+            isvallid = false;
+            return false;
+        }
         if (clonelist.length == 0) {
                 $('#error').text('Atleast one sale order required !!.');
                 isvallid = false;
@@ -213,6 +231,7 @@
             var formData = new FormData();
             formData.append("CustomerId", $('#CustomerId').val());
             formData.append("BillNo", $('#BillNo').val());
+            formData.append("Mobile", $('#Mobile').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
@@ -281,4 +300,51 @@
         {
             // mode: "range"
         });
+</script>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/Shop/GetcustomerList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.Name + "(" + item.Mobile + ")");
+                    });
+                    debugger
+                    $('#LoginId').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            debugger
+                            $('#Pk_UserId').val('');
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#Pk_UserId').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+    function changeCustomer() {
+        var Mobile = $("#Pk_UserId").val();
+        if (Mobile == "") {
+            $("#Mobile").val("");
+        }
+        else {
+            $("#Mobile").val(Mobile);
+        }
+    }
 </script>
