@@ -1,4 +1,4 @@
-﻿@model WafaTailor.Models.Admin
+﻿@model WafaTailor.Models.Shop
 
 @{
     ViewBag.Title = "PrintBill";
@@ -99,7 +99,7 @@
                         <strong>@ViewBag.CustomerName</strong>
                     </div>
                     @*<div>Address: @ViewBag.CustomerAddress </div>
-                    <div>Email: @ViewBag.Email</div>*@
+                        <div>Email: @ViewBag.Email</div>*@
                     <div>Phone: @ViewBag.CustomerMobile</div>
                     <div>Bill No: @ViewBag.BillNo</div>
                 </div>
@@ -119,24 +119,24 @@
                     </thead>
                     <tbody>
                         @if (Model != null)
+                        {
+                            if (Model.lstList != null)
                             {
-                                if (Model.lstList != null)
+                                var i = 1; foreach (var item in Model.lstList)
                                 {
-                                    var i = 1; foreach (var item in Model.lstList)
-                                    {
-                                        <tr>
-                                            <td>@i</td>
-                                            <td>@item.BillDate</td>
-                                            <td>@item.NoOfPiece</td>
-                                            <td>@item.OriginalPrice</td>
-                                            <td>@item.Discount</td>
-                                            <td>@item.Advance</td>
-                                            <td>@item.FinalPrice</td>
-                                        </tr>
-                                        i++;
-                                    }
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.BillDate</td>
+                                        <td>@item.NoOfPiece</td>
+                                        <td>@item.OriginalPrice</td>
+                                        <td>@item.Discount</td>
+                                        <td>@item.Advance</td>
+                                        <td>@item.FinalPrice</td>
+                                    </tr>
+                                    i++;
                                 }
                             }
+                        }
                     </tbody>
                 </table>
             </div>

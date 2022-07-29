@@ -214,7 +214,8 @@ namespace WafaTailor.Controllers
                 {
                     Admin obj = new Admin();
                     obj.BillId = r["Pk_BillId"].ToString();
-                    obj.ShopName = r["ShopName"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
@@ -236,8 +237,8 @@ namespace WafaTailor.Controllers
             {
                 ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
-                ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
 
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();

@@ -1,13 +1,14 @@
-﻿@model WafaTailor.Models.Admin
+﻿@model WafaTailor.Models.Shop
 
 @{
     ViewBag.Title = "BillEntry";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
+
 
 <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
 <link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
-@using (Html.BeginForm("BillEntry", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("BillEntry", "Shop", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
         <!-- start page content -->
     <div class="page-content-wrapper">
@@ -25,16 +26,16 @@
                         <div class="card-head">
                             <header>Bill Entry</header>
                             <span style="color:red;">@TempData["BillEntry"]</span>
-                            <a href="/Admin/BillList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                            <a href="/Shop/BillList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
-                                <div class="form-group col-sm-3">
+                                @*<div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Shop<span style="color:red">*</span></label>
                                         @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
@@ -66,13 +67,13 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>
-                                       @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Original Price", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Original Price", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Final Price<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.FinalPrice, new { @class = "form-control", @placeholder = "Final Price",@Readonly="true" })
+                                        @Html.TextBoxFor(m => m.FinalPrice, new { @class = "form-control", @placeholder = "Final Price", @Readonly = "true" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
@@ -96,7 +97,7 @@
                                 </div>
 
                                 <div class="form-group col-sm-4 mt-4">
-                                    <input type="submit" class="btn btn-primary" id="SaveBill" name="SaveBill" value="Submit" onclick="return Validateform()">
+                                    <input type="submit" class="btn btn-primary" id="Save" name="Save" value="Submit" onclick="return Validateform()">
                                 </div>
                             </div>
                         </div>
@@ -117,7 +118,7 @@
         var cityuse = [];
         $("#loader").css({ 'display': '' });
         $.ajax({
-            url: '/SaleOrder/GetcustomerList',
+            url: '/Shop/GetcustomerList',
             type: 'Post',
             success: function (response) {
                 if (response != null) {
@@ -152,17 +153,41 @@
             $("#Mobile").val(Mobile);
         }
     }
+    function calculatefinalamount() {
+        var NoofPiece = $("#NoOfPiece").val();
+        var originalprice = $("#OriginalPrice").val();
+        var Advance = $("#Advance").val();
 
+
+        if (Number(NoofPiece) == "") {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            //$('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if (Advance == "") {
+            Advance = 0;
+        }
+        if (originalprice == "") {
+            originalprice = 0;
+        }
+        var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        var RemainingBalance = (Number(finalAmount) - Number(Advance))
+        $("#FinalPrice").val(finalAmount);
+        $("#RemainningBalance").val(RemainingBalance);
+
+    }
     function Validateform()
     {
         $(".errortext").removeClass("errortext");
 
-        if ($('#ShopId').val() == '0') {
-            $("#ShopId").addClass('errortext');
-            $('#ShopId').focus();
-            $("#divload").css({ 'display': 'none' });
-            return false;
-        }
+        //if ($('#ShopId').val() == '0') {
+        //    $("#ShopId").addClass('errortext');
+        //    $('#ShopId').focus();
+        //    $("#divload").css({ 'display': 'none' });
+        //    return false;
+        //}
         if ($('#LoginId').val() == '') {
             $("#LoginId").addClass('errortext');
             $('#LoginId').focus();
@@ -228,34 +253,6 @@
 
         return true;
     }
-
-
-    function calculatefinalamount() {
-        var NoofPiece = $("#NoOfPiece").val();
-        var originalprice = $("#OriginalPrice").val();
-        var Advance = $("#Advance").val();
-
-        if (Number(NoofPiece) == "") {
-            $("#NoOfPiece").val("");
-            $("#NoOfPiece").addClass('errortext');
-            $('#NoOfPiece').focus();
-            $("#divload").css({ 'display': 'none' });
-            return false;
-        }
-        if (originalprice == "") {
-            originalprice = 0;
-        }
-        if (Advance == "") {
-            Advance = 0;
-        }
-        var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
-        $("#FinalPrice").val(finalAmount);
-
-        var RemainningAmount = ((Number(finalAmount) - Number(Advance)))
-        $("#RemainningBalance").val(RemainningAmount);
-
-    }
-
 </script>
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
