@@ -40,8 +40,6 @@ namespace WafaTailor.Models
         public string BillDate { get; set; }
         public string BillId { get; set; }
         public string ShopName { get; set; }
-        //public string FromDate { get; set; }
-        //public string ToDate { get; set; }
 
         public DataSet GetAdminDashBoardDetails()
         {
@@ -123,8 +121,8 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_BillId",BillId),
-                //new SqlParameter("@FromDate", FromDate),
-                //new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
