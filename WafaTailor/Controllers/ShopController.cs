@@ -124,6 +124,7 @@ namespace WafaTailor.Controllers
         {
             List<Shop> lst = new List<Shop>();
             model.AddedBy = Session["Pk_userId"].ToString();
+            model.ShopLoginId = Session["LoginId"].ToString();
             DataSet ds = model.GetShopSaleOrderDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -284,12 +285,14 @@ namespace WafaTailor.Controllers
                 {
                     Shop obj = new Shop();
                     obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
                     obj.Name = r["Name"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
                 model.lstList = lst;
@@ -297,11 +300,12 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult PrintBill(string BillId)
+        public ActionResult PrintBill(string BillId, string PaymentId)
         {
             List<Shop> lstbill = new List<Shop>();
             Shop model = new Shop();
             model.BillId = BillId;
+            model.Pk_BillPaymentId = PaymentId;
             DataSet ds = model.PrintBill();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -312,7 +316,7 @@ namespace WafaTailor.Controllers
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
 
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
-                model.Advance = ds.Tables[0].Rows[0]["AdvanceAmount"].ToString();
+                model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
