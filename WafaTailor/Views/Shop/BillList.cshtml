@@ -91,9 +91,15 @@
                                                     <td>@item.BillNo</td>
                                                     <td>@item.BillDate</td>
                                                     <td>
-                                                        <a target="_blank" href="/Shop/PrintBill?BillId=@item.BillId" class="tblDelBtn">
-                                                            <i class="fa fa-print" title="Print"></i>
+                                                        <a target="_blank" href="/Shop/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
+                                                            <i class="btn btn-primary" title="Print">Print</i>
                                                         </a>
+                                                        @if (item.Balance > 0)
+                                                        {
+                                                            <a target="_blank" href="#?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
+                                                                <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
+                                                            </a>
+                                                        }
                                                     </td>
                                                 </tr>
                                                 i = i + 1;
