@@ -59,15 +59,30 @@ h1 {
   h1 {
     font-size: 32px;
   }
+  .banner-img
+  {
+      height:320px !important;
+      width:100%;
+  }
 }
 @media only screen and (max-width: 575px) {
   h1 {
     font-size: 28px;
   }
+  .banner-img
+  {
+      height:320px !important;
+      width:100%;
+  }
 }
 @media only screen and (max-width: 479px) {
   h1 {
     font-size: 26px;
+  }
+  .banner-img
+  {
+      height:320px !important;
+      width:100%;
   }
 }
 h2 {
@@ -262,7 +277,7 @@ body.loaded .fxt-template:after {
 .fxt-template .fxt-main-content .subscribe-form .input-group .input-group-addon {
   display: inline-block;
 }
-button {
+.button {
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -294,10 +309,10 @@ button {
     min-width: 140px;
   }
 }
-button:focus {
+.button:focus {
   outline: none;
 }
-button:hover {
+.button:hover {
   background-color: transparent;
   color: #2789c9;
 }
