@@ -242,7 +242,7 @@ namespace WafaTailor.Controllers
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
 
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
-                model.Advance = ds.Tables[0].Rows[0]["AdvanceAmount"].ToString();
+                model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
