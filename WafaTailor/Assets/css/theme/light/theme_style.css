@@ -9317,7 +9317,7 @@ nav-tabs > li {
   font-size: 13px;
   background-color: #222c3c;
   z-index: 998;
-  position: relative;
+  /*position: relative;*/
 }
 .page-footer:after,
 .page-footer:before {
