@@ -107,6 +107,7 @@
                     <div>Address: @ViewBag.CustomerAddress </div>
                     <div>Email: @ViewBag.Email</div>
                     <div>Phone: @ViewBag.CustomerMobile</div>
+                    <div>Bill No: @ViewBag.BillNo</div>
                 </div>
             </div>
             <div class="table-responsive-sm">
@@ -114,10 +115,12 @@
                     <thead>
                         <tr>
                             <th style="background: #6673fc !important;">Sr.No.</th>
-                            <th style="background: #6673fc !important;">Order Date</th>
-                            <th style="background: #6673fc !important;">Delivery Date</th>
-                            <th style="background: #6673fc !important;">Description</th>
-                            <th style="background: #6673fc !important;">Amount</th>
+                            <th style="background: #6673fc !important;">Sale Date</th>
+                            <th style="background: #6673fc !important;">Piece Name</th>
+                            <th style="background: #6673fc !important;">No.Of Piece</th>
+                            <th style="background: #6673fc !important;">Original Price</th>
+                            <th style="background: #6673fc !important;">Discount</th>
+                            <th style="background: #6673fc !important;">Final Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,10 +132,12 @@
                                 {
                                     <tr>
                                         <td>@i</td>
-                                        <td>@item.OrderDate</td>
-                                        <td>@item.DeliveryDate</td>
-                                        <td>@item.Description</td>
-                                        <td>@item.Amount</td>
+                                        <td>@item.SaleDate</td>
+                                        <td>@item.PieceName</td>
+                                        <td>@item.NoOfPiece</td>
+                                        <td>@item.OriginalPrice</td>
+                                        <td>@item.Discount</td>
+                                        <td>@item.FinalPrice</td>
                                     </tr>
                                     i++;
                                 }
@@ -164,7 +169,7 @@
                                     <strong>Total :</strong>
                                 </td>
                                 <td class="right">
-                                    <strong>@ViewBag.Amount</strong>
+                                    <strong>@ViewBag.FinalPrice</strong>
                                 </td>
                             </tr>
                         </tbody>

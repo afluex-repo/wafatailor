@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,13 +172,13 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a href="/Vendor/VendorRegistration" class="nav-link ">
                                             <span class="title">
                                                 Vendor Registration
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     <li class="nav-item">
                                         <a href="/Customer/CustomerRegistration" class="nav-link ">
                                             <span class="title">
@@ -189,6 +188,30 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="users"></i>
+                                    <span class="title">Salary Management</span><span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/Employee/EmployeeSalaryManagement" class="nav-link ">
+                                            <span class="title">
+                                                Salary/Advance
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Employee/SalaryList" class="nav-link ">
+                                            <span class="title">
+                                              Salary List
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
@@ -211,6 +234,30 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="users"></i>
+                                    <span class="title">Bill Master</span><span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/Admin/BillEntry" class="nav-link ">
+                                            <span class="title">
+                                                Bill Entry
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Admin/BillList" class="nav-link ">
+                                            <span class="title">
+                                                Bill List
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle">
                                     <i data-feather="users"></i>
@@ -218,9 +265,23 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item">
-                                        <a href="/Admin/VendorListForAdmin" class="nav-link ">
+                                        <a href="/Customer/CustomerRegistrationList" class="nav-link ">
                                             <span class="title">
-                                                Vendor List
+                                                Customer List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Employee/EmployeeRegistrationList" class="nav-link ">
+                                            <span class="title">
+                                                Employee List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Master/ShopMasterList" class="nav-link ">
+                                            <span class="title">
+                                                Shop List
                                             </span>
                                         </a>
                                     </li>
@@ -251,6 +312,8 @@
     </div>
     <!-- start js include path -->
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="~/assets/plugins/popper/popper.js"></script>
     <script src="~/assets/plugins/jquery-blockui/jquery.blockui.min.js"></script>
     <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>

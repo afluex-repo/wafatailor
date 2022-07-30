@@ -76,6 +76,7 @@ namespace WafaTailor.Controllers
                     obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
                     obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
                     obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                    obj.Salary = ds.Tables[0].Rows[0]["Salary"].ToString();
                 }
             }
             return View(obj);
@@ -153,6 +154,7 @@ namespace WafaTailor.Controllers
                     obj.Password = r["Password"].ToString();
                     obj.JoiningDate = r["JoiningDate"].ToString();
                     //obj.LoginId = r["LoginId"].ToString();
+                    obj.Salary = r["Salary"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -301,6 +303,7 @@ namespace WafaTailor.Controllers
                     obj.Password = r["Password"].ToString();
                     obj.JoiningDate = r["JoiningDate"].ToString();
                     //obj.LoginId = r["LoginId"].ToString();
+                    obj.Salary = r["Salary"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -308,5 +311,147 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
+        public ActionResult EmployeeSalaryManagement()
+        {
+            Employee obj = new Employee();
+            #region Name
+            List<SelectListItem> ddlName = new List<SelectListItem>();
+            DataSet ds1 = obj.GetEmployeeNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlName.Add(new SelectListItem { Text = "Select Name", Value = "0" });
+                    }
+                    ddlName.Add(new SelectListItem { Text = r["Name"].ToString(), Value = r["Pk_EmployeeId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlName = ddlName;
+            #endregion
+
+            #region Type
+            List<SelectListItem> ddlSaleryType = new List<SelectListItem>();
+            DataSet ds2 = obj.GetSalaryTypeDetails();
+            if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds2.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlSaleryType.Add(new SelectListItem { Text = "Select Type", Value = "0" });
+                    }
+                    ddlSaleryType.Add(new SelectListItem { Text = r["SalaryType"].ToString(), Value = r["SalaryType"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlSaleryType = ddlSaleryType;
+            #endregion
+
+            #region Payment Mode
+            List<SelectListItem> ddlpaymentmode = new List<SelectListItem>();
+            ddlpaymentmode.Add(new SelectListItem { Text = "Select Payment Mode", Value = "0" });
+            DataSet ds = obj.GetPaymentMode();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    ddlpaymentmode.Add(new SelectListItem { Text = r["PaymentMode"].ToString(), Value = r["PK_paymentID"].ToString() });
+                }
+            }
+            ViewBag.ddlpaymentmode = ddlpaymentmode;
+            #endregion
+
+            return View();
+        }
+                
+        [HttpPost]
+        [ActionName("EmployeeSalaryManagement")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult EmployeeSalaryManagementAction(Employee model)
+        {
+            try
+            {
+                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
+                DataSet ds = model.SalaryManagement();
+                if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["Salary"] = "Salary Saved Successfully";
+                    }
+                    else
+                    {
+                        TempData["Salary"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Salary"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Salary"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeSalaryManagement", "Employee");
+        }
+        public ActionResult SalaryList(Employee model)
+        {
+            List<Employee> lst = new List<Employee>();
+            DataSet ds = model.GetSalaryDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.EmployeeId = r["pk_EmployeeId"].ToString();
+                    obj.Salary= r["Salary"].ToString();
+                    obj.EmployeeName = r["Name"].ToString();
+                    obj.CrAmount = r["TotalCrAmount"].ToString();
+                    obj.DrAmount = r["TotalDrAmount"].ToString();
+                    obj.RemainingSalary = r["RemainingSalary"].ToString();
+                    //obj.Type = r["SalaryType"].ToString();
+                    //obj.Date = r["SalaryDate"].ToString();
+                    //obj.Remark = r["Remarks"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstSalary = lst;
+            }
+            return View(model);
+        }
+        public ActionResult SalaryLedger(string SalaryId)
+        {
+            Employee model = new Employee();
+            model.EmployeeId = SalaryId;
+            List<Employee> lst = new List<Employee>();
+            DataSet ds = model.GetSalaryLedger();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                   
+                    obj.Salary = r["LeftAmount"].ToString();
+                    obj.TransactionDate = r["TransactionDate"].ToString();
+                    obj.PaymentMode = r["PaymentMode"].ToString();
+                    obj.DrAmount = r["DrAmount"].ToString();
+                    obj.RemainingSalary = r["RemainingSalary"].ToString();
+                    obj.Type = r["SalaryType"].ToString();
+                    obj.Date = r["SalaryDate"].ToString();
+                    obj.Remark = r["Remarks"].ToString();
+                    obj.TransactionNo = r["TransactionNo"].ToString();
+                    obj.BankBranch = r["BankBranch"].ToString();
+                    obj.BankName = r["BankName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstSalary = lst;
+            }
+            return View(model);
+        }
     }
 }

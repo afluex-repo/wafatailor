@@ -28,30 +28,47 @@ namespace WafaTailor.Models
         public string Mobile { get; set; }
         public DataTable dtSaleOrderDetails { get; set; }
 
-        public DataTable CustomerName { get; set; }
+        public string CustomerName { get; set; }
+        //public DataTable CustomerName { get; set; }
         public DataTable CustomerAddress { get; set; }
-        
-        //public string InvoiceNo { get; set; }
-        //public string PK_InvoiceNoID { get; set; }
-        //public string InvoiceDate { get; set; }
-        //public string LineStatus { get; set; }
-        //public string SaleOrderNo { get; set; }
+
+        public string SaleDate { get; set; }
+        public string PieceName{ get; set; }
+        public string NoOfPiece { get; set; }
+        public string OriginalPrice { get; set; }
+        public string Discount { get; set; }
+        public string FinalPrice { get; set; }
+
+        public string ShopName { get; set; }
+        public string BillNo { get; set; }
+        public string SalesOrderNo { get; set; }
 
 
         public string SaleOrderNoEncrypt { get; set; }
+        public string PriceName { get; set; }
+        public string NetAmount { get; set; }
+        public string SaleOrderDate { get; set; }
+        public string CustomerId { get; set; }
+        public string Pk_UserId { get; set; }
+        public DataTable dt { get; set; }
+        public string ShopId { get; set; }
+        public string ShopLoginId { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
 
-        public DataSet SaveSaleOrderDetails()
-        {
-            SqlParameter[] para =
-            {
-                    new SqlParameter("@Fk_UserId",Fk_UserId),
-                   new SqlParameter("@Fk_ShopeId",Fk_ShopeId),
-                   new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
-                 new SqlParameter("@AddedBy",AddedBy)
-            };
-              DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
-            return ds;
-        }
+
+        //public DataSet SaveSaleOrderDetails()
+        //{
+        //    SqlParameter[] para =
+        //    {
+        //            new SqlParameter("@Fk_UserId",Fk_UserId),
+        //           new SqlParameter("@Fk_ShopeId",Fk_ShopeId),
+        //           new SqlParameter("@dtSaleOrderDetails",dtSaleOrderDetails),
+        //         new SqlParameter("@AddedBy",AddedBy)
+        //    };
+        //      DataSet ds = DBHelper.ExecuteQuery("SaveSaleOrderDetails", para);
+        //    return ds;
+        //}
 
         public DataSet GetUserDetails()
         {
@@ -68,9 +85,12 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_SaleOrderDetailsId",SaleOrderId)
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
             };
-            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderDetails", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
         }
 
@@ -98,6 +118,35 @@ namespace WafaTailor.Models
         //    return ds;
         //}
 
-       
+        public DataSet GetCustomerDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_CustomerId",Pk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet SaveSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",Fk_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                //new SqlParameter("@Fk_CustomerId",CustomerId),
+                new SqlParameter("@dt",dt)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
+            return ds;
+        }
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
+            return ds;
+        }
     }
 }

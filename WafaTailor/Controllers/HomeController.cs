@@ -51,19 +51,20 @@ namespace WafaTailor.Controllers
                         FormName = "AdminDashBoard";
                         Controller = "Admin";
                     }
-                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Associate")
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Shop")
                     {
                         if (ds.Tables[0].Rows[0]["Password"].ToString() == obj.Password)
                         {
-                            Session["Fk_RoleId"] = ds.Tables[0].Rows[0]["Fk_RoleId"].ToString();
-                            Session["Pk_userId"] = ds.Tables[0].Rows[0]["Pk_userId"].ToString();
+                            
+                            Session["Pk_userId"] = ds.Tables[0].Rows[0]["Pk_ShopId"].ToString();
                             Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
                             Session["Password"] = ds.Tables[0].Rows[0]["Password"].ToString();
-                            Session["FullName"] = ds.Tables[0].Rows[0]["FullName"].ToString();
-                            Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
+                            Session["ShopName"] = ds.Tables[0].Rows[0]["ShopName"].ToString();
+                            Session["ShopAddress"] = ds.Tables[0].Rows[0]["ShopAddress"].ToString();
                             Session["UserType"] = ds.Tables[0].Rows[0]["UserType"].ToString();
-                            FormName = "VendorDashBoard";
-                            Controller = "Vendor";
+                            Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
+                            FormName = "ShopDashBoard";
+                            Controller = "Shop";
                         }
                         else
                         {
