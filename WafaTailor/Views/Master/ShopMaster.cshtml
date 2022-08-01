@@ -15,18 +15,9 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                       @* <div class="page-title">Shop Master</div>*@
+                   
                     </div>
-                    @*<ol class="breadcrumb page-breadcrumb pull-right">
-                        <li>
-                            <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                                                               href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            Master &nbsp;<i class="fa fa-angle-right"></i>
-                        </li>
-                        <li class="active">Shop Master</li>
-                    </ol>*@
+                  
                 </div>
             </div>
             <div class="row">
@@ -35,48 +26,54 @@
                         <div class="card-head">
                             <header>Shop Master</header>
                             <span class="text-danger">
-                                @TempData["Shop"]
+                                @TempData["Shop"] @TempData["LoginId"] @TempData["Password"]  
                             </span>
                             <a href="/Master/ShopMasterList" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
-                            <form>
-                                <div class="form-group">
-                                    <label for="simpleFormEmail">Shop <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name" })
+                            <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Shop Branch<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Branch Name" })
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
-                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @Placeholder = " Shop Address", })
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Address <span style="color:red">*</span></label>
+                                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @Placeholder = " Shop Address", })
+                                    </div>
                                 </div>
-                                <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return ValidateShop()">
-                            </form>
+                                <div class="form-group col-sm-4 mt-5">
+                                    <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return ValidateShop()">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
-       
-            }
-            <script>
-                function ValidateShop() {
-                    $("#divload").css({ 'display': '' })
-                    $(".errortext").removeClass("errortext");
+    </div>
 
-                    if ($("#ShopName").val() == "") {
-                        $("#ShopName").addClass('errortext');
-                        $("#ShopName").focus();
-                        return false;
-                    }
+}
+<script>
+    function ValidateShop() {
+        $("#divload").css({ 'display': '' })
+        $(".errortext").removeClass("errortext");
 
-                    if ($("#Address").val() == "") {
-                        $("#Address").addClass('errortext');
-                        $("#Address").focus();
-                        return false;
-                    }
-                }
-            </script>
+        if ($("#ShopName").val() == "") {
+            $("#ShopName").addClass('errortext');
+            $("#ShopName").focus();
+            return false;
+        }
+
+        if ($("#Address").val() == "") {
+            $("#Address").addClass('errortext');
+            $("#Address").focus();
+            return false;
+        }
+    }
+</script>
 
 
 

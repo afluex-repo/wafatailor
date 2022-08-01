@@ -168,6 +168,7 @@
     <Content Include="assets\Images\usericon.jpg" />
     <Content Include="assets\Images\ViewProfile.jpg" />
     <Content Include="assets\Images\XwHw.gif" />
+    <Content Include="assets\jquery.min.js" />
     <Content Include="assets\js\app.js" />
     <Content Include="assets\js\layout.js" />
     <Content Include="assets\js\pages\calendar\calendar.min.js" />
@@ -424,6 +425,14 @@
     <Content Include="plugins\treeview\custom-jstree.js" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +446,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShopBaseController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Filters\SimpleAttribute.cs" />
@@ -452,6 +463,7 @@
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Master.cs" />
     <Compile Include="Models\SaleOrder.cs" />
+    <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -510,6 +522,27 @@
     <Content Include="plugins\font-icons\fontawesome\webfonts\fa-regular-400.woff2" />
     <Content Include="plugins\font-icons\fontawesome\webfonts\fa-regular-400d41d.eot" />
     <None Include="Properties\PublishProfiles\WafaTailor.pubxml" />
+    <Content Include="Views\SaleOrder\PrintSaleOrder.cshtml" />
+    <Content Include="Views\Vendor\VendorConfirmRegistration.cshtml" />
+    <Content Include="Views\SaleOrder\GenerateInvoice.cshtml" />
+    <Content Include="Views\SaleOrder\GenerateBill.cshtml" />
+    <Content Include="Views\Employee\EmployeeSalaryManagement.cshtml" />
+    <Content Include="Views\Employee\SalaryList.cshtml" />
+    <Content Include="Views\Employee\SalaryLedger.cshtml" />
+    <Content Include="Views\Shared\_ShopLayout.cshtml" />
+    <Content Include="Views\Shop\ShopDashBoard.cshtml" />
+    <Content Include="Views\Shop\ShopSaleOrder.cshtml" />
+    <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shop\PrintShopSaleOrder.cshtml" />
+    <Content Include="Views\Shop\ShopSaleOrderList.cshtml" />
+    <Content Include="Views\Master\BillReport.cshtml" />
+    <Content Include="Views\Admin\BillEntry.cshtml" />
+    <Content Include="Views\Admin\BillList.cshtml" />
+    <Content Include="Views\Admin\PrintBill.cshtml" />
+    <Content Include="Views\Shop\BillEntry.cshtml" />
+    <Content Include="Views\Shop\BillList.cshtml" />
+    <Content Include="Views\Shop\PrintBill.cshtml" />
+    <Content Include="Views\Admin\BillPayment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -539,7 +572,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51134</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51139/</IISUrl>
+          <IISUrl>http://localhost:51132/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -39,12 +39,15 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = model.ShopMaster();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        TempData["Shop"] = "Shop Saved Successfully";
+                        //TempData["Shop"] = "Shop Saved Successfully";
+                        TempData["LoginId"] ="LoginId : "+ ds.Tables[0].Rows[0]["LoginId"].ToString() +" And" ;
+                        TempData["Password"] ="Password : "+ ds.Tables[0].Rows[0]["Password"].ToString();
                     }
                     else
                     {
@@ -82,7 +85,9 @@ namespace WafaTailor.Controllers
                     obj.ShopId = r["Pk_ShopId"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.Address = r["ShopAddress"].ToString();
-                    //obj.Status = r["Status"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Password = r["Password"].ToString();
                     lst.Add(obj);
                 }
                 model.lstRegistration = lst;
@@ -96,6 +101,7 @@ namespace WafaTailor.Controllers
             try
             {
                 obj.ShopId = ShopId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = obj.DeleteShopMaster();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -214,9 +220,108 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("MaterialList", "Master");
         }
+
+        
+        public ActionResult ActiveShop(string ShopId)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                if (ShopId != null)
+                {
+                    Master model = new Master();
+                    model.ShopId = ShopId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.ActiveShop();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["Active"] = "Shop Status Active!";
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                        else
+                        {
+                            TempData["Active"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult InactiveShop(string ShopId)
+        {
+            string FormName = " ";
+            string Controller = "";
+            try
+            {
+                if (ShopId != null)
+                {
+                    Master model = new Master();
+                    model.ShopId = ShopId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.InactiveShop();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["Active"] = "Shop Status Inactive!";
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                        else
+                        {
+                            TempData["Active"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            FormName = "ShopMasterList";
+                            Controller = "Master";
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult BillReport(string ShopId)
+        {
+            Master model = new Master();
+            model.ShopId = ShopId;
+            List<Master> lst = new List<Master>();
+            DataSet ds = model.GetBillReport();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.ShopId = r["Fk_ShopeId"].ToString();
+                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistration = lst;
+            }
+            return View(model);
+        }
     }
 }
 
 
-
- 
+   

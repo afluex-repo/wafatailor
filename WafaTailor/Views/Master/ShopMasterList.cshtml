@@ -5,17 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-      @using (Html.BeginForm("ShopMasterList", "Master", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
-      {
-      <!-- start page content -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
-                <div class="page-bar">
-                    <div class="page-title-breadcrumb">
-                        <div class="pull-left">
-                            @*<div class="page-title">Shop List</div>*@
-                        </div>
-                        @*<ol class="breadcrumb page-breadcrumb pull-right">
+@using (Html.BeginForm("ShopMasterList", "Master", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+{
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title">Shop List</div>*@
+                    </div>
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
                             <li>
                                 <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                                                                    href="/Home/Index">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -25,75 +24,85 @@
                             </li>
                             <li class="active">Shop List</li>
                         </ol>*@
-                    </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <div class="card">
-                            <div class="card-head">
-                                <header>Shop List</header>
-                                <span class="text-danger">
-                                    @TempData["Shop"]
-                                </span>
-                                <div class="tools">
-                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
-                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
-                                </div>
-                                
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Shop List</header>
+                            <span class="text-danger">
+                                @TempData["Active"]
+                            </span><a href="/Master/ShopMaster" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Shop</a>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                             </div>
-                            <div class="card-body table-responsive">
-                                <a href="/Master/ShopMaster" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back to Shop</a>
-                                <table class="table table-striped table-bordered table-hover table-checkable order-column"
-                                       style="width: 100%" id="example4">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr No.</th>
-                                            <th>Shop</th>
-                                            <th> Address</th>
-                                            @*<th>Status</th>*@
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model != null)
+                            
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                                   style="width: 100%" id="example4">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Shop</th>
+                                        <th>LoginId</th>
+                                        <th>Password</th>
+                                        <th> Address</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstRegistration != null)
                                         {
-                                            if (Model.lstRegistration != null)
+                                            int i = 1;
+                                            foreach (var item in Model.lstRegistration)
                                             {
-                                                int i = 1;
-                                                foreach (var item in Model.lstRegistration)
-                                                {
-                                                    <tr>
-                                                        <td>@i</td>
-                                                        <td>@item.ShopName</td>
-                                                        <td>@item.Address</td>
-                                                        @*<td>
-                                                            <span class="label label-sm label-danger"> Active </span>
-                                                        </td>*@
-                                                        <td>
-                                                            <a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="tblDelBtn"  onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
-                                                                <i class="fa fa-trash-o"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    i = i + 1;
-                                                }
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@item.ShopName</td>
+                                                    <td>@item.LoginId</td>
+                                                    <td>@item.Password</td>
+                                                    <td>@item.Address</td>
+                                                    <td>
+                                                        @if(item.Status == "0"){
+                                                            <a href="/Master/activeShop?ShopId=@item.ShopId" class="label label-sm label-danger" onclick="return confirm('Are You Sure You want to do active This Shop ?')"> Inactive </a> 
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Master/InactiveShop?ShopId=@item.ShopId" class="label label-sm label-success" onclick="return confirm('Are You Sure You want to do InActive This Shop ?')"> Active </a> }
+                                                    </td>
+                                                    <td>
+                                                      <a href="/Master/BillReport?ShopId=@item.ShopId" class="label label-sm label-success">View Ledger</a>
+
+                                                        @*<a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>*@
+                                                        <a href="/Master/DeleteShopMaster?ShopId=@item.ShopId" class="label label-sm label-danger"  onclick="return confirm('Are You Sure You Want To Delete This shop Details?')">
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                i = i + 1;
                                             }
                                         }
-                                    </tbody>
-                                </table>
-                            </div>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-   <!-- end page container -->   
+    </div>
 }
 
-<!-- data tables -->
 
 
 
-               

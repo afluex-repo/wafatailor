@@ -9,6 +9,7 @@ namespace WafaTailor.Models
 {
     public class Admin
     {
+        public List<Admin> lstList { get; set; }
         public List<Admin> lstVendor { get; set; }
         public string LoginId { get; set; }
         public string Password { get; set; }
@@ -26,8 +27,24 @@ namespace WafaTailor.Models
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public string JoiningDate { get; set; }
-        
 
+        public string Pk_UserId { get; set; }
+        public string ShopId { get; set; }
+        public string BillNo { get; set; }
+        public string NoOfPiece { get; set; }
+        public string OriginalPrice { get; set; }
+        public string Discount { get; set; }
+        public string FinalPrice { get; set; }
+        public string Advance { get; set; }
+        public string RemainningBalance { get; set; }
+        public string BillDate { get; set; }
+        public string BillId { get; set; }
+        public string Pk_BillPaymentId { get; set; }
+        public string ShopName { get; set; }
+        //public string FromDate { get; set; }
+        //public string ToDate { get; set; }
+        public decimal Balance { get; set; }
+        public string TotalPaid { get; set; }
         public DataSet GetAdminDashBoardDetails()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetAdminDashBoardDetails");
@@ -65,6 +82,78 @@ namespace WafaTailor.Models
                 new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetVendorList", para);
+            return ds;
+        }
+
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
+            return ds;
+        }
+        public DataSet GetCustomerDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_CustomerId",Pk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet SaveBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",FK_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveBillingDetails", para);
+            return ds;
+        }
+
+        public DataSet GetBillDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
+            return ds;
+        }
+        public DataSet PrintBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintBill", para);
+            return ds;
+        }
+        public DataSet BillPayment()
+        {
+            SqlParameter[] para =
+            {
+                //new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("Fk_billId",BillId),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@FK_UserId",FK_UserId),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("BillPayment", para);
             return ds;
         }
     }
