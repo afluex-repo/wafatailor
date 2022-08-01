@@ -84,8 +84,8 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">Remainning Balance<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.RemainningBalance, new { @class = "form-control", @placeholder = "Remainning Balance", @Readonly = "true" })
+                                        <label for="simpleFormEmail">Remaining Balance<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainningBalance, new { @class = "form-control", @placeholder = "Remaining Balance", @Readonly = "true" })
                                     </div>
                                 </div>
 
@@ -172,11 +172,29 @@
         if (originalprice == "") {
             originalprice = 0;
         }
-        var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        //var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        var finalAmount = (Number(originalprice))
+        $("#FinalPrice").val(finalAmount);
+
         var RemainingBalance = (Number(finalAmount) - Number(Advance))
         $("#FinalPrice").val(finalAmount);
-        $("#RemainningBalance").val(RemainingBalance);
 
+        debugger;
+        if (RemainingBalance < 0) {
+            alert('Remaining Amount Should be grater than Advance Amount')
+            $("#Advance").val("");
+
+            if ($("#Advance").val("")) {
+                $("#RemainningBalance").val(finalAmount);
+            }
+            else {
+
+                $("#RemainningBalance").val(finalAmount);
+            }
+        }
+        else {
+            $("#RemainningBalance").val(RemainingBalance);
+        }
     }
     function Validateform()
     {
