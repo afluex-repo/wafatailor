@@ -97,5 +97,10 @@ namespace WafaTailor.Controllers
             return RedirectToAction(FormName, Controller);
 
         }
+
+        public ActionResult Maintenance()
+        {
+            return View();
+        }
     }
 }

@@ -41,6 +41,10 @@ namespace WafaTailor.Models
         public string Name { get; set; }
         public string ShopId { get; set; }
         public string BillId { get; set; }
+        public string Pk_BillPaymentId { get; set; }
+        public decimal Balance { get; set; }
+        public string ShopLoginId { get; set; }
+
         #endregion
 
         public DataSet GetCustomerDetails()
@@ -72,9 +76,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
+                 new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId),
                 //new SqlParameter("@Fk_ShopId",AddedBy),
-                new SqlParameter("@ShopLoginId",AddedBy),
-                new SqlParameter("@CustomerLoginId",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
@@ -144,6 +148,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_BillId",BillId),
+                 new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetPrintBill", para);
             return ds;

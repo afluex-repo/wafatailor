@@ -229,8 +229,12 @@
             }
             debugger
             var formData = new FormData();
-            formData.append("CustomerId", $('#CustomerId').val());
+            //formData.append("CustomerId", $('#CustomerId').val());
+            //formData.append("BillNo", $('#BillNo').val());
+            //formData.append("Mobile", $('#Mobile').val());
             formData.append("BillNo", $('#BillNo').val());
+            formData.append("Pk_UserId", $('#Pk_UserId').val());
+            formData.append("LoginId", $('#LoginId').val());
             formData.append("Mobile", $('#Mobile').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
