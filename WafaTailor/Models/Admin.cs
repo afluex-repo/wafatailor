@@ -10,6 +10,7 @@ namespace WafaTailor.Models
     public class Admin
     {
         public List<Admin> lstList { get; set; }
+        public List<Admin> lstsaleorder { get; set; }
         public List<Admin> lstVendor { get; set; }
         public string LoginId { get; set; }
         public string Password { get; set; }
@@ -45,6 +46,14 @@ namespace WafaTailor.Models
         //public string ToDate { get; set; }
         public decimal Balance { get; set; }
         public string TotalPaid { get; set; }
+        public string SalesOrderNo { get; set; }
+
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string SaleOrderDate { get; set; }
+
+
         public DataSet GetAdminDashBoardDetails()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetAdminDashBoardDetails");
