@@ -33,6 +33,10 @@ namespace WafaTailor.Models
         public string SalesOrderNo { get; set; }
         public string customerName { get; set; }
 
+        public string Password { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmNewPassword { get; set; }
+
         # region
         public string LoginId { get; set; }
         public string Advance { get; set; }
@@ -151,6 +155,18 @@ namespace WafaTailor.Models
                  new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetPrintBill", para);
+            return ds;
+        }
+
+        public DataSet ShopChangePassword()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@OldPassword",Password),
+                new SqlParameter("@NewPassword",NewPassword),
+                 new SqlParameter("@UpdatedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ShopChangePassword", para);
             return ds;
         }
     }

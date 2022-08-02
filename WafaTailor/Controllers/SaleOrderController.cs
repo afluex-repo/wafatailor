@@ -103,6 +103,7 @@ namespace WafaTailor.Controllers
                 }
                 order.dt = dtorder;
                 order.AddedBy = Session["Pk_EmployeeId"].ToString();
+
                 DataSet ds = new DataSet();
                 ds = order.SaveSaleOrder();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)

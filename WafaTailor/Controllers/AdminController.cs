@@ -14,12 +14,28 @@ namespace WafaTailor.Controllers
         // GET: Admin
         public ActionResult AdminDashBoard(Admin model)
         {
+            List<Admin> lst = new List<Admin>();
             DataSet ds = model.GetAdminDashBoardDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
                 ViewBag.TotalEmployee = ds.Tables[0].Rows[0]["TotalEmployee"].ToString();
                 ViewBag.TotalCustomer = ds.Tables[1].Rows[0]["TotalCustomer"].ToString();
                 ViewBag.TotalVendor = ds.Tables[2].Rows[0]["TotalVendor"].ToString();
+                ViewBag.TotalSaleOrder = ds.Tables[3].Rows[0]["TotalSaleOrder"].ToString();
+            }
+            if (ds != null && ds.Tables[4].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach(DataRow dr in ds.Tables[4].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.FirstName = dr["FirstName"].ToString();
+                    obj.LastName = dr["LastName"].ToString();
+                    obj.SalesOrderNo = dr["SalesOrderNo"].ToString();
+                    obj.BillNo = dr["BillNo"].ToString();
+                    obj.SaleOrderDate = dr["AddedOn"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstsaleorder = lst;
             }
             return View(model);
         }
