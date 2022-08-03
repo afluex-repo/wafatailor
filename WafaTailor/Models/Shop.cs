@@ -83,6 +83,9 @@ namespace WafaTailor.Models
                  new SqlParameter("@ShopLoginId",ShopLoginId),
                 new SqlParameter("@CustomerLoginId",LoginId),
                 //new SqlParameter("@Fk_ShopId",AddedBy),
+                  //new SqlParameter("@LoginId", LoginId),
+                  new SqlParameter("@Name", Name),
+                  new SqlParameter("@Mobile", Mobile),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
