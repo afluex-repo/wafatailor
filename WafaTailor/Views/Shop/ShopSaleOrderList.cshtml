@@ -33,6 +33,36 @@
                                 <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                             </div>
                         </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                @*<div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Login Id </label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id" })
+                                    </div>
+                                </div>*@
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Customer Name</label>
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Customer Name" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile No</label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile Number" })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-3 mt-4">
+                                    <div class="form-group">
+                                        <input class="btn btn-success pull-left" type="submit" value="Search" id="btnSearch" name="btnSearch" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card-body table-responsive">
 
                             <table class="table table-striped table-bordered table-hover table-checkable order-column"
@@ -63,8 +93,8 @@
                                                     <td>@item.SalesOrderNo</td>
                                                     <td>
                                                         @*<a href="/Shop/DeleteShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Shop Sale Order Details?')">
-        <i class="fa fa-trash-o" title="Delete"></i>
-    </a>*@
+                                                                <i class="fa fa-trash-o" title="Delete"></i>
+                                                            </a>*@
                                                         <a target="_blank" href="/Shop/PrintShopSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
                                                             <i class="fa  fa-print" title="Print"></i>
                                                         </a>

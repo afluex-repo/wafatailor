@@ -346,5 +346,64 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillPayment", "Admin");
         }
+
+        public ActionResult OrderRefund()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("OrderRefund")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult ActionOrderRefund(Admin model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.OrderRefund();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
+                    {
+                        TempData["Order"] = "Refund Order saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
+                    {
+                        TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Order"] = ex.Message;
+            }
+            return RedirectToAction("OrderRefund", "Admin");
+        }
+
+        public ActionResult OrderRefundList(Admin model)
+        {
+            List<Admin> lst = new List<Admin>();
+            DataSet ds = model.GetOrderRefundDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.RefundId = r["Pk_RefundId"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
     }
 }

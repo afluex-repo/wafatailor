@@ -107,17 +107,17 @@
             <div class="table-responsive-sm">
                 <table class="table table-bordered">
                    
-                    <thead>
+                    @*<thead>
                         <tr>
                             <th style="background: #6673fc !important;">Sr.No.</th>
                             <th style="background: #6673fc !important;">Bill Date</th>
                             <th style="background: #6673fc !important;">No.Of Piece</th>
                             <th style="background: #6673fc !important;">Original Price</th>
-                            @*<th style="background: #6673fc !important;">Discount</th>*@
+                            @*<th style="background: #6673fc !important;">Discount</th>
                             <th style="background: #6673fc !important;">Advance Amount</th>
                             <th style="background: #6673fc !important;">Final Price</th>
                         </tr>
-                    </thead>
+                    </thead>*@
                     <tbody>
                         
                         @if (Model != null)
@@ -133,8 +133,8 @@
                                 <td>@item.BillDate</td>
                                 <th>Original Price</th>
                                 <td>@item.OriginalPrice</td>
-                                @*<th>Discount</th>
-                                <td>@item.Discount</td>*@
+                                <th>Discount</th>
+                                <td>@item.Discount</td>
                             </tr>
                             <tr>
                                 <th>No. Of Piece</th>
@@ -148,7 +148,25 @@
                                 }
                             }
                         }
-                      
+                     @*@if (Model != null)
+                            {
+                                if (Model.lstList != null)
+                                {
+                                    var i = 1; foreach (var item in Model.lstList)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.BillDate</td>
+                                            <td>@item.NoOfPiece</td>
+                                            <td>@item.OriginalPrice</td>
+                                            @*<td>@item.Discount</td>
+                                            <td>@item.Advance</td>
+                                            <td>@item.FinalPrice</td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }*@
                     </tbody>
                 </table>
             </div>
