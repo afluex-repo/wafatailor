@@ -53,6 +53,9 @@ namespace WafaTailor.Models
         public string LastName { get; set; }
         public string SaleOrderDate { get; set; }
 
+        public string RefundId { get; set; }
+        public string PieceName { get; set; }
+
 
         public DataSet GetAdminDashBoardDetails()
         {
@@ -156,7 +159,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 //new SqlParameter("@Fk_ShopId",ShopId),
-                new SqlParameter("Fk_billId",BillId),
+                new SqlParameter("@Fk_billId",BillId),
                 new SqlParameter("@AdvanceAmount",Advance),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@FK_UserId",FK_UserId),
@@ -165,5 +168,32 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("BillPayment", para);
             return ds;
         }
+
+        public DataSet OrderRefund()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@PieceName",PieceName),
+                 new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Amount",Balance),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("OrderRefund", para);
+            return ds;
+        }
+
+
+        public DataSet GetOrderRefundDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_RefundId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetOrderRefundDetails", para);
+            return ds;
+        }
+
     }
 }

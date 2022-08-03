@@ -52,6 +52,18 @@
                                             @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id" })
                                         </div>
                                     </div>
+                                    @*<div class="col-lg-3 col-md-3">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = "Name" })
+                                        </div>
+                                    </div>*@
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="form-group">
+                                            <label>Mobile No</label>
+                                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @Placeholder = "Mobile Number" })
+                                        </div>
+                                    </div>
                                     <div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label> From Date</label>
@@ -83,10 +95,10 @@
                                             <th>Password </th>
                                             <th>Joining Date</th>
                                             <th>Contact Number </th>
-                                            <th>Email </th>
+                                            @*<th>Email </th>
                                             <th>DOB</th>
                                             <th>Gender</th>
-                                            <th>Address</th>
+                                            <th>Address</th>*@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -104,16 +116,17 @@
                                                         <td>@item.Password</td>
                                                         <td>@item.JoiningDate</td>
                                                         <td>@item.ContactNo</td>
-                                                        <td>@item.Emailid</td>
+                                                        @*<td>@item.Emailid</td>
                                                         <td>@item.DOB</td>
                                                         <td>@item.Gender</td>
-                                                        <td>@item.CustomerAddress</td>
+                                                        <td>@item.CustomerAddress</td>*@
                                                         <td>
+                                                            <a href="/Customer/#?UserId=@item.UserID" class="label label-sm label-success">View Bill Ledger</a>
                                                             <a href="/Customer/CustomerRegistration?UserID=@item.UserID" class="tblEditBtn">
-                                                                <i class="fa fa-pencil"></i>
+                                                                <i class="btn btn-primary">Edit</i>
                                                             </a>
                                                             <a href="/Customer/DeleteCustomerRegistration?UserID=@item.UserID" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Customer Details?')">
-                                                                <i class="fa fa-trash-o"></i>
+                                                                <i class="btn btn-danger">Delete</i>
                                                             </a>
                                                         </td>
                                                     </tr>
