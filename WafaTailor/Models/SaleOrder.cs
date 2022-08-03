@@ -136,8 +136,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@BillNo",BillNo),
                 new SqlParameter("@Fk_ShopId",ShopId),
                 new SqlParameter("@Name",LoginId),
-                //new SqlParameter("@Fk_Userid",Fk_UserId),
-                new SqlParameter("@Fk_Userid",AddedBy),
+             new SqlParameter("@Fk_Userid",Pk_UserId),
                 new SqlParameter("@Mobile",Mobile),
                 //new SqlParameter("@Fk_CustomerId",CustomerId),
                 new SqlParameter("@dt",dt)

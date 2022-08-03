@@ -9,7 +9,9 @@ namespace WafaTailor.Controllers
 {
     public class ShopBaseController : Controller
     {
-        // GET: UserBase
+        //
+        // GET: /Base/
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             // code involving this.Session // edited to simplify
@@ -41,5 +43,6 @@ namespace WafaTailor.Controllers
             }
             base.OnActionExecuting(filterContext); // re-added in edit
         }
+
     }
 }

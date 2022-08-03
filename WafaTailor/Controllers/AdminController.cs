@@ -237,6 +237,7 @@ namespace WafaTailor.Controllers
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
+                    obj.Advance = r["AdavanceAmount"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
