@@ -34,7 +34,7 @@
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Bill Number <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number", @onchange = "return getBillNo();" })
-                                        @Html.HiddenFor(m => m.FK_UserId)
+                                        @Html.HiddenFor(m => m.BillNo)
                                     </div>
 
                                     <div class="form-group col-sm-4">
@@ -88,33 +88,37 @@
 <script>
     function getBillNo() {
         $("#divload").css({ 'display': '' });
-        var BillNo = $('#UserID').val();
-        $.ajax({
-            url: '/Admin/GetBillList', type: 'post', dataType: 'json',
-            data: { 'BillNo': BillNo },
-            success: function (data) {
+        var BillNo = $('#BillNo').val();
+      
+            $.ajax({
+                url: '/Admin/GetBillList', type: 'post', dataType: 'json',
+                data: { 'BillNo': BillNo },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                 if (data.Result == "yes") {
+                        $("#AvailableNoOfPiece").val(data.NoOfPiece);
 
-                $("#divload").css({ 'display': 'none' });
-                if (data.Result == "yes") {
-                    $("#AvailableNoOfPiece").val(data.AvailableNoOfPiece);
+                        $("#BillNo").val(data.BillNo);
+                        $("#AvailableNoOfPiece").removeClass('errortext');
+                        $("#BillNo").removeClass('errortext');
+                 }
+                 else if ($("#BillNo").val('errortext')) {
+                     alert("Invalid Bill Number");
+                     $("#BillNo").val("");
+                 }
+                    else if (data.Result == "no") {
+                        alert("Invalid Bill No");
+                        $("#AvailableNoOfPiece").val('');
 
-                    $("#FK_UserId").val(data.FK_UserId);
-                    $("#AvailableNoOfPiece").removeClass('errortext');
-                    $("#BillNo").removeClass('errortext');
+                        $("#AvailableNoOfPiece").addClass('errortext');
+                        $("#BillNo").addClass('errortext');
+                        $('#BillNo').focus();
+                        $('#BillNo').val('');
+
+                    }
                 }
-                else if (data.Result == "no") {
-                    alert("Invalid Bill No");
-                    $("#AvailableNoOfPiece").val('');
-
-                    $("#AvailableNoOfPiece").addClass('errortext');
-                    $("#BillNo").addClass('errortext');
-                    $('#BillNo').focus();
-                    $('#BillNo').val('');
-
-                }
-            }
-        });
-    }
+            });
+        }
 
 
     function Validateform()
