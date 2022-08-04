@@ -48,7 +48,7 @@
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);" })
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
@@ -89,20 +89,19 @@
         $("#divload").css({ 'display': '' });
         var BillNo = $('#BillNo').val();
             $.ajax({
-                url: '/Admin/GetBillList', type: 'post', dataType: 'json',
+                url: '/Admin/GetAvailableBill', type: 'post', dataType: 'json',
                 data: { 'BillNo': BillNo },
                 success: function (data) {
                     $("#divload").css({ 'display': 'none' });
                  if (data.Result == "yes") {
                         $("#AvailableNoOfPiece").val(data.NoOfPiece);
-
-                        $("#BillNo").val(data.BillNo);
-                        $("#AvailableNoOfPiece").removeClass('errortext');
                         $("#BillNo").removeClass('errortext');
+                        $("#AvailableNoOfPiece").removeClass('errortext');
                  }
-                    else{
-                        alert(data.Result);
+                    else {
+                      alert(data.Result);
                         $("#AvailableNoOfPiece").val('');
+                        $("#AvailableNoOfPiece").addClass('errortext');
                         $("#BillNo").addClass('errortext');
                         $('#BillNo').focus();
                         $('#BillNo').val('');
@@ -111,7 +110,6 @@
                 }
             });
         }
-    
     function Validateform()
     {
         $("#divload").css({ 'display': '' })
@@ -151,4 +149,18 @@
             return false;
         return true;
     }
+    function checkavailable()
+    {
+        var availablepiece = $("#AvailableNoOfPiece").val();
+        var refuncdpiece = $("#NoOfPiece").val();
+        if (Number(refuncdpiece) > Number(availablepiece)) {
+            alert('you can not refund greater than available piece');
+            $("#NoOfPiece").val('');
+            $("#NoOfPiece").addClass('errortext');
+            $("#NoOfPiece").focus();
+            return false;
+        }
+    }
+   
+ 
 </script>
