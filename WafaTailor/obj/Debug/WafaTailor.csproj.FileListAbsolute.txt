@@ -427,8 +427,6 @@ F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
 E:\Repository-Projects\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 E:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
-E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
-F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\ApplicationInsights.config
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\roslyn\csc.exe
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -480,6 +478,8 @@ F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\Newtonsoft.Json.xml
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Net.Http.Formatting.xml
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
-F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
+E:\Repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
+F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache
+F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache

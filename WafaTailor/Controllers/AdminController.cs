@@ -410,23 +410,38 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult GetBillList()
+        public ActionResult GetAvailableBill(string BillNo)
         {
             Admin obj = new Admin();
-            List<Admin> lst = new List<Admin>();
-            DataSet ds = obj.GetBill();
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                obj.BillNo = BillNo;
+                DataSet ds = obj.GetBill();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
-                    Admin objList = new Admin();
-                    objList.BillNo = dr["BillNo"].ToString();
-                    objList.NoOfPiece = dr["NoOfPiece"].ToString();
-                    lst.Add(objList);
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString()=="1")
+                    {
+                        obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Result = "yes";
+                    }
+                    else if(ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        obj.NoOfPiece = "0";
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    } 
+                }
+                else
+                {
+                    obj.NoOfPiece = "0";
+                    obj.Result = "no";
                 }
             }
-            return Json(lst, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                obj.Result = ex.Message;
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
-
     }
+    
 }

@@ -58,6 +58,7 @@ namespace WafaTailor.Models
 
         public string Pk_BillId { get; set; }
         public string AvailableNoOfPiece { get; set; }
+        public string Result { get; set; }
 
 
         public DataSet GetAdminDashBoardDetails()
@@ -204,10 +205,11 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_BillId",Pk_BillId)
+                new SqlParameter("@BillNo",BillNo)
             };
-            DataSet ds = DBHelper.ExecuteQuery("GetBillForRefundOrder", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetAvailableOrder", para);
             return ds;
         }
+
     }
 }

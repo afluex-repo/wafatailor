@@ -33,8 +33,8 @@
                                 <div class="row">
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Bill Number <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number", @onchange = "return changeOrder();" })
-                                        @Html.HiddenFor(m => m.Pk_BillId)
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number", @onchange = "return getBillNo();" })
+                                        @Html.HiddenFor(m => m.BillNo)
                                     </div>
 
                                     <div class="form-group col-sm-4">
@@ -48,7 +48,7 @@
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);" })
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
@@ -86,17 +86,32 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
-    function changeOrder() {
-        var AvailableNoOfPiece = $("#Pk_BillId").val();
-        if (AvailableNoOfPiece == "") {
-            $("#AvailableNoOfPiece").val("");
-        }
-        else {
-            $("#AvailableNoOfPiece").val(AvailableNoOfPiece);
-        }
-    }
+    function getBillNo() {
+        $("#divload").css({ 'display': '' });
+        var BillNo = $('#BillNo').val();
+      
+            $.ajax({
+                url: '/Admin/GetAvailableBill', type: 'post', dataType: 'json',
+                data: { 'BillNo': BillNo },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                 if (data.Result == "yes") {
+                        $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                        $("#BillNo").removeClass('errortext');
+                        $("#AvailableNoOfPiece").removeClass('errortext');
+                 }
+                    else {
+                      alert(data.Result);
+                        $("#AvailableNoOfPiece").val('');
+                        $("#AvailableNoOfPiece").addClass('errortext');
+                        $("#BillNo").addClass('errortext');
+                        $('#BillNo').focus();
+                        $('#BillNo').val('');
 
-
+                    }
+                }
+            });
+        }
     function Validateform()
     {
         $("#divload").css({ 'display': '' })
@@ -136,4 +151,18 @@
             return false;
         return true;
     }
+    function checkavailable()
+    {
+        var availablepiece = $("#AvailableNoOfPiece").val();
+        var refuncdpiece = $("#NoOfPiece").val();
+        if (Number(refuncdpiece) > Number(availablepiece)) {
+            alert('you can not refund greater than available piece');
+            $("#NoOfPiece").val('');
+            $("#NoOfPiece").addClass('errortext');
+            $("#NoOfPiece").focus();
+            return false;
+        }
+    }
+   
+ 
 </script>
