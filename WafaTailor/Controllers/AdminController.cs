@@ -426,12 +426,39 @@ namespace WafaTailor.Controllers
                 }
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex.Message);
             }
         }
-        
 
+        public ActionResult PrintOrderRefund(string RefundId)
+        {
+            List<Admin> lstbill = new List<Admin>();
+            Admin model = new Admin();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
+                //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+
+                model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
+                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                model.Discount = ds.Tables[0].Rows[0]["Discount"].ToString();
+                model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
+                lstbill.Add(model);
+            }
+            model.lstList = lstbill;
+
+            return View(model);
+        }
+
+       
     }
 }
