@@ -209,6 +209,15 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetAvailableOrder", para);
             return ds;
         }
+        public DataSet PrintOrderRefundBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintOrderRefund", para);
+            return ds;
+        }
 
     }
 }

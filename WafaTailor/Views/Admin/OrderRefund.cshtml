@@ -89,7 +89,6 @@
     function getBillNo() {
         $("#divload").css({ 'display': '' });
         var BillNo = $('#BillNo').val();
-      
             $.ajax({
                 url: '/Admin/GetBillList', type: 'post', dataType: 'json',
                 data: { 'BillNo': BillNo },
@@ -102,15 +101,9 @@
                         $("#AvailableNoOfPiece").removeClass('errortext');
                         $("#BillNo").removeClass('errortext');
                  }
-                 else if ($("#BillNo").val('errortext')) {
-                     alert("Invalid Bill Number");
-                     $("#BillNo").val("");
-                 }
-                    else if (data.Result == "no") {
-                        alert("Invalid Bill No");
+                    else{
+                        alert(data.Result);
                         $("#AvailableNoOfPiece").val('');
-
-                        $("#AvailableNoOfPiece").addClass('errortext');
                         $("#BillNo").addClass('errortext');
                         $('#BillNo').focus();
                         $('#BillNo').val('');
