@@ -89,7 +89,6 @@
     function getBillNo() {
         $("#divload").css({ 'display': '' });
         var BillNo = $('#BillNo').val();
-      
             $.ajax({
                 url: '/Admin/GetAvailableBill', type: 'post', dataType: 'json',
                 data: { 'BillNo': BillNo },

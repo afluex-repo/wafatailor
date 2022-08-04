@@ -436,7 +436,7 @@ namespace WafaTailor.Controllers
                     obj.Result = "no";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 obj.Result = ex.Message;
             }
