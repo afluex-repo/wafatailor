@@ -442,6 +442,31 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PrintOrderRefund(string RefundId)
+        {
+            List<Admin> lstbill = new List<Admin>();
+            Admin model = new Admin();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                //ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                //ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                //ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+
+                model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
+                model.AvailableNoOfPiece = ds.Tables[0].Rows[0]["AvailableNoOfPiece"].ToString();
+                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                lstbill.Add(model);
+            }
+            model.lstList = lstbill;
+
+            return View(model);
+        }
     }
     
 }

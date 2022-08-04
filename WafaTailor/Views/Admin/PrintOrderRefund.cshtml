@@ -5,6 +5,7 @@
     Layout = null;
 }
 
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,22 +113,20 @@
                                 var i = 1; foreach (var item in Model.lstList)
                                 {
                                     <tr>
-                                        <th>Sr. No.</th>
-                                        <td>@i</td>
                                         <th>Bill Date</th>
                                         <td>@item.BillDate</td>
-                                        <th>Original Price</th>
-                                        <td>@item.OriginalPrice</td>
-                                        <th>Discount</th>
-                                        <td>@item.Discount</td>
+                                        <th>Piece Name</th>
+                                        <td>@item.PieceName</td>
+                                        <th>Contact Number</th>
+                                        <td>@item.</td>
+                                        <th>Amount</th>
+                                        <td>@item.Balance</td>
                                     </tr>
                                     <tr>
-                                        <th>No. Of Piece</th>
+                                        <th>Refund No Of Piece</th>
                                         <td>@item.NoOfPiece</td>
-                                        <th>Advance</th>
-                                        <td>@item.Advance</td>
-                                        <th>Final Price</th>
-                                        <td>@item.FinalPrice</td>
+                                        <th>Available No Of Piece</th>
+                                        <td>@item.AvailableNoOfPiece</td>
                                     </tr>
                                     i++;
                                 }
@@ -181,3 +180,4 @@
         </div>
     </div>
 </div>
+
