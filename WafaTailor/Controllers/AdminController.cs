@@ -404,5 +404,24 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult GetBillList()
+        {
+            Admin obj = new Admin();
+            List<Admin> lst = new List<Admin>();
+            DataSet ds = obj.GetBill();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    Admin objList = new Admin();
+                    objList.BillNo = dr["BillNo"].ToString();
+                    objList.NoOfPiece = dr["NoOfPiece"].ToString();
+                    lst.Add(objList);
+                }
+            }
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
