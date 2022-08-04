@@ -406,23 +406,26 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult GetBillList()
+        public ActionResult GetBillList(string BillNo)
         {
             Admin obj = new Admin();
+            obj.BillNo = BillNo;
             List<Admin> lst = new List<Admin>();
             DataSet ds = obj.GetBill();
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    Admin objList = new Admin();
-                    objList.BillNo = dr["BillNo"].ToString();
-                    objList.NoOfPiece = dr["NoOfPiece"].ToString();
-                    lst.Add(objList);
-                }
+                obj.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                obj.FK_UserId = ds.Tables[0].Rows[0]["PK_UserId"].ToString();
+                obj.Result = "yes";
             }
-            return Json(lst, JsonRequestBehavior.AllowGet);
+            else
+            {
+                obj.NoOfPiece = "";
+                obj.Result = "no";
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
+        
 
     }
 }
