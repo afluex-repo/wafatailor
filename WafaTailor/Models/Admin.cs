@@ -137,7 +137,8 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_BillId",BillId),
-                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@LoginId",LoginId)
                 //new SqlParameter("@FromDate", FromDate),
                 //new SqlParameter("@ToDate", ToDate),
             };

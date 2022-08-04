@@ -220,9 +220,13 @@ namespace WafaTailor.Controllers
             return RedirectToAction("BillEntry", "Admin");
         }
 
-        public ActionResult BillList(Admin model)
+        public ActionResult BillList(Admin model, string LoginId)
         {
             List<Admin> lst = new List<Admin>();
+            if(LoginId !="")
+            {
+                model.LoginId = LoginId;
+            }
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {

@@ -125,6 +125,7 @@ namespace WafaTailor.Controllers
                 {
                     Customer obj = new Customer();
                     obj.UserID = r["PK_UserID"].ToString();
+                    obj.LoginId = r["LoginId"].ToString();
                     obj.FirstName = r["FirstName"].ToString();
                     obj.LastName = r["LastName"].ToString();
                     obj.CustomerDetails = r["CustomerDetails"].ToString();
