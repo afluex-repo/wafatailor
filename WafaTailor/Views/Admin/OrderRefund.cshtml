@@ -33,16 +33,21 @@
                                 <div class="row">
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Bill Number <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number" })
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number", @onchange = "return changeOrder();" })
+                                        @Html.HiddenFor(m => m.Pk_BillId)
                                     </div>
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Piece Name<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.PieceName, new { @class = "form-control", @Placeholder = "Piece Name" })
                                     </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Available No Of Piece<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Available No Of Piece",@readonly="true" })
+                                    </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormEmail">No Of Piece<span style="color:red">*</span></label>
+                                        <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);" })
                                     </div>
 
@@ -77,8 +82,21 @@
 }
 
 
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
+    function changeOrder() {
+        var AvailableNoOfPiece = $("#Pk_BillId").val();
+        if (AvailableNoOfPiece == "") {
+            $("#AvailableNoOfPiece").val("");
+        }
+        else {
+            $("#AvailableNoOfPiece").val(AvailableNoOfPiece);
+        }
+    }
+
+
     function Validateform()
     {
         $("#divload").css({ 'display': '' })

@@ -56,6 +56,9 @@ namespace WafaTailor.Models
         public string RefundId { get; set; }
         public string PieceName { get; set; }
 
+        public string Pk_BillId { get; set; }
+        public string AvailableNoOfPiece { get; set; }
+
 
         public DataSet GetAdminDashBoardDetails()
         {
@@ -176,7 +179,8 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@BillNo",BillNo),
                 new SqlParameter("@PieceName",PieceName),
-                 new SqlParameter("@NoOfPiece",NoOfPiece),
+                 new SqlParameter("@AvailableNoOfPiece",AvailableNoOfPiece),
+                  new SqlParameter("@NoOfPiece",NoOfPiece),
                 new SqlParameter("@Mobile",Mobile),
                 new SqlParameter("@Amount",Balance),
                 new SqlParameter("@AddedBy",AddedBy),
@@ -196,5 +200,14 @@ namespace WafaTailor.Models
             return ds;
         }
 
+        public DataSet GetBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",Pk_BillId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillForRefundOrder", para);
+            return ds;
+        }
     }
 }
