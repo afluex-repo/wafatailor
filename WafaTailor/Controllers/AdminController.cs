@@ -408,22 +408,28 @@ namespace WafaTailor.Controllers
 
         public ActionResult GetBillList(string BillNo)
         {
-            Admin obj = new Admin();
-            obj.BillNo = BillNo;
-            List<Admin> lst = new List<Admin>();
-            DataSet ds = obj.GetBill();
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            try
             {
-                obj.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
-                obj.FK_UserId = ds.Tables[0].Rows[0]["PK_UserId"].ToString();
-                obj.Result = "yes";
+                Admin obj = new Admin();
+                obj.BillNo = BillNo;
+                List<Admin> lst = new List<Admin>();
+                DataSet ds = obj.GetBill();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                    obj.Result = "yes";
+                }
+                else
+                {
+                    obj.NoOfPiece = "";
+                    obj.Result = "no";
+                }
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch(Exception ex)
             {
-                obj.NoOfPiece = "";
-                obj.Result = "no";
+                return View(ex.Message);
             }
-            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         
 
