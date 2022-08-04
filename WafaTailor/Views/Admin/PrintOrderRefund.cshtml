@@ -99,6 +99,7 @@
                     </div>
                     <div>Phone: @ViewBag.CustomerMobile</div>
                     <div>Bill No: @ViewBag.BillNo</div>
+                    <div>Bill Date: @ViewBag.BillNo</div>
                 </div>
             </div>
             <div class="table-responsive-sm">
@@ -112,14 +113,11 @@
                                 var i = 1; foreach (var item in Model.lstList)
                                 {
                                     <tr>
-                                        <th>Sr. No.</th>
-                                        <td>@i</td>
                                         <th>Bill Date</th>
                                         <td>@item.BillDate</td>
                                         <th>Original Price</th>
                                         <td>@item.OriginalPrice</td>
-                                        <th>Discount</th>
-                                        <td>@item.Discount</td>
+                                        
                                     </tr>
                                     <tr>
                                         <th>No. Of Piece</th>
