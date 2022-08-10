@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Contact No </label>
-                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="10", @Minlength="10" })
+                                    @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="8", @Minlength="8" })
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Date Of Birth</label>
@@ -105,16 +105,11 @@
 
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('DOB'),
         {
             // mode: "range"
         });
-    //var f3 = flatpickr(document.getElementById('ToDate'),
-    //    {
-    //        // mode: "range"
-    //    });
 </script>
 
 <script>

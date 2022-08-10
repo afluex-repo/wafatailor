@@ -57,7 +57,7 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
                                       
                                     </div>
                                 </div>
@@ -88,11 +88,11 @@
                                                         @Html.TextBoxFor(m => m.PriceName, new { @class = "form-control name", @placeholder = "Price Name", @style = "width:150px" })
                                                     </td>
                                                     <td>
-                                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @onkeypress = "return isNumber(event);", @class = "form-control piece", @placeholder = "No Of Piece", @style = "width:150px", onInput = "return calculatefinalamount()" })
+                                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control piece", @placeholder = "No Of Piece", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
-                                                    <td>@Html.TextBoxFor(m => m.OriginalPrice, new { @onkeypress = "return isNumber(event);", @class = "form-control originalprice", @placeholder = "Original Price", @style = "width:150px", onInput = "return calculatefinalamount()" })</td>
+                                                    <td>@Html.TextBoxFor(m => m.OriginalPrice, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control originalprice", @placeholder = "Original Price", @style = "width:150px", onInput = "return calculatefinalamount()" })</td>
                                                     <td>
-                                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumber(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
+                                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
                                                     <td>@Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control netamount", @placeholder = "Final Amount", @style = "width:150px", @readonly = "true" })</td>
                                                     <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control mydatepicker", @placeholder = "Sale Date", @style = "width:150px" })</td>
@@ -324,8 +324,6 @@
         var NoofPiece = $("#NoOfPiece").val();
         var originalprice = $("#OriginalPrice").val();
         var Discount = $("#Discount").val();
-
-
         if(Number(NoofPiece)=="")
         {
             $("#NoOfPiece").val("");
@@ -341,7 +339,7 @@
         {
             originalprice = 0;
         }
-     var finalAmount = ((Number(NoofPiece) * Number(originalprice) - Number(Discount)))
+     var finalAmount = (Number(originalprice) - Number(Discount))
             $("#NetAmount").val(finalAmount);
 
     }
@@ -539,7 +537,4 @@
         background-color: #fff0f0 !important;
     }
 </style>*@
-
-
-
 

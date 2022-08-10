@@ -296,6 +296,58 @@ namespace WafaTailor.Controllers
                     lst.Add(obj);
                 }
                 model.lstList = lst;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
             return View(model);
         }
@@ -326,6 +378,37 @@ namespace WafaTailor.Controllers
             model.lstList = lstbill;
 
             return View(model);
+        }
+
+        public ActionResult ShopChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ShopChangePassword(Shop model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = model.ShopChangePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ChangePassword"] = "Password Changed Successfully!";
+                    }
+                    else
+                    {
+                        TempData["ChangePassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ChangePassword"] = ex.Message;
+            }
+            return RedirectToAction("ShopChangePassword", "Shop");
         }
     }
 }

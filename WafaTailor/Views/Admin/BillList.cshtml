@@ -1,4 +1,4 @@
-﻿@model WafaTailor.Models.Admin
+﻿  @model WafaTailor.Models.Admin
 
 @{
     ViewBag.Title = "BillList";
@@ -68,11 +68,11 @@
                                         <th>Contact No</th>
                                         <th>Number Of Piece</th>
                                         <th>Original Price</th>
+                                        <th>Paid Amount</th>
                                         <th>Remaining Balance</th>
                                         <th>Bill Number</th>
                                         <th>Bill Date</th>
                                         <th>Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,6 +89,7 @@
                                                     <td>@item.Mobile</td>
                                                     <td>@item.NoOfPiece</td>
                                                     <td>@item.OriginalPrice</td>
+                                                    <td>@item.Advance</td>
                                                     <td>@item.Balance</td>
                                                     <td>@item.BillNo</td>
                                                     <td>@item.BillDate</td>
@@ -96,15 +97,13 @@
                                                         <a target="_blank" href="/Admin/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
                                                             <i class="btn btn-primary" title="Print">Print</i>
                                                         </a>
-                                                        @if (item.Balance > 0)
+                                                        @if (item.Balance > 0 && item.Balance == 0)
                                                         {
                                                             <a target="_blank" href="/Admin/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
                                                                 <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
                                                             </a>
                                                         }
-
                                                     </td>
-
                                                 </tr>
                                                 i = i + 1;
                                             }
