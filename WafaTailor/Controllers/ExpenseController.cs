@@ -79,10 +79,10 @@ namespace WafaTailor.Controllers
 
                 DataTable dtmodel = new DataTable();
                 dtmodel.Columns.Add("Expensetype");
-                dtmodel.Columns.Add("ExpenseRupee");
-                dtmodel.Columns.Add("ExpenseDate");
-                dtmodel.Columns.Add("Remark");
                 dtmodel.Columns.Add("OtherExpensetype");
+                dtmodel.Columns.Add("ExpenseDate");
+                dtmodel.Columns.Add("ExpenseRupee");
+                dtmodel.Columns.Add("Remark");
                 DataTable dt = new DataTable();
                 dt = JsonConvert.DeserializeObject<DataTable>(jdv["dataValue"]);
                 int numberOfRecords = dt.Rows.Count;
@@ -90,12 +90,14 @@ namespace WafaTailor.Controllers
                 foreach (DataRow row in dt.Rows)
                 {
                     Expensetype = row["Expensetype"].ToString();
+                    OtherExpensetype = row["OtherExpensetype"].ToString();
+                    model.OtherExpensetype = OtherExpensetype == "0" ? null : OtherExpensetype;
+
+                    ExpenseDate = row["ExpenseDate"].ToString();
                     ExpenseRupee = row["ExpenseRupee"].ToString();
                     Remark = row["Remark"].ToString();
-                    OtherExpensetype = row["OtherExpensetype"].ToString();
-                    ExpenseDate = string.IsNullOrEmpty(row["ExpenseDate"].ToString()) ? null : Common.ConvertToSystemDate(row["ExpenseDate"].ToString(), "dd/MM/yyyy");
                     //rowsno = rowsno + 1;
-                    dtmodel.Rows.Add(Expensetype, ExpenseRupee, ExpenseDate, Remark, OtherExpensetype);
+                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark);
                 }
                 model.dt = dtmodel;
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
@@ -105,7 +107,6 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-
                         model.Result = "Yes";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
@@ -124,5 +125,41 @@ namespace WafaTailor.Controllers
             }
             return new JsonResult { Data = new { status = model.Result } };
         }
+
+        public ActionResult DeleteExpense(string Pk_ExpenseId)
+        {
+            Expense obj = new Expense();
+            try
+            {
+                obj.ExpenseId = Pk_ExpenseId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = obj.DeleteExpense();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["Expense"] = "Expense Deleted Successfully!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                    else
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Expense"] = ex.Message;
+            }
+            return RedirectToAction("ExpenseList", "Expense");
+        }
+
     }
 }
