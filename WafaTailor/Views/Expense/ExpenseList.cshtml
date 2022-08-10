@@ -133,25 +133,20 @@
         {
             // mode: "range"
         });
-    function DeleteExpense(Id)
-    {
-        var Confirmation=confirm('Are you sure you want to delete this expense details ?');
-        if(Confirmation==true)
-        {
+    function DeleteExpense(Id) {
+        var Confirmation = confirm('Are you sure you want to delete this expense details ?');
+        if (Confirmation == true) {
             $.ajax({
-                url:'/Expense/DeleteExpense',
-                type:'Post',
-                dataType:'json',
-                data:{'Id':Id},
-                success:function(response)
-                {
-                    if(response.Result=="yes")
-                    {
-                        window.location.href='/Expense/ExpenseList';
+                url: '/Expense/DeleteExpense',
+                type: 'Post',
+                dataType: 'json',
+                data: { 'Id': Id },
+                success: function (response) {
+                    if (response.Result == "yes") {
+                        window.location.href = '/Expense/ExpenseList';
                     }
-                    else
-                    {
-                        alert();
+                    else {
+                        alert(response.Result);
                     }
                 }
             });
