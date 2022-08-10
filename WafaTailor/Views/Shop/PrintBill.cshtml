@@ -108,13 +108,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="background: #6673fc !important;">Sr.No.</th>
+                            @*<th style="background: #6673fc !important;">Sr.No.</th>*@
                             <th style="background: #6673fc !important;">Bill Date</th>
                             <th style="background: #6673fc !important;">No.Of Piece</th>
                             <th style="background: #6673fc !important;">Original Price</th>
                             <th style="background: #6673fc !important;">Discount</th>
-                            <th style="background: #6673fc !important;">Advance Amount</th>
-                            <th style="background: #6673fc !important;">Final Price</th>
+                            <th style="background: #6673fc !important;">Paid Amount</th>
+                            @*<th style="background: #6673fc !important;">Final Price</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -125,13 +125,13 @@
                                 var i = 1; foreach (var item in Model.lstList)
                                 {
                                     <tr>
-                                        <td>@i</td>
+                                        @*<td>@i</td>*@
                                         <td>@item.BillDate</td>
                                         <td>@item.NoOfPiece</td>
                                         <td>@item.OriginalPrice</td>
                                         <td>@item.Discount</td>
                                         <td>@item.Advance</td>
-                                        <td>@item.FinalPrice</td>
+                                        @*<td>@item.FinalPrice</td>*@
                                     </tr>
                                     i++;
                                 }

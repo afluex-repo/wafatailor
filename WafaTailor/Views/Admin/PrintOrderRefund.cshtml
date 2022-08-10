@@ -100,39 +100,23 @@
                     </div>
                     <div>Phone: @ViewBag.CustomerMobile</div>
                     <div>Bill No: @ViewBag.BillNo</div>
-                    <div>Bill Date: @ViewBag.BillNo</div>
                 </div>
             </div>
             <div class="table-responsive-sm">
                 <table class="table table-bordered">
                     <tbody>
-
-                        @if (Model != null)
-                        {
-                            if (Model.lstList != null)
-                            {
-                                var i = 1; foreach (var item in Model.lstList)
-                                {
                                     <tr>
-                                        <th>Bill Date</th>
-                                        <td>@item.BillDate</td>
                                         <th>Piece Name</th>
-                                        <td>@item.PieceName</td>
-                                        <th>Contact Number</th>
-                                        <td>@item.</td>
-                                        <th>Amount</th>
-                                        <td>@item.Balance</td>
+                                        <td>@Model.PieceName</td>
+                                        <th>Mobile</th>
+                                        <td>@Model.Mobile</td>
                                     </tr>
                                     <tr>
                                         <th>Refund No Of Piece</th>
-                                        <td>@item.NoOfPiece</td>
-                                        <th>Available No Of Piece</th>
-                                        <td>@item.AvailableNoOfPiece</td>
+                                        <td>@Model.NoOfPiece</td>
+                                        <th>Refund Amount</th>
+                                        <td>@Model.Balance</td>
                                     </tr>
-                                    i++;
-                                }
-                            }
-                        }
                     </tbody>
                 </table>
             </div>
