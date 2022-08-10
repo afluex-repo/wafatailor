@@ -550,6 +550,7 @@
     <Content Include="Views\Admin\OrderRefundList.cshtml" />
     <Content Include="Views\Admin\PrintOrderRefund.cshtml" />
     <Content Include="Views\Expense\Expense.cshtml" />
+    <Content Include="Views\Expense\ExpenseList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
