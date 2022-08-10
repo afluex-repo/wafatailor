@@ -255,7 +255,7 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult PrintSaleOrder(string SaleOrderId)
+        public ActionResult PrintSaleOrder(String SaleOrderId)
         {
             List<SaleOrder> lstSaleOrderDetails = new List<SaleOrder>();
             SaleOrder model = new SaleOrder();

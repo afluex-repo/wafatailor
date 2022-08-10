@@ -163,8 +163,8 @@
                 var totalItem = {
                     Expensetype: $('.expensetype', this).val(),
                     OtherExpensetype: $('.OtherExpensetype', this).val(),
-                    ExpenseRupee: $('.expenseRupee', this).val(),
                     ExpenseDate: $('.mydatepicker', this).val(),
+                    ExpenseRupee: $('.expenseRupee', this).val(),
                     Remark: $('.remark', this).val(),
                 }
                 clonelist.push(totalItem)
@@ -238,9 +238,18 @@
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
-    var f3 = flatpickr(document.getElementById('ExpenseDate'),
-        {
-            // mode: "range"
-        });
+    //var f3 = flatpickr(document.getElementById('ExpenseDate'),
+    //    {
+    //        // mode: "range"
+    //    });
 </script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+  $( function() {
+      $("#ExpenseDate").datepicker();
+  } );
+</script>
