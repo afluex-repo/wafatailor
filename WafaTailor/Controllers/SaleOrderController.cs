@@ -288,9 +288,6 @@ namespace WafaTailor.Controllers
 
                 return View(model);
         }
-
-       
-
         //public ActionResult GenerateInvoice()
         //{
         //    SaleOrder obj = new SaleOrder();
@@ -355,7 +352,5 @@ namespace WafaTailor.Controllers
 
         //    return View(model);
         //}
-
-
     }
 }
