@@ -36,7 +36,7 @@
                         <div class="card-head">
                             <header>Expense List</header>
                             <span class="text-danger">
-                                @TempData["Customer"]
+                                @TempData["Expense"]
                             </span>
                             <a href="/Expense/Expense" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Expense</a>
                             <div class="tools">
@@ -86,6 +86,7 @@
                                         <th>Expense</th>
                                         <th>Remark </th>
                                         <th>Expense Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,34 +125,42 @@
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
-        var f3 = flatpickr(document.getElementById('FromDate'),
-            {
-                // mode: "range"
-            });
-        var f3 = flatpickr(document.getElementById('ToDate'),
-            {
-                // mode: "range"
-            });
-
-
-        function DeleteExpense(Id)
+    var f3 = flatpickr(document.getElementById('FromDate'),
         {
-            var Confirmation=confirm('Are you sure you wante to delete this expense details');
-            if(Confirmation==true)
-            {
-                $.ajax({
-                    url:'/Expense/DeleteExpense',
-                    type:'json',
-                    data:{'Id':Id},
-                    success:function()
-                    {
+            // mode: "range"
+        });
+    var f3 = flatpickr(document.getElementById('ToDate'),
+        {
+            // mode: "range"
+        });
 
+
+    function DeleteExpense(Id)
+    {
+        var Confirmation=confirm('Are you sure you want to delete this expense details ?');
+        if(Confirmation==true)
+        {
+            $.ajax({
+                url:'/Expense/DeleteExpense',
+                type:'Post',
+                dataType:'json',
+                data:{'Id':Id},
+                success:function(response)
+                {
+                    if(response.Result=="yes")
+                    {
+                        Window.location.reload(true);
                     }
-                
-                
-                });
-            }
+                    else
+                    {
+                        alert();
+                    }
+                }
+
+
+            });
         }
+    }
 
 
 

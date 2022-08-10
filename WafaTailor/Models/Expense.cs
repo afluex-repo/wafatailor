@@ -17,15 +17,19 @@ namespace WafaTailor.Models
         public DataTable dt { get; set; }
         public string AddedBy { get; set; }
         public string Result { get; set; }
-        public string FromDate { get; set; }
-        public string ToDate { get; set; }
+        public string ExpenseId { get; set; }
+
         public List<Expense> lstexpense { get; set; }
+
+        
 
         public string Pk_ExpenseId { get; set; }
         public string ExpenseName { get; set; }
         public string Expenses { get; set; }
         public string OtherExpenseName { get; set; }
-        
+
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
 
         public DataSet GetExpenseType()
         {
@@ -46,6 +50,17 @@ namespace WafaTailor.Models
                 new SqlParameter("@dt",dt)
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveExpenseDetails", para);
+            return ds;
+        }
+
+        public DataSet DeleteExpense()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_ExpenseId",Pk_ExpenseId),
+                 new SqlParameter("@DeletedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteExpense", para);
             return ds;
         }
 
