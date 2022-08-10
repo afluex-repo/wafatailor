@@ -273,13 +273,14 @@ namespace WafaTailor.Controllers
             {
                 foreach (DataRow r in ds.Tables[1].Rows)
                 {
-                    model.SaleDate = ds.Tables[1].Rows[0]["SaleDate"].ToString();
-                    model.PieceName = ds.Tables[1].Rows[0]["PieceName"].ToString();
-                    model.NoOfPiece = ds.Tables[1].Rows[0]["NoOfPiece"].ToString();
-                    model.OriginalPrice = ds.Tables[1].Rows[0]["OriginalPrice"].ToString();
-                    model.Discount = ds.Tables[1].Rows[0]["Discount"].ToString();
-                    model.FinalPrice = ds.Tables[1].Rows[0]["FinalPrice"].ToString();
-                    lstSaleOrderDetails.Add(model);
+                    SaleOrder obj = new SaleOrder();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    lstSaleOrderDetails.Add(obj);
                 }
                 model.lstsaleorder = lstSaleOrderDetails;
                 ViewBag.FinalPrice = double.Parse(ds.Tables[1].Compute("sum(FinalPrice)", "").ToString()).ToString("n2");
