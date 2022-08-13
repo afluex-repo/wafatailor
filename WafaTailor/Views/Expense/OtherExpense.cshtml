@@ -1,0 +1,59 @@
+﻿@model WafaTailor.Models.Expense
+
+@{
+    ViewBag.Title = "OtherExpense";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("OtherExpense", "Expense", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+        <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Other Expense Type</header>
+                            <span style="color:red;">@TempData["Expense"]</span>
+                            <a href="/Expense/OtherExpenseList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Other Expense Type</label>
+                                        @Html.TextBoxFor(m => m.OtherExpense, new { @class = "form-control", @placeholder = "Other Expense Type" })
+                                    </div>
+
+                                <div class="col-sm-4 mt-4">
+                                    <input type="submit" class="btn btn-primary" id="btnSave" name="btnSave" value="Save" onclick="return validationForm()">
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+}
+
+<script>
+    function validationForm() {
+        $("#divload").css({ "display": "" });
+        $(".errortext").removeClass("errortext");
+
+        if ($('#OtherExpense').val() == '') {
+            $("#OtherExpense").addClass('errortext');
+            $('#OtherExpense').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+    }
+       
+</script>
