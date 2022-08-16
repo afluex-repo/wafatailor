@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Contact No <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "10", @Minlength = "10" })
+                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
                                     </div>
                                     @*<div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Email-Id</label>

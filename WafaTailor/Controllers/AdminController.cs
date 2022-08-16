@@ -25,7 +25,7 @@ namespace WafaTailor.Controllers
             }
             if (ds != null && ds.Tables[4].Rows.Count > 0 && ds.Tables.Count > 0)
             {
-                foreach(DataRow dr in ds.Tables[4].Rows)
+                foreach (DataRow dr in ds.Tables[4].Rows)
                 {
                     Admin obj = new Admin();
                     obj.FirstName = dr["FirstName"].ToString();
@@ -131,7 +131,7 @@ namespace WafaTailor.Controllers
                     Admin obj = new Admin();
                     obj.FK_UserId = r["PK_UserId"].ToString();
                     obj.LoginId = r["LoginId"].ToString();
-                    obj.Password =Crypto.Decrypt(r["Password"].ToString());
+                    obj.Password = Crypto.Decrypt(r["Password"].ToString());
                     obj.Name = r["Name"].ToString();
                     obj.Address = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
@@ -197,7 +197,7 @@ namespace WafaTailor.Controllers
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = new DataSet();
                 ds = model.SaveBillEntry();
-                if (ds != null  && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
@@ -213,7 +213,7 @@ namespace WafaTailor.Controllers
                     TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["BillEntry"] = ex.Message;
             }
@@ -223,7 +223,7 @@ namespace WafaTailor.Controllers
         public ActionResult BillList(Admin model, string LoginId)
         {
             List<Admin> lst = new List<Admin>();
-            if(LoginId !="")
+            if (LoginId != "")
             {
                 model.LoginId = LoginId;
             }
@@ -277,7 +277,7 @@ namespace WafaTailor.Controllers
 
             return View(model);
         }
-        public ActionResult BillPayment(string BillId , string PaymentId)
+        public ActionResult BillPayment(string BillId, string PaymentId)
         {
             Admin model = new Admin();
             model.BillId = BillId;
@@ -301,7 +301,7 @@ namespace WafaTailor.Controllers
             ViewBag.ddlShop = ddlShop;
             #endregion
             DataSet ds = model.GetBillDetails();
-            if (ds !=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 model.ShopId = ds.Tables[0].Rows[0]["Fk_Shopid"].ToString();
                 model.BillId = ds.Tables[0].Rows[0]["Pk_BillId"].ToString();
@@ -313,7 +313,7 @@ namespace WafaTailor.Controllers
                 //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
                 model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                model.TotalPaid= ds.Tables[0].Rows[0]["TotalPaid"].ToString();
+                model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();
                 model.FK_UserId = ds.Tables[0].Rows[0]["Fk_UserId"].ToString();
             }
             return View(model);
@@ -419,16 +419,16 @@ namespace WafaTailor.Controllers
                 DataSet ds = obj.GetBill();
                 if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString()=="1")
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
                         obj.Result = "yes";
                     }
-                    else if(ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
                     {
                         obj.NoOfPiece = "0";
                         obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                    } 
+                    }
                 }
                 else
                 {
@@ -461,5 +461,5 @@ namespace WafaTailor.Controllers
             return View(model);
         }
     }
-    
 }
+

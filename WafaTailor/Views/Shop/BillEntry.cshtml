@@ -46,7 +46,7 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
 
                                     </div>
                                 </div>
@@ -280,3 +280,4 @@
             // mode: "range"
         });
 </script>
+
