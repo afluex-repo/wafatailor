@@ -33,6 +33,7 @@ namespace WafaTailor.Models
         public string ShopId { get; set; }
         public string BillNo { get; set; }
         public string NoOfPiece { get; set; }
+        public string DeliveredPiece { get; set; }
         public string OriginalPrice { get; set; }
         public string Discount { get; set; }
         public string FinalPrice { get; set; }
@@ -126,6 +127,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@AdvanceAmount",Advance),
                 new SqlParameter("@FinalPrice",FinalPrice),
                 new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Fk_Userid",FK_UserId),
@@ -165,6 +167,7 @@ namespace WafaTailor.Models
             {
                 //new SqlParameter("@Fk_ShopId",ShopId),
                 new SqlParameter("@Fk_billId",BillId),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
                 new SqlParameter("@AdvanceAmount",Advance),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@FK_UserId",FK_UserId),

@@ -58,7 +58,7 @@
                                                     <td>
                                                         @Html.TextBoxFor(m => m.ExpenseRupee, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control expenseRupee", @placeholder = "Expense", @style = "width:200px" })
                                                     </td>
-                                                    <td>@Html.TextBoxFor(m => m.ExpenseDate, new { @class = "form-control mydatepicker", @placeholder = "Expense Date", @style = "width:200px" })
+                                                    <td>@Html.TextBoxFor(m => m.ExpenseDate, new { @class = "form-control mydatepicker", @placeholder = "Expense Date", @style = "width:200px", @ReadOnly="true" })
                                                     </td>
                                                     <td>@Html.TextAreaFor(m => m.Remark, new { @class = "form-control remark", @placeholder = "Description", @style = "width:200px" })
                                                     </td>
