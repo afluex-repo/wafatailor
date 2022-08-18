@@ -20,8 +20,10 @@ namespace WafaTailor.Models
         public string ExpenseId { get; set; }
 
         public List<Expense> lstexpense { get; set; }
+        public string OtherExpense { get; set; }
+        public string OtherExpenseId { get; set; }
 
-        
+
 
         public string Pk_ExpenseId { get; set; }
         public string ExpenseName { get; set; }
@@ -75,6 +77,36 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetExpenseList", para);
             return ds;
         }
-        
+
+        public DataSet SaveOtherExpense()
+        {
+            SqlParameter[] para ={
+
+                new SqlParameter("@OtherExpense",OtherExpense),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveOtherExpenseDetails", para);
+            return ds;
+        }
+
+        public DataSet GetOtherExpenseList()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@OtherExpensetypeId",OtherExpense)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetOtherExpenseList", para);
+            return ds;
+        }
+
+        public DataSet DeleteOtherExpense()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@OtherExpensetypeId",OtherExpenseId),
+                 new SqlParameter("@DeletedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteOtherExpense", para);
+            return ds;
+        }
     }
 }

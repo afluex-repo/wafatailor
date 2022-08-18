@@ -97,7 +97,7 @@
                                                         <a target="_blank" href="/Admin/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
                                                             <i class="btn btn-primary" title="Print">Print</i>
                                                         </a>
-                                                        @if (item.Balance > 0 && item.Balance == 0)
+                                                        @if (item.Balance > 0)
                                                         {
                                                             <a target="_blank" href="/Admin/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
                                                                 <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>

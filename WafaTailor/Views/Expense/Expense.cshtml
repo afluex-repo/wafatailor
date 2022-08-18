@@ -102,6 +102,16 @@
                 $("#divload").css({ 'display': 'none' });
                 return false;
             }
+            
+            if ($("#Expensetype").val() == '4') {
+                if ($('#OtherExpensetype').val() == '') {
+                    $("#OtherExpensetype").addClass('errortext');
+                    $('#OtherExpensetype').focus();
+                    $("#divload").css({ 'display': 'none' });
+                    return false;
+                }
+            }
+
             if ($('#ExpenseRupee').val() == '') {
                 $("#ExpenseRupee").addClass('errortext');
                 $('#ExpenseRupee').focus();
@@ -114,12 +124,19 @@
                 $("#divload").css({ 'display': 'none' });
                 return false;
             }
-            if ($('#Remark').val() == '') {
-                $("#Remark").addClass('errortext');
-                $('#Remark').focus();
-                $("#divload").css({ 'display': 'none' });
-                return false;
+
+            if ($("#OtherExpensetype").val() != '') {
+                if ($('#Remark').val() == '') {
+                    $("#Remark").addClass('errortext');
+                    $('#Remark').focus();
+                    $("#divload").css({ 'display': 'none' });
+                    return false;
+                }
+                else {
+
+                }
             }
+            
 
         var $newRow = $('#originaltable').clone().removeAttr('id'); 
             //clonevalue

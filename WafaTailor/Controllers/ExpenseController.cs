@@ -249,5 +249,121 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult OtherExpense()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("OtherExpense")]
+        [OnAction(ButtonName = "btnSave")]
+        public ActionResult ActionOtherExpense(Expense obj)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = obj.SaveOtherExpense();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count  > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["Expense"] = "New Other Expense add successfully!";
+                        FormName = "OtherExpense";
+                        Controller = "Expense";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "OtherExpense";
+                        Controller = "Expense";
+                    }
+                    else
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "OtherExpense";
+                        Controller = "Expense";
+                    }
+                }
+                else
+                {
+                    TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "OtherExpense";
+                    Controller = "Expense";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Expense"] = ex.Message;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult OtherExpenseList()
+        {
+            Expense model = new Expense();
+            List<Expense> lst = new List<Expense>();
+            DataSet ds = model.GetOtherExpenseList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Expense obj = new Expense();
+                    obj.OtherExpenseId = r["Pk_OtherExpenseId"].ToString();
+                    obj.ExpenseName = r["ExpenseName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstexpense = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult DeleteOtherExpense(string OtherExpenseId)
+        {
+            Expense obj = new Expense();
+
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.OtherExpenseId = OtherExpenseId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = obj.DeleteOtherExpense();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count >0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["Expense"] = "Other Expense Type Deleted Successfully!";
+                        FormName = "OtherExpenseList";
+                        Controller = "Expense";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "OtherExpenseList";
+                        Controller = "Expense";
+                    }
+                    else
+                    {
+                        TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "OtherExpenseList";
+                        Controller = "Expense";
+                    }
+                }
+                else
+                {
+                    TempData["Expense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "OtherExpenseList";
+                    Controller = "Expense";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Expense"] = ex.Message;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
     }
 }
