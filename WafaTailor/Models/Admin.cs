@@ -60,6 +60,7 @@ namespace WafaTailor.Models
         public string Pk_BillId { get; set; }
         public string AvailableNoOfPiece { get; set; }
         public string Result { get; set; }
+        public string RemainingPiece { get; set; }
 
 
         public DataSet GetAdminDashBoardDetails()
@@ -128,6 +129,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@FinalPrice",FinalPrice),
                 new SqlParameter("@NoOfPiece",NoOfPiece),
                 new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                 //new SqlParameter("@RemainingPiece",RemainingPiece),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Fk_Userid",FK_UserId),
