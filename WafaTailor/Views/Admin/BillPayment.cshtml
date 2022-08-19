@@ -71,7 +71,12 @@
                                         @Html.TextBoxFor(m => m.DeliveredPiece, new { @class = "form-control", @Placeholder = "Delivered Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
-
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Remaining Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainingPiece, new { @class = "form-control", @Placeholder = "Remaining Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>

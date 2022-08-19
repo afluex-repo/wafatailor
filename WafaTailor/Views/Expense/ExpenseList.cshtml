@@ -82,10 +82,10 @@
                                     <tr>
                                         <th>Sr No.</th>
                                         <th>Expense Name </th>
-                                        <th>Other Expense Name</th>
+                                        <th>Other Expense</th>
                                         <th>Expense</th>
-                                        <th>Remark </th>
                                         <th>Expense Date</th>
+                                        <th>Remark </th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -102,8 +102,8 @@
                                                     <td>@item.ExpenseName</td>
                                                     <td>@item.OtherExpenseName</td>
                                                     <td>@item.Expenses</td>
-                                                    <td>@item.Remark</td>
                                                     <td>@item.ExpenseDate</td>
+                                                    <td>@item.Remark</td>
                                                     <td><a class="btn btn-danger btn-sm" onclick="DeleteExpense(@item.Pk_ExpenseId)">Delete</a></td>
                                                 </tr>
                                                 i = i + 1;

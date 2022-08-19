@@ -66,7 +66,7 @@ namespace WafaTailor.Controllers
         [HttpPost]
         public JsonResult ActionExpense(Expense model, string dataValue)
         {
-            try  
+            try
             {
                 //model.ExpenseDate = string.IsNullOrEmpty(model.ExpenseDate) ? null : Common.ConvertToSystemDate(model.ExpenseDate, "dd/MM/yyyy");
                 string Expensetype = "";
@@ -127,7 +127,7 @@ namespace WafaTailor.Controllers
             return new JsonResult { Data = new { status = model.Result } };
         }
 
-        
+
         public ActionResult ExpenseList()
         {
             Expense model = new Expense();
@@ -140,7 +140,7 @@ namespace WafaTailor.Controllers
                     Expense obj = new Expense();
                     obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
                     obj.ExpenseName = r["ExpenseName"].ToString();
-                    //obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
                     obj.Expenses = r["Expense"].ToString();
                     obj.Remark = r["Remark"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
@@ -186,7 +186,7 @@ namespace WafaTailor.Controllers
                     Expense obj = new Expense();
                     obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
                     obj.ExpenseName = r["ExpenseName"].ToString();
-                    //obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
                     obj.Expenses = r["Expense"].ToString();
                     obj.Remark = r["Remark"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
@@ -214,9 +214,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
-        
-
         public ActionResult DeleteExpense(string Id)
         {
             Expense obj = new Expense();
@@ -250,7 +247,7 @@ namespace WafaTailor.Controllers
             {
                 obj.Result = ex.Message;
             }
-            return Json(obj,JsonRequestBehavior.AllowGet);
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult OtherExpense()
@@ -369,4 +366,4 @@ namespace WafaTailor.Controllers
             return RedirectToAction(FormName, Controller);
         }
     }
-    }
+}
