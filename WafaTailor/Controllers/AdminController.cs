@@ -242,6 +242,8 @@ namespace WafaTailor.Controllers
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
                     obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
@@ -311,6 +313,8 @@ namespace WafaTailor.Controllers
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
                 //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                model.DeliveredPiece = ds.Tables[0].Rows[0]["DeliveredPiece"].ToString();
                 model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();

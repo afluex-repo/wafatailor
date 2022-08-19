@@ -59,10 +59,26 @@
 
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">No Of Piece <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = " No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                        <label for="simpleFormEmail"> Total Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Total No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Delivered Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.DeliveredPiece, new { @class = "form-control", @Placeholder = "Delivered Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Remaining Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainingPiece, new { @class = "form-control", @Placeholder = "Remaining Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+
+
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>
@@ -188,8 +204,21 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+        if ($('#DeliveredPiece').val() == '') {
+            $("#DeliveredPiece").addClass('errortext');
+            $('#DeliveredPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#RemainingPiece').val() == '') {
+            $("#RemainingPiece").addClass('errortext');
+            $('#RemainingPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
         if ($('#OriginalPrice').val() == '') {
-            $("#OriginalPrice").addClass('errortext');
+            $("#OriginalPrice").addClass('errortext'); 
             $('#OriginalPrice').focus();
             $("#divload").css({ 'display': 'none' });
             return false;
@@ -243,6 +272,7 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+
         if (Advance == "") {
             Advance = 0;
         }
