@@ -61,6 +61,8 @@ namespace WafaTailor.Models
         public string AvailableNoOfPiece { get; set; }
         public string Result { get; set; }
         public string RemainingPiece { get; set; }
+        public string Status { get; set; }
+        
 
 
         public DataSet GetAdminDashBoardDetails()
@@ -134,6 +136,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Fk_Userid",FK_UserId),
                 new SqlParameter("@Mobile",Mobile),
+                 new SqlParameter("@Status",Status),
                 new SqlParameter("@AddedBy",AddedBy),
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveBillingDetails", para);

@@ -184,6 +184,9 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+
+            List<SelectListItem> Status = Common.BindStatus();
+            ViewBag.Status = Status;
             return View(model);
         }
 
@@ -238,12 +241,15 @@ namespace WafaTailor.Controllers
                     obj.Name = r["Name"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
                     obj.Advance = r["AdavanceAmount"].ToString();
                     obj.RemainingPiece = r["RemainingPiece"].ToString();
                     obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
@@ -302,6 +308,10 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
+
+            List<SelectListItem> Status = Common.BindStatus();
+            ViewBag.Status = Status;
+
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -319,6 +329,7 @@ namespace WafaTailor.Controllers
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();
                 model.FK_UserId = ds.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                model.Status = ds.Tables[0].Rows[0]["Status"].ToString();
             }
             return View(model);
         }
