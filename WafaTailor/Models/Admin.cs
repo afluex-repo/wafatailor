@@ -61,6 +61,8 @@ namespace WafaTailor.Models
         public string AvailableNoOfPiece { get; set; }
         public string Result { get; set; }
         public string RemainingPiece { get; set; }
+        public string Status { get; set; }
+        
 
 
         public DataSet GetAdminDashBoardDetails()

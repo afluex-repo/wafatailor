@@ -238,7 +238,9 @@ namespace WafaTailor.Controllers
                     obj.Name = r["Name"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    //obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
                     obj.Advance = r["AdavanceAmount"].ToString();
