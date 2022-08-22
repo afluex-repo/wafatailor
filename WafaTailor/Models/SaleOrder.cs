@@ -55,6 +55,8 @@ namespace WafaTailor.Models
         public string ShopLoginId { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string BillId { get; set; }
+        
 
 
         //public DataSet SaveSaleOrderDetails()
@@ -149,5 +151,16 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
             return ds;
         }
+
+        public DataSet GetBillDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
+            return ds;
+        }
+
     }
 }

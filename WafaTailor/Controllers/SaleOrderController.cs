@@ -14,7 +14,7 @@ namespace WafaTailor.Controllers
     public class SaleOrderController : AdminBaseController
     {
         // GET: SaleOrder
-        public ActionResult SaleOrder(SaleOrder obj)
+        public ActionResult SaleOrder(SaleOrder obj, string BillId)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -52,6 +52,24 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+            
+               if (BillId != null)
+                {
+                    obj.BillId = BillId;
+                    DataSet ds2 = obj.GetBillDetails();
+                    if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
+                    {
+                        obj.BillId = ds2.Tables[0].Rows[0]["Pk_BillId"].ToString();
+                        obj.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                        obj.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
+                        obj.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                        obj.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                        obj.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                        obj.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                        obj.NetAmount = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
+                    }
+                }
+
             return View(obj);
         }
 
