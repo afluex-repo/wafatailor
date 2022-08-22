@@ -309,8 +309,8 @@ namespace WafaTailor.Controllers
             ViewBag.ddlShop = ddlShop;
             #endregion
 
-            List<SelectListItem> Status = Common.BindStatus();
-            ViewBag.Status = Status;
+            List<SelectListItem> ItemStatus = Common.BindStatus();
+            ViewBag.ItemStatus = ItemStatus;
 
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -319,12 +319,13 @@ namespace WafaTailor.Controllers
                 model.BillId = ds.Tables[0].Rows[0]["Pk_BillId"].ToString();
                 model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
                 model.RemainningBalance = ds.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                //model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["RemainingBalance"].ToString());
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
                 //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
-                model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
-                model.DeliveredPiece = ds.Tables[0].Rows[0]["DeliveredPiece"].ToString();
+               model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                model.TotalDeliveredPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
                 model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();

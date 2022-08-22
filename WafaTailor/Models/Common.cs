@@ -93,9 +93,9 @@ namespace WafaTailor.Models
             List<SelectListItem> Status = new List<SelectListItem>();
 
             Status.Add(new SelectListItem { Text = "UnPaid/Not Delivered", Value = "UnPaid/Not Delivered" });
-            Status.Add(new SelectListItem { Text = "Paid/ Not Delivered", Value = "UnPaid/Not Delivered" });
-            Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/Not Delivered" });
-            Status.Add(new SelectListItem { Text = "Paid/ Delivered", Value = "UnPaid/Not Delivered" });
+            Status.Add(new SelectListItem { Text = "Paid/ Not Delivered", Value = "Paid/ Not Delivered" });
+            Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/ Delivered" });
+            Status.Add(new SelectListItem { Text = "Paid/ Delivered", Value = "Paid/ Delivered" });
             return Status;
         }
         public DataSet GetStateCity()
