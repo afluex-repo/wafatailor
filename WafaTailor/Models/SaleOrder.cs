@@ -149,5 +149,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
             return ds;
         }
+
     }
 }
