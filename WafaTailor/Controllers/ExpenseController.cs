@@ -365,5 +365,36 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
+
+        public ActionResult DailyExpenseReport(Expense model)
+        {
+            List<Expense> lst = new List<Expense>();
+            DataSet ds = model.GetDailyExpenseReport();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Expense obj = new Expense();
+                    obj.Pk_ExpenseId = r["Id"].ToString();
+                    obj.Delivery = r["Delivery"].ToString();
+                    obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    obj.Crystal = r["Crystal"].ToString();
+                    obj.Worker = r["Worker"].ToString();
+                    obj.Material = r["Material"].ToString();
+                    obj.Other = r["Other"].ToString();
+                    obj.Profit = r["Profit"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstexpense = lst;
+                ViewBag.Delivery = double.Parse(ds.Tables[0].Compute("sum(Delivery)", "").ToString()).ToString("n2");
+                ViewBag.Crystal = double.Parse(ds.Tables[0].Compute("sum(Crystal)", "").ToString()).ToString("n2");
+                ViewBag.Worker = double.Parse(ds.Tables[0].Compute("sum(Worker)", "").ToString()).ToString("n2");
+                ViewBag.Material = double.Parse(ds.Tables[0].Compute("sum(Material)", "").ToString()).ToString("n2");
+                ViewBag.Other = double.Parse(ds.Tables[0].Compute("sum(Other)", "").ToString()).ToString("n2");
+                ViewBag.Profit = double.Parse(ds.Tables[0].Compute("sum(Profit)", "").ToString()).ToString("n2");
+
+            }
+            return View(model);
+        }
     }
 }

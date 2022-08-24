@@ -33,6 +33,23 @@ namespace WafaTailor.Models
         public string FromDate { get; set; }
         public string ToDate { get; set; }
 
+
+        public string Delivery { get; set; }
+        public string Crystal { get; set; }
+        public string Worker { get; set; }
+        public string Material { get; set; }
+        public string Other { get; set; }
+        public string Profit { get; set; }
+
+
+        
+        
+        
+        
+        
+         
+         
+
         public DataSet GetExpenseType()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetExpenseType");
@@ -106,6 +123,16 @@ namespace WafaTailor.Models
                  new SqlParameter("@DeletedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteOtherExpense", para);
+            return ds;
+        }
+
+        public DataSet GetDailyExpenseReport()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("getDailyExpenseReport", para);
             return ds;
         }
     }

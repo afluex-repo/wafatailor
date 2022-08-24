@@ -82,7 +82,7 @@ namespace WafaTailor.Controllers
             try
             {
                 //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
-                string Name = "";
+               string Name = "";
                 string Piece = "";
                 string OriginalPrice = "";
                 string Discount = "";
@@ -110,7 +110,7 @@ namespace WafaTailor.Controllers
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Name = row["Name"].ToString();
+                    Name = "";
                     Piece = row["Piece"].ToString();
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
@@ -373,5 +373,6 @@ namespace WafaTailor.Controllers
 
         //    return View(model);
         //}
+        
     }
 }

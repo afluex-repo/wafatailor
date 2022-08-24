@@ -63,7 +63,9 @@ namespace WafaTailor.Models
         public string Result { get; set; }
         public string RemainingPiece { get; set; }
         public string Status { get; set; }
-        
+
+        public string FinalAmount { get; set; }
+
 
 
         public DataSet GetAdminDashBoardDetails()
@@ -150,9 +152,9 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@Pk_BillId",BillId),
                 new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId),
-                new SqlParameter("@LoginId",LoginId)
-                //new SqlParameter("@FromDate", FromDate),
-                //new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@LoginId",LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
