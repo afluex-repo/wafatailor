@@ -279,6 +279,12 @@ namespace WafaTailor.Controllers
                     lst.Add(obj);
                 }
                 model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[0].Compute("sum(NoOfPiece)", "").ToString()).ToString("n2");
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[0].Compute("sum(OriginalPrice)", "").ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.RemainingPiece = double.Parse(ds.Tables[0].Compute("sum(RemainingPiece)", "").ToString()).ToString("n2");
+                ViewBag.DeliveredPiece = double.Parse(ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString()).ToString("n2");
+                ViewBag.Balance = double.Parse(ds.Tables[0].Compute("sum(RemainingBalance)", "").ToString()).ToString("n2");
             }
             return View(model);
         }
@@ -373,7 +379,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["BillEntry"] = "Bill Payment saved Successfully !!";
+                        TempData["BillEntry"] = "Payment Successfully !!";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
                     {

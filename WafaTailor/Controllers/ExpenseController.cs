@@ -366,9 +366,8 @@ namespace WafaTailor.Controllers
             return RedirectToAction(FormName, Controller);
         }
 
-        public ActionResult DailyExpenseReport()
+        public ActionResult DailyExpenseReport(Expense model)
         {
-            Expense model = new Expense();
             List<Expense> lst = new List<Expense>();
             DataSet ds = model.GetDailyExpenseReport();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
@@ -387,6 +386,13 @@ namespace WafaTailor.Controllers
                     lst.Add(obj);
                 }
                 model.lstexpense = lst;
+                ViewBag.Delivery = double.Parse(ds.Tables[0].Compute("sum(Delivery)", "").ToString()).ToString("n2");
+                ViewBag.Crystal = double.Parse(ds.Tables[0].Compute("sum(Crystal)", "").ToString()).ToString("n2");
+                ViewBag.Worker = double.Parse(ds.Tables[0].Compute("sum(Worker)", "").ToString()).ToString("n2");
+                ViewBag.Material = double.Parse(ds.Tables[0].Compute("sum(Material)", "").ToString()).ToString("n2");
+                ViewBag.Other = double.Parse(ds.Tables[0].Compute("sum(Other)", "").ToString()).ToString("n2");
+                ViewBag.Profit = double.Parse(ds.Tables[0].Compute("sum(Profit)", "").ToString()).ToString("n2");
+
             }
             return View(model);
         }

@@ -207,7 +207,7 @@
         }
             var $newRow = $('#originaltable').clone().removeAttr('id');
             //clonevalue
-            //$('.name', $newRow).removeClass('errortext').prop('disabled', true).val($('#PriceName').val());
+            $('.name', $newRow).removeClass('errortext').prop('disabled', true).val($('#PriceName').val());
             $('.piece', $newRow).removeClass('errortext').prop('disabled', true).val($('#NoOfPiece').val());
             $('.originalprice', $newRow).removeClass('errortext').prop('disabled', true).val($('#OriginalPrice').val());
             $('.discount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Discount').val());
@@ -242,7 +242,7 @@
             }
             else {
                 var totalItem = {
-                    //Name: $('.name', this).val(),
+                    Name: "",
                     Piece: $('.piece', this).val(),
                     Originalprice: $('.originalprice', this).val(),
                     Discount: $('.discount', this).val(),
