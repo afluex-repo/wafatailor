@@ -348,7 +348,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["BillEntry"] = "Bill Payment saved Successfully !!";
+                        TempData["BillEntry"] = "Payment Successfully !!";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
                     {

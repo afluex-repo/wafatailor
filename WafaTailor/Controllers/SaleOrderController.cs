@@ -14,7 +14,7 @@ namespace WafaTailor.Controllers
     public class SaleOrderController : AdminBaseController
     {
         // GET: SaleOrder
-        public ActionResult SaleOrder(SaleOrder obj, string BillId)
+        public ActionResult SaleOrder(SaleOrder obj, string BillId, string paymentid)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -56,6 +56,7 @@ namespace WafaTailor.Controllers
                if (BillId != null)
                 {
                     obj.BillId = BillId;
+                    obj.PaymentId = paymentid;
                     DataSet ds2 = obj.GetBillDetails();
                     if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
                     {
@@ -67,7 +68,8 @@ namespace WafaTailor.Controllers
                         obj.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
                         obj.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
                         obj.NetAmount = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
-                    }
+                        obj.Pk_UserId = ds2.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                }
                 }
 
             return View(obj);
@@ -223,10 +225,11 @@ namespace WafaTailor.Controllers
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetUserDetails(string LoginId)
+        public ActionResult GetUserDetails(string LoginId, string Mobile)
         {
             SaleOrder model = new SaleOrder();
             model.LoginId = LoginId;
+            model.Mobile = Mobile;
             DataSet ds = model.GetUserDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
