@@ -80,7 +80,7 @@ namespace WafaTailor.Controllers
             try
             {
                 //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
-                string Name = "";
+               //string Name = "";
                 string Piece = "";
                 string OriginalPrice = "";
                 string Discount = "";
@@ -93,7 +93,7 @@ namespace WafaTailor.Controllers
                 var jdv = jss.Deserialize<dynamic>(dataValue);
 
                 DataTable dtorder = new DataTable();
-                dtorder.Columns.Add("Name");
+                //dtorder.Columns.Add("Name");
                 dtorder.Columns.Add("Piece");
                 dtorder.Columns.Add("OriginalPrice");
                 dtorder.Columns.Add("Discount");
@@ -108,7 +108,6 @@ namespace WafaTailor.Controllers
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Name = row["Name"].ToString();
                     Piece = row["Piece"].ToString();
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
@@ -117,7 +116,7 @@ namespace WafaTailor.Controllers
                     Description = row["Description"].ToString();
 
                     //rowsno = rowsno + 1;
-                    dtorder.Rows.Add(Name, Piece, OriginalPrice, Discount, FinalPrice, SaleDate, Description);
+                    dtorder.Rows.Add( Piece, OriginalPrice, Discount, FinalPrice, SaleDate, Description);
                 }
                 order.dt = dtorder;
                 order.Pk_UserId = order.Pk_UserId == "" ? null : order.Pk_UserId;
@@ -370,5 +369,6 @@ namespace WafaTailor.Controllers
 
         //    return View(model);
         //}
+        
     }
 }

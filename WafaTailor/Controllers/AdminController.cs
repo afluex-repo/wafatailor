@@ -146,7 +146,7 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult BillEntry(Admin model)
+        public ActionResult BillEntry(Admin model, string BillId, string PaymentId)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -184,6 +184,30 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+
+            if(BillId != null && PaymentId != null)
+            {
+                model.BillId = BillId;
+                model.Pk_BillPaymentId = PaymentId;
+                //model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                DataSet ds2 = model.GetBillDetails();
+                if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+                {
+                    model.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                    model.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
+                    model.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                    model.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                    model.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.DeliveredPiece = ds2.Tables[0].Rows[0]["DeliveredPiece"].ToString();
+                    model.RemainingPiece = ds2.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                    model.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                    model.FinalPrice = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
+                    model.Advance = ds2.Tables[0].Rows[0]["AdavanceAmount"].ToString();
+                    model.RemainningBalance = ds2.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                    model.BillDate = ds2.Tables[0].Rows[0]["BillDate"].ToString();
+                    model.Status = ds2.Tables[0].Rows[0]["Status"].ToString();
+                }
+            }
 
             List<SelectListItem> Status = Common.BindStatus();
             ViewBag.Status = Status;
@@ -225,6 +249,7 @@ namespace WafaTailor.Controllers
 
         public ActionResult BillList(Admin model, string LoginId)
         {
+
             List<Admin> lst = new List<Admin>();
             if (LoginId != "")
             {
@@ -239,7 +264,7 @@ namespace WafaTailor.Controllers
                     obj.BillId = r["Pk_BillId"].ToString();
                     obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
                     obj.Name = r["Name"].ToString();
-                    obj.Mobile = r["Mobile"].ToString();
+                    //obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
                     //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
                     //obj.RemainingPiece = r["RemainingPiece"].ToString();
@@ -385,7 +410,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
                     {
-                        TempData["Order"] = "Refund Order saved Successfully !!";
+                        TempData["Order"] = "Order Refund saved Successfully !!";
                     }
                     else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
                     {
