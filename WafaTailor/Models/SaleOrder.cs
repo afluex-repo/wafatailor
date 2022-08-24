@@ -56,7 +56,7 @@ namespace WafaTailor.Models
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public string BillId { get; set; }
-        
+        public string PaymentId { get; set; }
 
 
         //public DataSet SaveSaleOrderDetails()
@@ -156,7 +156,8 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_BillId",BillId)
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",PaymentId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
