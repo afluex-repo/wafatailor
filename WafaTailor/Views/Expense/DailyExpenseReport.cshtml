@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
 @using (Html.BeginForm("DailyExpenseReport", "Expense", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
@@ -40,13 +40,13 @@
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label> From Date</label>
-                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly="true" })
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label> To Date</label>
-                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-3 mt-4">
@@ -118,7 +118,7 @@
             <!-- end page container -->
 }
 
-<script src="~/plugins/flatpickr/flatpickr.js"></script>
+@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('FromDate'),
@@ -129,6 +129,23 @@
         {
             // mode: "range"
         });
+</script>*@
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#FromDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+    $('#ToDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
 </script>
 
 

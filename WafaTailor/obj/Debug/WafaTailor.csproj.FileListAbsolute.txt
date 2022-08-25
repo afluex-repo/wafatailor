@@ -480,4 +480,3 @@ F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.xml
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\bin\System.Web.Http.WebHost.xml
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.dll
 F:\SachinMishraProject\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.pdb
-F:\Ashwani Afluex\repository\wafatailor\WafaTailor\obj\Debug\WafaTailor.csprojResolveAssemblyReference.cache

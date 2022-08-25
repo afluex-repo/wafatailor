@@ -81,7 +81,8 @@ namespace WafaTailor.Controllers
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
                     FinalPrice = row["NetAmount"].ToString();
-                    SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
+                    SaleDate = row["SaleDate"].ToString();
+                    //SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
                     Description = row["Description"].ToString();
                     //
                     //rowsno = rowsno + 1;
@@ -219,15 +220,15 @@ namespace WafaTailor.Controllers
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult BillEntry(Shop model)
+        public ActionResult BillEntry(Shop model, string BillId, string PaymentId)
         {
             #region Customer
             List<SelectListItem> ddlcustomer = new List<SelectListItem>();
-            DataSet ds = model.GetCustomerDetails();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            DataSet ds1 = model.GetCustomerDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
             {
                 int count = 0;
-                foreach (DataRow r in ds.Tables[0].Rows)
+                foreach (DataRow r in ds1.Tables[0].Rows)
                 {
                     if (count == 0)
                     {
@@ -239,6 +240,33 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+
+            if (BillId != null && PaymentId != null)
+            {
+                model.BillId = BillId;
+                model.Pk_BillPaymentId = PaymentId;
+                //model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                DataSet ds = model.GetBillDetails();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.ShopId = ds.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                    model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
+                    model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                    model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                    model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.DeliveredPiece = ds.Tables[0].Rows[0]["DeliveredPiece"].ToString();
+                    model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                    model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                    model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
+                    model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
+                    model.RemainningBalance = ds.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                    model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                    model.Status = ds.Tables[0].Rows[0]["Status"].ToString();
+                }
+            }
+
+            List<SelectListItem> Status = Common.BindStatus();
+            ViewBag.BindStatus = Status;
             return View(model);
         }
 
@@ -250,8 +278,7 @@ namespace WafaTailor.Controllers
             try
             {
                 model.AddedBy = Session["Pk_userId"].ToString();
-                DataSet ds = new DataSet();
-                ds = model.SaveBillEntry();
+                DataSet ds = model.SaveBillEntry();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
@@ -296,58 +323,6 @@ namespace WafaTailor.Controllers
                     lst.Add(obj);
                 }
                 model.lstList = lst;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
             return View(model);
         }
@@ -409,6 +384,44 @@ namespace WafaTailor.Controllers
                 TempData["ChangePassword"] = ex.Message;
             }
             return RedirectToAction("ShopChangePassword", "Shop");
+        }
+
+        [HttpPost]
+        [ActionName("BillEntry")]
+        [OnAction(ButtonName = "UpdateBill")]
+        public ActionResult UpdateBillEntry(Admin model, string BillId, string Pk_BillPaymentId)
+        {
+            try
+            {
+                if (BillId != null && Pk_BillPaymentId != null)
+                {
+                    model.BillId = BillId;
+                    model.Pk_BillPaymentId = Pk_BillPaymentId;
+                    model.ShopId = Session["Pk_userId"].ToString();
+                    model.AddedBy = Session["Pk_userId"].ToString();
+                    DataSet ds = model.UpdateBillEntry();
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["BillEntry"] = "Bill Details Updated Successfully !!";
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["BillEntry"] = ex.Message;
+            }
+            return RedirectToAction("BillEntry", "Shop");
         }
     }
 }

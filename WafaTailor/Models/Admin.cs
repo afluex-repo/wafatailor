@@ -232,5 +232,28 @@ namespace WafaTailor.Models
             return ds;
         }
 
+        public DataSet UpdateBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),  
+                new SqlParameter("@Pk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                 new SqlParameter("@Status",Status),
+                new SqlParameter("@UpdatedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateBillingDetails", para);
+            return ds;
+        }
     }
 }

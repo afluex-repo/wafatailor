@@ -49,6 +49,15 @@ namespace WafaTailor.Models
         public decimal Balance { get; set; }
         public string ShopLoginId { get; set; }
 
+        public string DeliveredPiece { get; set; }
+        public string RemainingPiece { get; set; }
+        public string Status { get; set; }
+
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+
+
+
         #endregion
 
         public DataSet GetCustomerDetails()
@@ -129,11 +138,13 @@ namespace WafaTailor.Models
                 new SqlParameter("@AdvanceAmount",Advance),
                 new SqlParameter("@FinalPrice",FinalPrice),
                 new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Fk_Userid",Fk_UserId),
                 new SqlParameter("@Mobile",Mobile),
-                new SqlParameter("@AddedBy",AddedBy),
+                 new SqlParameter("@Status",Status),
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveBillingDetails", para);
             return ds;
@@ -144,8 +155,10 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_BillId",BillId),
-                //new SqlParameter("@FromDate", FromDate),
-                //new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@LoginId",LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
@@ -170,6 +183,29 @@ namespace WafaTailor.Models
                  new SqlParameter("@UpdatedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("ShopChangePassword", para);
+            return ds;
+        }
+        public DataSet UpdateBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Pk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                 new SqlParameter("@Status",Status),
+                new SqlParameter("@UpdatedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateBillingDetails", para);
             return ds;
         }
     }
