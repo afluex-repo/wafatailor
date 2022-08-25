@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
 @using (Html.BeginForm("ShopSaleOrder", "Shop", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
 
@@ -297,14 +297,14 @@
     }
   
     </script>
-<script src="~/plugins/flatpickr/flatpickr.js"></script>
+@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('SaleOrderDate'),
         {
             // mode: "range"
         });
-</script>
+</script>*@
 
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -351,4 +351,16 @@
             $("#Mobile").val(Mobile);
         }
     }
+</script>
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#SaleOrderDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
 </script>
