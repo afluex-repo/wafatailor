@@ -222,8 +222,7 @@ namespace WafaTailor.Controllers
             try
             {
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
-                DataSet ds = new DataSet();
-                ds = model.SaveBillEntry();
+                DataSet ds = model.SaveBillEntry();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
@@ -255,6 +254,9 @@ namespace WafaTailor.Controllers
             {
                 model.LoginId = LoginId;
             }
+            //model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            //model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -506,6 +508,43 @@ namespace WafaTailor.Controllers
                 model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("BillEntry")]
+        [OnAction(ButtonName = "UpdateBill")]
+        public ActionResult UpdateBillEntry(Admin model, string BillId, string Pk_BillPaymentId)
+        {
+            try
+            {
+                if(BillId != null && Pk_BillPaymentId != null)
+                {
+                    model.BillId = BillId;
+                    model.Pk_BillPaymentId = Pk_BillPaymentId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.UpdateBillEntry();
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["BillEntry"] = "Bill Details Updated Successfully !!";
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["BillEntry"] = ex.Message;
+            }
+            return RedirectToAction("BillEntry", "Admin");
         }
     }
 }
