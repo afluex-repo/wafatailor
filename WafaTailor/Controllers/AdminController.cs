@@ -266,7 +266,7 @@ namespace WafaTailor.Controllers
                     obj.BillId = r["Pk_BillId"].ToString();
                     obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
                     obj.Name = r["Name"].ToString();
-                    //obj.Mobile = r["Mobile"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
                     //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
                     //obj.RemainingPiece = r["RemainingPiece"].ToString();
