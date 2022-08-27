@@ -28,7 +28,7 @@
                             <span class="text-danger">
                                 @TempData["SaleOrder"]
                             </span>
-                            <a href="#" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Sale Order</a>
+                            <a href="/SaleOrder/SaleOrder" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Sale Order</a>
                             <div class="tools">
                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -45,10 +45,17 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
-                                        <label>Customer</label>
+                                        <label>Customer LoginId</label>
                                         @Html.TextBoxFor(m => m.LoginId, new  { @class = "form-control", @placeholder = "Customer LoginId" })
                                     </div>
                                 </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile No</label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Mobile Number" })
+                                    </div>
+                                </div>
+
                                 @*<div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label> From Date</label>

@@ -113,7 +113,7 @@
                             <th style="background: #6673fc !important;">Bill Date</th>
                             <th style="background: #6673fc !important;">No.Of Piece</th>
                             <th style="background: #6673fc !important;">Original Price</th>
-                            <th style="background: #6673fc !important;">Discount</th>
+                            @*<th style="background: #6673fc !important;">Discount</th>
                             <th style="background: #6673fc !important;">Advance Amount</th>
                             <th style="background: #6673fc !important;">Final Price</th>
                         </tr>
@@ -127,8 +127,6 @@
                                         var i = 1; foreach (var item in Model.lstList)
                                         {
                             <tr>
-                                <th>Sr. No.</th>
-                                <td>@i</td>
                                 <th>Bill Date</th>
                                 <td>@item.BillDate</td>
                                 <th>Original Price</th>
@@ -139,16 +137,16 @@
                             <tr>
                                 <th>No. Of Piece</th>
                                 <td>@item.NoOfPiece</td>
-                                <th>Advance</th>
+                                <th>Paid Amount</th>
                                 <td>@item.Advance</td>
-                                <th>Final Price</th>
-                                <td>@item.FinalPrice</td>
+                                @*<th>Final Price</th>*@
+                                @*<td>@item.FinalPrice</td>*@
                             </tr>
                                     i++;
                                 }
                             }
                         }
-                       @*@if (Model != null)
+                     @*@if (Model != null)
                             {
                                 if (Model.lstList != null)
                                 {
@@ -159,7 +157,7 @@
                                             <td>@item.BillDate</td>
                                             <td>@item.NoOfPiece</td>
                                             <td>@item.OriginalPrice</td>
-                                            <td>@item.Discount</td>
+                                            @*<td>@item.Discount</td>
                                             <td>@item.Advance</td>
                                             <td>@item.FinalPrice</td>
                                         </tr>
@@ -178,7 +176,7 @@
                         <tbody>
                             <tr>
                                 <td class="left">
-                                    @*<strong>Total :</strong>*@
+                                    @*<strong>Total Amount :</strong>*@
                                 </td>
                                 <td class="right">
                                     @*<strong>@ViewBag.FinalPrice</strong>*@

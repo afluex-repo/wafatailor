@@ -88,6 +88,17 @@ namespace WafaTailor.Models
             Gender.Add(new SelectListItem { Text = "Female", Value = "F" });
             return Gender;
         }
+        public static List<SelectListItem> BindStatus()
+        {
+            List<SelectListItem> Status = new List<SelectListItem>();
+
+            Status.Add(new SelectListItem { Text = "UnPaid/Not Delivered", Value = "UnPaid/Not Delivered" });
+            Status.Add(new SelectListItem { Text = "Paid/ Not Delivered", Value = "Paid/ Not Delivered" });
+            Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/ Delivered" });
+            Status.Add(new SelectListItem { Text = "Paid/ Delivered", Value = "Paid/ Delivered" });
+            Status.Add(new SelectListItem { Text = "Cancle", Value = "Cancle" });
+            return Status;
+        }
         public DataSet GetStateCity()
         {
             SqlParameter[] para = { 

@@ -6,8 +6,8 @@
 }
 
 
-<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
 @using (Html.BeginForm("BillEntry", "Shop", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
         <!-- start page content -->
@@ -46,7 +46,7 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
 
                                     </div>
                                 </div>
@@ -60,10 +60,25 @@
 
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">No Of Piece <span style="color:red">*</span></label>
+                                        <label for="simpleFormEmail">Total Piece <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = " No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Delivered Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.DeliveredPiece, new { @class = "form-control", @Placeholder = "Delivered Piece", @onkeypress = "return isNumberOrDecimal(event);", onchange = "return calculateremainingPiece()" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Remaining Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainingPiece, new { @class = "form-control", @Placeholder = "Remaining Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculateremainingPiece()" })
+                                    </div>
+                                </div>
+
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>
@@ -84,20 +99,36 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">Remainning Balance<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.RemainningBalance, new { @class = "form-control", @placeholder = "Remainning Balance", @Readonly = "true" })
+                                        <label for="simpleFormEmail">Remaining Balance<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainningBalance, new { @class = "form-control", @placeholder = "Remaining Balance", @Readonly = "true" })
                                     </div>
                                 </div>
 
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date" })
+                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @readonly="true" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Status<span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.BindStatus, "Value", "Text"), new { @class = "form-control" })
                                     </div>
                                 </div>
 
                                 <div class="form-group col-sm-4 mt-4">
+                                    @Html.HiddenFor(m => m.BillId)
+                                    @Html.HiddenFor(m => m.Pk_BillPaymentId)
+                                    @if (Model.BillId != null && Model.Pk_BillPaymentId != null)
+                                    {
+                                        <input type="submit" class="btn btn-primary" id="UpdateBill" name="UpdateBill" value="Update">
+                                    }
+                                    else
+                                    {
                                     <input type="submit" class="btn btn-primary" id="Save" name="Save" value="Submit" onclick="return Validateform()">
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -172,11 +203,29 @@
         if (originalprice == "") {
             originalprice = 0;
         }
-        var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        //var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        var finalAmount = (Number(originalprice))
+        $("#FinalPrice").val(finalAmount);
+
         var RemainingBalance = (Number(finalAmount) - Number(Advance))
         $("#FinalPrice").val(finalAmount);
-        $("#RemainningBalance").val(RemainingBalance);
 
+        debugger;
+        if (RemainingBalance < 0) {
+            alert('Remaining Amount Should be grater than Advance Amount')
+            $("#Advance").val("");
+
+            if ($("#Advance").val("")) {
+                $("#RemainningBalance").val(finalAmount);
+            }
+            else {
+
+                $("#RemainningBalance").val(finalAmount);
+            }
+        }
+        else {
+            $("#RemainningBalance").val(RemainingBalance);
+        }
     }
     function Validateform()
     {
@@ -210,6 +259,18 @@
         if ($('#NoOfPiece').val() == '') {
             $("#NoOfPiece").addClass('errortext');
             $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#DeliveredPiece').val() == '') {
+            $("#DeliveredPiece").addClass('errortext');
+            $('#DeliveredPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#RemainingPiece').val() == '') {
+            $("#RemainingPiece").addClass('errortext');
+            $('#RemainingPiece').focus();
             $("#divload").css({ 'display': 'none' });
             return false;
         }
@@ -253,12 +314,98 @@
 
         return true;
     }
+
+    function calculatefinalamount() {
+        var NoofPiece = $("#NoOfPiece").val();
+        var originalprice = $("#OriginalPrice").val();
+        var Advance = $("#Advance").val();
+
+
+        if (Number(NoofPiece) == "") {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            //$('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+        if (Advance == "") {
+            Advance = 0;
+        }
+        if (originalprice == "") {
+            originalprice = 0;
+        }
+        //var finalAmount = ((Number(NoofPiece) * Number(originalprice)))
+        var finalAmount = (Number(originalprice))
+        $("#FinalPrice").val(finalAmount);
+
+        var RemainingBalance = (Number(finalAmount) - Number(Advance))
+        $("#FinalPrice").val(finalAmount);
+
+        debugger;
+        if (RemainingBalance < 0) {
+            alert('Remaining Amount Should be grater than Advance Amount')
+            $("#Advance").val("");
+
+            if ($("#Advance").val("")) {
+                $("#RemainningBalance").val(finalAmount);
+            }
+            else {
+
+                $("#RemainningBalance").val(finalAmount);
+            }
+        }
+        else {
+            $("#RemainningBalance").val(RemainingBalance);
+        }
+    }
+    function calculateremainingPiece() {
+        var NoofPiece = $("#NoOfPiece").val();
+        var deliveredpiece = $("#DeliveredPiece").val();
+        var remainingpiece = $("#RemainingPiece").val();
+        if (Number(NoofPiece) == "") {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+        if (remainingpiece == "") {
+            remainingpiece = 0;
+        }
+        if (deliveredpiece == "") {
+            deliveredpiece = 0;
+        }
+        var remainingpiece = (Number(NoofPiece) - Number(deliveredpiece))
+        $("#RemainingPiece").val(remainingpiece);
+
+        debugger;
+        if (Number(remainingpiece) > Number(NoofPiece)) {
+            alert('Remaining Piece Should be grater than Advance Amount')
+            $("#RemainingPiece").val("");
+        }
+        else {
+            $("#RemainingPiece").val(remainingpiece);
+        }
+    }
 </script>
-<script src="~/plugins/flatpickr/flatpickr.js"></script>
+@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('BillDate'),
         {
             // mode: "range"
         });
+</script>*@
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#BillDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
 </script>
+

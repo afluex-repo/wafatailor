@@ -14,7 +14,7 @@ namespace WafaTailor.Controllers
     public class SaleOrderController : AdminBaseController
     {
         // GET: SaleOrder
-        public ActionResult SaleOrder(SaleOrder obj)
+        public ActionResult SaleOrder(SaleOrder obj, string BillId, string paymentid)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -52,6 +52,26 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+            
+               if (BillId != null)
+                {
+                    obj.BillId = BillId;
+                    obj.PaymentId = paymentid;
+                    DataSet ds2 = obj.GetBillDetails();
+                    if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
+                    {
+                        obj.BillId = ds2.Tables[0].Rows[0]["Pk_BillId"].ToString();
+                        obj.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                        obj.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
+                        obj.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                        obj.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                        obj.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                        obj.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                        obj.NetAmount = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
+                        obj.Pk_UserId = ds2.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                }
+                }
+
             return View(obj);
         }
 
@@ -62,7 +82,7 @@ namespace WafaTailor.Controllers
             try
             {
                 //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
-                string Name = "";
+               string Name = "";
                 string Piece = "";
                 string OriginalPrice = "";
                 string Discount = "";
@@ -90,18 +110,20 @@ namespace WafaTailor.Controllers
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Name = row["Name"].ToString();
+                    Name = "";
                     Piece = row["Piece"].ToString();
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
                     FinalPrice = row["NetAmount"].ToString();
-                    SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
+                    SaleDate = row["SaleDate"].ToString();
+                    //SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
                     Description = row["Description"].ToString();
 
                     //rowsno = rowsno + 1;
                     dtorder.Rows.Add(Name, Piece, OriginalPrice, Discount, FinalPrice, SaleDate, Description);
                 }
                 order.dt = dtorder;
+                order.Pk_UserId = order.Pk_UserId == "" ? null : order.Pk_UserId;
                 order.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = new DataSet();
                 ds = order.SaveSaleOrder();
@@ -204,10 +226,11 @@ namespace WafaTailor.Controllers
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetUserDetails(string LoginId)
+        public ActionResult GetUserDetails(string LoginId, string Mobile)
         {
             SaleOrder model = new SaleOrder();
             model.LoginId = LoginId;
+            model.Mobile = Mobile;
             DataSet ds = model.GetUserDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -254,7 +277,7 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult PrintSaleOrder(string SaleOrderId)
+        public ActionResult PrintSaleOrder(String SaleOrderId)
         {
             List<SaleOrder> lstSaleOrderDetails = new List<SaleOrder>();
             SaleOrder model = new SaleOrder();
@@ -272,13 +295,14 @@ namespace WafaTailor.Controllers
             {
                 foreach (DataRow r in ds.Tables[1].Rows)
                 {
-                    model.SaleDate = ds.Tables[1].Rows[0]["SaleDate"].ToString();
-                    model.PieceName = ds.Tables[1].Rows[0]["PieceName"].ToString();
-                    model.NoOfPiece = ds.Tables[1].Rows[0]["NoOfPiece"].ToString();
-                    model.OriginalPrice = ds.Tables[1].Rows[0]["OriginalPrice"].ToString();
-                    model.Discount = ds.Tables[1].Rows[0]["Discount"].ToString();
-                    model.FinalPrice = ds.Tables[1].Rows[0]["FinalPrice"].ToString();
-                    lstSaleOrderDetails.Add(model);
+                    SaleOrder obj = new SaleOrder();
+                    obj.SaleDate = r["SaleDate"].ToString();
+                    obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.Discount = r["Discount"].ToString();
+                    obj.FinalPrice = r["FinalPrice"].ToString();
+                    lstSaleOrderDetails.Add(obj);
                 }
                 model.lstsaleorder = lstSaleOrderDetails;
                 ViewBag.FinalPrice = double.Parse(ds.Tables[1].Compute("sum(FinalPrice)", "").ToString()).ToString("n2");
@@ -286,9 +310,6 @@ namespace WafaTailor.Controllers
 
                 return View(model);
         }
-
-       
-
         //public ActionResult GenerateInvoice()
         //{
         //    SaleOrder obj = new SaleOrder();
@@ -353,7 +374,6 @@ namespace WafaTailor.Controllers
 
         //    return View(model);
         //}
-
-
+        
     }
 }

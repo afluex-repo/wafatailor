@@ -34,10 +34,10 @@
         background-image: linear-gradient(to bottom, #6673fc, #6673fc);
     }
 
-    th {
+    /*th {
         font-weight: 400;
         background: #6673fc !important;
-    }
+    }*/
 
     thead {
         background: #6673fc;
@@ -57,6 +57,10 @@
         #print_btn {
             display: none !important;
         }
+    }
+     .table-bordered, .table-bordered td, .table-bordered th 
+    {
+       border: 1px solid #202122 !important;
     }
 </style>
 
@@ -105,18 +109,18 @@
                 </div>
             </div>
             <div class="table-responsive-sm">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="background: #6673fc !important;">Sr.No.</th>
-                            <th style="background: #6673fc !important;">Bill Date</th>
+                <table class="table table-bordered">
+                    @*<thead>
+                        <tr>*@
+                            @*<th style="background: #6673fc !important;">Sr.No.</th>
+                           //<th style="background: #6673fc !important;">Bill Date</th>
                             <th style="background: #6673fc !important;">No.Of Piece</th>
                             <th style="background: #6673fc !important;">Original Price</th>
                             <th style="background: #6673fc !important;">Discount</th>
-                            <th style="background: #6673fc !important;">Advance Amount</th>
-                            <th style="background: #6673fc !important;">Final Price</th>
-                        </tr>
-                    </thead>
+                            <th style="background: #6673fc !important;">Paid Amount</th>
+                            @*<th style="background: #6673fc !important;">Final Price</th>*@
+                        @*</tr>
+                    </thead>*@
                     <tbody>
                         @if (Model != null)
                         {
@@ -125,6 +129,26 @@
                                 var i = 1; foreach (var item in Model.lstList)
                                 {
                                     <tr>
+                                        <th>Sr. No.</th>
+                                        <td>@i</td>
+                                        <th>Bill Date</th>
+                                        <td>@item.BillDate</td>
+                                        <th>Original Price</th>
+                                        <td>@item.OriginalPrice</td>
+                                        <th>Discount</th>
+                                        <td>@item.Discount</td>
+                                    </tr>
+                                    <tr>
+                                        <th>No. Of Piece</th>
+                                        <td>@item.NoOfPiece</td>
+                                        <th>Advance</th>
+                                        <td>@item.Advance</td>
+                                        <th>Final Price</th>
+                                        <td>@item.FinalPrice</td>
+                                    </tr>
+
+
+                                    @*<tr>
                                         <td>@i</td>
                                         <td>@item.BillDate</td>
                                         <td>@item.NoOfPiece</td>
@@ -132,7 +156,7 @@
                                         <td>@item.Discount</td>
                                         <td>@item.Advance</td>
                                         <td>@item.FinalPrice</td>
-                                    </tr>
+                                    </tr>*@
                                     i++;
                                 }
                             }

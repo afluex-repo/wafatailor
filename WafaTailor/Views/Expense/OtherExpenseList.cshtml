@@ -1,0 +1,77 @@
+﻿@model WafaTailor.Models.Expense
+
+@{
+    ViewBag.Title = "OtherExpenseList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("OtherExpenseList", "Expense", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+{
+   <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Other Expense List</header>
+                            <span class="text-danger">
+                                @TempData["Expense"]
+                            </span>
+                            <a href="/Expense/OtherExpense" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Expense</a>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-re
+                                   fresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                                   style="width: 100%" id="example4">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Other Expense Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstexpense != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lstexpense)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@item.ExpenseName</td>
+                                                    <td>
+                                                        <a href="/Expense/DeleteOtherExpense?OtherExpenseId=@item.OtherExpenseId" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure You Want To Delete This Other Expense Type?')">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                i = i + 1;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!-- end page container -->
+}
+
+

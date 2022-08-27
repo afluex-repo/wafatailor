@@ -64,6 +64,7 @@ namespace WafaTailor.Controllers
             if (EmployeeId != null)
             {
                 obj.EmployeeId = EmployeeId;
+                obj.DOB = string.IsNullOrEmpty(obj.DOB) ? null : Common.ConvertToSystemDate(obj.DOB, "dd/MM/yyyy");
                 DataSet ds = obj.GetEmployeeDetails();
                 if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
