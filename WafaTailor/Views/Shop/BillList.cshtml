@@ -6,8 +6,8 @@
 }
 
 
-@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("BillList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
@@ -120,7 +120,7 @@
     </div>
 }
 
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
@@ -136,19 +136,19 @@
         changeMonth: true,
         maxDate: 0
     });
-</script>
+</script>*@
 
-@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('FromDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
     var f3 = flatpickr(document.getElementById('ToDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
-</script>*@
+</script>
 

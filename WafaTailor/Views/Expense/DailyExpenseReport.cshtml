@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("DailyExpenseReport", "Expense", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
@@ -118,24 +118,24 @@
             <!-- end page container -->
 }
 
-@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('FromDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
     var f3 = flatpickr(document.getElementById('ToDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
-</script>*@
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+</script>
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
     $('#FromDate').datepicker({
-        format: 'dd/mm/yyyy',
+        format: 'dd/MM/yyyy',
         changeYear: true,
         changeMonth: true,
         maxDate: 0
@@ -146,6 +146,6 @@
         changeMonth: true,
         maxDate: 0
     });
-</script>
+</script>*@
 
 

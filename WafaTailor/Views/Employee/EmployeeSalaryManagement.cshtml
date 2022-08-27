@@ -6,8 +6,8 @@
 }
 
 
-@*<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">*@
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("EmployeeSalaryManagement", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
     <!-- start page content -->
@@ -93,20 +93,15 @@
     </div>
 }
 
-@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('Date'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
-    var f3 = flatpickr(document.getElementById('TransactionDate'),
-        {
-            // mode: "range"
-        });
-</script>*@
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+</script>
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
@@ -116,7 +111,7 @@
         changeMonth: true,
         maxDate: 0
     });
-</script>
+</script>*@
 
 <script>
     function getpaymentdetails() {
