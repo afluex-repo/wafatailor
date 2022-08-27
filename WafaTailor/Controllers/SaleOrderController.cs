@@ -125,13 +125,11 @@ namespace WafaTailor.Controllers
                 order.dt = dtorder;
                 order.Pk_UserId = order.Pk_UserId == "" ? null : order.Pk_UserId;
                 order.AddedBy = Session["Pk_EmployeeId"].ToString();
-                DataSet ds = new DataSet();
-                ds = order.SaveSaleOrder();
+                DataSet ds = order.SaveSaleOrder();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-
                         order.Result = "Yes";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")

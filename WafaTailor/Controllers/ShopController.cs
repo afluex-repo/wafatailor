@@ -91,8 +91,7 @@ namespace WafaTailor.Controllers
                 order.dt = dtorder;
                
                 order.AddedBy = Session["Pk_userId"].ToString();
-                DataSet ds = new DataSet();
-                ds = order.SaveSaleOrder();
+                DataSet ds = order.SaveSaleOrder();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")

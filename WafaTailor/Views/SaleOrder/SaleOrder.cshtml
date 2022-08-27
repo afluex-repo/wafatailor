@@ -110,6 +110,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
+                                   @Html.HiddenFor(m=>m.BillId)
+                                    @Html.HiddenFor(m => m.PaymentId)
                                     <input type="submit" class="btn btn-primary" id="SaveSaleOrder" name="Save" value="Submit">
                                 </div>
                             </div>
@@ -294,6 +296,8 @@
             formData.append("Pk_UserId", $('#Pk_UserId').val());
             formData.append("LoginId", $('#LoginId').val());
             formData.append("Mobile", $('#Mobile').val());
+            formData.append("BillId", $('#BillId').val());
+            formData.append("PaymentId", $('#PaymentId').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',

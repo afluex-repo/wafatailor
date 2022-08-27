@@ -141,7 +141,9 @@ namespace WafaTailor.Models
              new SqlParameter("@Fk_Userid",Pk_UserId),
                 new SqlParameter("@Mobile",Mobile),
                 //new SqlParameter("@Fk_CustomerId",CustomerId),
-                new SqlParameter("@dt",dt)
+                new SqlParameter("@dt",dt),
+                 new SqlParameter("@BillId",BillId),
+                new SqlParameter("@PaymentId",PaymentId),
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
             return ds;
