@@ -114,7 +114,7 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Status<span style="color:red">*</span></label>
-                                        @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.Status, "Value", "Text"), new { @class = "form-control" })
+                                        @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.BindStatus, "Value", "Text"), new { @class = "form-control" })
                                     </div>
                                 </div>
 
