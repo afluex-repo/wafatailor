@@ -154,7 +154,7 @@
             success: function (response) {
                 if (response != null) {
                     $(response).each(function (index, item) {
-                        cityuse.push(item.Name + "(" + item.Mobile + ")");
+                        cityuse.push(item.Name + "(" + item.LoginId + ")");
                     });
                     debugger
                     $('#LoginId').autocomplete({
@@ -174,15 +174,15 @@
             }
         });
     });
-    function changeCustomer() {
-        var Mobile = $("#Pk_UserId").val();
-        if (Mobile == "") {
-            $("#Mobile").val("");
-        }
-        else {
-            $("#Mobile").val(Mobile);
-        }
-    }
+    //function changeCustomer() {
+    //    var Mobile = $("#Pk_UserId").val();
+    //    if (Mobile == "") {
+    //        $("#Mobile").val("");
+    //    }
+    //    else {
+    //        $("#Mobile").val(Mobile);
+    //    }
+    //}
     function Validateform() {
         $(".errortext").removeClass("errortext");
 
@@ -343,15 +343,32 @@
             $("#RemainingPiece").val(remainingpiece);
         }
     }
-</script>
-@*<script src="~/plugins/flatpickr/flatpickr.js"></script>
-<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script>
-    var f3 = flatpickr(document.getElementById('BillDate'),
-        {
-            // mode: "range"
+    function changeCustomer() {
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var UserId = $('#Pk_UserId').val();
+        $.ajax({
+            url: '/SaleOrder/GetUserDetails', type: 'post', dataType: 'json',
+            data: { 'LoginId': UserId },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#UserID").val(data.UserID);
+                    $("#Mobile").val(data.Mobile);
+                    $("#LoginId").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid LoginId ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#LoginId').focus();
+                    $('#LoginId').val('');
+
+                }
+            }
         });
-</script>*@
+    }
+</script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
