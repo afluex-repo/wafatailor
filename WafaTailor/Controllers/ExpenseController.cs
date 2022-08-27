@@ -68,7 +68,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                //model.ExpenseDate = string.IsNullOrEmpty(model.ExpenseDate) ? null : Common.ConvertToSystemDate(model.ExpenseDate, "dd/MM/yyyy");
+                model.ExpenseDate = string.IsNullOrEmpty(model.ExpenseDate) ? null : Common.ConvertToSystemDate(model.ExpenseDate, "dd/MM/yyyy");
                 string Expensetype = "";
                 string ExpenseRupee = "";
                 string ExpenseDate = "";
@@ -93,8 +93,8 @@ namespace WafaTailor.Controllers
                     Expensetype = row["Expensetype"].ToString();
                     OtherExpensetype = row["OtherExpensetype"].ToString();
                     model.OtherExpensetype = OtherExpensetype == "0" ? null : OtherExpensetype;
-
-                    ExpenseDate = row["ExpenseDate"].ToString();
+                    //ExpenseDate = row["ExpenseDate"].ToString();
+                    ExpenseDate = string.IsNullOrEmpty(row["ExpenseDate"].ToString()) ? null : Common.ConvertToSystemDate(row["ExpenseDate"].ToString(), "dd/MM/yyyy");
                     ExpenseRupee = row["ExpenseRupee"].ToString();
                     Remark = row["Remark"].ToString();
                     //rowsno = rowsno + 1;
@@ -176,8 +176,9 @@ namespace WafaTailor.Controllers
         {
             List<Expense> lst = new List<Expense>();
             model.Expensetype = model.Expensetype == "0" ? null : model.Expensetype;
-            //model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
-            //model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+           
             DataSet ds = model.GetExpenseList();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -369,6 +370,8 @@ namespace WafaTailor.Controllers
         public ActionResult DailyExpenseReport(Expense model)
         {
             List<Expense> lst = new List<Expense>();
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             DataSet ds = model.GetDailyExpenseReport();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
