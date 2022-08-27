@@ -81,7 +81,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
+              //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
                string Name = "";
                 string Piece = "";
                 string OriginalPrice = "";
@@ -115,8 +115,7 @@ namespace WafaTailor.Controllers
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
                     FinalPrice = row["NetAmount"].ToString();
-                    SaleDate = row["SaleDate"].ToString();
-                    //SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
+                   SaleDate = string.IsNullOrEmpty(row["SaleDate"].ToString()) ? null : Common.ConvertToSystemDate(row["SaleDate"].ToString(), "dd/MM/yyyy");
                     Description = row["Description"].ToString();
 
                     //rowsno = rowsno + 1;
@@ -125,13 +124,11 @@ namespace WafaTailor.Controllers
                 order.dt = dtorder;
                 order.Pk_UserId = order.Pk_UserId == "" ? null : order.Pk_UserId;
                 order.AddedBy = Session["Pk_EmployeeId"].ToString();
-                DataSet ds = new DataSet();
-                ds = order.SaveSaleOrder();
+                DataSet ds = order.SaveSaleOrder();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-
                         order.Result = "Yes";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
