@@ -218,6 +218,7 @@ namespace WafaTailor.Controllers
                     SaleOrder objList = new SaleOrder();
                     objList.Name = dr["CustomerName"].ToString();
                     objList.Mobile = dr["Mobile"].ToString();
+                    objList.LoginId = dr["LoginId"].ToString();
                     lst.Add(objList);
                 }
             }
