@@ -189,7 +189,7 @@ namespace WafaTailor.Controllers
             {
                 model.BillId = BillId;
                 model.Pk_BillPaymentId = PaymentId;
-                //model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
                 DataSet ds2 = model.GetBillDetails();
                 if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
                 {
@@ -221,6 +221,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = model.SaveBillEntry();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -254,9 +255,9 @@ namespace WafaTailor.Controllers
             {
                 model.LoginId = LoginId;
             }
-            //model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
-            //model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+          
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -522,6 +523,7 @@ namespace WafaTailor.Controllers
                     model.BillId = BillId;
                     model.Pk_BillPaymentId = Pk_BillPaymentId;
                     model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
                     DataSet ds = model.UpdateBillEntry();
                     if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                     {

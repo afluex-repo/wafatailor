@@ -92,7 +92,7 @@ namespace WafaTailor.Controllers
             string Controller = "";
             try
             {
-                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
+                model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
                 DataSet ds = model.EmployeeRegistration();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
@@ -172,7 +172,7 @@ namespace WafaTailor.Controllers
             {
                 if(model.EmployeeId != null)
                 {
-                   // model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "mm/dd/yyyy");
+                    model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
                     DataSet ds = model.updateEmployeeRegistration();
                     if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                     {
@@ -283,8 +283,9 @@ namespace WafaTailor.Controllers
         public ActionResult EmployeeRegistrationListBy(Employee model)
         {
             model.LoginId = model.LoginId == "0" ? null : model.LoginId;
-            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "MM/dd/yyyy");
-            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "MM/dd/yyyy");
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+          
             List<Employee> lst = new List<Employee>();
             DataSet ds = model.GetEmployeeDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -377,7 +378,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                //model.DOB = string.IsNullOrEmpty(model.DOB) ? null : Common.ConvertToSystemDate(model.DOB, "dd/MM/yyyy");
+                model.Date = string.IsNullOrEmpty(model.Date) ? null : Common.ConvertToSystemDate(model.Date, "dd/MM/yyyy");
                 DataSet ds = model.SalaryManagement();
                 if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
                 {
