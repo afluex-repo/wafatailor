@@ -33,6 +33,8 @@ namespace WafaTailor.Models
         public string ShopId { get; set; }
         public string BillNo { get; set; }
         public string NoOfPiece { get; set; }
+        public string GeneratedPiece { get; set; }
+        public string GeneratedAmount { get; set; }
         public string TotalDeliveredPiece { get; set; }
         public string DeliveredPiece { get; set; }
         public string OriginalPrice { get; set; }
@@ -155,6 +157,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@LoginId",LoginId),
                 new SqlParameter("@FromDate", FromDate),
                 new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@Customername",Name)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;

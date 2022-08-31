@@ -163,11 +163,16 @@
     <Content Include="assets\css\theme\right\style.css" />
     <Content Include="assets\css\theme\right\theme-color.css" />
     <Content Include="assets\css\theme\right\theme_style.css" />
+    <Content Include="assets\dataTables.fixedHeader.min.js" />
+    <Content Include="assets\fixedHeader.dataTables.min.css" />
     <Content Include="assets\Images\dp.jpg" />
     <Content Include="assets\Images\logo.png" />
     <Content Include="assets\Images\usericon.jpg" />
     <Content Include="assets\Images\ViewProfile.jpg" />
     <Content Include="assets\Images\XwHw.gif" />
+    <Content Include="assets\jquery-3.5.1.js" />
+    <Content Include="assets\jquery.dataTables.min.css" />
+    <Content Include="assets\jquery.dataTables.min.js" />
     <Content Include="assets\jquery.min.js" />
     <Content Include="assets\js\app.js" />
     <Content Include="assets\js\layout.js" />
