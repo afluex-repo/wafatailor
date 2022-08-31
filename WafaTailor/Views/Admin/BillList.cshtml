@@ -4,7 +4,6 @@
     ViewBag.Title = "BillList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
 <link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("BillList", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
@@ -12,174 +11,175 @@
    <!-- start page content -->
     <div class="page-content-wrapper">
         <div class="page-content">
-            <div class="page-bar">
-                <div class="page-title-breadcrumb">
-                    <div class="pull-left">
-                        @*  <div class="page-title">Bill List</div>*@
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-head">
-                            <header>Bill List</header>
-                            <span class="text-danger">
-                                @TempData["Bill"]
-                            </span>
-                            <a href="/Admin/BillEntry" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Bill Entry</a>
-                            @*<div class="tools">
-                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
-                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
-                                </div>*@
-                        </div>
-
-                        <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <div class="form-group">
-                                            <label> From Date</label>
-                                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly="true" })
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3">
-                                        <div class="form-group">
-                                            <label> To Date</label>
-                                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-3">
-                                        <div class="form-group">
-                                            <input class="btn btn-success pull-left mt-4" type="submit" value="Search" id="btnSearch" name="btnSearch" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <div class="card-body table-responsive">
-
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column"
-                                   style="width: 100%" id="example4">
-                                <thead>
-                                    <tr>
-                                        @*<th>Sr No.</th>*@
-                                        <th>Customer</th>
-                                        <th>Mobile</th>
-                                        <th>Total Piece</th>
-                                        <th>Delivered Piece</th>
-                                        <th>Remaining Piece</th>
-                                        <th>Original Price</th>
-                                        <th>Paid Amount</th>
-                                        <th>Remaining Balance</th>
-                                        <th>Bill No</th>
-                                        <th>Bill Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model != null)
-                                    {
-                                        if (Model.lstList != null)
-                                        {
-                                            int i = 1;
-                                            foreach (var item in Model.lstList)
-                                            {
-                                                <tr>
-                                                    @*<td>@i</td>*@
-                                                    <td style="min-width:120px;">@item.Name</td>
-                                                    <td>@item.Mobile</td>
-                                                    <td>@item.NoOfPiece</td>
-                                                    <td>@item.DeliveredPiece</td>
-                                                    <td>@item.RemainingPiece</td>
-                                                    <td>@item.OriginalPrice</td>
-                                                    <td>@item.Advance</td>
-                                                    <td>@item.Balance</td>
-                                                    <td>@item.BillNo</td>
-                                                    <td>@item.BillDate</td>
-                                                    <td>@item.Status</td>
-                                                    <td style="width:180px">
-                                                        @*<a  href="/SaleOrder/SaleOrder?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
-                                                            <i class="btn btn-secoundry" title="Print">Sale</i>
-                                                        </a>*@
-                                                        <a href="/Admin/BillEntry?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
-                                                            <i class="btn btn-primary" title="Print">Edit</i>
-                                                        </a>
-                                                        @*<a target="_blank" href="/Admin/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
-                                                            <i class="btn btn-primary" title="Print">Print</i>
-                                                        </a>*@
-                                                        @if (item.Balance > 0)
-                                                        {
-                                                            <a target="_blank" href="/Admin/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
-                                                                <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
-                                                            </a>
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                i = i + 1;
-                                            }
-                                        }
-                                    }
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th>@ViewBag.NoOfPiece</th>
-                                        <th>@ViewBag.DeliveredPiece</th>
-                                        <th>@ViewBag.RemainingPiece</th>
-                                        <th>@ViewBag.OriginalPrice </th>
-                                        <th>@ViewBag.Advance</th>
-                                        <th>@ViewBag.Balance </th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                      
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <div class="page-bar">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+                @*  <div class="page-title">Bill List</div>*@
             </div>
         </div>
     </div>
-}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-head">
+                                    <header>Bill List</header>
+                                    <span class="text-danger">
+                                        @TempData["Bill"]
+                                    </span>
+                                    <a href="/Admin/BillEntry" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back to Bill Entry</a>
+                                   
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label> From Date</label>
+                                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="form-group">
+                                                <label> To Date</label>
+                                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-3">
+                                            <div class="form-group">
+                                                <input class="btn btn-success pull-left mt-4" type="submit" value="Search" id="btnSearch" name="btnSearch" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-striped table-bordered" id="example">
+                                        <thead>
+                                            <tr>
+                                                @*<th>Sr No.</th>*@
+                                                <th>Customer</th>
+                                                <th>Mobile</th>
+                                                <th>Total Piece</th>
+                                                <th>Delivered Piece</th>
+                                                <th>Remaining Piece</th>
+                                                <th>Original Price</th>
+                                                <th>Paid Amount</th>
+                                                <th>Remaining Balance</th>
+                                                <th>Bill No</th>
+                                                <th>Bill Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="max-height:700px !important;">
+                                            @if (Model != null)
+                                            {
+                                                if (Model.lstList != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var item in Model.lstList)
+                                                    {
+                                                        <tr>
+                                                            @*<td>@i</td>*@
+                                                            <td>@item.Name</td>
+                                                            <td>@item.Mobile</td>
+                                                            <td>@item.NoOfPiece</td>
+                                                            <td>@item.DeliveredPiece</td>
+                                                            <td>@item.RemainingPiece</td>
+                                                            <td>@item.OriginalPrice</td>
+                                                            <td>@item.Advance</td>
+                                                            <td>@item.Balance</td>
+                                                            <td>@item.BillNo</td>
+                                                            <td>@item.BillDate</td>
+                                                            <td>@item.Status</td>
+                                                            <td class="d-flex">
+                                                                @*<a href="/SaleOrder/SaleOrder?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
+                                                                    <i class="btn btn-secoundry" title="Print">Sale</i>
+                                                                </a>*@
+                                                                <a href="/Admin/BillEntry?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
+                                                                    <i class="btn btn-primary" title="Print">Edit</i>
+                                                                </a>
+                                                                @*<a target="_blank" href="/Admin/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
+                                                                        <i class="btn btn-primary" title="Print">Print</i>
+                                                                    </a>*@
+                                                                @if (item.Balance > 0)
+                                                                {
+                                                                    <a target="_blank" href="/Admin/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
+                                                                        <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
+                                                                    </a>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        i = i + 1;
+                                                    }
+                                                }
+                                            }
+
+                                        </tbody>
+                                        <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Total</th>
+                                                    <th>@ViewBag.NoOfPiece</th>
+                                                    <th>@ViewBag.DeliveredPiece</th>
+                                                    <th>@ViewBag.RemainingPiece</th>
+                                                    <th>@ViewBag.OriginalPrice </th>
+                                                    <th>@ViewBag.Advance</th>
+                                                    <th>@ViewBag.Balance </th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+    }
 
 
-<script src="~/plugins/flatpickr/flatpickr.js"></script>
-<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
+    <script src="~/plugins/flatpickr/flatpickr.js"></script>
+    <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script>
+        var f3 = flatpickr(document.getElementById('FromDate'),
+            {
+                dateFormat: "d/m/Y",
+            });
+        var f3 = flatpickr(document.getElementById('ToDate'),
+            {
+                dateFormat: "d/m/Y",
+            });
+
+    </script>
 <script>
-    var f3 = flatpickr(document.getElementById('FromDate'),
-        {
-            dateFormat: "d/m/Y",
-        });
-    var f3 = flatpickr(document.getElementById('ToDate'),
-        {
-            dateFormat: "d/m/Y",
-        });
+	$(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollY": 500,
+        "scrollX": true
+    } );
+} );
 
 </script>
+    @*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            $('#FromDate').datepicker({
+                format: 'dd/mm/yyyy',
+                changeYear: true,
+                changeMonth: true,
+                maxDate: 0
+            });
 
-
-@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript">
-    $('#FromDate').datepicker({
-        format: 'dd/mm/yyyy',
-        changeYear: true,
-        changeMonth: true,
-        maxDate: 0
-    });
-    $('#ToDate').datepicker({
-        format: 'dd/mm/yyyy',
-        changeYear: true,
-        changeMonth: true,
-        maxDate: 0
-    });
-</script>*@
+            $('#ToDate').datepicker({
+                format: 'dd/mm/yyyy',
+                changeYear: true,
+                changeMonth: true,
+                maxDate: 0
+            });
+        </script>*@
