@@ -277,21 +277,71 @@ namespace WafaTailor.Controllers
                     obj.Advance = r["AdavanceAmount"].ToString();
                     obj.RemainingPiece = r["RemainingPiece"].ToString();
                     obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
                     obj.Status = r["Status"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
                 model.lstList = lst;
-                ViewBag.NoOfPiece = double.Parse(ds.Tables[0].Compute("sum(NoOfPiece)", "").ToString()).ToString("n2");
-                ViewBag.OriginalPrice = double.Parse(ds.Tables[0].Compute("sum(OriginalPrice)", "").ToString()).ToString("n2");
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece))); 
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
-                ViewBag.RemainingPiece = double.Parse(ds.Tables[0].Compute("sum(RemainingPiece)", "").ToString()).ToString("n2");
-                ViewBag.DeliveredPiece = double.Parse(ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString()).ToString("n2");
-                ViewBag.Balance = double.Parse(ds.Tables[0].Compute("sum(RemainingBalance)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
             return View(model);
         }
+        [HttpPost]
+        [ActionName("BillList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult BillListSearch(Admin model, string LoginId)
+        {
 
+            List<Admin> lst = new List<Admin>();
+            if (LoginId != "")
+            {
+                model.LoginId = LoginId;
+            }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            DataSet ds = model.GetBillDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.BillDate = r["BillDate"].ToString();
+                    obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece)));
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
+            }
+            return View(model);
+        }
         public ActionResult PrintBill(string BillId, string PaymentId)
         {
             List<Admin> lstbill = new List<Admin>();
