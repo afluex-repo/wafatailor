@@ -50,6 +50,7 @@ namespace WafaTailor.Models
         public string SaleOrderDate { get; set; }
         public string CustomerId { get; set; }
         public string Pk_UserId { get; set; }
+        public string TotalDeliveredPiece { get; set; }
         public DataTable dt { get; set; }
         public string ShopId { get; set; }
         public string ShopLoginId { get; set; }
