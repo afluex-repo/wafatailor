@@ -464,6 +464,7 @@ namespace WafaTailor.Controllers
             try
             {
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
                 DataSet ds = model.OrderRefund();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -503,6 +504,7 @@ namespace WafaTailor.Controllers
                     obj.Mobile = r["Mobile"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;

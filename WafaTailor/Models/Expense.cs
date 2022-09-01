@@ -14,6 +14,7 @@ namespace WafaTailor.Models
         public string Remark { get; set; }
         public string ExpenseRupee { get; set; }
         public string OtherExpensetype { get; set; }
+        public string Vendor { get; set; }
         public DataTable dt { get; set; }
         public string AddedBy { get; set; }
         public string Result { get; set; }
@@ -41,14 +42,7 @@ namespace WafaTailor.Models
         public string Other { get; set; }
         public string Profit { get; set; }
 
-
         
-        
-        
-        
-        
-         
-         
 
         public DataSet GetExpenseType()
         {
@@ -59,6 +53,12 @@ namespace WafaTailor.Models
         public DataSet GetOtherExpenseType()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetOtherExpenseType");
+            return ds;
+        }
+
+        public DataSet GetVendor()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetVendor");
             return ds;
         }
 
