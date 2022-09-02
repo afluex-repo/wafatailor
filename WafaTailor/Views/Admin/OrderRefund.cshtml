@@ -63,20 +63,12 @@
                                         @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                     </div>
 
-                                    <div class="form-group col-sm-4">
+                                    @*<div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Refund Date <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.RefundDate, new { @class = "form-control", @Placeholder = "Refund Date", @Readonly="true"})
-                                    </div>
+                                    </div>*@
                                 </div>
-                                @*@Html.HiddenFor(m => m.RefundId)
-                                @if (Model.EmployeeId != null)
-                                {
-                                    <input type="submit" class="btn btn-primary" name="update" value="Update">
-                                }
-                                else
-                                {*@
                                     <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
-                                @*}*@
                             </form>
                         </div>
                     </div>

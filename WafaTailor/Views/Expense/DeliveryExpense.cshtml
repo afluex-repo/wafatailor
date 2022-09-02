@@ -1,0 +1,141 @@
+﻿@model WafaTailor.Models.Expense
+
+@{
+    ViewBag.Title = "DeliveryExpense";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@using (Html.BeginForm("DeliveryExpense", "Expense", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+        <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title">Customer Registration</div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Delivery Expense</header>
+                            <span style="color:red;">@TempData["DeliveryExpense"]</span>
+                            <a href="/Expense/DeliveryList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Cr Amount <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.CrAmount, new { @class = "form-control", @Placeholder = "Credit Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Dr Amount <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.DrAmount, new { @class = "form-control", @Placeholder = "Debit Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Date<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", @placeholder = "Date", @Readonly = "true" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Remark <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Remark, new { @class = "form-control", @Placeholder = "Remark"})
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-4 mt-4">
+                                    @*@if (Model.BillId != null && Model.Pk_BillPaymentId != null)
+                                    {
+                                        <input type="submit" class="btn btn-primary" id="UpdateBill" name="UpdateBill" value="Update">
+                                    }
+                                    else
+                                    {*@
+                                        <input type="submit" class="btn btn-primary" id="save" name="save" value="Save" onclick="return Validateform()">
+                                    @*}*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+  
+    function Validateform() {
+        $(".errortext").removeClass("errortext");
+             
+        if ($('#CrAmount').val() == '') {
+            $("#CrAmount").addClass('errortext');
+            $('#CrAmount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#DrAmount').val() == '') {
+            $("#DrAmount").addClass('errortext');
+            $('#DrAmount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#Date').val() == '') {
+            $("#Date").addClass('errortext');
+            $('#Date    ').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#Remark').val() == '') {
+            $("#Remark").addClass('errortext');
+            $('#Remark').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+      
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+   
+</script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('Date'),
+        {
+            dateFormat: "d/m/Y",
+        });
+</script>
+
+
+
+
+
+
