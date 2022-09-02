@@ -1,0 +1,42 @@
+﻿@model WafaTailor.Models.Employee
+
+@{
+    ViewBag.Title = "DailyAttendance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("DailyAttendance", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title"> Employee Registration</div>*@
+                    </div>
+              
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header> Search Employee</header>
+                            <span class="text-danger">
+                                @TempData["Attendance"]
+                            </span>
+                            @*<a href="/Employee/#" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>*@
+                        </div>
+                      
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

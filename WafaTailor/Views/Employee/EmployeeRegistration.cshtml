@@ -58,22 +58,22 @@
                                     <label for="simpleFormPassword">Contact No </label>
                                     @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength="8", @Minlength="8" })
                                 </div>
-                                <div class="form-group col-sm-4">
+                                @*<div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Date Of Birth</label>
                                     @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @readonly = "true", @Placeholder = "Date of Birth" })
-                                </div>
-                                <div class="form-group col-sm-4">
+                                </div>*@
+                                @*<div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Email-Id </label>
                                     @Html.TextBoxFor(m => m.Emailid, new { @class = "form-control", @placeholder = "Email-Id" })
-                                </div>
-                                <div class="form-group col-sm-4">
+                                </div>*@
+                                @*<div class="form-group col-sm-4">
                                     <label for="simpleFormPassword">Gender <span style="color:red">*</span></label>
                                     @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
                                     {
                                        new SelectListItem() {Text = "Male"},
                                        new SelectListItem() {Text = "Female"}
                                     }, new { @class = "form-control" })
-                                </div>
+                                </div>*@
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Salary<span style="color:red">*</span></label>
@@ -126,11 +126,11 @@
             $("#EmployeeName").focus();
             return false;
         }
-        if ($("#Gender").val() == "0") {
-            $("#Gender").addClass('errortext');
-            $("#Gender").focus();
-            return false;
-        }
+        //if ($("#Gender").val() == "0") {
+        //    $("#Gender").addClass('errortext');
+        //    $("#Gender").focus();
+        //    return false;
+        //}
         if ($("#Salary").val() == "") {
             $("#Salary").addClass('errortext');
             $("#Salary").focus();

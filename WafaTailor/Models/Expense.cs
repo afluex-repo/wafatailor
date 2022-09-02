@@ -42,7 +42,12 @@ namespace WafaTailor.Models
         public string Other { get; set; }
         public string Profit { get; set; }
 
-        
+        public string CrAmount { get; set; }
+        public string DrAmount { get; set; }
+        public string Date { get; set; }
+        public string DeliveryId { get; set; }
+
+
 
         public DataSet GetExpenseType()
         {
@@ -133,6 +138,43 @@ namespace WafaTailor.Models
                 new SqlParameter("@ToDate",ToDate)
             };
             DataSet ds = DBHelper.ExecuteQuery("getDailyExpenseReport", para);
+            return ds;
+        }
+
+        public DataSet SaveDeliveryExpense()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@CrAmount",CrAmount),
+                 new SqlParameter("@DrAmount",DrAmount),
+                 new SqlParameter("@Date",Date),
+                 new SqlParameter("@Remarks",Remark),
+                 new SqlParameter("@AddedBy",AddedBy)
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveDeliveryExpense", para);
+            return ds;
+        }
+
+        public DataSet GetDeliveryDetalis()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@Pk_DeliveryId",DeliveryId),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetDeliveryDetalis", para);
+            return ds;
+        }
+
+        public DataSet DeleteDeliveryExpense()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_DeliveryId",DeliveryId),
+                 new SqlParameter("@DeletedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteDeliveryExpense", para);
             return ds;
         }
     }

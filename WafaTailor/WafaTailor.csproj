@@ -559,6 +559,9 @@
     <Content Include="Views\Expense\OtherExpense.cshtml" />
     <Content Include="Views\Expense\OtherExpenseList.cshtml" />
     <Content Include="Views\Expense\DailyExpenseReport.cshtml" />
+    <Content Include="Views\Expense\DeliveryExpense.cshtml" />
+    <Content Include="Views\Expense\DeliveryList.cshtml" />
+    <Content Include="Views\Employee\DailyAttendance.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
