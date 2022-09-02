@@ -73,10 +73,10 @@ namespace WafaTailor.Controllers
                     obj.Fk_ShopId = ds.Tables[0].Rows[0]["Pk_ShopId"].ToString();
                     obj.EmployeeName = ds.Tables[0].Rows[0]["Name"].ToString();
                     obj.EmployeeAddress = ds.Tables[0].Rows[0]["Address"].ToString();
-                    obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
+                    //obj.DOB = ds.Tables[0].Rows[0]["DOB"].ToString();
                     obj.ContactNo = ds.Tables[0].Rows[0]["ContactNo"].ToString();
-                    obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
-                    obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
+                    //obj.Emailid = ds.Tables[0].Rows[0]["Emailid"].ToString();
+                    //obj.Gender = ds.Tables[0].Rows[0]["Gender"].ToString();
                     obj.Salary = ds.Tables[0].Rows[0]["Salary"].ToString();
                 }
             }
@@ -454,6 +454,11 @@ namespace WafaTailor.Controllers
                 model.lstSalary = lst;
             }
             return View(model);
+        }
+
+        public ActionResult DailyAttendance()
+        {
+            return View();
         }
     }
 }

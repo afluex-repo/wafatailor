@@ -55,10 +55,10 @@ namespace WafaTailor.Models
                  new SqlParameter("@Fk_UserTypeId",UserTypeId),
                 new SqlParameter("@EmployeeName",EmployeeName),
                  new SqlParameter("@EmployeeAddress",EmployeeAddress),
-                new SqlParameter("@DOB",DOB),
+                //new SqlParameter("@DOB",DOB),
                  new SqlParameter("@ContactNo",ContactNo),
-                new SqlParameter("@Emailid",Emailid),
-                new SqlParameter("@Gender",Gender),
+                //new SqlParameter("@Emailid",Emailid),
+                //new SqlParameter("@Gender",Gender),
                 new SqlParameter("@Salary",Salary),
                 new SqlParameter("@AddedBy",1)
             };

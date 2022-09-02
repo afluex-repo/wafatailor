@@ -420,5 +420,128 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult DeliveryExpense()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ActionName("DeliveryExpense")]
+        [OnAction(ButtonName ="save")]
+        public ActionResult DeliveryExpenseAction(Expense model)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.Date = string.IsNullOrEmpty(model.Date) ? null : Common.ConvertToSystemDate(model.Date, "dd/MM/yyyy");
+                DataSet ds = model.SaveDeliveryExpense();
+                if(ds != null && ds.Tables.Count >0 && ds.Tables[0].Rows.Count >0)
+                {
+                    if(ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["DeliveryExpense"] = "Delivery Expense Save Successfully !!";
+                        FormName = "DeliveryExpense";
+                        Controller = "Expense";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "DeliveryExpense";
+                        Controller = "Expense";
+                    }
+                    else
+                    {
+                        TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "DeliveryExpense";
+                        Controller = "Expense";
+                    }
+                }
+                else
+                {
+                    TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "DeliveryExpense";
+                    Controller = "Expense";
+                }
+            }
+            catch(Exception ex)
+            {
+                TempData["DeliveryExpense"] = ex.Message;
+                FormName = "DeliveryExpense";
+                Controller = "Expense";
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult DeliveryList(Expense model)
+        {
+            List<Expense> lst = new List<Expense>();
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            DataSet ds = model.GetDeliveryDetalis();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Expense obj = new Expense();
+                    obj.DeliveryId = r["Pk_DeliveryId"].ToString();
+                    obj.CrAmount = r["CrAmount"].ToString();
+                    obj.DrAmount = r["DrAmount"].ToString();
+                    obj.Date = r["Date"].ToString();
+                    obj.Remark = r["Remark"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstexpense = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult DeleteDeliveryExpense(string DeliveryId)
+        {
+            Expense obj = new Expense();
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.DeliveryId = DeliveryId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = obj.DeleteDeliveryExpense();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["DeliveryExpense"] = "Delivery Expense Details Deleted Successfully!";
+                        FormName = "DeliveryList";
+                        Controller = "Expense";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "OtherExpenseList";
+                        Controller = "Expense";
+                    }
+                    else
+                    {
+                        TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "DeliveryList";
+                        Controller = "Expense";
+                    }
+                }
+                else
+                {
+                    TempData["DeliveryExpense"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    FormName = "DeliveryList";
+                    Controller = "Expense";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["DeliveryExpense"] = ex.Message;
+            }
+            return RedirectToAction(FormName, Controller);
+        }
     }
 }
