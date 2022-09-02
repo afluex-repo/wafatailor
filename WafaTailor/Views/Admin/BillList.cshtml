@@ -46,10 +46,16 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
+                                        <label>Mobile Number</label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile Number" , @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
+                                    </div>
+                                </div>
+                                @*<div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
                                         <label>Customer Name</label>
                                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Customer Name" })
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="col-lg-2 col-md-3">
                                     <div class="form-group">
                                         <input class="btn btn-success pull-left mt-4" type="submit" value="Search" id="btnSearch" name="btnSearch" />
@@ -98,9 +104,9 @@
                                                     <td>@item.BillDate</td>
                                                     <td>@item.Status</td>
                                                     <td class="d-flex">
-                                                        <a href="/SaleOrder/SaleOrder?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
+                                                        @*<a href="/SaleOrder/SaleOrder?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
                                                             <i class="btn btn-secoundry" title="Print">Sale</i>
-                                                        </a>
+                                                        </a>*@
                                                         <a href="/Admin/BillEntry?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
                                                             <i class="btn btn-primary" title="Print">Edit</i>
                                                         </a>
@@ -160,6 +166,14 @@
         {
             dateFormat: "d/m/Y",
         });
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
 
 </script>
 @*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
