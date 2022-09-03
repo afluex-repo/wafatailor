@@ -242,5 +242,18 @@ namespace WafaTailor.Models
             return ds;
 
         }
+
+        public DataSet DateWiseAttendanceReportBy()
+        {
+            SqlParameter[] para =
+                            {
+                                new SqlParameter("@EmployeeName",EmployeeName),
+                                new SqlParameter("@FromDate",FromDate),
+                                new SqlParameter("@ToDate",ToDate),
+                            };
+            DataSet ds = DBHelper.ExecuteQuery("DateWiseAttendanceReport", para);
+            return ds;
+
+        }
     }
 }
