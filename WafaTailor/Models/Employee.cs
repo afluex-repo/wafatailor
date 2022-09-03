@@ -9,8 +9,10 @@ namespace WafaTailor.Models
 {
     public class Employee
     {
+        public DataTable dtTable { get; set; }
         public List<Employee> lstRegistration { get; set; }
         public List<Employee> lstSalary { get; set; }
+        public List<Employee> lstList { get; set; }
         public string ShopName { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeAddress { get; set; }
@@ -46,6 +48,17 @@ namespace WafaTailor.Models
         public string BankName { get; set; }
         public string TransactionNo { get; set; }
         public string TransactionDate { get; set; }
+
+        public string AttendanceDate { get; set; }
+        public string IsPresent { get; set; }
+        public string WHLimit { get; set; }
+        public string Attendance { get; set; }
+        public string InTime { get; set; }
+        public string OutTime { get; set; }
+        public string ISHalfDay { get; set; }
+        public string OverTime { get; set; }
+        public string TotalHRWork { get; set; }
+
 
         public DataSet EmployeeRegistration()
         {
@@ -202,6 +215,32 @@ namespace WafaTailor.Models
         {
             DataSet ds = DBHelper.ExecuteQuery("GetPaymentModeList");
             return ds;
+        }
+
+        public DataSet EmployeeListForAttendance()
+        {
+            SqlParameter[] para =
+                            {
+                                new SqlParameter("@EmployeeName",EmployeeName),
+                                //new SqlParameter("@EmployeeCode",EmployeeLoginId),
+                                new SqlParameter("@IsPresent",IsPresent)
+                            };
+            DataSet ds = DBHelper.ExecuteQuery("GetEmployeeForAttendance", para);
+            return ds;
+
+        }
+
+        public DataSet SaveEmployeeDailyAttendance()
+        {
+            SqlParameter[] para =
+                            {
+                                new SqlParameter("@EmployeeAttendance",dtTable),
+                                new SqlParameter("@AttendanceDate",AttendanceDate),
+                                  new SqlParameter("@AddedBy",AddedBy),
+                            };
+            DataSet ds = DBHelper.ExecuteQuery("DailyAttendancePosting", para);
+            return ds;
+
         }
     }
 }

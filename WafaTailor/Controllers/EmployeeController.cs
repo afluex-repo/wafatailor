@@ -456,9 +456,161 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult DailyAttendance()
+        public ActionResult DailyAttendance(Employee model)
         {
-            return View();
+            List<Employee> lst = new List<Employee>();
+
+            DataSet ds1 = model.EmployeeListForAttendance();
+
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.EmployeeId = r["PK_EmployeeID"].ToString();
+                    obj.EmployeeName = r["Name"].ToString();
+                    //obj.EmployeeLoginId = r["LoginID"].ToString();
+                    //r["Hours"].ToString()
+                    obj.WHLimit = "8";
+                    obj.TotalHRWork = r["Hours"].ToString();
+                    obj.InTime = r["InTime"].ToString();
+                    obj.OutTime = r["OutTime"].ToString();
+                    obj.ISHalfDay = r["IshalfDay"].ToString();
+                    obj.OverTime = r["Overtime"].ToString();
+                    obj.TotalHRWork = r["Hours"].ToString();
+                    obj.Attendance = r["Status"].ToString();
+                    lst.Add(obj);
+                }
+            }
+            model.lstList = lst;
+            return View(model);
+        }
+
+        public ActionResult AllPresent(Employee model)
+        {
+            List<Employee> lst = new List<Employee>();
+            model.IsPresent = "1";
+            DataSet ds1 = model.EmployeeListForAttendance();
+
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.EmployeeId = r["PK_EmployeeID"].ToString();
+                    obj.EmployeeName = r["EmployeeName"].ToString();
+                    //obj.EmployeeLoginId = r["LoginID"].ToString();
+                    obj.WHLimit = r["Hours"].ToString();
+                    obj.Attendance = r["Status"].ToString();
+
+                    obj.InTime = r["InTime"].ToString();
+                    obj.OutTime = r["OutTime"].ToString();
+                    obj.ISHalfDay = r["IshalfDay"].ToString();
+                    obj.OverTime = r["Overtime"].ToString();
+                    obj.TotalHRWork = r["Hours"].ToString();
+                    lst.Add(obj);
+                }
+            }
+            model.lstList = lst;
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        [ActionName("DailyAttendance")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult SaveDailyAttendance(Employee obj)
+        {
+            string FormName = "";
+            string Controller = "";
+
+
+            obj.AttendanceDate = string.IsNullOrEmpty(obj.AttendanceDate) ? null : Common.ConvertToSystemDate(obj.AttendanceDate, "dd/MM/yyyy");
+
+            try
+            {
+
+                string noofrows = Request["hdrows"].ToString();
+                string Empid = "";
+                string attend = "";
+                string intime = "";
+                string outtime = "";
+                string totalhr = "";
+                string overtime = "";
+                string ishalfdy = "";
+
+                DataTable dtst = new DataTable();
+
+                dtst.Columns.Add("FK_EmployeeID ", typeof(string));
+                dtst.Columns.Add("AttendanceStatus", typeof(string));
+                dtst.Columns.Add("InTime", typeof(string));
+                dtst.Columns.Add("OutTime ", typeof(string));
+                dtst.Columns.Add("TotalHoursWork", typeof(string));
+                dtst.Columns.Add("OverTime", typeof(string));
+                dtst.Columns.Add("IsHalfDay", typeof(string));
+
+
+                for (int i = 1; i <= int.Parse(noofrows) - 1; i++)
+                {
+                    if (Request["txtattend " + i].ToString() == "A")
+                    {
+                        intime = "";
+                        outtime = "";
+                        totalhr = "";
+                        overtime = "";
+                        ishalfdy = "";
+                        attend = Request["txtattend " + i].ToString();
+                    }
+                    else if (Request["txtattend " + i].ToString() == "")
+                    {
+                        intime = "";
+                        outtime = "";
+                        totalhr = "";
+                        overtime = "";
+                        ishalfdy = "";
+                        attend = "A";
+                    }
+                    else
+                    {
+                        intime = Request["txtintime " + i].ToString();
+                        outtime = Request["txtouttime " + i].ToString();
+                        totalhr = Request["txttotalhrs " + i].ToString();
+                        overtime = Request["txtovertime " + i].ToString();
+                        ishalfdy = Request["txthd " + i].ToString();
+                        attend = Request["txtattend " + i].ToString();
+                    }
+
+                    Empid = Request["empid " + i].ToString();
+
+                    dtst.Rows.Add(Empid, attend, intime, outtime, totalhr, overtime, ishalfdy);
+
+                }
+
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                obj.dtTable = dtst;
+
+                DataSet ds = obj.SaveEmployeeDailyAttendance();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["Attendance"] = "Daily Attendance Saved successfully !";
+
+                    }
+                    else
+                    {
+                        TempData["Attendance"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Attendance"] = ex.Message;
+            }
+            FormName = "DailyAttendance";
+            Controller = "Employee";
+
+            return RedirectToAction(FormName, Controller);
         }
     }
 }

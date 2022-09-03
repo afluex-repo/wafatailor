@@ -38,18 +38,18 @@
                                         @Html.HiddenFor(m => m.BillNo)
                                     </div>
 
-                                    <div class="form-group col-sm-4">
+                                    @*<div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Piece Name<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.PieceName, new { @class = "form-control", @Placeholder = "Piece Name" })
-                                    </div>
+                                    </div>*@
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormEmail">Available No Of Piece<span style="color:red">*</span></label>
+                                        <label for="simpleFormEmail">Total Piece<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Available No Of Piece",@readonly="true" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Refund Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
@@ -62,11 +62,10 @@
                                         <label for="simpleFormPassword">Amount <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                     </div>
-
-                                    @*<div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Refund Date <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.RefundDate, new { @class = "form-control", @Placeholder = "Refund Date", @Readonly="true"})
-                                    </div>*@
+                                    </div>
                                 </div>
                                     <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
                             </form>

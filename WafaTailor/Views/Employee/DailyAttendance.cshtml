@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("DailyAttendance", "Employee", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
     <!-- start page content -->
@@ -14,7 +15,7 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class="pull-left">
-                        @*<div class="page-title"> Employee Registration</div>*@
+                        @*<div class="page-title"> Employee Daily Attendance</div>*@
                     </div>
               
                 </div>
@@ -23,14 +24,94 @@
                 <div class="col-md-12 col-sm-12 col-12">
                     <div class="card card-box">
                         <div class="card-head">
-                            <header> Search Employee</header>
+                            <header>Employee Attendance</header>
                             <span class="text-danger">
                                 @TempData["Attendance"]
                             </span>
                             @*<a href="/Employee/#" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>*@
                         </div>
                       
+                      
+                        <div class="box-body m-l-20" style="overflow-x:scroll; " id="divdata">
+                            <h3 class="card-title">Mark Attendance</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <h5>Attendance Date</h5>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.AttendanceDate, new { @class = "form-control", @Placeholder = "Attendance Date" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <br />
+                                                <br />
+                                                <b>  [  P - Present , A - Absent , HD - Half Day ,FD - Full Day ,L - Leave , S-Sunday  ]</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                          
+                                <table id="example4" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>SNo.</th>
+                                            @*<th>Emp Code</th>*@
+                                            <th>Name</th>
+                                            <th>W.H Limit</th>
+                                            <th>Attendance</th>
+                                            <th>InTime</th>
+                                            <th>Out Time</th>
+                                            <th>Total Hours Worked</th>
+                                            <th>OverTime</th>
+                                            <th>Is HD</th>
+                                            @*  <th><input type="checkbox" id="select-all" /></th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyAttd">
+                                            @if (Model != null)
+                                            {
+                                                if (Model.lstList != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.lstList)
+                                                    {
+                                                        <tr class="text-left">
+                                                            <td>@i <input type='hidden' value='@Item.EmployeeId' id='empid @i' name='empid @i' /></td>
+                                                            @*<td>@Item.EmployeeLoginId ></td>*@
+                                                            <td>@Item.EmployeeName</td>
+                                                            <td>@Item.WHLimit <input type='hidden' value='@Item.WHLimit' id='days @i' name='days @i'></td>
+                                                            <td><input type='text' id="txtattend @i" maxlength="1" onkeypress="return onlyAlphabets(event);" value='@Item.Attendance' name="txtattend @i" class="form-control"></td>
+                                                            <td><input type='time' id="txtintime @i" value='@Item.InTime' name="txtintime @i" class="form-control" onchange="getdataintime(this)"></td>
+                                                            <td><input type='time' id="txtouttime @i" value='@Item.OutTime' name="txtouttime @i" class="form-control" onchange="getdataouttime(this,'@i',@Item.WHLimit)"></td>
+                                                            <td><input type='text' id="txttotalhrs @i" readonly="readonly" value='@Item.TotalHRWork' name="txttotalhrs @i" class="form-control" onchange="getdata(this,'@i)"></td>
+                                                            <td><input type='text' id="txtovertime @i" readonly="readonly" value='@Item.OverTime' name="txtovertime @i" class="form-control" onchange="getdata(this)"></td>
+                                                            <td><input type='text' id="txthd @i" readonly="readonly" value='@Item.ISHalfDay' name="txthd @i" class="form-control" onchange="getdata(this)"></td>
 
+                                                        </tr>
+                                                        i++;
+
+                                                    }
+                                                    <input type='text' value='@i' id='hdrows' name='hdrows' />
+                                                }
+                                            }
+                                        </tbody>
+                                </table>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <br />
+                                        <br />
+                                        <input type="submit" name="Save" id="Save" value="Save" class="btn btn-primary m-b-20" onclick="return validateSave();" />
+                                    </div>
+                                </div>
+</div>
+
+                        <input type="hidden" id="txtintime" />
+                        <input type="hidden" id="txtouttime" />
 
                     </div>
                 </div>
@@ -40,3 +121,158 @@
 }
 
 
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('AttendanceDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
+
+</script>
+
+<script>
+    function getdataintime(intime) {
+
+        var intime = $('#txtintime').val(intime.value);
+        // alert(outtime.value);
+
+
+    }
+    function getdataouttime(outtime,i,WHLimit) {
+
+        var otime = outtime.value;
+        var ot = otime.split(":");
+        var otFinal = ot[0];
+        //var intime = $('#txtintime ' + i).val();
+        var intime = document.getElementById('txtintime ' + i).value;
+        var it = intime.split(":");
+        var itFinal = it[0];
+       var totlhr = ((Number)(otFinal) - (Number)(itFinal)).toString();
+       document.getElementById("txttotalhrs " + i).value = totlhr;
+       var overtime = ((Number)(totlhr) - (Number)(WHLimit)).toString();
+       if ((Number)(overtime) > 0) {
+           document.getElementById("txtovertime " + i).value = overtime;
+       }
+       else
+       {
+           document.getElementById("txtovertime " + i).value = "0";
+       }
+
+
+       if ((Number)(totlhr) < (Number)(WHLimit)/2) {
+           document.getElementById("txthd " + i).value = "HD";
+       }
+       else
+       {
+           document.getElementById("txthd " + i).value = "FD";
+       }
+
+    }
+
+    function AllPresent() {
+        debugger
+        // var allpresent = $('#allpresent').val();
+        var tr = [];
+        $.ajax({
+            url: '/EmployeeAttendance/AllPresent', type: 'post', dataType: 'json',
+            data: {  },
+            success: function (data) {
+                var j = 1;
+                //$('#example1_wrapper').find("tr:not(:first)").remove();
+                if (data.lstList.length > 0) {
+                    $('#tbodyAttd').empty();
+                    for (var i = 0; i < data.lstList.length; i++) {
+                        $('#tbodyAttd').empty();
+
+                            tr.push('<tr>');
+                            tr.push("<td>" + j + "</td>");
+                            tr.push("<td>" + data.lstList[i].EmployeeLoginId + "</td>");
+                            tr.push("<td>" + data.lstList[i].EmployeeName + "</td>");
+                            tr.push("<td>" + data.lstList[i].WHLimit + "</td>");
+                            tr.push("<td><input type='text' value='" + data.lstList[i].Attendance + "' id='txtattend " + i + "' name='txtattend " + i + "' required='required'></td>");
+                            tr.push("<td><input type='time' value='" + data.lstList[i].InTime + "' id='txtintime " + i + "'name='txtintime " + i + "'  onchange='getdataintime(this)' required='required'></td>");
+                            tr.push("<td><input type='time' value='" + data.lstList[i].OutTime + "' id='txtouttime " + i + "' name='txtouttime " + i + "' onchange='getdataouttime(this,"+i+","+data.lstList[i].WHLimit+") required='required'></td>");
+                            tr.push("<td><input type='text' value='" + data.lstList[i].TotalHRWork + "' id='txttotalhrs " + i + "' name='txttotalhrs " + i + "' required='required'></td>");
+                            tr.push("<td><input type='text' value='" + data.lstList[i].OverTime + "' id='txtovertime " + i + "' name='txtovertime " + i + "' required='required'></td>");
+                            tr.push("<td><input type='text' value='" + data.lstList[i].ISHalfDay + "' id='txthd " + i + "' name='txthd " + i + "' required='required'></td>");
+                            tr.push("<td style='display:none'><input type='hidden' value='" + data.lstList[i].EmployeeID + "' id='empid " + i + "' name='empid " + i + "'></td>");
+                            tr.push('</tr>');
+                            j++;
+                            //plcTotal = plcTotal + parseInt(data.lstList[i].PLCCharge);
+
+                        tr.push('<tr style="display:none">');
+                        tr.push("<td><input type='hidden' value='" + j + "' id='hdrows' name='hdrows'></td>");
+                        tr.push('</tr>');
+                        $('#tbodyAttd').append($(tr.join('')));
+                        //$("#example1_wrapper").append('<tr><td id="EmployeeID' + i + ' " style="display:none">' + data.lstList[i].EmployeeID +
+                        //      '</td><td id="i' + i + ' " >' + data.lstList[i].i +
+                        //    '</td><td id="EmployeeName' + i + ' " >' + data.lstList[i].EmployeeName +
+                        //    '</td><td id="EmployeeLoginId' + i + ' " >' + data.lstList[i].EmployeeLoginId +
+                        //    '</td><td id="WHLimit' + i + ' " >' + data.lstList[i].WHLimit +
+                        //      '</td><td id="Attendance' + i + ' " >' + data.lstList[i].Attendance +
+                        //     '</td><td id="InTime' + i + ' " >' + data.lstList[i].InTime +
+                        //     '</td><td id="OutTime' + i + ' " >' + data.lstList[i].OutTime +
+                        //       '</td><td id="TotalHRWork' + i + ' " >' + data.lstList[i].TotalHRWork +
+                        //        '</td><td id="OverTime' + i + ' " >' + data.lstList[i].OverTime +
+                        //    '</td><td id="ISHalfDay' + i + ' " >' + data.lstList[i].ISHalfDay +
+
+                        //    '</td></tr>')
+
+                    }
+                }
+            }
+
+        });
+    }
+
+    function validateSave() {
+
+        $(".errortext").removeClass("errortext");
+
+        if ($('#AttendanceDate').val() == '') {
+            $("#AttendanceDate").addClass('errortext');
+            $('#AttendanceDate').focus();
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+    
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
