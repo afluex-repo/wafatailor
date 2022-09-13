@@ -563,6 +563,15 @@
     <Content Include="Views\Expense\DeliveryList.cshtml" />
     <Content Include="Views\Employee\DailyAttendance.cshtml" />
     <Content Include="Views\Employee\DateWiseAttendanceReport.cshtml" />
+    <Content Include="Views\Employee\EmployeeBillEntry.cshtml" />
+    <Content Include="Views\Employee\EmployeeSaleOrder.cshtml" />
+    <Content Include="Views\Employee\EmployeeExpense.cshtml" />
+    <Content Include="Views\Employee\EmployeeBillList.cshtml" />
+    <Content Include="Views\Employee\BillPayment.cshtml" />
+    <Content Include="Views\Employee\EmployeePrintBill.cshtml" />
+    <Content Include="Views\Employee\EmployeeSaleOrderList.cshtml" />
+    <Content Include="Views\Employee\PrintSaleOrder.cshtml" />
+    <Content Include="Views\Employee\EmployeeExpenseList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

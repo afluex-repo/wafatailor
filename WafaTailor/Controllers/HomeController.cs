@@ -40,7 +40,7 @@ namespace WafaTailor.Controllers
                 DataSet ds = obj.Login();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Admin")
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Admin" && ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString() == "1")
                     {
                         Session["Pk_EmployeeId"] = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
                         Session["UsertypeName"] = ds.Tables[0].Rows[0]["UsertypeName"].ToString();
@@ -50,6 +50,17 @@ namespace WafaTailor.Controllers
                         Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
                         FormName = "AdminDashBoard";
                         Controller = "Admin";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Admin")
+                    {
+                        Session["Pk_EmployeeId"] = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
+                        Session["UsertypeName"] = ds.Tables[0].Rows[0]["UsertypeName"].ToString();
+                        Session["Fk_AdminId"] = ds.Tables[0].Rows[0]["Pk_EmployeeId"].ToString();
+                        Session["Name"] = ds.Tables[0].Rows[0]["Name"].ToString();
+                        Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                        Session["Profile"] = ds.Tables[0].Rows[0]["Profile"].ToString();
+                        FormName = "EmployeeDashBoard";
+                        Controller = "Employee";
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1" && ds.Tables[0].Rows[0]["UserType"].ToString() == "Shop")
                     {
