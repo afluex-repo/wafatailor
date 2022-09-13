@@ -1191,6 +1191,7 @@ namespace WafaTailor.Controllers
                 string ExpenseDate = "";
                 string Remark = "";
                 string OtherExpensetype = "";
+                string Fk_Vendorid = "";
                 var isValidModel = TryUpdateModel(model);
                 var jss = new JavaScriptSerializer();
                 var jdv = jss.Deserialize<dynamic>(dataValue);
@@ -1201,6 +1202,7 @@ namespace WafaTailor.Controllers
                 dtmodel.Columns.Add("ExpenseDate");
                 dtmodel.Columns.Add("ExpenseRupee");
                 dtmodel.Columns.Add("Remark");
+                dtmodel.Columns.Add("Fk_Vendorid");
                 DataTable dt = new DataTable();
                 dt = JsonConvert.DeserializeObject<DataTable>(jdv["dataValue"]);
                 int numberOfRecords = dt.Rows.Count;
@@ -1214,8 +1216,9 @@ namespace WafaTailor.Controllers
                     ExpenseDate = string.IsNullOrEmpty(row["ExpenseDate"].ToString()) ? null : Common.ConvertToSystemDate(row["ExpenseDate"].ToString(), "dd/MM/yyyy");
                     ExpenseRupee = row["ExpenseRupee"].ToString();
                     Remark = row["Remark"].ToString();
+                    Fk_Vendorid = row["Fk_Vendorid"].ToString();
                     //rowsno = rowsno + 1;
-                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark);
+                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark, Fk_Vendorid);
                 }
                 model.dt = dtmodel;
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
@@ -1247,6 +1250,7 @@ namespace WafaTailor.Controllers
         public ActionResult EmployeeSaleOrderList(Employee model)
         {
             List<Employee> lst = new List<Employee>();
+            model.AddedBy = Session["Pk_EmployeeId"].ToString();
             DataSet ds = model.GetEmployeeSaleOrderDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -1304,6 +1308,7 @@ namespace WafaTailor.Controllers
         {
             Employee model = new Employee();
             List<Employee> lst = new List<Employee>();
+            model.AddedBy = Session["Pk_EmployeeId"].ToString();
             DataSet ds = model.GetEmployeeExpenseList();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -1402,7 +1407,7 @@ namespace WafaTailor.Controllers
             }
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-
+            model.AddedBy = Session["Pk_EmployeeId"].ToString();
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -1433,6 +1438,88 @@ namespace WafaTailor.Controllers
                 ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
+            }
+            return View(model);
+        }
+
+        public ActionResult EmployeeOrderRefund()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("EmployeeOrderRefund")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult ActionEmployeeOrderRefund(Employee model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
+                DataSet ds = model.EmployeeOrderRefund();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
+                    {
+                        TempData["Order"] = "Order Refund saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
+                    {
+                        TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Order"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeOrderRefund", "Employee");
+        }
+
+
+
+        public ActionResult EmployeeOrderRefundList(Employee model)
+        {
+            List<Employee> lst = new List<Employee>();
+            model.AddedBy = Session["Pk_EmployeeId"].ToString();
+            DataSet ds = model.GetEmployeeOrderRefundList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.RefundId = r["Pk_RefundId"].ToString();
+                    //obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
+                    obj.ContactNo = r["Mobile"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult PrintEmployeeOrderRefund(string RefundId)
+        {
+            Employee model = new Employee();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintEmployeeOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                //model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                model.ContactNo = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
+                model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
             }
             return View(model);
         }

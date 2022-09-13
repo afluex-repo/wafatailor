@@ -25,7 +25,7 @@
                         <div class="card-head">
                             <header>Employee Expense</header>
                             <span style="color:red;">@TempData["EmployeeExpense"]</span>
-                            <a href="/Expense/EmployeeExpenseList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                            <a href="/Employee/EmployeeExpenseList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
@@ -202,7 +202,7 @@
                 var totalItem = {
                     Expensetype: $('.expensetype', this).val(),
                     OtherExpensetype: $('.OtherExpensetype', this).val(),
-                    Vendor: $('.Vendortype', this).val(),
+                    Fk_Vendorid: $('.Vendortype', this).val(),
                     ExpenseDate: $('.mydatepicker', this).val(),
                     ExpenseRupee: $('.expenseRupee', this).val(),
                     Remark: $('.remark', this).val(),
@@ -227,7 +227,7 @@
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
-                url: '/Expense/ActionExpense',
+                url: '/Employee/ActionExpense',
                 data: formData,
                 cache: false,
                 contentType: false,
