@@ -580,7 +580,7 @@ namespace WafaTailor.Controllers
                         attend = Request["txtattend " + i].ToString();
                     }
 
-                    Empid = Request["empid " + i].ToString();
+                   Empid = Request["empid " + i].ToString();
 
                     dtst.Rows.Add(Empid, attend, intime, outtime, totalhr, overtime, ishalfdy);
 
@@ -611,6 +611,30 @@ namespace WafaTailor.Controllers
             Controller = "Employee";
 
             return RedirectToAction(FormName, Controller);
+        }
+
+        public ActionResult DateWiseAttendanceReport(Employee model)
+        {
+            List<Employee> lst = new List<Employee>();
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            DataSet ds1 = model.DateWiseAttendanceReportBy();
+
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    Employee obj = new Employee();
+                    obj.EmployeeId = r["FK_EmployeeID"].ToString();
+                    obj.EmployeeName = r["Name"].ToString();
+                    obj.ISHalfDay = r["IsHalfDay"].ToString();
+                    obj.Attendance = r["Status"].ToString();
+                    obj.AttendanceDate = r["AttendanceDate"].ToString();
+                    lst.Add(obj);
+                }
+            }
+            model.lstList = lst;
+            return View(model);
         }
     }
 }

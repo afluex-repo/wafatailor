@@ -175,7 +175,6 @@
             $(".DivOtherexpensetype").hide();
             $("#OtherExpensetype").hide();
             $(".ThOtherexpensetype").hide();
-
             $(".DivVendortype").hide();
             $("#Vendor").hide();
             $(".ThVendortype").hide();
@@ -201,7 +200,7 @@
                 var totalItem = {
                     Expensetype: $('.expensetype', this).val(),
                     OtherExpensetype: $('.OtherExpensetype', this).val(),
-                    Vendor: $('.Vendortype', this).val(),
+                    Fk_Vendorid: $('.Vendortype', this).val(),
                     ExpenseDate: $('.mydatepicker', this).val(),
                     ExpenseRupee: $('.expenseRupee', this).val(),
                     Remark: $('.remark', this).val(),

@@ -562,6 +562,7 @@
     <Content Include="Views\Expense\DeliveryExpense.cshtml" />
     <Content Include="Views\Expense\DeliveryList.cshtml" />
     <Content Include="Views\Employee\DailyAttendance.cshtml" />
+    <Content Include="Views\Employee\DateWiseAttendanceReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
