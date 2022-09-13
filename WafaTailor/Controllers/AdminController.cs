@@ -499,8 +499,8 @@ namespace WafaTailor.Controllers
                 {
                     Admin obj = new Admin();
                     obj.RefundId = r["Pk_RefundId"].ToString();
-                    obj.PieceName = r["PieceName"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.Balance = Convert.ToDecimal(r["Amount"].ToString());

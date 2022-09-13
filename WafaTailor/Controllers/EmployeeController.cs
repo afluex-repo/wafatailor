@@ -476,7 +476,8 @@ namespace WafaTailor.Controllers
                     obj.EmployeeId = r["PK_EmployeeID"].ToString();
                     obj.EmployeeName = r["Name"].ToString();
                     //obj.EmployeeLoginId = r["LoginID"].ToString();
-                    obj.WHLimit = r["Hours"].ToString();
+                    //r["Hours"].ToString()
+                    obj.WHLimit = "8";
                     obj.TotalHRWork = r["Hours"].ToString();
                     obj.InTime = r["InTime"].ToString();
                     obj.OutTime = r["OutTime"].ToString();
@@ -585,7 +586,7 @@ namespace WafaTailor.Controllers
                         attend = Request["txtattend " + i].ToString();
                     }
 
-                    //Empid = Request["empid " + i].ToString();
+                   Empid = Request["empid " + i].ToString();
 
                     dtst.Rows.Add(Empid, attend, intime, outtime, totalhr, overtime, ishalfdy);
 
