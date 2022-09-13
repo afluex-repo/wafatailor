@@ -13,6 +13,8 @@ namespace WafaTailor.Models
         public List<Employee> lstRegistration { get; set; }
         public List<Employee> lstSalary { get; set; }
         public List<Employee> lstList { get; set; }
+        public List<Employee> lstsaleorder { get; set; }
+        public List<Employee> lstexpense { get; set; }
         public string ShopName { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeAddress { get; set; }
@@ -59,6 +61,51 @@ namespace WafaTailor.Models
         public string OverTime { get; set; }
         public string TotalHRWork { get; set; }
 
+        public string ShopId { get; set; }
+        public string Pk_UserId { get; set; }
+        public string BillNo { get; set; }
+        public string NoOfPiece { get; set; }
+        public string DeliveredPiece { get; set; }
+        public string OriginalPrice { get; set; }
+        public string RemainingPiece { get; set; }
+        public string FinalPrice { get; set; }
+        public string Advance { get; set; }
+        public string RemainningBalance { get; set; }
+        public string BillDate { get; set; }
+        public string Status { get; set; }
+        public string BillId { get; set; }
+        public string Pk_BillPaymentId { get; set; }
+        public string Discount { get; set; }
+        public string NetAmount { get; set; }
+        public string SaleOrderDate { get; set; }
+        public string Description { get; set; }
+        public string PaymentId { get; set; }
+        public string Fk_UserId { get; set; }
+        public string Result { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Expensetype { get; set; }
+        public string OtherExpensetype { get; set; }
+        public string Vendor { get; set; }
+        public string ExpenseRupee { get; set; }
+        public string ExpenseDate { get; set; }
+        public DataTable dt { get; set; }
+        public string GeneratedPiece { get; set; }
+        public string GeneratedAmount { get; set; }
+        public decimal Balance { get; set; }
+        public string TotalDeliveredPiece { get; set; }
+        public string TotalPaid { get; set; }
+        public string SaleOrderId { get; set; }
+        public string SalesOrderNo { get; set; }
+        public string CustomerName { get; set; }
+        public string ShopLoginId { get; set; }
+        public string SaleDate { get; set; }
+        public string PieceName { get; set; }
+        public string Pk_ExpenseId { get; set; }
+        public string ExpenseName { get; set; }
+        public string Expenses { get; set; }
+        public string OtherExpenseName { get; set; }
+
 
         public DataSet EmployeeRegistration()
         {
@@ -73,7 +120,7 @@ namespace WafaTailor.Models
                 //new SqlParameter("@Emailid",Emailid),
                 //new SqlParameter("@Gender",Gender),
                 new SqlParameter("@Salary",Salary),
-                new SqlParameter("@AddedBy",1)
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("EmployeeRegistration", para);
             return ds;
@@ -110,7 +157,7 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@Pk_EmployeeId",EmployeeId),
-                 new SqlParameter("@DeletedBy",1)
+                 new SqlParameter("@DeletedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteEmployee", para);
             return ds;
@@ -152,7 +199,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Emailid",Emailid),
                 new SqlParameter("@Gender",Gender),
                 new SqlParameter("@Salary",Salary),
-                new SqlParameter("@UpdatedBy",1)
+                new SqlParameter("@UpdatedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateEmployeeRegistration", para);
             return ds;
@@ -173,7 +220,7 @@ namespace WafaTailor.Models
                new SqlParameter("@BranchName",BankBranch),
                new SqlParameter("@TransactionNo",TransactionNo),
                new SqlParameter("@TransactionDate",TransactionDate),
-                new SqlParameter("@AddedBy",1)
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveEmployeeSalary", para);
             return ds;
@@ -254,6 +301,194 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("DateWiseAttendanceReport", para);
             return ds;
 
+        }
+        public DataSet GetCustomerDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_CustomerId",Pk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet SaveEmployeeBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                 //new SqlParameter("@RemainingPiece",RemainingPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@LoginId",Pk_UserId),
+                new SqlParameter("@Mobile",ContactNo),
+                 new SqlParameter("@Status",Status),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveBillingDetails", para);
+            return ds;
+        }
+
+        public DataSet GetBillDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@LoginId",LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
+                 new SqlParameter("@Mobile", ContactNo), 
+                 new SqlParameter("@AddedBy", AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
+            return ds;
+        }
+
+        public DataSet BillPayment()
+        {
+            SqlParameter[] para =
+            {
+                //new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@Fk_billId",BillId),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@FK_UserId",Fk_UserId),
+                new SqlParameter("@Status",Status),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("BillPayment", para);
+            return ds;
+        }
+
+        public DataSet EmployeePrintBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintBill", para);
+            return ds;
+        }
+
+        public DataSet GetUserDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUserDetails", para);
+            return ds;
+        }
+
+        public DataSet GetExpenseType()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetExpenseType");
+            return ds;
+        }
+
+        public DataSet GetOtherExpenseType()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetOtherExpenseType");
+            return ds;
+        }
+
+        public DataSet GetVendor()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetVendor");
+            return ds;
+        }
+
+        public DataSet SaveEmployeeExpense()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@dt",dt)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveExpenseDetails", para);
+            return ds;
+        }
+
+        public DataSet UpdateBillEntry()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Pk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@FinalPrice",FinalPrice),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@Mobile",ContactNo),
+                 new SqlParameter("@Status",Status),
+                new SqlParameter("@UpdatedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateBillingDetails", para);
+            return ds;
+        }
+
+        public DataSet SaveEmployeeSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@Name",LoginId),
+             new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@Mobile",ContactNo),
+                new SqlParameter("@dt",dt),
+                 new SqlParameter("@BillId",BillId),
+                new SqlParameter("@PaymentId",PaymentId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetails", para);
+            return ds;
+        }
+
+        public DataSet GetEmployeeSaleOrderDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId),
+                new SqlParameter("@Mobile",ContactNo)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
+            return ds;
+        }
+
+        public DataSet PrintSO()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SaleOrderId", SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder", para);
+            return ds;
+        }
+
+        public DataSet GetEmployeeExpenseList()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@Fk_ExpensetypeId",Expensetype),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetExpenseList", para);
+            return ds;
         }
     }
 }

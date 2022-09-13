@@ -1,0 +1,368 @@
+﻿@model WafaTailor.Models.Employee
+
+@{
+    ViewBag.Title = "EmployeeSaleOrder";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@using (Html.BeginForm("EmployeeSaleOrder", "Employee", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+        <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title">#</div>*@
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Employee Sale Order</header>
+                            <span style="color:red;">@TempData["EmployeeSaleOrder"]</span>
+                            <a href="/Employee/EmployeeSaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Shop<span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                        @Html.HiddenFor(m => m.Pk_UserId)
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>No Of Piece</th>
+                                                    <th>Original Price</th>
+                                                    <th>Discount</th>
+                                                    <th>Final Price</th>
+                                                    <th>Sale Date</th>
+                                                    <th>Description</th>
+                                                    <th>Add</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="originaltable">
+                                                <tr>
+                                                    <td>
+                                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control piece", @placeholder = "No Of Piece", @style = "width:150px", onInput = "return calculatefinalamount()" })
+                                                    </td>
+                                                    <td>@Html.TextBoxFor(m => m.OriginalPrice, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control originalprice", @placeholder = "Original Price", @style = "width:150px", onInput = "return calculatefinalamount()" })</td>
+                                                    <td>
+                                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control discount", @placeholder = "Discount", @style = "width:150px", onInput = "return calculatefinalamount()" })
+                                                    </td>
+                                                    <td>@Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control netamount", @placeholder = "Final Amount", @style = "width:150px", @readonly = "true" })</td>
+                                                    <td>@Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control mydatepicker", @placeholder = "Sale Date", @style = "width:150px" })</td>
+                                                    <td>@Html.TextAreaFor(m => m.Description, new { @class = "form-control description", @placeholder = "Description", @style = "width:150px" })</td>
+                                                    <td>
+                                                        <input type="button" id="btnAddLine" name="btnAddLine" value="Add Line" class="btn btn-success list-button" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div id="clonediv">
+                                            <table class="table table-striped table-bordered" id="clonetable"></table>
+                                            <span id="error" style="color:red"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    @Html.HiddenFor(m => m.BillId)
+                                    @Html.HiddenFor(m => m.PaymentId)
+                                    <input type="submit" class="btn btn-primary" id="SaveSaleOrder" name="Save" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/Employee/GetcustomerList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.Name + "(" + item.LoginId + ")");
+                    });
+                    debugger
+                    $('#LoginId').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            debugger
+                            $('#Pk_UserId').val('');
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#Pk_UserId').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+    function changeCustomer() {
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var UserId = $('#Pk_UserId').val();
+        $.ajax({
+            url: '/Employee/GetUserDetails', type: 'post', dataType: 'json',
+            data: { 'LoginId': UserId },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#UserID").val(data.UserID);
+                    $("#ContactNo").val(data.ContactNo);
+                    $("#LoginId").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid LoginId ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#LoginId').focus();
+                    $('#LoginId').val('');
+
+                }
+            }
+        });
+    }
+    $("#btnAddLine").click(function () {
+        var valid = true;
+        $(".errortext").removeClass("errortext");
+        //if ($('#PriceName').val() == '') {
+        //    $("#PriceName").addClass('errortext');
+        //    $('#PriceName').focus();
+        //    $("#divload").css({ 'display': 'none' });
+        //    return false;
+        //}
+        if ($('#NoOfPiece').val() == '') {
+            $("#NoOfPiece").addClass('errortext');
+            $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#OriginalPrice').val() == "") {
+            $("#OriginalPrice").addClass('errortext');
+            $('#OriginalPrice').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#Discount').val() == '') {
+            $("#Discount").addClass('errortext');
+            $('#Discount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#NetAmount').val() == '') {
+            $("#NetAmount").addClass('errortext');
+            $('#NetAmount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#SaleOrderDate').val() == "") {
+            $("#SaleOrderDate").addClass('errortext');
+            $('#SaleOrderDate').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+            var $newRow = $('#originaltable').clone().removeAttr('id');
+            //clonevalue
+            $('.name', $newRow).removeClass('errortext').prop('disabled', true).val($('#PriceName').val());
+            $('.piece', $newRow).removeClass('errortext').prop('disabled', true).val($('#NoOfPiece').val());
+            $('.originalprice', $newRow).removeClass('errortext').prop('disabled', true).val($('#OriginalPrice').val());
+            $('.discount', $newRow).removeClass('errortext').prop('disabled', true).val($('#Discount').val());
+            $('.netamount', $newRow).removeClass('errortext').prop('disabled', true).val($('#NetAmount').val());
+            $('.mydatepicker', $newRow).removeClass('errortext').prop('disabled', true).val($('#SaleOrderDate').val());
+            $('.description', $newRow).removeClass('errortext').prop('disabled', true).val($('#Description').val());
+            //Replace add button with remove button
+            $('#btnAddLine', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
+            //remove id attribute from new clone row
+            $('#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description', $newRow).removeAttr('id');
+            $('span.error', $newRow).remove();
+            //append clone row
+            $('#clonetable').append($newRow);
+            //clear select data
+            $('#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description').val('');
+            $('#error').empty();
+
+    })
+    $('#clonetable').on('click', '.remove', function () {
+        $(this).parents('tr').remove();
+    });
+
+    $('#SaveSaleOrder').click(function () {
+        var isvallid = true;
+        $('#error').text('');
+        var clonelist = [];
+        var count = 0;
+        $('#clonetable tr').each(function (index, ele) {
+            if ($('.piece', this).val() == "") {
+                $(this).addClass('errortext');
+                count++;
+            }
+            else {
+                var totalItem = {
+                    Name: "",
+                    Piece: $('.piece', this).val(),
+                    Originalprice: $('.originalprice', this).val(),
+                    Discount: $('.discount', this).val(),
+                    Netamount: $('.netamount', this).val(),
+                    SaleDate: $('.mydatepicker', this).val(),
+                    Description: $('.description', this).val(),
+                }
+                clonelist.push(totalItem)
+            }
+        })
+        console.log(clonelist)
+        $(".errortext").removeClass("errortext");
+        if ($("#ShopId").val() == "0") {
+            $("#ShopId").addClass('errortext');
+            $('#ShopId').focus();
+            $("#divload").css({ 'display': 'none' });
+            isvallid = false;
+            return false;
+        }
+        if ($("#LoginId").val() == "") {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            $("#divload").css({ 'display': 'none' });
+            isvallid = false;
+            return false;
+        }
+        if ($("#ContactNo").val() == "") {
+            $("#ContactNo").addClass('errortext');
+            $('#ContactNo').focus();
+            $("#divload").css({ 'display': 'none' });
+            isvallid = false;
+            return false;
+        }
+        if (clonelist.length == 0) {
+                $('#error').text('Atleast one sale order required !!.');
+                isvallid = false;
+                $("#divload").css({ 'display': 'none' });
+                return false;
+            }
+        if (isvallid) {
+            var data = {
+                dataValue: JSON.stringify(clonelist),
+            }
+            debugger
+            var formData = new FormData();
+            formData.append("ShopId", $('#ShopId').val());
+            formData.append("BillNo", $('#BillNo').val());
+            formData.append("Pk_UserId", $('#Pk_UserId').val());
+            formData.append("LoginId", $('#LoginId').val());
+            formData.append("ContactNo", $('#ContactNo').val());
+            formData.append("BillId", $('#BillId').val());
+            formData.append("PaymentId", $('#PaymentId').val());
+            formData.append("dataValue", JSON.stringify(data));
+            $.ajax({
+                type: 'POST',
+                url: 'SaveEmployeeSaleOrderDetails',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status == "Yes") {
+                        alert('Data Save Successfully !!')
+                        list = [];
+                        window.location.href = '@Url.Action("EmployeeSaleOrder", "Employee")';
+                    }
+                    else {
+                        alert(response.status);
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+    function calculatefinalamount()
+    {
+        var NoofPiece = $("#NoOfPiece").val();
+        var originalprice = $("#OriginalPrice").val();
+        var Discount = $("#Discount").val();
+        if(Number(NoofPiece)=="")
+        {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if (Discount == "") {
+            Discount = 0;
+        }
+        if(originalprice=="")
+        {
+            originalprice = 0;
+        }
+     var finalAmount = (Number(originalprice) - Number(Discount))
+            $("#NetAmount").val(finalAmount);
+
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('SaleOrderDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
+</script>
+

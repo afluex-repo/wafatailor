@@ -50,8 +50,8 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@PK_UserID",UserID),
-                 new SqlParameter("@LoginId", LoginId),
-                  //new SqlParameter("@FirstName", FirstName),
+                 //new SqlParameter("@LoginId", LoginId),
+                  new SqlParameter("@FirstName", FirstName),
                   new SqlParameter("@Mobile", ContactNo),
                 new SqlParameter("@FromDate", FromDate),
                 new SqlParameter("@ToDate", ToDate),
