@@ -105,6 +105,9 @@ namespace WafaTailor.Models
         public string ExpenseName { get; set; }
         public string Expenses { get; set; }
         public string OtherExpenseName { get; set; }
+        public string RefundId { get; set; }
+        public string RefundDate { get; set; }
+        public string AvailableNoOfPiece { get; set; }
 
 
         public DataSet EmployeeRegistration()
@@ -463,8 +466,10 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@ShopLoginId",ShopLoginId),
-                new SqlParameter("@CustomerLoginId",LoginId),
-                new SqlParameter("@Mobile",ContactNo)
+                //new SqlParameter("@CustomerLoginId",LoginId),
+                new SqlParameter("@Name",Name),
+                new SqlParameter("@Mobile",ContactNo),
+                new SqlParameter("@AddedBy", AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
@@ -485,9 +490,48 @@ namespace WafaTailor.Models
             SqlParameter[] para ={
                 new SqlParameter("@Fk_ExpensetypeId",Expensetype),
                 new SqlParameter("@FromDate",FromDate),
-                new SqlParameter("@ToDate",ToDate)
+                new SqlParameter("@ToDate",ToDate),
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetExpenseList", para);
+            return ds;
+        }
+
+        public DataSet GetEmployeeOrderRefundList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_RefundId",RefundId),
+                new SqlParameter("@AddedBy", AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetOrderRefundDetails", para);
+            return ds;
+        }
+
+        public DataSet EmployeeOrderRefund()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@PieceName",PieceName),
+                 new SqlParameter("@AvailableNoOfPiece",AvailableNoOfPiece),
+                  new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@Mobile",ContactNo),
+                new SqlParameter("@Amount",Balance),
+                new SqlParameter("@RefundDate",RefundDate),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("OrderRefund", para);
+            return ds;
+        }
+
+        public DataSet PrintEmployeeOrderRefundBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintOrderRefund", para);
             return ds;
         }
     }

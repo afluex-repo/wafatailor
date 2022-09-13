@@ -38,16 +38,22 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-3 col-md-3">
+                                @*<div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label>Shop</label>
                                         @Html.TextBoxFor(m => m.ShopLoginId, new { @class = "form-control", @placeholder = "Shop LoginId" })
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
+                                </div>*@
+                                @*<div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label>Customer LoginId</label>
                                         @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "Customer LoginId" })
+                                    </div>
+                                </div>*@
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Customer Name</label>
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Customer Name" })
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
@@ -72,7 +78,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
-                                        <th> Shop Name</th>
+                                        @*<th> Shop Name</th>*@
                                         <th>Bill No</th>
                                         <th> Sales Order No.</th>
                                         <th>Customer Name</th>
@@ -90,7 +96,7 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.ShopName</td>
+                                                    @*<td>@item.ShopName</td>*@
                                                     <td>@item.BillNo</td>
                                                     <td>@item.SalesOrderNo</td>
                                                     <td>@item.CustomerName</td>
