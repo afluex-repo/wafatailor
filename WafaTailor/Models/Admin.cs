@@ -195,8 +195,6 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@BillNo",BillNo),
-                new SqlParameter("@PieceName",PieceName),
-                 new SqlParameter("@AvailableNoOfPiece",AvailableNoOfPiece),
                   new SqlParameter("@NoOfPiece",NoOfPiece),
                 new SqlParameter("@Mobile",Mobile),
                 new SqlParameter("@Amount",Balance),

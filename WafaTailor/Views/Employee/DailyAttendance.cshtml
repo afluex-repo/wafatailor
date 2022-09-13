@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                           
-                                <table id="example4" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive dataTable">
+                                <table class="table table-bordered table-hover display nowrap margin-top-10 table-responsive dataTable">
                                     <thead>
                                         <tr>
                                             <th>SNo.</th>
@@ -80,8 +80,8 @@
                                                     foreach (var Item in Model.lstList)
                                                     {
                                                         <tr class="text-left">
-                                                            <td>@i</td>
-                                                            @*<td>@Item.EmployeeLoginId <input type='hidden' value='@Item.EmployeeID' id='empid @i' name='empid @i'></td>*@
+                                                            <td>@i <input type='hidden' value='@Item.EmployeeId' id='empid @i' name='empid @i' /></td>
+                                                            @*<td>@Item.EmployeeLoginId ></td>*@
                                                             <td>@Item.EmployeeName</td>
                                                             <td>@Item.WHLimit <input type='hidden' value='@Item.WHLimit' id='days @i' name='days @i'></td>
                                                             <td><input type='text' id="txtattend @i" maxlength="1" onkeypress="return onlyAlphabets(event);" value='@Item.Attendance' name="txtattend @i" class="form-control"></td>
@@ -95,7 +95,7 @@
                                                         i++;
 
                                                     }
-                                                    <input type='text' value='@i' id='hdrows' name='hdrows' />
+                                                    <input type='hidden' value='@i' id='hdrows' name='hdrows' />
                                                 }
                                             }
                                         </tbody>
