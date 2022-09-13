@@ -1191,6 +1191,7 @@ namespace WafaTailor.Controllers
                 string ExpenseDate = "";
                 string Remark = "";
                 string OtherExpensetype = "";
+                string Fk_Vendorid = "";
                 var isValidModel = TryUpdateModel(model);
                 var jss = new JavaScriptSerializer();
                 var jdv = jss.Deserialize<dynamic>(dataValue);
@@ -1201,6 +1202,7 @@ namespace WafaTailor.Controllers
                 dtmodel.Columns.Add("ExpenseDate");
                 dtmodel.Columns.Add("ExpenseRupee");
                 dtmodel.Columns.Add("Remark");
+                dtmodel.Columns.Add("Fk_Vendorid");
                 DataTable dt = new DataTable();
                 dt = JsonConvert.DeserializeObject<DataTable>(jdv["dataValue"]);
                 int numberOfRecords = dt.Rows.Count;
@@ -1214,8 +1216,9 @@ namespace WafaTailor.Controllers
                     ExpenseDate = string.IsNullOrEmpty(row["ExpenseDate"].ToString()) ? null : Common.ConvertToSystemDate(row["ExpenseDate"].ToString(), "dd/MM/yyyy");
                     ExpenseRupee = row["ExpenseRupee"].ToString();
                     Remark = row["Remark"].ToString();
+                    Fk_Vendorid = row["Fk_Vendorid"].ToString();
                     //rowsno = rowsno + 1;
-                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark);
+                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark, Fk_Vendorid);
                 }
                 model.dt = dtmodel;
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
@@ -1404,7 +1407,7 @@ namespace WafaTailor.Controllers
             }
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-
+            model.AddedBy = Session["Pk_EmployeeId"].ToString();
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
