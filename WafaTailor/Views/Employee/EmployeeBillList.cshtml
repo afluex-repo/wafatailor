@@ -35,6 +35,12 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
+                                        <label>Mobile Number</label>
+                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @Placeholder = "Mobile Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
                                         <label> From Date</label>
                                         @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
                                     </div>
@@ -43,12 +49,6 @@
                                     <div class="form-group">
                                         <label> To Date</label>
                                         @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <div class="form-group">
-                                        <label>Mobile Number</label>
-                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", @Placeholder = "Mobile Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
                                     </div>
                                 </div>
                          
@@ -106,9 +106,12 @@
                                                         @if (item.Balance > 0)
                                                         {
                                                             <a target="_blank" href="/Employee/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
-                                                                <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
+                                                                <i class="btn btn-secoundry" title="Paid Bill">Paid Bill</i>
                                                             </a>
                                                         }
+                                                        <a href="/Employee/DeleteEmployeeBillEntry?PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm" onclick="return confirm('Are You Sure You Want To Delete This Bill Details ?')">
+                                                            <i class="btn btn-danger">Delete</i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 i = i + 1;
