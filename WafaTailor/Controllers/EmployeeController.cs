@@ -1523,5 +1523,32 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult DeleteEmployeeBillEntry(string PaymentId)
+        {
+            Employee obj = new Employee();
+            try
+            {
+                obj.Pk_BillPaymentId = PaymentId;
+                obj.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = obj.DeleteBillPaymentDetails();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["EmployeeBillList"] = "Bill Details Deleted Successfully!";
+                    }
+                    else
+                    {
+                        TempData["EmployeeBillList"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["EmployeeBillList"] = ex.Message;
+            }
+            return RedirectToAction("EmployeeBillList", "Employee");
+        }
     }
 }
