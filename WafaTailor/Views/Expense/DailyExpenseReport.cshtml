@@ -39,6 +39,13 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
+                                        <label>Shop Name</label>
+                                        @Html.DropDownListFor(m => m.Fk_ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
                                         <label> From Date</label>
                                         @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly="true" })
                                     </div>

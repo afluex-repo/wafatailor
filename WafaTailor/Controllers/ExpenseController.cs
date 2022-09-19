@@ -393,6 +393,25 @@ namespace WafaTailor.Controllers
 
         public ActionResult DailyExpenseReport(Expense model)
         {
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
             List<Expense> lst = new List<Expense>();
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
