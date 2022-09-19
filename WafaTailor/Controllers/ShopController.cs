@@ -426,5 +426,225 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Shop");
         }
+
+        public ActionResult ShopExpense()
+        {
+            Employee obj = new Employee();
+            #region ExpenseType
+            List<SelectListItem> ddlExpensetype = new List<SelectListItem>();
+            DataSet ds = obj.GetExpenseType();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlExpensetype.Add(new SelectListItem { Text = "Expense Type", Value = "0" });
+                    }
+                    ddlExpensetype.Add(new SelectListItem { Text = r["ExpenseName"].ToString(), Value = r["PK_ExpenseTypeId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlExpensetype = ddlExpensetype;
+            #endregion
+
+            #region OtherExpenseType
+            List<SelectListItem> ddlOtherExpensetype = new List<SelectListItem>();
+            DataSet ds1 = obj.GetOtherExpenseType();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlOtherExpensetype.Add(new SelectListItem { Text = "", Value = "" });
+                    }
+                    ddlOtherExpensetype.Add(new SelectListItem { Text = r["ExpenseName"].ToString(), Value = r["Pk_OtherExpenseId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlOtherExpensetype = ddlOtherExpensetype;
+            #endregion
+
+            #region Vendor
+            List<SelectListItem> ddlVendor = new List<SelectListItem>();
+            DataSet ds2 = obj.GetVendor();
+            if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds2.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlVendor.Add(new SelectListItem { Text = "", Value = "" });
+                    }
+                    ddlVendor.Add(new SelectListItem { Text = r["MaterialType"].ToString(), Value = r["Pk_MaterialId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlVendor = ddlVendor;
+            #endregion
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ActionShopExpense(Shop model, string dataValue)
+        {
+            try
+            {
+                model.ExpenseDate = string.IsNullOrEmpty(model.ExpenseDate) ? null : Common.ConvertToSystemDate(model.ExpenseDate, "dd/MM/yyyy");
+                string Expensetype = "";
+                string ExpenseRupee = "";
+                string ExpenseDate = "";
+                string Remark = "";
+                string OtherExpensetype = "";
+                string Fk_Vendorid = "";
+                var isValidModel = TryUpdateModel(model);
+                var jss = new JavaScriptSerializer();
+                var jdv = jss.Deserialize<dynamic>(dataValue);
+
+                DataTable dtmodel = new DataTable();
+                dtmodel.Columns.Add("Expensetype");
+                dtmodel.Columns.Add("OtherExpensetype");
+                dtmodel.Columns.Add("ExpenseDate");
+                dtmodel.Columns.Add("ExpenseRupee");
+                dtmodel.Columns.Add("Remark");
+                dtmodel.Columns.Add("Fk_Vendorid");
+                DataTable dt = new DataTable();
+                dt = JsonConvert.DeserializeObject<DataTable>(jdv["dataValue"]);
+                int numberOfRecords = dt.Rows.Count;
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    Expensetype = row["Expensetype"].ToString();
+                    OtherExpensetype = row["OtherExpensetype"].ToString();
+                    model.OtherExpensetype = OtherExpensetype == "0" ? null : OtherExpensetype;
+                    //ExpenseDate = row["ExpenseDate"].ToString();
+                    ExpenseDate = string.IsNullOrEmpty(row["ExpenseDate"].ToString()) ? null : Common.ConvertToSystemDate(row["ExpenseDate"].ToString(), "dd/MM/yyyy");
+                    ExpenseRupee = row["ExpenseRupee"].ToString();
+                    Remark = row["Remark"].ToString();
+                    Fk_Vendorid = row["Fk_Vendorid"].ToString();
+                    //rowsno = rowsno + 1;
+                    dtmodel.Rows.Add(Expensetype, OtherExpensetype, ExpenseDate, ExpenseRupee, Remark, Fk_Vendorid);
+                }
+                model.dt = dtmodel;
+                model.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = new DataSet();
+                ds = model.SaveShopExpense();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        model.Result = "Yes";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = ex.Message;
+            }
+            return new JsonResult { Data = new { status = model.Result } };
+        }
+
+        public ActionResult ShopExpenseList()
+        {
+            Shop model = new Shop();
+            List<Shop> lst = new List<Shop>();
+            model.AddedBy = Session["Pk_userId"].ToString();
+            DataSet ds = model.GetShopExpenseList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
+                    obj.ExpenseName = r["ExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    //obj.Vendor = r["Vendor"].ToString();
+                    obj.Expenses = r["Expense"].ToString();
+                    obj.Remark = r["Remark"].ToString();
+                    obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstexpense = lst;
+            }
+            #region ExpenseType
+            List<SelectListItem> ddlExpensetype = new List<SelectListItem>();
+            DataSet ds1 = model.GetExpenseType();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlExpensetype.Add(new SelectListItem { Text = "Expense Type", Value = "0" });
+                    }
+                    ddlExpensetype.Add(new SelectListItem { Text = r["ExpenseName"].ToString(), Value = r["PK_ExpenseTypeId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlExpensetype = ddlExpensetype;
+            #endregion
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("ShopExpenseList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult ExpenseList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            model.Expensetype = model.Expensetype == "0" ? null : model.Expensetype;
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            DataSet ds = model.GetShopExpenseList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
+                    obj.ExpenseName = r["ExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    obj.Expenses = r["Expense"].ToString();
+                    obj.Remark = r["Remark"].ToString();
+                    //obj.Vendor = r["Vendor"].ToString();
+                    obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstexpense = lst;
+            }
+            #region ExpenseType
+            List<SelectListItem> ddlExpensetype = new List<SelectListItem>();
+            DataSet ds1 = model.GetExpenseType();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlExpensetype.Add(new SelectListItem { Text = "Expense Type", Value = "0" });
+                    }
+                    ddlExpensetype.Add(new SelectListItem { Text = r["ExpenseName"].ToString(), Value = r["PK_ExpenseTypeId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlExpensetype = ddlExpensetype;
+            #endregion
+            return View(model);
+        }
     }
 }
