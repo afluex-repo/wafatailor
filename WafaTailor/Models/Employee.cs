@@ -534,5 +534,16 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetPrintOrderRefund", para);
             return ds;
         }
+
+        public DataSet DeleteBillPaymentDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillPaymentId",Pk_BillPaymentId),
+                 new SqlParameter("@DeletedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteBillPaymentDetails", para);
+            return ds;
+        }
     }
 }

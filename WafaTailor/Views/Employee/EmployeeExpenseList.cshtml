@@ -4,8 +4,6 @@
     ViewBag.Title = "EmployeeExpenseList";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
-
-
 <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
 <link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("EmployeeExpenseList", "Employee", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
@@ -24,7 +22,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>EmployeeExpense List</header>
+                            <header>Expense List</header>
                             <span class="text-danger">
                                 @TempData["Expense"]
                             </span>
