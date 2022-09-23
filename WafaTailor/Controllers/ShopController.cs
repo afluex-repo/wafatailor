@@ -646,5 +646,87 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
+
+        public ActionResult BillPayment(string BillId, string PaymentId)
+        {
+            Shop model = new Shop();
+            model.BillId = BillId;
+            model.Pk_BillPaymentId = PaymentId;
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
+            List<SelectListItem> ItemStatus = Common.BindStatus();
+            ViewBag.ItemStatus = ItemStatus;
+
+            DataSet ds = model.GetBillDetail();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.ShopId = ds.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                model.BillId = ds.Tables[0].Rows[0]["Pk_BillId"].ToString();
+                model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
+                model.RemainningBalance = ds.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                //model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["RemainingBalance"].ToString());
+                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+                model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                model.TotalDeliveredPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
+                model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
+                model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();
+                model.Fk_UserId = ds.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                model.Status = ds.Tables[0].Rows[0]["Status"].ToString();
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("BillPayment")]
+        [OnAction(ButtonName = "btnbill")]
+        public ActionResult BillPayment(Shop model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_userId"].ToString();
+                model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                DataSet ds = model.BillPayment();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["BillEntry"] = "Payment Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["BillEntry"] = ex.Message;
+            }
+            return RedirectToAction("BillPayment", "Shop");
+        }
     }
 }
