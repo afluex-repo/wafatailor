@@ -18,7 +18,6 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-
         public ActionResult Expense()
         {
             Expense obj = new Expense();
@@ -80,8 +79,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View();
         }
-
-
         [HttpPost]
         public JsonResult ActionExpense(Expense model, string dataValue)
         {
@@ -148,8 +145,6 @@ namespace WafaTailor.Controllers
             }
             return new JsonResult { Data = new { status = model.Result } };
         }
-
-
         public ActionResult ExpenseList()
         {
             Expense model = new Expense();
@@ -191,7 +186,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
         [HttpPost]
         [ActionName("ExpenseList")]
         [OnAction(ButtonName = "btnSearch")]
@@ -274,12 +268,10 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult OtherExpense()
         {
             return View();
         }
-
         [HttpPost]
         [ActionName("OtherExpense")]
         [OnAction(ButtonName = "btnSave")]
@@ -325,7 +317,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-
         public ActionResult OtherExpenseList()
         {
             Expense model = new Expense();
@@ -344,7 +335,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DeleteOtherExpense(string OtherExpenseId)
         {
             Expense obj = new Expense();
@@ -390,9 +380,27 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-
         public ActionResult DailyExpenseReport(Expense model)
         {
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
             List<Expense> lst = new List<Expense>();
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
@@ -402,9 +410,9 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Expense obj = new Expense();
-                    obj.Pk_ExpenseId = r["Id"].ToString();
+                    //obj.Pk_ExpenseId = r["Id"].ToString();
                     obj.Delivery = r["Delivery"].ToString();
-                    obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    obj.ExpenseDate = DateTime.Parse(r["ExpenseDate"].ToString()).ToString("dd/MM/yyyy");
                     obj.Crystal = r["Crystal"].ToString();
                     obj.Worker = r["Worker"].ToString();
                     obj.Material = r["Material"].ToString();
@@ -423,13 +431,10 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DeliveryExpense()
         {
             return View();
         }
-
-
         [HttpPost]
         [ActionName("DeliveryExpense")]
         [OnAction(ButtonName ="save")]
@@ -478,7 +483,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-
         public ActionResult DeliveryList(Expense model)
         {
             List<Expense> lst = new List<Expense>();
@@ -501,7 +505,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DeleteDeliveryExpense(string DeliveryId)
         {
             Expense obj = new Expense();

@@ -33,6 +33,8 @@ namespace WafaTailor.Models
 
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string Fk_ShopId { get; set; }
+        public string Pk_ShopId { get; set; }
 
 
         public string Delivery { get; set; }
@@ -135,7 +137,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para ={
                 new SqlParameter("@FromDate",FromDate),
-                new SqlParameter("@ToDate",ToDate)
+                new SqlParameter("@ToDate",ToDate),
+                new SqlParameter("@Fk_Shopid",Fk_ShopId)
+
             };
             DataSet ds = DBHelper.ExecuteQuery("getDailyExpenseReport", para);
             return ds;
@@ -175,6 +179,12 @@ namespace WafaTailor.Models
                  new SqlParameter("@DeletedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteDeliveryExpense", para);
+            return ds;
+        }
+
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
             return ds;
         }
     }

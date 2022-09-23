@@ -9,6 +9,7 @@ namespace WafaTailor.Models
 {
     public class Shop :Common
     {
+        public List<Shop> lstexpense { get; set; }
         public List<Shop> lstList { get; set; }
         public List<Shop> lstShopRegistration { get; set; }
         public List<Shop> lstshopsaleorder { get; set; }
@@ -55,6 +56,18 @@ namespace WafaTailor.Models
 
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+
+        public string Expensetype { get; set; }
+        public string OtherExpensetype { get; set; }
+        public string Vendor { get; set; }
+        public string ExpenseRupee { get; set; }
+        public string ExpenseDate { get; set; }
+        public string Remark { get; set; }
+
+        public string Pk_ExpenseId { get; set; }
+        public string ExpenseName { get; set; }
+        public string OtherExpenseName { get; set; }
+        public string Expenses { get; set; }
 
 
 
@@ -141,7 +154,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@DeliveredPiece",DeliveredPiece),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@Name",LoginId),
-                new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@LoginId",Pk_UserId),
                 new SqlParameter("@Mobile",Mobile),
                  new SqlParameter("@Status",Status),
                 new SqlParameter("@AddedBy",AddedBy)
@@ -159,6 +172,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@LoginId",LoginId),
                 new SqlParameter("@FromDate", FromDate),
                 new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
@@ -206,6 +220,34 @@ namespace WafaTailor.Models
                 new SqlParameter("@UpdatedBy",AddedBy),
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateBillingDetails", para);
+            return ds;
+        }
+
+        public DataSet SaveShopExpense()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@dt",dt)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveExpenseDetails", para);
+            return ds;
+        }
+
+        public DataSet GetShopExpenseList()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@Fk_ExpensetypeId",Expensetype),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetExpenseList", para);
+            return ds;
+        }
+
+        public DataSet GetExpenseType()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetExpenseType");
             return ds;
         }
     }

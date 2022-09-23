@@ -39,7 +39,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult AdminProfile(Admin model)
         {
             model.EmployeeId = Session["Pk_EmployeeId"].ToString();
@@ -58,7 +57,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult ChangePassword()
         {
             return View();
@@ -88,8 +86,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ChangePassword", "Admin");
         }
-
-
         public ActionResult VendorListForAdmin()
         {
             Admin model = new Admin();
@@ -145,7 +141,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult BillEntry(Admin model, string BillId, string PaymentId)
         {
             #region Shop
@@ -213,7 +208,6 @@ namespace WafaTailor.Controllers
             ViewBag.BindStatus = Status;
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "SaveBill")]
@@ -246,7 +240,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Admin");
         }
-
         public ActionResult BillList(Admin model, string LoginId)
         {
 
@@ -450,12 +443,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillPayment", "Admin");
         }
-
         public ActionResult OrderRefund()
         {
             return View();
         }
-
         [HttpPost]
         [ActionName("OrderRefund")]
         [OnAction(ButtonName = "Save")]
@@ -488,7 +479,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("OrderRefund", "Admin");
         }
-
         public ActionResult OrderRefundList(Admin model)
         {
             List<Admin> lst = new List<Admin>();
@@ -511,7 +501,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult GetAvailableBill(string BillNo)
         {
             Admin obj = new Admin();
@@ -544,7 +533,6 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult PrintOrderRefund(string RefundId)
         {
             Admin model = new Admin();
@@ -562,7 +550,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "UpdateBill")]

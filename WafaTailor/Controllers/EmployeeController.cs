@@ -18,7 +18,6 @@ namespace WafaTailor.Controllers
         {
             return View();
         }
-      
         public ActionResult EmployeeDashBoard()
         {
             return View();
@@ -84,7 +83,6 @@ namespace WafaTailor.Controllers
             }
             return View(obj);
         }
-
         [HttpPost]
         [ActionName("EmployeeRegistration")]
         [OnAction(ButtonName = "Save")]
@@ -130,13 +128,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction(FormName,Controller);
         }
-
         public ActionResult EmployeeConfirmRegistration()
         {
             return View();
         }
-
-
         public ActionResult EmployeeRegistrationList(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -165,7 +160,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         [HttpPost]
         [ActionName("EmployeeRegistration")]
         [OnAction(ButtonName = "update")]
@@ -203,7 +197,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeRegistration", "Employee");
         }
-
         public ActionResult DeleteEmployeeRegistration(string EmployeeId)
         {
             Employee obj = new Employee();
@@ -230,7 +223,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeRegistrationList", "Employee");
         }
-
         public ActionResult EmployeeChangePassword()
         {
             return View();
@@ -260,9 +252,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeChangePassword", "Employee");
         }
-
-
-
         public ActionResult Profile(Employee model)
         {
             model.LoginId = Session["LoginId"].ToString();
@@ -281,7 +270,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         [HttpPost]
         [ActionName("EmployeeRegistrationList")]
         [OnAction(ButtonName = "btnSearch")]
@@ -317,7 +305,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult EmployeeSalaryManagement()
         {
             Employee obj = new Employee();
@@ -375,7 +362,6 @@ namespace WafaTailor.Controllers
 
             return View();
         }
-                
         [HttpPost]
         [ActionName("EmployeeSalaryManagement")]
         [OnAction(ButtonName = "Save")]
@@ -461,7 +447,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DailyAttendance(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -491,7 +476,6 @@ namespace WafaTailor.Controllers
             model.lstList = lst;
             return View(model);
         }
-
         public ActionResult AllPresent(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -521,7 +505,6 @@ namespace WafaTailor.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
-
         [HttpPost]
         [ActionName("DailyAttendance")]
         [OnAction(ButtonName = "Save")]
@@ -618,7 +601,6 @@ namespace WafaTailor.Controllers
 
             return RedirectToAction(FormName, Controller);
         }
-
         public ActionResult DateWiseAttendanceReport(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -642,7 +624,6 @@ namespace WafaTailor.Controllers
             model.lstList = lst;
             return View(model);
         }
-
         public ActionResult EmployeeBillEntry(Employee model, string BillId, string PaymentId)
         {
             #region Shop
@@ -710,7 +691,6 @@ namespace WafaTailor.Controllers
             ViewBag.BindStatus = Status;
             return View(model);
         }
-
         [HttpPost]
         [ActionName("EmployeeBillEntry")]
         [OnAction(ButtonName = "SaveBill")]
@@ -743,7 +723,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeBillEntry", "Employee");
         }
-
         [HttpPost]
         [ActionName("EmployeeBillEntry")]
         [OnAction(ButtonName = "UpdateBill")]
@@ -781,7 +760,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeBillEntry", "Employee");
         }
-
         public ActionResult EmployeeBillList(Employee model, string LoginId)
         {
 
@@ -828,7 +806,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         //public ActionResult EmployeePrintBill(string BillId, string PaymentId)
         //{
         //    List<Employee> lstbill = new List<Employee>();
@@ -936,7 +913,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillPayment", "Employee");
         }
-
         public ActionResult EmployeeSaleOrder(Employee obj, string BillId, string paymentid)
         {
             #region Shop
@@ -997,7 +973,6 @@ namespace WafaTailor.Controllers
             }
             return View(obj);
         }
-
         [HttpPost]
         public JsonResult SaveEmployeeSaleOrderDetails(Employee order, string dataValue)
         {
@@ -1070,7 +1045,6 @@ namespace WafaTailor.Controllers
 
             return new JsonResult { Data = new { status = order.Result } };
         }
-
         public ActionResult GetcustomerList()
         {
             Employee obj = new Employee();
@@ -1089,7 +1063,6 @@ namespace WafaTailor.Controllers
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult GetUserDetails(string LoginId, string Mobile)
         {
             Employee model = new Employee();
@@ -1117,7 +1090,6 @@ namespace WafaTailor.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult EmployeeExpense()
         {
             Employee obj = new Employee();
@@ -1179,7 +1151,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View();
         }
-
         [HttpPost]
         public JsonResult ActionExpense(Employee model, string dataValue)
         {
@@ -1246,7 +1217,6 @@ namespace WafaTailor.Controllers
             }
             return new JsonResult { Data = new { status = model.Result } };
         }
-
         public ActionResult EmployeeSaleOrderList(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -1269,7 +1239,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult PrintSaleOrder(String SaleOrderId)
         {
             List<Employee> lstSaleOrderDetails = new List<Employee>();
@@ -1303,7 +1272,6 @@ namespace WafaTailor.Controllers
 
             return View(model);
         }
-
         public ActionResult EmployeeExpenseList()
         {
             Employee model = new Employee();
@@ -1346,7 +1314,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
         [HttpPost]
         [ActionName("EmployeeExpenseList")]
         [OnAction(ButtonName = "btnSearch")]
@@ -1394,7 +1361,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
         [HttpPost]
         [ActionName("EmployeeBillList")]
         [OnAction(ButtonName = "btnSearch")]
@@ -1441,12 +1407,10 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult EmployeeOrderRefund()
         {
             return View();
         }
-
         [HttpPost]
         [ActionName("EmployeeOrderRefund")]
         [OnAction(ButtonName = "Save")]
@@ -1479,9 +1443,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("EmployeeOrderRefund", "Employee");
         }
-
-
-
         public ActionResult EmployeeOrderRefundList(Employee model)
         {
             List<Employee> lst = new List<Employee>();
@@ -1505,7 +1466,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult PrintEmployeeOrderRefund(string RefundId)
         {
             Employee model = new Employee();
@@ -1523,7 +1483,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DeleteEmployeeBillEntry(string PaymentId)
         {
             Employee obj = new Employee();
