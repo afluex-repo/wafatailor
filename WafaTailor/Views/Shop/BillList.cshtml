@@ -99,7 +99,7 @@
                                                         </a>
                                                         @if (item.Balance > 0)
                                                         {
-                                                            <a target="_blank" href="#?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
+                                                            <a target="_blank" href="/Shop/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
                                                                 <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
                                                             </a>
                                                         }
