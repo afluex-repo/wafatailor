@@ -72,6 +72,10 @@ namespace WafaTailor.Models
         public string TotalDeliveredPiece { get; set; }
         public string TotalPaid { get; set; }
 
+        public string RefundDate { get; set; }
+        public string RefundId { get; set; }
+        public string AvailableNoOfPiece { get; set; }
+
         #endregion
 
         public DataSet GetCustomerDetails()
@@ -289,6 +293,51 @@ namespace WafaTailor.Models
                 new SqlParameter("@AddedBy",AddedBy),
             };
             DataSet ds = DBHelper.ExecuteQuery("BillPayment", para);
+            return ds;
+        }
+
+        public DataSet OrderRefund()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@BillNo",BillNo),
+                  new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Amount",Balance),
+                new SqlParameter("@RefundDate",RefundDate),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("OrderRefund", para);
+            return ds;
+        }
+
+        public DataSet GetOrderRefundDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_RefundId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetOrderRefundDetails", para);
+            return ds;
+        }
+
+        public DataSet GetBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@BillNo",BillNo)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetAvailableOrder", para);
+            return ds;
+        }
+
+        public DataSet PrintOrderRefundBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintOrderRefund", para);
             return ds;
         }
     }

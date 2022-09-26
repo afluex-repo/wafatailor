@@ -543,7 +543,7 @@ namespace WafaTailor.Controllers
                 ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
-                model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                //model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
                 model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
