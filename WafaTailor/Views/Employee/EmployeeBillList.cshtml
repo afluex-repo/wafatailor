@@ -23,7 +23,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Employee Bill List</header>
+                            <header>Bill List</header>
                             <span class="text-danger">
                                 @TempData["EmployeeBillList"]
                             </span>
@@ -109,7 +109,7 @@
                                                                 <i class="btn btn-secoundry" title="Paid Bill">Paid Bill</i>
                                                             </a>
                                                         }
-                                                        <a href="/Employee/DeleteEmployeeBillEntry?PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm" onclick="return confirm('Are You Sure You Want To Delete This Bill Details ?')">
+                                                        <a href="/Employee/DeleteEmployeeBillEntry?PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm" onclick="return confirm('Are You Sure You Want To Delete This Bill Payment Details ?')">
                                                             <i class="btn btn-danger">Delete</i>
                                                         </a>
                                                     </td>

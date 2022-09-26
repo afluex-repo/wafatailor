@@ -155,7 +155,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@DeliveredPiece",DeliveredPiece),
                 new SqlParameter("@BillDate",BillDate),
                 new SqlParameter("@Name",LoginId),
-                new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@LoginId",Pk_UserId),
                 new SqlParameter("@Mobile",Mobile),
                  new SqlParameter("@Status",Status),
                 new SqlParameter("@AddedBy",AddedBy)
@@ -173,6 +173,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@LoginId",LoginId),
                 new SqlParameter("@FromDate", FromDate),
                 new SqlParameter("@ToDate", ToDate),
+                new SqlParameter("@AddedBy",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;

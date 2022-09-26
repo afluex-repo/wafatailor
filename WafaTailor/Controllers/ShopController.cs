@@ -40,7 +40,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(obj);
         }
-
         [HttpPost]
         public JsonResult SaveSaleOrder(Shop order, string dataValue)
         {
@@ -116,10 +115,6 @@ namespace WafaTailor.Controllers
 
             return new JsonResult { Data = new { status = order.Result } };
         }
-
-
-
-
         public ActionResult ShopSaleOrderList(Shop model)
         {
             List<Shop> lst = new List<Shop>();
@@ -174,7 +169,6 @@ namespace WafaTailor.Controllers
 
             return View(model);
         }
-
         //public ActionResult DeleteShopSaleOrder(String SaleOrderId)
         //{
         //    Shop obj = new Shop();
@@ -200,7 +194,6 @@ namespace WafaTailor.Controllers
         //    }
         //    return RedirectToAction("ShopSaleOrderList", "Shop");
         //}
-
         public ActionResult GetcustomerList()
         {
             Shop obj = new Shop();
@@ -213,12 +206,12 @@ namespace WafaTailor.Controllers
                     Shop objList = new Shop();
                     objList.Name = dr["CustomerName"].ToString();
                     objList.Mobile = dr["Mobile"].ToString();
+                    objList.LoginId = dr["LoginId"].ToString();
                     lst.Add(objList);
                 }
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult BillEntry(Shop model, string BillId, string PaymentId)
         {
             #region Customer
@@ -269,7 +262,6 @@ namespace WafaTailor.Controllers
             ViewBag.BindStatus = Status;
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "Save")]
@@ -302,10 +294,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Shop");
         }
-
         public ActionResult BillList(Shop model)
         {
             List<Shop> lst = new List<Shop>();
+            model.AddedBy = Session["Pk_userId"].ToString();
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             DataSet ds = model.GetBillDetails();
@@ -329,7 +321,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult PrintBill(string BillId, string PaymentId)
         {
             List<Shop> lstbill = new List<Shop>();
@@ -357,12 +348,10 @@ namespace WafaTailor.Controllers
 
             return View(model);
         }
-
         public ActionResult ShopChangePassword()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult ShopChangePassword(Shop model)
         {
@@ -388,7 +377,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ShopChangePassword", "Shop");
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "UpdateBill")]
@@ -426,7 +414,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Shop");
         }
-
         public ActionResult ShopExpense()
         {
             Employee obj = new Employee();
@@ -488,7 +475,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View();
         }
-
         [HttpPost]
         public JsonResult ActionShopExpense(Shop model, string dataValue)
         {
@@ -555,7 +541,6 @@ namespace WafaTailor.Controllers
             }
             return new JsonResult { Data = new { status = model.Result } };
         }
-
         public ActionResult ShopExpenseList()
         {
             Shop model = new Shop();
@@ -598,7 +583,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
         [HttpPost]
         [ActionName("ShopExpenseList")]
         [OnAction(ButtonName = "btnSearch")]
@@ -727,6 +711,33 @@ namespace WafaTailor.Controllers
                 TempData["BillEntry"] = ex.Message;
             }
             return RedirectToAction("BillPayment", "Shop");
+        }
+        public ActionResult GetUserDetails(string LoginId, string Mobile)
+        {
+            SaleOrder model = new SaleOrder();
+            model.LoginId = LoginId;
+            model.Mobile = Mobile;
+            DataSet ds = model.GetUserDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                {
+                    model.Result = "yes";
+                    model.Fk_UserId = ds.Tables[0].Rows[0]["Pk_UserId"].ToString();
+                    model.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                    model.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                    model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                }
+                else
+                {
+                    model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            else
+            {
+                model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }
