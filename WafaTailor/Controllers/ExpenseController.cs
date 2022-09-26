@@ -400,7 +400,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
             List<Expense> lst = new List<Expense>();
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");

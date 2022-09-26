@@ -69,7 +69,8 @@ namespace WafaTailor.Models
         public string OtherExpenseName { get; set; }
         public string Expenses { get; set; }
 
-
+        public string TotalDeliveredPiece { get; set; }
+        public string TotalPaid { get; set; }
 
         #endregion
 
@@ -248,6 +249,46 @@ namespace WafaTailor.Models
         public DataSet GetExpenseType()
         {
             DataSet ds = DBHelper.ExecuteQuery("GetExpenseType");
+            return ds;
+        }
+
+
+        public DataSet GetShopNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
+            return ds;
+        }
+
+        public DataSet GetBillDetail()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_BillId",BillId),
+                new SqlParameter("@Fk_BillPaymentId",Pk_BillPaymentId),
+                new SqlParameter("@LoginId",LoginId),
+                new SqlParameter("@FromDate", FromDate),
+                new SqlParameter("@ToDate", ToDate),
+                 new SqlParameter("@Mobile", Mobile),
+                //new SqlParameter("@Customername",Name)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
+            return ds;
+        }
+
+        public DataSet BillPayment()
+        {
+            SqlParameter[] para =
+            {
+                //new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@Fk_billId",BillId),
+                new SqlParameter("@DeliveredPiece",DeliveredPiece),
+                new SqlParameter("@AdvanceAmount",Advance),
+                new SqlParameter("@BillDate",BillDate),
+                new SqlParameter("@FK_UserId",Fk_UserId),
+                new SqlParameter("@Status",Status),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("BillPayment", para);
             return ds;
         }
     }
