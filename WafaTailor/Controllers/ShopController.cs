@@ -752,7 +752,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.AddedBy = Session["Pk_userId"].ToString();
                 model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
                 DataSet ds = model.OrderRefund();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
