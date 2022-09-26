@@ -137,7 +137,9 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para ={
                 new SqlParameter("@FromDate",FromDate),
-                new SqlParameter("@ToDate",ToDate)
+                new SqlParameter("@ToDate",ToDate),
+                new SqlParameter("@Fk_Shopid",Fk_ShopId)
+
             };
             DataSet ds = DBHelper.ExecuteQuery("getDailyExpenseReport", para);
             return ds;

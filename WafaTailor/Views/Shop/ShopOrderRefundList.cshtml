@@ -1,11 +1,12 @@
-﻿@model WafaTailor.Models.Employee
+﻿@model WafaTailor.Models.Shop
 
 @{
-    ViewBag.Title = "EmployeeOrderRefundList";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    ViewBag.Title = "ShopOrderRefundList";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-@using (Html.BeginForm("EmployeeOrderRefundList", "Employee", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("ShopOrderRefundList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
     <div class="page-content-wrapper">
@@ -26,7 +27,7 @@
                             <span class="text-danger">
                                 @TempData["Order"]
                             </span>
-                            <a href="/Employee/EmployeeOrderRefund" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back TO Refund Order</a>
+                            <a href="/Shop/ShopOrderRefund" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back TO Refund Order</a>
                         </div>
 
                         <div class="card-body table-responsive">
@@ -35,7 +36,6 @@
                                     <tr>
                                         <th>Sr.No.</th>
                                         <th>Bill Number</th>
-                                        @*<th>Piece Name</th>*@
                                         <th>No Of Piece</th>
                                         <th>Contact Number</th>
                                         <th>Amount</th>
@@ -54,13 +54,12 @@
                                                 <tr>
                                                     <td>@i</td>
                                                     <td>@item.BillNo</td>
-                                                    @*<td>@item.PieceName</td>*@
                                                     <td>@item.NoOfPiece</td>
-                                                    <td>@item.ContactNo</td>
+                                                    <td>@item.Mobile</td>
                                                     <td>@item.Balance</td>
                                                     @*<td>@item.RefundDate</td>*@
                                                     <td>
-                                                        <a target="_blank" href="/Employee/PrintEmployeeOrderRefund?RefundId=@item.RefundId" class="tblDelBtn">
+                                                        <a target="_blank" href="/Shop/PrintShopOrderRefund?RefundId=@item.RefundId" class="tblDelBtn">
                                                             <i class="btn btn-primary" title="Print">Print</i>
                                                         </a>
 
@@ -80,6 +79,7 @@
         </div>
     </div>
 }
+
 
 
 

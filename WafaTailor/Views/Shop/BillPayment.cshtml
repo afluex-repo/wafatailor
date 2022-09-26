@@ -293,8 +293,8 @@
         var FinalPrice = $("#FinalPrice").val();
         var balance = (Number(FinalPrice) - (Number(TotalPaid) + Number(Advance)))
         if ((Number(Advance) > Number(RemainningBalance))) {
-            alert(RemainningBalance)
-            alert(Advance)
+            //alert(RemainningBalance)
+            //alert(Advance)
             alert("Advance payment can not be greater than remaining balance Rs.:" + RemainningBalance)
             $("#Advance").val("");
             $("#Advance").addClass('errortext');
