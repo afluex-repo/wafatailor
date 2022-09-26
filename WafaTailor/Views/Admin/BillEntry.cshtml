@@ -37,6 +37,12 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
+                                        <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @Readonly = "true" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
                                         @Html.HiddenFor(m => m.Pk_UserId)
@@ -63,7 +69,18 @@
                                         @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Total No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
-
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Total Amount <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Total Amount", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Paid Amount<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Advance, new { @class = "form-control", @placeholder = "Paid Amount", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail"> Delivered Piece <span style="color:red">*</span></label>
@@ -78,25 +95,14 @@
                                     </div>
                                 </div>
 
-
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Original Price", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-3">
+                             
+                                <div class="form-group col-sm-3" style="display: none;">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Final Price<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.FinalPrice, new { @class = "form-control", @placeholder = "Final Price", @Readonly = "true" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">Advance<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Advance, new { @class = "form-control", @placeholder = "Advance", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
-                                    </div>
-                                </div>
+                             
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Remaining Balance<span style="color:red">*</span></label>
@@ -104,12 +110,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @Readonly="true" })
-                                    </div>
-                                </div>
+                              
 
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
@@ -299,7 +300,8 @@
 
         debugger;
         if (RemainingBalance < 0) {
-            alert('Remaining Amount Should be grater than Advance Amount')
+            //alert('Remaining Amount Should be grater than Advance Amount')
+            alert('Remaining Amount Should be grater than Paid Amount')
             $("#Advance").val("");
 
             if ($("#Advance").val("")) {

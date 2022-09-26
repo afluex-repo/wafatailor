@@ -739,5 +739,116 @@ namespace WafaTailor.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult ShopOrderRefund()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ActionName("ShopOrderRefund")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult ActionOrderRefund(Shop model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
+                DataSet ds = model.OrderRefund();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
+                    {
+                        TempData["Order"] = "Order Refund saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
+                    {
+                        TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Order"] = ex.Message;
+            }
+            return RedirectToAction("ShopOrderRefund", "Shop");
+        }
+        public ActionResult ShopOrderRefundList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            DataSet ds = model.GetOrderRefundDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.RefundId = r["Pk_RefundId"].ToString();
+                    //obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult GetAvailableBill(string BillNo)
+        {
+            Shop obj = new Shop();
+            try
+            {
+                obj.BillNo = BillNo;
+                DataSet ds = obj.GetBill();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Result = "yes";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        obj.NoOfPiece = "0";
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    obj.NoOfPiece = "0";
+                    obj.Result = "no";
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Result = ex.Message;
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PrintShopOrderRefund(string RefundId)
+        {
+            Shop model = new Shop();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
+                ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                //model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
+                model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
+            }
+            return View(model);
+        }
     }
 }
