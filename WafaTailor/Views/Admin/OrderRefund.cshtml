@@ -54,7 +54,7 @@
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Contact No </label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8", @readonly = "true" })
                                     </div>
 
                                     
@@ -90,14 +90,18 @@
                 success: function (data) {
                     $("#divload").css({ 'display': 'none' });
                  if (data.Result == "yes") {
-                        $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                     $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                     $("#Mobile").val(data.Mobile);
                         $("#BillNo").removeClass('errortext');
                         $("#AvailableNoOfPiece").removeClass('errortext');
+                        $("#Mobile").removeClass('errortext');
                  }
                     else {
                       alert(data.Result);
                         $("#AvailableNoOfPiece").val('');
                         $("#AvailableNoOfPiece").addClass('errortext');
+                        $("#Mobile").val('');
+                        $("#Mobile").addClass('errortext');
                         $("#BillNo").addClass('errortext');
                         $('#BillNo').focus();
                         $('#BillNo').val('');

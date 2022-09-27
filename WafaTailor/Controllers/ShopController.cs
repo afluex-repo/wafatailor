@@ -812,17 +812,20 @@ namespace WafaTailor.Controllers
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                         obj.Result = "yes";
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
                     {
                         obj.NoOfPiece = "0";
+                        obj.Mobile = "";
                         obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                     }
                 }
                 else
                 {
                     obj.NoOfPiece = "0";
+                    obj.Mobile = "";
                     obj.Result = "no";
                 }
             }
