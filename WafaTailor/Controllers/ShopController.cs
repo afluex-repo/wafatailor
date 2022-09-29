@@ -75,7 +75,8 @@ namespace WafaTailor.Controllers
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Name = row["Name"].ToString();
+                    //Name = row["Name"].ToString();
+                    Name = "";
                     Piece = row["Piece"].ToString();
                     OriginalPrice = row["OriginalPrice"].ToString();
                     Discount = row["Discount"].ToString();
