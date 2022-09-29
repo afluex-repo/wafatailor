@@ -88,7 +88,7 @@
                                         <th> Sales Order No.</th>
                                         <th>Customer Name</th>
                                         <th>Mobile</th>
-                                        <th>Action</th>
+                                        @*<th>Action</th>*@
                                     </tr>
                                 </thead>
                              <tbody>
@@ -110,9 +110,10 @@
                                                         @*<a href="/SaleOrder/DeleteSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn" onclick="return confirm('Are You Sure You Want To Delete This Sale Order Details?')">
                                                             <i class="fa fa-trash-o" title="Delete"></i>
                                                         </a>*@
-                                                        <a target="_blank" href="/SaleOrder/PrintSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
+                                                        @*<a target="_blank" href="/SaleOrder/PrintSaleOrder?SaleOrderId=@item.SaleOrderId" class="tblDelBtn">
                                                             <i class="fa  fa-print" title="Print"></i>
-                                                        </a>
+                                                        </a>*@
+                                                      
                                                     </td>
                                                 </tr>
                                                 i = i + 1;
