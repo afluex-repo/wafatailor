@@ -39,7 +39,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult AdminProfile(Admin model)
         {
             model.EmployeeId = Session["Pk_EmployeeId"].ToString();
@@ -58,7 +57,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult ChangePassword()
         {
             return View();
@@ -88,8 +86,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ChangePassword", "Admin");
         }
-
-
         public ActionResult VendorListForAdmin()
         {
             Admin model = new Admin();
@@ -145,7 +141,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult BillEntry(Admin model, string BillId, string PaymentId)
         {
             #region Shop
@@ -213,7 +208,6 @@ namespace WafaTailor.Controllers
             ViewBag.BindStatus = Status;
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "SaveBill")]
@@ -246,7 +240,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Admin");
         }
-
         public ActionResult BillList(Admin model, string LoginId)
         {
 
@@ -277,21 +270,71 @@ namespace WafaTailor.Controllers
                     obj.Advance = r["AdavanceAmount"].ToString();
                     obj.RemainingPiece = r["RemainingPiece"].ToString();
                     obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
                     obj.Status = r["Status"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
                 model.lstList = lst;
-                ViewBag.NoOfPiece = double.Parse(ds.Tables[0].Compute("sum(NoOfPiece)", "").ToString()).ToString("n2");
-                ViewBag.OriginalPrice = double.Parse(ds.Tables[0].Compute("sum(OriginalPrice)", "").ToString()).ToString("n2");
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece))); 
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
-                ViewBag.RemainingPiece = double.Parse(ds.Tables[0].Compute("sum(RemainingPiece)", "").ToString()).ToString("n2");
-                ViewBag.DeliveredPiece = double.Parse(ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString()).ToString("n2");
-                ViewBag.Balance = double.Parse(ds.Tables[0].Compute("sum(RemainingBalance)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
             return View(model);
         }
+        [HttpPost]
+        [ActionName("BillList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult BillListSearch(Admin model, string LoginId)
+        {
 
+            List<Admin> lst = new List<Admin>();
+            if (LoginId != "")
+            {
+                model.LoginId = LoginId;
+            }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            DataSet ds = model.GetBillDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.BillDate = r["BillDate"].ToString();
+                    obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece)));
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
+            }
+            return View(model);
+        }
         public ActionResult PrintBill(string BillId, string PaymentId)
         {
             List<Admin> lstbill = new List<Admin>();
@@ -400,12 +443,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillPayment", "Admin");
         }
-
         public ActionResult OrderRefund()
         {
             return View();
         }
-
         [HttpPost]
         [ActionName("OrderRefund")]
         [OnAction(ButtonName = "Save")]
@@ -414,6 +455,7 @@ namespace WafaTailor.Controllers
             try
             {
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
                 DataSet ds = model.OrderRefund();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -437,7 +479,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("OrderRefund", "Admin");
         }
-
         public ActionResult OrderRefundList(Admin model)
         {
             List<Admin> lst = new List<Admin>();
@@ -448,18 +489,18 @@ namespace WafaTailor.Controllers
                 {
                     Admin obj = new Admin();
                     obj.RefundId = r["Pk_RefundId"].ToString();
-                    obj.PieceName = r["PieceName"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;
             }
             return View(model);
         }
-
         public ActionResult GetAvailableBill(string BillNo)
         {
             Admin obj = new Admin();
@@ -472,6 +513,7 @@ namespace WafaTailor.Controllers
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                         obj.Result = "yes";
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
@@ -492,7 +534,6 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult PrintOrderRefund(string RefundId)
         {
             Admin model = new Admin();
@@ -503,14 +544,13 @@ namespace WafaTailor.Controllers
                 ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
-                model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                //model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
                 model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
             }
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "UpdateBill")]

@@ -33,6 +33,8 @@ namespace WafaTailor.Models
         public string ShopId { get; set; }
         public string BillNo { get; set; }
         public string NoOfPiece { get; set; }
+        public string GeneratedPiece { get; set; }
+        public string GeneratedAmount { get; set; }
         public string TotalDeliveredPiece { get; set; }
         public string DeliveredPiece { get; set; }
         public string OriginalPrice { get; set; }
@@ -65,7 +67,7 @@ namespace WafaTailor.Models
         public string Status { get; set; }
 
         public string FinalAmount { get; set; }
-
+        public string RefundDate { get; set; }
 
 
         public DataSet GetAdminDashBoardDetails()
@@ -155,6 +157,8 @@ namespace WafaTailor.Models
                 new SqlParameter("@LoginId",LoginId),
                 new SqlParameter("@FromDate", FromDate),
                 new SqlParameter("@ToDate", ToDate),
+                 new SqlParameter("@Mobile", Mobile),
+                //new SqlParameter("@Customername",Name)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
@@ -191,11 +195,10 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@BillNo",BillNo),
-                new SqlParameter("@PieceName",PieceName),
-                 new SqlParameter("@AvailableNoOfPiece",AvailableNoOfPiece),
                   new SqlParameter("@NoOfPiece",NoOfPiece),
                 new SqlParameter("@Mobile",Mobile),
                 new SqlParameter("@Amount",Balance),
+                new SqlParameter("@RefundDate",RefundDate),
                 new SqlParameter("@AddedBy",AddedBy),
             };
             DataSet ds = DBHelper.ExecuteQuery("OrderRefund", para);

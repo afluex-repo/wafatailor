@@ -35,10 +35,10 @@
                                     <tr>
                                         <th>Sr.No.</th>
                                         <th>Bill Number</th>
-                                        <th>Piece Name</th>
                                         <th>No Of Piece</th>
                                         <th>Contact Number</th>
                                         <th>Amount</th>
+                                        @*<th>Refund Date</th>*@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -53,10 +53,10 @@
                                                     <tr>
                                                         <td>@i</td>
                                                         <td>@item.BillNo</td>
-                                                        <td>@item.PieceName</td>
                                                         <td>@item.NoOfPiece</td>
                                                         <td>@item.Mobile</td>
                                                         <td>@item.Balance</td>
+                                                        @*<td>@item.RefundDate</td>*@
                                                         <td>
                                                             <a target="_blank" href="/Admin/PrintOrderRefund?RefundId=@item.RefundId" class="tblDelBtn">
                                                                 <i class="btn btn-primary" title="Print">Print</i>

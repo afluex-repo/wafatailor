@@ -69,6 +69,7 @@ namespace WafaTailor.Controllers
                         obj.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
                         obj.NetAmount = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
                         obj.Pk_UserId = ds2.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                        obj.TotalDeliveredPiece = ds2.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
                 }
                 }
 

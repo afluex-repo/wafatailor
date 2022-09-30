@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm("OrderRefund", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
 {
     <!-- start page content -->
@@ -37,41 +38,36 @@
                                         @Html.HiddenFor(m => m.BillNo)
                                     </div>
 
-                                    <div class="form-group col-sm-4">
+                                    @*<div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Piece Name<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.PieceName, new { @class = "form-control", @Placeholder = "Piece Name" })
-                                    </div>
+                                    </div>*@
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormEmail">Available No Of Piece<span style="color:red">*</span></label>
+                                        <label for="simpleFormEmail">Total Delivered Piece<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Available No Of Piece",@readonly="true" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "No Of Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Refund Piece", @onkeypress = "return isNumberKey(event);", @onchange="return checkavailable()" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Contact No </label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "10" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8", @readonly = "true" })
                                     </div>
 
                                     
-
                                     <div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Amount <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                     </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Refund Date <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RefundDate, new { @class = "form-control", @Placeholder = "Refund Date", @Readonly="true"})
+                                    </div>
                                 </div>
-                                @*@Html.HiddenFor(m => m.RefundId)
-                                @if (Model.EmployeeId != null)
-                                {
-                                    <input type="submit" class="btn btn-primary" name="update" value="Update">
-                                }
-                                else
-                                {*@
                                     <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
-                                @*}*@
                             </form>
                         </div>
                     </div>
@@ -94,14 +90,18 @@
                 success: function (data) {
                     $("#divload").css({ 'display': 'none' });
                  if (data.Result == "yes") {
-                        $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                     $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                     $("#Mobile").val(data.Mobile);
                         $("#BillNo").removeClass('errortext');
                         $("#AvailableNoOfPiece").removeClass('errortext');
+                        $("#Mobile").removeClass('errortext');
                  }
                     else {
                       alert(data.Result);
                         $("#AvailableNoOfPiece").val('');
                         $("#AvailableNoOfPiece").addClass('errortext');
+                        $("#Mobile").val('');
+                        $("#Mobile").addClass('errortext');
                         $("#BillNo").addClass('errortext');
                         $('#BillNo').focus();
                         $('#BillNo').val('');
@@ -161,6 +161,14 @@
             return false;
         }
     }
-   
- 
+    
+</script>
+
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('RefundDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
 </script>
