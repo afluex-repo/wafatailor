@@ -178,8 +178,8 @@ namespace WafaTailor.Models
             SqlParameter[] para =
             {
                 new SqlParameter("@BillNo",BillNo),
-                new SqlParameter("@NoOfPiece",NoOfPiece),
-                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@RefundPiece",NoOfPiece),
+                //new SqlParameter("@Mobile",Mobile),
                 new SqlParameter("@Amount",Balance),
                 new SqlParameter("@RefundDate",RefundDate),
                 new SqlParameter("@AddedBy",AddedBy),
@@ -192,11 +192,19 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@Pk_RefundId",RefundId)
+                new SqlParameter("@PK_SaleOrderRefundId",RefundId)
             };
-            DataSet ds = DBHelper.ExecuteQuery("GetOrderRefundDetails", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderRefundDetails", para);
             return ds;
         }
-
+        public DataSet PrintSaleOrderRefundBill()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_SaleOrderRefundId",RefundId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrderRefund", para);
+            return ds;
+        }
     }
 }

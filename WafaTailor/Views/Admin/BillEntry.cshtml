@@ -35,32 +35,66 @@
                                         @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                    @if (Model.BillId != null && Model.Pk_BillPaymentId != null)
+                                    {
+                                    <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @Readonly = "true" })
+                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @disabled = "disabled" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                    <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
                                         @Html.HiddenFor(m => m.Pk_UserId)
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                    <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8", @disabled = "disabled" })
 
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
-                                    </div>
-                                </div>
+                                                                
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", @disabled="disabled"})
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @Readonly = "true" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                                @Html.HiddenFor(m => m.Pk_UserId)
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo"})
+                                            </div>
+                                        </div>
+                                    }
 
 
                                 <div class="form-group col-sm-3">
@@ -186,7 +220,7 @@
     //}
     function Validateform() {
         $(".errortext").removeClass("errortext");
-
+       
         if ($('#ShopId').val() == '0') {
             $("#ShopId").addClass('errortext');
             $('#ShopId').focus();
@@ -263,6 +297,7 @@
             return false;
         }
     }
+
     function isNumberOrDecimal(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if (charCode != 46 && charCode > 31
@@ -271,6 +306,7 @@
 
         return true;
     }
+
     function calculatefinalamount() {
         var NoofPiece = $("#NoOfPiece").val();
         var originalprice = $("#OriginalPrice").val();

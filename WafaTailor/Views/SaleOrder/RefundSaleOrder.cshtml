@@ -39,24 +39,24 @@
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormEmail">Total Delivered Piece<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Available No Of Piece", @readonly = "true" })
+                                        <label for="simpleFormEmail">Total Piece<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Total Piece", @readonly = "true" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormEmail">Refund No Of Piece<span style="color:red">*</span></label>
+                                        <label for="simpleFormEmail">Refund Piece<span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Refund Piece", @onkeypress = "return isNumberKey(event);", @onchange = "return checkavailable()" })
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="simpleFormPassword">Final Price <span style="color:red">*</span></label>
+                                        <label for="simpleFormPassword">Amount <span style="color:red">*</span></label>
                                         @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                     </div>
 
-                                    <div class="form-group col-sm-4">
+                                    @*<div class="form-group col-sm-4">
                                         <label for="simpleFormPassword">Contact No </label>
                                         @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8", @readonly = "true" })
-                                    </div>
+                                    </div>*@
 
 
                                 
@@ -82,8 +82,10 @@
     function getBillNo() {
         $("#divload").css({ 'display': '' });
         var BillNo = $('#BillNo').val();
+        debugger;
+
             $.ajax({
-                url: '/Admin/GetAvailableBill', type: 'post', dataType: 'json',
+                url: '/SaleOrder/GetAvailableBill', type: 'post', dataType: 'json',
                 data: { 'BillNo': BillNo },
                 success: function (data) {
                     $("#divload").css({ 'display': 'none' });

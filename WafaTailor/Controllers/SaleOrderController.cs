@@ -384,10 +384,11 @@ namespace WafaTailor.Controllers
                 DataSet ds = obj.GetBill();
                 if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
                     {
-                        obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
-                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                        obj.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                        obj.NoOfPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
+                        //obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                         obj.Result = "yes";
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
@@ -399,7 +400,8 @@ namespace WafaTailor.Controllers
                 else
                 {
                     obj.NoOfPiece = "0";
-                    obj.Result = "no";
+                    //obj.Result = "no";
+                     obj.Result = "Invalid Bill Number Please Enter Correct Bill Number !!";
                 }
             }
             catch (Exception ex)
@@ -447,27 +449,43 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("RefundSaleOrder", "SaleOrder");
         }
-        //public ActionResult RefundSaleOrderList(SaleOrder model)
-        //{
-        //    List<SaleOrder> lst = new List<SaleOrder>();
-        //    DataSet ds = model.GetOrderRefundDetails();
-        //    if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
-        //    {
-        //        foreach (DataRow r in ds.Tables[0].Rows)
-        //        {
-        //            SaleOrder obj = new SaleOrder();
-        //            obj.RefundId = r["Pk_RefundId"].ToString();
-        //            //obj.PieceName = r["PieceName"].ToString();
-        //            obj.NoOfPiece = r["RefundPiece"].ToString();
-        //            obj.Mobile = r["Mobile"].ToString();
-        //            obj.BillNo = r["BillNo"].ToString();
-        //            obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
-        //            obj.RefundDate = r["RefundDate"].ToString();
-        //            lst.Add(obj);
-        //        }
-        //        model.lstList = lst;
-        //    }
-        //    return View(model);
-        //}
+        public ActionResult RefundSaleOrderList(SaleOrder model)
+        {
+            List<SaleOrder> lst = new List<SaleOrder>();
+            DataSet ds = model.GetOrderRefundDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    SaleOrder obj = new SaleOrder();
+                    obj.RefundId = r["PK_SaleOrderRefundId"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
+                    //obj.Mobile = r["Mobile"].ToString();
+                    //obj.BillNo = r["BillNo"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RefundAmount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult PrintRefundSaleOrder(string RefundId)
+        {
+            SaleOrder model = new SaleOrder();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintSaleOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["RefundAmount"].ToString());
+                model.NoOfPiece = ds.Tables[0].Rows[0]["RefundPiece"].ToString();
+                model.RefundDate = ds.Tables[0].Rows[0]["RefundDate"].ToString();
+            }
+            return View(model);
+        }
     }
     }
