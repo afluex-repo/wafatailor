@@ -513,6 +513,7 @@ namespace WafaTailor.Controllers
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                         obj.Result = "yes";
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
