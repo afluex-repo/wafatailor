@@ -206,5 +206,17 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrderRefund", para);
             return ds;
         }
+
+      
+        public DataSet UpdateSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                 new SqlParameter("@SaleOrderId",SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
+            return ds;
+        }
     }
 }

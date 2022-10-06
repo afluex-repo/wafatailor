@@ -801,41 +801,41 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult GetAvailableBill(string BillNo)
-        {
-            Shop obj = new Shop();
-            try
-            {
-                obj.BillNo = BillNo;
-                DataSet ds = obj.GetBill();
-                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
-                {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                    {
-                        obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
-                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                        obj.Result = "yes";
-                    }
-                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                    {
-                        obj.NoOfPiece = "0";
-                        obj.Mobile = "";
-                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                    }
-                }
-                else
-                {
-                    obj.NoOfPiece = "0";
-                    obj.Mobile = "";
-                    obj.Result = "no";
-                }
-            }
-            catch (Exception ex)
-            {
-                obj.Result = ex.Message;
-            }
-            return Json(obj, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult GetAvailableBill(string BillNo)
+        //{
+        //    Shop obj = new Shop();
+        //    try
+        //    {
+        //        obj.BillNo = BillNo;
+        //        DataSet ds = obj.GetBill();
+        //        if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+        //        {
+        //            if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+        //            {
+        //                obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+        //                obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+        //                obj.Result = "yes";
+        //            }
+        //            else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+        //            {
+        //                obj.NoOfPiece = "0";
+        //                obj.Mobile = "";
+        //                obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            obj.NoOfPiece = "0";
+        //            obj.Mobile = "";
+        //            obj.Result = "no";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        obj.Result = ex.Message;
+        //    }
+        //    return Json(obj, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult PrintShopOrderRefund(string RefundId)
         {
@@ -851,6 +851,121 @@ namespace WafaTailor.Controllers
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
                 model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
+            }
+            return View(model);
+        }
+
+        public ActionResult GetAvailableBill(string BillNo)
+        {
+            Shop obj = new Shop();
+            try
+            {
+                obj.BillNo = BillNo;
+                DataSet ds = obj.GetBill();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
+                    {
+                        obj.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                        obj.NoOfPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
+                        //obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                        obj.Result = "yes";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        obj.NoOfPiece = "0";
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    obj.NoOfPiece = "0";
+                    //obj.Result = "no";
+                    obj.Result = "Invalid Bill Number Please Enter Correct Bill Number !!";
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Result = ex.Message;
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RefundShopSaleOrder()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        [ActionName("RefundShopSaleOrder")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult ActionRefundShopSaleOrder(Shop model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_userId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
+                DataSet ds = model.RefundShopSaleOrder();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
+                    {
+                        TempData["Order"] = "Order Refund saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
+                    {
+                        TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["Order"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Order"] = ex.Message;
+            }
+            return RedirectToAction("RefundShopSaleOrder", "Shop");
+        }
+        public ActionResult RefundShopSaleOrderList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            model.AddedBy = Session["Pk_userId"].ToString();
+            model.ShopLoginId = Session["LoginId"].ToString();
+            DataSet ds = model.GetRefundShopSaleOrderList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.RefundId = r["PK_SaleOrderRefundId"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
+                    //obj.Mobile = r["Mobile"].ToString();
+                    //obj.BillNo = r["BillNo"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RefundAmount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+            }
+            return View(model);
+        }
+
+        public ActionResult PrintRefundShopSaleOrder(string RefundId)
+        {
+            Shop model = new Shop();
+            model.RefundId = RefundId;
+            DataSet ds = model.PrintSaleOrderRefundBill();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
+                ViewBag.CustomerName = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["RefundAmount"].ToString());
+                model.NoOfPiece = ds.Tables[0].Rows[0]["RefundPiece"].ToString();
+                model.RefundDate = ds.Tables[0].Rows[0]["RefundDate"].ToString();
             }
             return View(model);
         }
