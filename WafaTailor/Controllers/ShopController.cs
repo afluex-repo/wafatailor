@@ -127,7 +127,7 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Shop obj = new Shop();
-                    obj.SaleOrderId = r["Pk_SaleOrderId"].ToString();
+                    obj.SaleOrderId = r["Fk_SaleOrderId"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.SalesOrderNo = r["SalesOrderNo"].ToString();
                     obj.customerName = r["customerName"].ToString();
