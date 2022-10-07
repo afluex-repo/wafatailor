@@ -263,10 +263,11 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     SaleOrder obj = new SaleOrder();
-                    obj.SaleOrderId =r["Pk_SaleOrderId"].ToString();
+                    obj.SaleOrderId =r["Fk_SaleOrderId"].ToString();
                     obj.ShopName = r["ShopName"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
-                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.TotalDeliveredPiece = r["TotalPiece"].ToString();
+                    obj.NetAmount = r["TotalAmount"].ToString();
                     obj.CustomerName = r["customerName"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     lst.Add(obj);
@@ -488,7 +489,7 @@ namespace WafaTailor.Controllers
             return View(model);
         }
 
-        public ActionResult UpdateSaleOrder(SaleOrder obj, string BillId, string paymentid)
+        public ActionResult UpdateSaleOrder(SaleOrder obj, string SaleOrderId)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -527,21 +528,19 @@ namespace WafaTailor.Controllers
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
 
-                obj.BillId = BillId;
-                obj.PaymentId = paymentid;
-                DataSet ds2 = obj.GetBillDetails();
+                obj.SaleOrderId = SaleOrderId;
+                DataSet ds2 = obj.GetSaleOrderDetails();
                 if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
                 {
-                    obj.BillId = ds2.Tables[0].Rows[0]["Pk_BillId"].ToString();
-                    obj.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
-                    obj.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
-                    obj.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
-                    obj.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
-                    obj.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
-                    obj.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
-                    obj.NetAmount = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
-                    obj.Pk_UserId = ds2.Tables[0].Rows[0]["Fk_UserId"].ToString();
-                    obj.TotalDeliveredPiece = ds2.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
+                obj.SaleOrderId = ds2.Tables[0].Rows[0]["Fk_SaleOrderId"].ToString();
+                obj.ShopName = ds2.Tables[0].Rows[0]["ShopName"].ToString();
+                obj.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                obj.TotalDeliveredPiece = ds2.Tables[0].Rows[0]["TotalPiece"].ToString();
+                obj.NetAmount = ds2.Tables[0].Rows[0]["TotalAmount"].ToString();
+                obj.CustomerName = ds2.Tables[0].Rows[0]["customerName"].ToString();
+                obj.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                //obj.BillId = ds2.Tables[0].Rows[0]["Pk_BillId"].ToString();
+                 
                 }
             return View(obj);
         }
@@ -549,14 +548,14 @@ namespace WafaTailor.Controllers
         [HttpPost]
         [ActionName("UpdateSaleOrder")]
         [OnAction(ButtonName = "Update")]
-        public ActionResult UpdateSaleOrderAction(SaleOrder order, string SaleOrderId)
+        public ActionResult UpdateSaleOrderAction(SaleOrder order)
         {
-            SaleOrder model = new SaleOrder();
+           
             try
             {
-                model.SaleOrderId = SaleOrderId;
-                model.AddedBy = Session["Pk_EmployeeId"].ToString();
-                DataSet ds = model.UpdateSaleOrder();
+              
+                order.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = order.UpdateSaleOrder();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
@@ -578,7 +577,7 @@ namespace WafaTailor.Controllers
                 TempData["Order"] = ex.Message;
             }
             
-            return View("UpdateSaleOrder", "SaleOrder");
+            return RedirectToAction("SaleOrderList", "SaleOrder");
         }
     }
     }
