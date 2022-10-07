@@ -129,7 +129,7 @@ namespace WafaTailor.Controllers
                     Shop obj = new Shop();
                     obj.SaleOrderId = r["Fk_SaleOrderId"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
-                    obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    //obj.SalesOrderNo = r["SalesOrderNo"].ToString();
                     obj.customerName = r["customerName"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     lst.Add(obj);

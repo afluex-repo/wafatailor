@@ -30,15 +30,14 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Shop</label>
-                                        @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name", @disabled= "disabled" })
+                                        @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name", @disabled= "disabled" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer</label>
-                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
-                                        @Html.HiddenFor(m => m.Pk_UserId)
-                                        @*@Html.DropDownListFor(m => m.CustomerId, new SelectList(ViewBag.ddlcustomer, "Value", "Text"), new { @class = "form-control" })*@
+                                        @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
+                                      
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
@@ -50,7 +49,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormPassword">Bill No </label>
+                                        <label for="simpleFormPassword">Bill No</label>
                                         @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", @disabled = "disabled" })
                                     </div>
                                 </div>
@@ -58,14 +57,14 @@
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">No Of Piece</label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "No Of Piece", @disabled = "disabled" })
+                                        @Html.TextBoxFor(m => m.TotalDeliveredPiece, new { @class = "form-control", @Placeholder = "No Of Piece" })
 
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Amount</label>
-                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @Placeholder = " Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+                                        @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control", @Placeholder = " Amount", @onkeypress = "return isNumberOrDecimal(event);" })
                                     </div>
                                 </div>
                             </div>

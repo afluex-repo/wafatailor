@@ -104,7 +104,7 @@
                                 <div class="form-group col-sm-4">
                                     @Html.HiddenFor(m => m.BillId)
                                     @Html.HiddenFor(m => m.PaymentId)
-                                    <input type="submit" class="btn btn-primary" id="Save" name="Save" value="Submit" onclick="return ValidateForm();">
+                                    <input type="submit" class="btn btn-primary m-l-20" id="Save" name="Save" value="Submit" onclick="return ValidateForm();">
                                 </div>
                             </div>
                         </div>
@@ -250,7 +250,7 @@
         {
             originalprice = 0;
         }
-     var finalAmount = (Number(originalprice) - Number(Discount))
+        var finalAmount = ((Number(NoofPiece) * Number(originalprice)) - Number(Discount))
             $("#NetAmount").val(finalAmount);
 
     }

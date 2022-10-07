@@ -97,7 +97,9 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@ShopLoginId",ShopLoginId),
                 new SqlParameter("@CustomerLoginId",LoginId),
-                new SqlParameter("@Mobile",Mobile)
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Pk_Saleorderid",SaleOrderId)
+                
                 //new SqlParameter("@FromDate", FromDate),
                 //new SqlParameter("@ToDate", ToDate),
             };
@@ -213,7 +215,8 @@ namespace WafaTailor.Models
         {
             SqlParameter[] para ={
                 new SqlParameter("@AddedBy",AddedBy),
-                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@OriginalPrice",NetAmount),
+                new SqlParameter("@TotalDeliveredPiece",TotalDeliveredPiece),
                  new SqlParameter("@SaleOrderId",SaleOrderId)
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
