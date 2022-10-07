@@ -352,6 +352,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Amount",Balance),
                 new SqlParameter("@RefundDate",RefundDate),
                 new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@Fk_Shopid",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("RefundSaleOrder", para);
             return ds;
