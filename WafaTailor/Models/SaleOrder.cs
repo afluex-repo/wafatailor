@@ -183,6 +183,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Amount",Balance),
                 new SqlParameter("@RefundDate",RefundDate),
                 new SqlParameter("@AddedBy",AddedBy),
+                 new SqlParameter("@Fk_Shopid",AddedBy),
             };
             DataSet ds = DBHelper.ExecuteQuery("RefundSaleOrder", para);
             return ds;
@@ -216,6 +217,29 @@ namespace WafaTailor.Models
                  new SqlParameter("@SaleOrderId",SaleOrderId)
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
+            return ds;
+        }
+
+        public DataSet SaveSaleOrdernew()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",ShopId),
+                new SqlParameter("@Name",LoginId),
+             new SqlParameter("@Fk_Userid",Pk_UserId),
+                new SqlParameter("@Mobile",Mobile),
+                //new SqlParameter("@Fk_CustomerId",CustomerId),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@Discount",Discount),
+                new SqlParameter("@NetAmount",NetAmount),
+                new SqlParameter("@SaleOrderDate",SaleOrderDate),
+                new SqlParameter("@Description",Description),
+                 new SqlParameter("@BillId",BillId),
+                new SqlParameter("@PaymentId",PaymentId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetailsNew", para);
             return ds;
         }
     }

@@ -1,0 +1,284 @@
+﻿@model WafaTailor.Models.SaleOrder
+
+@{
+    ViewBag.Title = "SaleOrderNew";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@using (Html.BeginForm("SaleOrderNew", "SaleOrder", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+        <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title">Customer Registration</div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Sale Order</header>
+                            <span style="color:red;">@TempData["SaleOrder"]</span>
+                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Shop<span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                        @Html.HiddenFor(m => m.Pk_UserId)
+                                        @*@Html.DropDownListFor(m => m.CustomerId, new SelectList(ViewBag.ddlcustomer, "Value", "Text"), new { @class = "form-control" })*@
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Price Name <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.PriceName, new { @class = "form-control", @placeholder = "Price Name", @style = "width:150px" })
+                                    </div>
+                                </div>*@
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">No Of Piece<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control", @placeholder = "No Of Piece", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Original Price<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control", @placeholder = "Original Price", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Discount<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Discount, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control", @placeholder = "Discount", onInput = "return calculatefinalamount()" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Final Price<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control", @placeholder = "Final Amount", @readonly = "true" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Sale Date<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.SaleOrderDate, new { @class = "form-control", @placeholder = "Sale Date"})
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormPassword">Description</label>
+                                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @placeholder = "Description"})
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    @Html.HiddenFor(m => m.BillId)
+                                    @Html.HiddenFor(m => m.PaymentId)
+                                    <input type="submit" class="btn btn-primary" id="Save" name="Save" value="Submit" onclick="return ValidateForm();">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}
+
+@*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/SaleOrder/GetcustomerList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.Name + "(" + item.LoginId + ")");
+                    });
+                    debugger
+                    $('#LoginId').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            debugger
+                            $('#Pk_UserId').val('');
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#Pk_UserId').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+    function changeCustomer() {
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var UserId = $('#Pk_UserId').val();
+        $.ajax({
+            url: '/SaleOrder/GetUserDetails', type: 'post', dataType: 'json',
+            data: { 'LoginId': UserId },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#UserID").val(data.UserID);
+                    $("#Mobile").val(data.Mobile);
+                    $("#LoginId").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid LoginId ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#LoginId').focus();
+                    $('#LoginId').val('');
+
+                }
+            }
+        });
+    }
+    function ValidateForm() {
+        $(".errortext").removeClass("errortext");
+        if ($("#ShopId").val() == "0") {
+            $("#ShopId").addClass('errortext');
+            $('#ShopId').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($("#LoginId").val() == "") {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($("#Mobile").val() == "") {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($("#BillNo").val() == "") {
+            $("#BillNo").addClass('errortext');
+            $('#BillNo').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#NoOfPiece').val() == '') {
+            $("#NoOfPiece").addClass('errortext');
+            $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#OriginalPrice').val() == "") {
+            $("#OriginalPrice").addClass('errortext');
+            $('#OriginalPrice').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#Discount').val() == '') {
+            $("#Discount").addClass('errortext');
+            $('#Discount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#NetAmount').val() == '') {
+            $("#NetAmount").addClass('errortext');
+            $('#NetAmount').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#SaleOrderDate').val() == "") {
+            $("#SaleOrderDate").addClass('errortext');
+            $('#SaleOrderDate').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+    }
+    function calculatefinalamount()
+    {
+        var NoofPiece = $("#NoOfPiece").val();
+        var originalprice = $("#OriginalPrice").val();
+        var Discount = $("#Discount").val();
+        if(Number(NoofPiece)=="")
+        {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if (Discount == "") {
+            Discount = 0;
+        }
+        if(originalprice=="")
+        {
+            originalprice = 0;
+        }
+     var finalAmount = (Number(originalprice) - Number(Discount))
+            $("#NetAmount").val(finalAmount);
+
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('SaleOrderDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
+</script>
+
+<style>
+    .errortext{
+        border:2px solid red;
+        background:#f8a7a7!important;
+    }
+</style>
+
+
+
