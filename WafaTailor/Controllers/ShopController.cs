@@ -43,7 +43,6 @@ namespace WafaTailor.Controllers
         [HttpPost]
         public JsonResult SaveSaleOrder(Shop order, string dataValue)
         {
-
             try
             {
                 //order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
@@ -129,9 +128,11 @@ namespace WafaTailor.Controllers
                     Shop obj = new Shop();
                     obj.SaleOrderId = r["Fk_SaleOrderId"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
-                    //obj.SalesOrderNo = r["SalesOrderNo"].ToString();
+                    obj.TotalDeliveredPiece = r["TotalPiece"].ToString();
+                    obj.NetAmount = r["TotalAmount"].ToString();
                     obj.customerName = r["customerName"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
+                    //obj.SalesOrderNo = r["SalesOrderNo"].ToString();
                     lst.Add(obj);
                 }
                 model.lstShopRegistration = lst;
@@ -968,6 +969,138 @@ namespace WafaTailor.Controllers
                 model.RefundDate = ds.Tables[0].Rows[0]["RefundDate"].ToString();
             }
             return View(model);
+        }
+
+        public ActionResult ShopSaleOrderNew(Shop obj)
+        {
+            #region Customer
+            List<SelectListItem> ddlcustomer = new List<SelectListItem>();
+            DataSet ds1 = obj.GetCustomerDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlcustomer.Add(new SelectListItem { Text = "Select Customer", Value = "0" });
+                    }
+                    ddlcustomer.Add(new SelectListItem { Text = r["CustomerName"].ToString(), Value = r["PK_UserId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlcustomer = ddlcustomer;
+            #endregion
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ActionName("ShopSaleOrderNew")]
+        [OnAction(ButtonName = "save")]
+        public ActionResult SaveSaleOrderNew(Shop order)
+        {
+            try
+            {
+                order.SaleOrderDate = string.IsNullOrEmpty(order.SaleOrderDate) ? null : Common.ConvertToSystemDate(order.SaleOrderDate, "dd/MM/yyyy");
+                order.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = order.SaveSaleOrderNew();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["SaleOrder"] = "Sale Order Details Saved Successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                    else
+                    {
+                        TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["SaleOrder"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["SaleOrder"] = ex.Message;
+            }
+            return RedirectToAction("ShopSaleOrderNew", "Shop");
+        }
+
+
+        public ActionResult UpdateShopSaleOrderNew(Shop obj, string SaleOrderId)
+        {
+            #region Customer
+            List<SelectListItem> ddlcustomer = new List<SelectListItem>();
+            DataSet ds1 = obj.GetCustomerDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlcustomer.Add(new SelectListItem { Text = "Select Customer", Value = "0" });
+                    }
+                    ddlcustomer.Add(new SelectListItem { Text = r["CustomerName"].ToString(), Value = r["PK_UserId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlcustomer = ddlcustomer;
+            #endregion
+            if (SaleOrderId != null)
+            {
+                obj.SaleOrderId = SaleOrderId;
+                DataSet ds2 = obj.GetSaleOrderDetails();
+                if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
+                {
+                    obj.SaleOrderId = ds2.Tables[0].Rows[0]["Fk_SaleOrderId"].ToString();
+                    obj.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                    obj.TotalDeliveredPiece = ds2.Tables[0].Rows[0]["TotalPiece"].ToString();
+                    obj.NetAmount = ds2.Tables[0].Rows[0]["TotalAmount"].ToString();
+                    obj.customerName = ds2.Tables[0].Rows[0]["customerName"].ToString();
+                    obj.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                    //obj.BillId = ds2.Tables[0].Rows[0]["Pk_BillId"].ToString();
+                }
+            }
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ActionName("UpdateShopSaleOrderNew")]
+        [OnAction(ButtonName = "update")]
+        public ActionResult UpdateShopSaleOrderNewAction(Shop order)
+        {
+            try
+            {
+                order.AddedBy = Session["Pk_userId"].ToString();
+                DataSet ds = order.UpdateShopSaleOrder();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["ShopSaleOrder"] = "Sale Order Details Updated Successfully !!";
+                    }
+                    else
+                    {
+                        TempData["ShopSaleOrder"] = ds.Tables[0].Rows[0]["Msg"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["ShopSaleOrder"] = ds.Tables[0].Rows[0]["Msg"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ShopSaleOrder"] = ex.Message;
+            }
+
+            return RedirectToAction("ShopSaleOrderList", "Shop");
         }
     }
 }

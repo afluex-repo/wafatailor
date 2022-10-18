@@ -352,6 +352,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Amount",Balance),
                 new SqlParameter("@RefundDate",RefundDate),
                 new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@Fk_Shopid",AddedBy)
             };
             DataSet ds = DBHelper.ExecuteQuery("RefundSaleOrder", para);
             return ds;
@@ -379,6 +380,51 @@ namespace WafaTailor.Models
             return ds;
         }
 
-       
+        public DataSet SaveSaleOrderNew()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@Fk_Userid",AddedBy),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@Discount",Discount),
+                new SqlParameter("@NetAmount",NetAmount),
+                new SqlParameter("@SaleOrderDate",SaleOrderDate),
+                new SqlParameter("@Description",Description),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Mobile",Mobile),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetailsNew", para);
+            return ds;
+        }
+
+        public DataSet GetSaleOrderDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Pk_Saleorderid",SaleOrderId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
+            return ds;
+        }
+
+        public DataSet UpdateShopSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@OriginalPrice",NetAmount),
+                new SqlParameter("@TotalDeliveredPiece",TotalDeliveredPiece),
+                 new SqlParameter("@SaleOrderId",SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
+            return ds;
+        }
     }
 }

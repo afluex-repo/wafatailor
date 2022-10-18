@@ -1,11 +1,11 @@
-﻿@model WafaTailor.Models.SaleOrder
+﻿@model WafaTailor.Models.Shop
 
 @{
-    ViewBag.Title = "UpdateSaleOrder";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "UpdateShopSaleOrderNew";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-@using (Html.BeginForm("UpdateSaleOrder", "SaleOrder", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UpdateShopSaleOrderNew", "Shop", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
         <!-- start page content -->
     <div class="page-content-wrapper">
@@ -23,56 +23,50 @@
                         <div class="card-head">
                             <header>Update Sale Order</header>
                             <span style="color:red;">@TempData["Order"]</span>
-                            <a href="/SaleOrder/SaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                            <a href="/Shop/ShopSaleOrderList" class="btn btn-primary pull-right mr-10 mb-1 mt-1"><i class="fa fa-arrow-left"></i> Back to List</a>
                         </div>
                         <div class="card-body" id="bar-parent">
                             <div class="row">
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">Shop</label>
-                                        @Html.TextBoxFor(m => m.ShopName, new { @class = "form-control", @placeholder = "Shop Name", @disabled= "disabled" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer</label>
-                                        @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
-                                      
+                                        @Html.TextBoxFor(m => m.customerName, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
+
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No</label>
                                         @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8", @disabled = "disabled" })
 
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Bill No</label>
                                         @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", @disabled = "disabled" })
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">No Of Piece</label>
                                         @Html.TextBoxFor(m => m.TotalDeliveredPiece, new { @class = "form-control", @Placeholder = "No Of Piece" })
 
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormPassword">Amount</label>
                                         @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control", @Placeholder = " Amount", @onkeypress = "return isNumberOrDecimal(event);" })
                                     </div>
                                 </div>
                             </div>
-                                <div class="form-group col-sm-4">
-                                   @Html.HiddenFor(m => m.SaleOrderId)
-                                    <input type="submit" class="btn btn-primary" id="Update" name="Update" value="Update">
-                                </div>
-                            
+                            <div class="form-group col-sm-4">
+                                @Html.HiddenFor(m => m.SaleOrderId)
+                                <input type="submit" class="btn btn-primary" id="update" name="update" value="Update">
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -97,6 +91,8 @@
     }
 
 </script>
+
+
 
 
 
