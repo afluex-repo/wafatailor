@@ -550,10 +550,8 @@ namespace WafaTailor.Controllers
         [OnAction(ButtonName = "Update")]
         public ActionResult UpdateSaleOrderAction(SaleOrder order)
         {
-           
             try
             {
-              
                 order.AddedBy = Session["Pk_EmployeeId"].ToString();
                 DataSet ds = order.UpdateSaleOrder();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
