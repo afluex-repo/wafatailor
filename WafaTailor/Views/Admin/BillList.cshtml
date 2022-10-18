@@ -13,6 +13,14 @@
         z-index: 99;
         background-color: white;
     }
+    .dataTables_scrollBody
+    {
+        max-height:540px !important;
+    }
+    .card .dataTable td
+    {
+        padding:3px 5px !important;
+    }
 </style>
 
 @using (Html.BeginForm("BillList", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
@@ -91,7 +99,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody style="max-height:1000px !important;">
+                                <tbody>
                                     @if (Model != null)
                                     {
                                         if (Model.lstList != null)
