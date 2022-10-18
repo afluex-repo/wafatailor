@@ -79,6 +79,3 @@ namespace WafaTailor.Models
         }
     }
 }
-
-
-

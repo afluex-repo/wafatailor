@@ -35,52 +35,108 @@
                                         @Html.DropDownListFor(m => m.ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                    @if (Model.BillId != null && Model.Pk_BillPaymentId != null)
+                                    {
+                                    <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                    <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();", @disabled = "disabled" })
                                         @Html.HiddenFor(m => m.Pk_UserId)
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
+                                    <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8", @disabled = "disabled" })
 
+                                    </div>
+                                </div>
+                                                                
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", @disabled="disabled"})
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date", @Readonly = "true" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Customer<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Customer Name", @onchange = "return changeCustomer();" })
+                                                @Html.HiddenFor(m => m.Pk_UserId)
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormEmail">Mobile No<span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "8", @Minlength = "8" })
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <div class="form-group">
+                                                <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
+                                                @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo"})
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Total Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Total No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormPassword">Bill No <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = " BillNo", })
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">No Of Piece <span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = " No Of Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                        <label for="simpleFormEmail">Total Amount <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Total Amount", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">Original Price <span style="color:red">*</span></label>
-                                       @Html.TextBoxFor(m => m.OriginalPrice, new { @class = "form-control", @placeholder = "Original Price", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
+                                        <label for="simpleFormEmail">Paid Amount<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Advance, new { @class = "form-control", @placeholder = "Paid Amount", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Delivered Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.DeliveredPiece, new { @class = "form-control", @Placeholder = "Delivered Piece", @onkeypress = "return isNumberOrDecimal(event);", onchange = "return calculateremainingPiece()" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail"> Remaining Piece <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RemainingPiece, new { @class = "form-control", @Placeholder = "Remaining Piece", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculateremainingPiece()" })
+                                    </div>
+                                </div>
+
+                             
+                                <div class="form-group col-sm-3" style="display: none;">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Final Price<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.FinalPrice, new { @class = "form-control", @placeholder = "Final Price",@Readonly="true" })
+                                        @Html.TextBoxFor(m => m.FinalPrice, new { @class = "form-control", @placeholder = "Final Price", @Readonly = "true" })
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <div class="form-group">
-                                        <label for="simpleFormEmail">Advance<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.Advance, new { @class = "form-control", @placeholder = "Advance", @onkeypress = "return isNumberOrDecimal(event);", onInput = "return calculatefinalamount()" })
-                                    </div>
-                                </div>
+                             
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">Remaining Balance<span style="color:red">*</span></label>
@@ -88,15 +144,26 @@
                                     </div>
                                 </div>
 
+                              
+
                                 <div class="form-group col-sm-3">
                                     <div class="form-group">
-                                        <label for="simpleFormEmail">Bill Date<span style="color:red">*</span></label>
-                                        @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control", @placeholder = "Bill Date" })
+                                        <label for="simpleFormEmail">Status<span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.BindStatus, "Value", "Text"), new { @class = "form-control" })
                                     </div>
                                 </div>
 
+
                                 <div class="form-group col-sm-4 mt-4">
+                                    @Html.HiddenFor(m => m.BillId)
+                                    @Html.HiddenFor(m => m.Pk_BillPaymentId)
+                                    @if (Model.BillId != null && Model.Pk_BillPaymentId != null)
+                                    {
+                                    <input type="submit" class="btn btn-primary" id="UpdateBill" name="UpdateBill" value="Update">
+                                    }
+                                   else {
                                     <input type="submit" class="btn btn-primary" id="SaveBill" name="SaveBill" value="Submit" onclick="return Validateform()">
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -122,7 +189,7 @@
             success: function (response) {
                 if (response != null) {
                     $(response).each(function (index, item) {
-                        cityuse.push(item.Name + "(" + item.Mobile + ")");
+                        cityuse.push(item.Name + "(" + item.LoginId + ")");
                     });
                     debugger
                     $('#LoginId').autocomplete({
@@ -142,21 +209,18 @@
             }
         });
     });
-    function changeCustomer() {
-        var Mobile = $("#Pk_UserId").val();
-        if(Mobile=="")
-        {
-            $("#Mobile").val("");
-        }
-        else {
-            $("#Mobile").val(Mobile);
-        }
-    }
-
-    function Validateform()
-    {
+    //function changeCustomer() {
+    //    var Mobile = $("#Pk_UserId").val();
+    //    if (Mobile == "") {
+    //        $("#Mobile").val("");
+    //    }
+    //    else {
+    //        $("#Mobile").val(Mobile);
+    //    }
+    //}
+    function Validateform() {
         $(".errortext").removeClass("errortext");
-
+       
         if ($('#ShopId').val() == '0') {
             $("#ShopId").addClass('errortext');
             $('#ShopId').focus();
@@ -188,6 +252,19 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+        if ($('#DeliveredPiece').val() == '') {
+            $("#DeliveredPiece").addClass('errortext');
+            $('#DeliveredPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#RemainingPiece').val() == '') {
+            $("#RemainingPiece").addClass('errortext');
+            $('#RemainingPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
         if ($('#OriginalPrice').val() == '') {
             $("#OriginalPrice").addClass('errortext');
             $('#OriginalPrice').focus();
@@ -220,6 +297,7 @@
             return false;
         }
     }
+
     function isNumberOrDecimal(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if (charCode != 46 && charCode > 31
@@ -228,7 +306,6 @@
 
         return true;
     }
-
 
     function calculatefinalamount() {
         var NoofPiece = $("#NoOfPiece").val();
@@ -243,6 +320,7 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+
         if (Advance == "") {
             Advance = 0;
         }
@@ -258,7 +336,8 @@
 
         debugger;
         if (RemainingBalance < 0) {
-            alert('Remaining Amount Should be grater than Advance Amount')
+            //alert('Remaining Amount Should be grater than Advance Amount')
+            alert('Remaining Amount Should be grater than Paid Amount')
             $("#Advance").val("");
 
             if ($("#Advance").val("")) {
@@ -273,14 +352,78 @@
             $("#RemainningBalance").val(RemainingBalance);
         }
     }
+    function calculateremainingPiece() {
+        var NoofPiece = $("#NoOfPiece").val();
+        var deliveredpiece = $("#DeliveredPiece").val();
+        var remainingpiece = $("#RemainingPiece").val();
+        if (Number(NoofPiece) == "") {
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
 
+        if (remainingpiece == "") {
+            remainingpiece = 0;
+        }
+        if (deliveredpiece == "") {
+            deliveredpiece = 0;
+        }
+        var remainingpiece = (Number(NoofPiece) - Number(deliveredpiece))
+        $("#RemainingPiece").val(remainingpiece);
+
+        debugger;
+        if (Number(remainingpiece) > Number(NoofPiece)) {
+            alert('Remaining Piece Should be grater than Advance Amount')
+            $("#RemainingPiece").val("");
+        }
+        else {
+            $("#RemainingPiece").val(remainingpiece);
+        }
+    }
+    function changeCustomer() {
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var UserId = $('#Pk_UserId').val();
+        $.ajax({
+            url: '/SaleOrder/GetUserDetails', type: 'post', dataType: 'json',
+            data: { 'LoginId': UserId },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#UserID").val(data.UserID);
+                    $("#Mobile").val(data.Mobile);
+                    $("#LoginId").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid LoginId ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#LoginId').focus();
+                    $('#LoginId').val('');
+
+                }
+            }
+        });
+    }
 </script>
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('BillDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
 </script>
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#BillDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+</script>*@
 

@@ -95,17 +95,23 @@
 
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('Date'),
         {
-            // mode: "range"
-        });
-    var f3 = flatpickr(document.getElementById('TransactionDate'),
-        {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
 </script>
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#Date').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+</script>*@
 
 <script>
     function getpaymentdetails() {

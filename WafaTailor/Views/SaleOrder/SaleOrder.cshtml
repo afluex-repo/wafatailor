@@ -72,7 +72,7 @@
                                         <table class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Piece Name</th>
+                                                    @*<th>Piece Name</th>*@
                                                     <th>No Of Piece</th>
                                                     <th>Original Price</th>
                                                     <th>Discount</th>
@@ -84,9 +84,9 @@
                                             </thead>
                                             <tbody id="originaltable">
                                                 <tr>
-                                                    <td>
+                                                    @*<td>
                                                         @Html.TextBoxFor(m => m.PriceName, new { @class = "form-control name", @placeholder = "Price Name", @style = "width:150px" })
-                                                    </td>
+                                                    </td>*@
                                                     <td>
                                                         @Html.TextBoxFor(m => m.NoOfPiece, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control piece", @placeholder = "No Of Piece", @style = "width:150px", onInput = "return calculatefinalamount()" })
                                                     </td>
@@ -110,6 +110,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
+                                   @Html.HiddenFor(m=>m.BillId)
+                                    @Html.HiddenFor(m => m.PaymentId)
                                     <input type="submit" class="btn btn-primary" id="SaveSaleOrder" name="Save" value="Submit">
                                 </div>
                             </div>
@@ -136,7 +138,7 @@
             success: function (response) {
                 if (response != null) {
                     $(response).each(function (index, item) {
-                        cityuse.push(item.Name + "(" + item.Mobile + ")");
+                        cityuse.push(item.Name + "(" + item.LoginId + ")");
                     });
                     debugger
                     $('#LoginId').autocomplete({
@@ -157,24 +159,39 @@
         });
     });
     function changeCustomer() {
-        var Mobile = $("#Pk_UserId").val();
-        if(Mobile=="")
-        {
-            $("#Mobile").val("");
-        }
-        else {
-            $("#Mobile").val(Mobile);
-        }
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var UserId = $('#Pk_UserId').val();
+        $.ajax({
+            url: '/SaleOrder/GetUserDetails', type: 'post', dataType: 'json',
+            data: { 'LoginId': UserId },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#UserID").val(data.UserID);
+                    $("#Mobile").val(data.Mobile);
+                    $("#LoginId").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid LoginId ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#LoginId').focus();
+                    $('#LoginId').val('');
+
+                }
+            }
+        });
     }
     $("#btnAddLine").click(function () {
         var valid = true;
         $(".errortext").removeClass("errortext");
-        if ($('#PriceName').val() == '') {
-            $("#PriceName").addClass('errortext');
-            $('#PriceName').focus();
-            $("#divload").css({ 'display': 'none' });
-            return false;
-        }
+        //if ($('#PriceName').val() == '') {
+        //    $("#PriceName").addClass('errortext');
+        //    $('#PriceName').focus();
+        //    $("#divload").css({ 'display': 'none' });
+        //    return false;
+        //}
         if ($('#NoOfPiece').val() == '') {
             $("#NoOfPiece").addClass('errortext');
             $('#NoOfPiece').focus();
@@ -217,12 +234,12 @@
             //Replace add button with remove button
             $('#btnAddLine', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
             //remove id attribute from new clone row
-            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description', $newRow).removeAttr('id');
+            $('#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description', $newRow).removeAttr('id');
             $('span.error', $newRow).remove();
             //append clone row
             $('#clonetable').append($newRow);
             //clear select data
-            $('#PriceName,#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description').val('');
+            $('#NoOfPiece,#OriginalPrice,#Discount,#NetAmount,#SaleOrderDate,#Description').val('');
             $('#error').empty();
 
     })
@@ -236,13 +253,13 @@
         var clonelist = [];
         var count = 0;
         $('#clonetable tr').each(function (index, ele) {
-            if ($('.name', this).val() == "") {
+            if ($('.piece', this).val() == "") {
                 $(this).addClass('errortext');
                 count++;
             }
             else {
                 var totalItem = {
-                    Name: $('.name', this).val(),
+                    Name: "",
                     Piece: $('.piece', this).val(),
                     Originalprice: $('.originalprice', this).val(),
                     Discount: $('.discount', this).val(),
@@ -294,6 +311,8 @@
             formData.append("Pk_UserId", $('#Pk_UserId').val());
             formData.append("LoginId", $('#LoginId').val());
             formData.append("Mobile", $('#Mobile').val());
+            formData.append("BillId", $('#BillId').val());
+            formData.append("PaymentId", $('#PaymentId').val());
             formData.append("dataValue", JSON.stringify(data));
             $.ajax({
                 type: 'POST',
@@ -358,7 +377,7 @@
 <script>
     var f3 = flatpickr(document.getElementById('SaleOrderDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
 </script>
 

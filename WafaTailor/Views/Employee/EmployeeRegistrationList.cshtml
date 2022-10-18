@@ -57,13 +57,13 @@
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label> From Date</label>
-                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly="true" })
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label> To Date</label>
-                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-3">
@@ -82,13 +82,13 @@
                                         <th>Sr No.</th>
                                         @*<th>LoginId</th>*@
                                         <th>Name</th>
-                                        <th>Password</th>
+                                        @*<th>Password</th>*@
                                         <th>Joining Date</th>
                                         <th>Shop</th>
                                         <th>Contact Number</th>
-                                        <th>DOB</th>
+                                        @*<th>DOB</th>
                                         <th>Email-Id</th>
-                                        <th>Gender</th>
+                                        <th>Gender</th>*@
                                         <th>Address</th>
                                         @*<th>Salary</th>*@
                                         <th>Action</th>
@@ -107,13 +107,13 @@
                                                     <td>@i</td>
                                                     @*<td>@item.LoginId</td>*@
                                                     <td>@item.EmployeeDetails</td>
-                                                    <td>@item.Password</td>
+                                                    @*<td>@item.Password</td>*@
                                                     <td>@item.JoiningDate</td>
                                                     <td>@item.ShopName</td>
                                                     <td>@item.ContactNo</td>
-                                                    <td>@item.DOB</td>
+                                                    @*<td>@item.DOB</td>
                                                     <td>@item.Emailid</td>
-                                                    <td>@item.Gender</td>
+                                                    <td>@item.Gender</td>*@
                                                     <td>@item.EmployeeAddress</td>
                                                     @*<td>@item.Salary</td>*@
                                                     <td>
@@ -142,14 +142,31 @@
 
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
-<script src="~/BrainStewWebsite/assets/js/jquery.min.js"></script>
 <script>
     var f3 = flatpickr(document.getElementById('FromDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
     var f3 = flatpickr(document.getElementById('ToDate'),
         {
-            // mode: "range"
+            dateFormat: "d/m/Y",
         });
 </script>
+
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#FromDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+    $('#ToDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+</script>*@

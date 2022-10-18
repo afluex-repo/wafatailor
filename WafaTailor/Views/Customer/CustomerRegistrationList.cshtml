@@ -46,18 +46,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-3">
+                                    @*<div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label>Login Id </label>
                                             @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id" })
                                         </div>
-                                    </div>
-                                    @*<div class="col-lg-3 col-md-3">
+                                    </div>*@
+                                    <div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label>Name</label>
                                             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = "Name" })
                                         </div>
-                                    </div>*@
+                                    </div>
                                     <div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label>Mobile No</label>
@@ -67,13 +67,13 @@
                                     <div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label> From Date</label>
-                                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly="true" })
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-3">
                                         <div class="form-group">
                                             <label> To Date</label>
-                                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY" })
+                                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-3 mt-4">
@@ -92,8 +92,8 @@
                                         <tr>
                                             <th>Sr No. </th>
                                             <th>Name</th>
-                                            <th>Password </th>
-                                            <th>Joining Date</th>
+                                            @*<th>Password </th>*@
+                                            @*<th>Joining Date</th>*@
                                             <th>Contact Number </th>
                                             @*<th>Email </th>
                                             <th>DOB</th>
@@ -113,8 +113,8 @@
                                                     <tr class="odd gradeX">
                                                         <td>@i</td>
                                                         <td>@item.CustomerDetails</td>
-                                                        <td>@item.Password</td>
-                                                        <td>@item.JoiningDate</td>
+                                                        @*<td>@item.Password</td>*@
+                                                        @*<td>@item.JoiningDate</td>*@
                                                         <td>@item.ContactNo</td>
                                                         @*<td>@item.Emailid</td>
                                                         <td>@item.DOB</td>
@@ -151,10 +151,27 @@
     <script>
         var f3 = flatpickr(document.getElementById('FromDate'),
             {
-                // mode: "range"
+                dateFormat: "d/m/Y",
             });
         var f3 = flatpickr(document.getElementById('ToDate'),
             {
-                // mode: "range"
+                dateFormat: "d/m/Y",
             });
     </script>
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#FromDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+    $('#ToDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+</script>*@

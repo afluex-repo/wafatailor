@@ -55,7 +55,7 @@
             <div class="page-header-inner ">
                 <!-- logo start -->
                 <div class="page-logo">
-                    <a href="/Home/Index">
+                    <a href="/Admin/AdminDashBoard">
                         @*<span class="logo-icon material-icons">Wafa</span>*@
                         <span class="logo-default">Wafa Tailor</span>
                     </a>
@@ -153,7 +153,7 @@
                                     <li class="nav-item">
                                         <a href="/Master/Material" class="nav-link ">
                                             <span class="title">
-                                                Material Type
+                                                Material List
                                             </span>
                                         </a>
                                     </li>
@@ -165,13 +165,20 @@
                                     <span class="title">Registration</span><span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a href="/Employee/EmployeeRegistration" class="nav-link ">
                                             <span class="title">
                                                 Employee Registration
                                             </span>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="/Employee/DailyAttendance" class="nav-link ">
+                                            <span class="title">
+                                                Employee Attendance
+                                            </span>
+                                        </a>
+                                    </li>*@
                                     @*<li class="nav-item">
                                         <a href="/Vendor/VendorRegistration" class="nav-link ">
                                             <span class="title">
@@ -219,7 +226,8 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item">
-                                        <a href="/SaleOrder/SaleOrder" class="nav-link ">
+                                        @*<a href="/SaleOrder/SaleOrder" class="nav-link ">*@
+                                        <a href="/SaleOrder/SaleOrderNew" class="nav-link ">
                                             <span class="title">
                                                 Sale Order
                                             </span>
@@ -228,7 +236,21 @@
                                     <li class="nav-item">
                                         <a href="/SaleOrder/SaleOrderList" class="nav-link ">
                                             <span class="title">
-                                                Sale Order List
+                                                SaleOrder List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/RefundSaleOrder" class="nav-link ">
+                                            <span class="title">
+                                                Refund SaleOrder
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/SaleOrder/RefundSaleOrderList" class="nav-link ">
+                                            <span class="title">
+                                                Refund SaleOrder List
                                             </span>
                                         </a>
                                     </li>
@@ -248,10 +270,18 @@
                                             </span>
                                         </a>
                                     </li>
+                               
                                     <li class="nav-item">
-                                        <a href="/Admin/BillList" class="nav-link ">
+                                        <a href="/Admin/OrderRefund" class="nav-link ">
                                             <span class="title">
-                                                Bill List
+                                               Refund Bill
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Admin/OrderRefundList" class="nav-link ">
+                                            <span class="title">
+                                                Refund Bill List
                                             </span>
                                         </a>
                                     </li>
@@ -274,6 +304,41 @@
                                         <a href="/Expense/ExpenseList" class="nav-link ">
                                             <span class="title">
                                                 Expense List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Expense/OtherExpense" class="nav-link ">
+                                            <span class="title">
+                                               Other Expense
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Expense/OtherExpenseList" class="nav-link ">
+                                            <span class="title">
+                                                Other Expense List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                        <a href="/Expense/DailyExpenseReport" class="nav-link ">
+                                            <span class="title">
+                                                Daily Expense Report
+                                            </span>
+                                        </a>
+                                    </li>*@
+                                    <li class="nav-item">
+                                        <a href="/Expense/DeliveryExpense" class="nav-link ">
+                                            <span class="title">
+                                                Delivery Expense
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Expense/DeliveryList" class="nav-link ">
+                                            <span class="title">
+                                                Delivery Expense List
                                             </span>
                                         </a>
                                     </li>
@@ -304,6 +369,27 @@
                                         <a href="/Master/ShopMasterList" class="nav-link ">
                                             <span class="title">
                                                 Shop List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Admin/BillList" class="nav-link ">
+                                            <span class="title">
+                                                Bill List
+                                            </span>
+                                        </a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                        <a href="/Employee/DateWiseAttendanceReport" class="nav-link ">
+                                            <span class="title">
+                                                Attendance Report
+                                            </span>
+                                        </a>
+                                    </li>*@
+                                    <li class="nav-item">
+                                        <a href="/Expense/DailyExpenseReport" class="nav-link ">
+                                            <span class="title">
+                                                Daily Report
                                             </span>
                                         </a>
                                     </li>

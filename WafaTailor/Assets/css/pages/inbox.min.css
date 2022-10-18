@@ -623,7 +623,7 @@ p.date {
     padding-top: 50px;
 }
 .btn-sm {
-    margin-right: 8px;
+    /*margin-right: 8px;*/
 }
 .mail-option .todo-check input[type="checkbox"] {
     margin-top: 10px;

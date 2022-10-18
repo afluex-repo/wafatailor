@@ -37,7 +37,8 @@
                                                 <tr>
                                                     <th>Expense Type</th>
                                                     <th style="display:none" class="DivOtherexpensetype">Other Expense Type</th>
-                                                    <th>Expense</th>
+                                                    <th style="display:none" class="DivVendortype">Material</th>
+                                                    <th>Expense(Rs.)</th>
                                                     <th>Expense Date</th>
                                                     <th>Remark</th>
                                                     <th>Add</th>
@@ -54,16 +55,20 @@
                                                         @Html.DropDownListFor(m => m.OtherExpensetype, new SelectList(ViewBag.ddlOtherExpensetype, "Value", "Text"), new { @class = "form-control OtherExpensetype", @placeholder = "Other Expense Type" })
                                                     </td>
 
+                                                    <td style="width:200px;display: none" class="ThVendortype" id="345">
+                                                        @Html.DropDownListFor(m => m.Vendor, new SelectList(ViewBag.ddlVendor, "Value", "Text"), new { @class = "form-control Vendortype", @placeholder = "Vendor" })
+                                                    </td>
+
 
                                                     <td>
                                                         @Html.TextBoxFor(m => m.ExpenseRupee, new { @onkeypress = "return isNumberOrDecimal(event);", @class = "form-control expenseRupee", @placeholder = "Expense", @style = "width:200px" })
                                                     </td>
-                                                    <td>@Html.TextBoxFor(m => m.ExpenseDate, new { @class = "form-control mydatepicker", @placeholder = "Expense Date", @style = "width:200px" })
+                                                    <td>@Html.TextBoxFor(m => m.ExpenseDate, new { @class = "form-control mydatepicker", @placeholder = "Expense Date", @style = "width:200px", @ReadOnly="true" })
                                                     </td>
                                                     <td>@Html.TextAreaFor(m => m.Remark, new { @class = "form-control remark", @placeholder = "Description", @style = "width:200px" })
                                                     </td>
                                                     <td>
-                                                        <input type="button" id="btnAddLine" name="btnAddLine" value="Add Line" class="btn btn-success list-button" />
+                                                        <input type="button" id="btnAddLine" name="btnAddLine" value="Add Expense" class="btn btn-success list-button" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -75,7 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <input type="submit" class="btn btn-primary" id="SaveExpense" name="Save" value="Submit">
+                                    <input type="submit" class="btn btn-primary" id="SaveExpense" name="Save" value="Save Expense">
                                 </div>
                             </div>
                         </div>
@@ -102,6 +107,26 @@
                 $("#divload").css({ 'display': 'none' });
                 return false;
             }
+            
+            if ($("#Expensetype").val() == '4') {
+                if ($('#OtherExpensetype').val() == '') {
+                    $("#OtherExpensetype").addClass('errortext');
+                    $('#OtherExpensetype').focus();
+                    $("#divload").css({ 'display': 'none' });
+                    return false;
+                }
+            }
+
+
+            if (($("#Expensetype").val() == '1') || ($("#Expensetype").val() == '3')) {
+                if ($('#Vendor').val() == '') {
+                    $("#Vendor").addClass('errortext');
+                    $('#Vendor').focus();
+                    $("#divload").css({ 'display': 'none' });
+                    return false;
+                }
+            }
+
             if ($('#ExpenseRupee').val() == '') {
                 $("#ExpenseRupee").addClass('errortext');
                 $('#ExpenseRupee').focus();
@@ -114,33 +139,45 @@
                 $("#divload").css({ 'display': 'none' });
                 return false;
             }
-            if ($('#Remark').val() == '') {
-                $("#Remark").addClass('errortext');
-                $('#Remark').focus();
-                $("#divload").css({ 'display': 'none' });
-                return false;
+
+            if ($("#OtherExpensetype").val() != '') {
+                if ($('#Remark').val() == '') {
+                    $("#Remark").addClass('errortext');
+                    $('#Remark').focus();
+                    $("#divload").css({ 'display': 'none' });
+                    return false;
+                }
+                else {
+
+                }
             }
+            
 
         var $newRow = $('#originaltable').clone().removeAttr('id'); 
             //clonevalue
             $('.expensetype', $newRow).removeClass('errortext').prop('disabled', true).val($('#Expensetype').val());
             $('.OtherExpensetype', $newRow).removeClass('errortext').prop('disabled', true).val($('#OtherExpensetype').val());
+            $('.Vendortype', $newRow).removeClass('errortext').prop('disabled', true).val($('#Vendor').val());
             $('.expenseRupee', $newRow).removeClass('errortext').prop('disabled', true).val($('#ExpenseRupee').val());
             $('.mydatepicker', $newRow).removeClass('errortext').prop('disabled', true).val($('#ExpenseDate').val());
             $('.remark', $newRow).removeClass('errortext').prop('disabled', true).val($('#Remark').val());
             //Replace add button with remove button
             $('#btnAddLine', $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
             //remove id attribute from new clone row
-            $('#Expensetype,#OtherExpensetype,#ExpenseRupee,#ExpenseDate,#Remark', $newRow).removeAttr('id');
+            $('#Expensetype,#OtherExpensetype,#Vendor,#ExpenseRupee,#ExpenseDate,#Remark', $newRow).removeAttr('id');
             $('span.error', $newRow).remove();
             //append clone row
             $('#clonetable').append($newRow);
         //clear select data
             $('#clonetable .ThOtherexpensetype').removeClass("ThOtherexpensetype");
-            $('#Expensetype,#OtherExpensetype,#ExpenseRupee,#ExpenseDate,#Remark').val('');
+            $('#clonetable .ThVendortype').removeClass("ThVendortype");
+            $('#Expensetype,#OtherExpensetype,#Vendor,#ExpenseRupee,#ExpenseDate,#Remark').val('');
             $(".DivOtherexpensetype").hide();
             $("#OtherExpensetype").hide();
             $(".ThOtherexpensetype").hide();
+            $(".DivVendortype").hide();
+            $("#Vendor").hide();
+            $(".ThVendortype").hide();
             $('#error').empty();
 
     })
@@ -163,6 +200,7 @@
                 var totalItem = {
                     Expensetype: $('.expensetype', this).val(),
                     OtherExpensetype: $('.OtherExpensetype', this).val(),
+                    Fk_Vendorid: $('.Vendortype', this).val(),
                     ExpenseDate: $('.mydatepicker', this).val(),
                     ExpenseRupee: $('.expenseRupee', this).val(),
                     Remark: $('.remark', this).val(),
@@ -231,6 +269,20 @@
             $(".DivOtherexpensetype").hide();
             $("#OtherExpensetype").hide();
             $(".ThOtherexpensetype").hide();
+            $("#OtherExpensetype").val('');
+        }
+
+        if (($("#Expensetype").val() == '1') || ($("#Expensetype").val() == '3')) {
+            $("#Vendor").show();
+            $(".DivVendortype").show();
+            $(".ThVendortype").show();
+
+        }
+        else {
+            $(".DivVendortype").hide();
+            $("#Vendor").hide();
+            $(".ThVendortype").hide();
+            $("#Vendor").val('');
         }
     }
 
@@ -238,13 +290,13 @@
 <script src="~/plugins/flatpickr/flatpickr.js"></script>
 <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
 <script>
-    //var f3 = flatpickr(document.getElementById('ExpenseDate'),
-    //    {
-    //        // mode: "range"
-    //    });
+    var f3 = flatpickr(document.getElementById('ExpenseDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
 </script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -252,4 +304,15 @@
   $( function() {
       $("#ExpenseDate").datepicker();
   } );
-</script>
+</script>*@
+@*<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $('#ExpenseDate').datepicker({
+        format: 'dd/mm/yyyy',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: 0
+    });
+</script>*@

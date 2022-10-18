@@ -79,11 +79,11 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        //TempData["Customer"] = "Customer Registration Saved Successfully";
+                        TempData["Customer"] = "Customer Registration Saved Successfully";
                         //Session["Name"] = ds.Tables[0].Rows[0]["CustomerName"].ToString();
-                        Session["CustomerLoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString(); 
-                        Session["CustomerPassword"] = Crypto.Decrypt(ds.Tables[0].Rows[0]["Password"].ToString());
-                        FormName = "CustomerConfirmRegistration";
+                        //Session["CustomerLoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString(); 
+                        //Session["CustomerPassword"] = Crypto.Decrypt(ds.Tables[0].Rows[0]["Password"].ToString());
+                        FormName = "CustomerRegistration";
                         Controller = "Customer";
                     }
                     else
@@ -212,8 +212,8 @@ namespace WafaTailor.Controllers
         public ActionResult CustomerRegistrationListBy(Customer model)
         {
             model.LoginId = model.LoginId == "0" ? null : model.LoginId;
-            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "MM/dd/yyyy");
-            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "MM/dd/yyyy");
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             List<Customer> lst = new List<Customer>();
             DataSet ds = model.GetCustomerDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

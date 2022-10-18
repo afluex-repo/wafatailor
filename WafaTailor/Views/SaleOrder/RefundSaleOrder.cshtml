@@ -1,0 +1,181 @@
+﻿@model WafaTailor.Models.SaleOrder
+
+@{
+    ViewBag.Title = "RefundSaleOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+@using (Html.BeginForm("RefundSaleOrder", "SaleOrder", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                        @*<div class="page-title"> Employee Registration</div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Refund Sale Order</header>
+                            <span class="text-danger">
+                                @TempData["Order"]
+                            </span>
+                            <a href="/SaleOrder/RefundSaleOrderList" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Bill Number <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @placeholder = "Bill Number", @onchange = "return getBillNo();" })
+                                        @Html.HiddenFor(m => m.BillNo)
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Total Piece<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.AvailableNoOfPiece, new { @class = "form-control", @Placeholder = "Total Piece", @readonly = "true" })
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormEmail">Refund Piece<span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.NoOfPiece, new { @class = "form-control", @Placeholder = "Refund Piece", @onkeypress = "return isNumberKey(event);", @onchange = "return checkavailable()" })
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Amount <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
+                                    </div>
+
+                                    @*<div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Contact No </label>
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Contact Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8", @readonly = "true" })
+                                    </div>*@
+
+
+                                
+                                    <div class="form-group col-sm-4">
+                                        <label for="simpleFormPassword">Refund Date <span style="color:red">*</span></label>
+                                        @Html.TextBoxFor(m => m.RefundDate, new { @class = "form-control", @Placeholder = "Refund Date", @Readonly = "true" })
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary" name="Save" value="Submit" onclick="return Validateform()">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+    function getBillNo() {
+        $("#divload").css({ 'display': '' });
+        var BillNo = $('#BillNo').val();
+        debugger;
+
+            $.ajax({
+                url: '/SaleOrder/GetAvailableBill', type: 'post', dataType: 'json',
+                data: { 'BillNo': BillNo },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                 if (data.Result == "yes") {
+                     $("#AvailableNoOfPiece").val(data.NoOfPiece);
+                     $("#Mobile").val(data.Mobile);
+                        $("#BillNo").removeClass('errortext');
+                        $("#AvailableNoOfPiece").removeClass('errortext');
+                        $("#Mobile").removeClass('errortext');
+                 }
+                    else {
+                      alert(data.Result);
+                        $("#AvailableNoOfPiece").val('');
+                        $("#AvailableNoOfPiece").addClass('errortext');
+                        $("#Mobile").val('');
+                        $("#Mobile").addClass('errortext');
+                        $("#BillNo").addClass('errortext');
+                        $('#BillNo').focus();
+                        $('#BillNo').val('');
+
+                    }
+                }
+            });
+        }
+    function Validateform()
+    {
+        $("#divload").css({ 'display': '' })
+        $(".errortext").removeClass("errortext");
+
+        if ($("#BillNo").val() == "") {
+            $("#BillNo").addClass('errortext');
+            $("#BillNo").focus();
+            return false;
+        }
+        //if ($("#PieceName").val() == "") {
+        //    $("#PieceName").addClass('errortext');
+        //    $("#PieceName").focus();
+        //    return false;
+        //}
+        if ($("#NoOfPiece").val() == "") {
+            $("#NoOfPiece").addClass('errortext');
+            $("#NoOfPiece").focus();
+            return false;
+        }
+        if ($("#Mobile").val() == "") {
+            $("#Mobile").addClass('errortext');
+            $("#Mobile").focus();
+            return false;
+        }
+        if ($("#Balance").val() == "") {
+            $("#Balance").addClass('errortext');
+            $("#Balance").focus();
+            return false;
+        }
+        if ($("#RefundDate").val() == "") {
+            $("#RefundDate").addClass('errortext');
+            $("#RefundDate").focus();
+            return false;
+        }
+
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function checkavailable()
+    {
+        var availablepiece = $("#AvailableNoOfPiece").val();
+        var refuncdpiece = $("#NoOfPiece").val();
+        if (Number(refuncdpiece) > Number(availablepiece)) {
+            alert('You Can Not Refund Greater Than Available Piece');
+            $("#NoOfPiece").val('');
+            $("#NoOfPiece").addClass('errortext');
+            $("#NoOfPiece").focus();
+            return false;
+        }
+    }
+
+</script>
+
+<script src="~/plugins/flatpickr/flatpickr.js"></script>
+<script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+<script>
+    var f3 = flatpickr(document.getElementById('RefundDate'),
+        {
+            dateFormat: "d/m/Y",
+        });
+</script>
+
+

@@ -6629,7 +6629,7 @@ ul.activity-list .activity-desk h5 a {
 }
 .table .btn {
   margin-left: 0;
-  margin-right: 5px;
+  /*margin-right: 5px;*/
 }
 .table thead tr th {
   font-size: 14px;
@@ -9431,4 +9431,8 @@ nav-tabs > li {
     {
         font-size:14px !important;
     }
+}
+.w-100
+{
+    width:50px;
 }

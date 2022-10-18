@@ -9,7 +9,7 @@ using WafaTailor.Models;
 
 namespace WafaTailor.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : AdminBaseController
     {
         // GET: Admin
         public ActionResult AdminDashBoard(Admin model)
@@ -25,7 +25,7 @@ namespace WafaTailor.Controllers
             }
             if (ds != null && ds.Tables[4].Rows.Count > 0 && ds.Tables.Count > 0)
             {
-                foreach(DataRow dr in ds.Tables[4].Rows)
+                foreach (DataRow dr in ds.Tables[4].Rows)
                 {
                     Admin obj = new Admin();
                     obj.FirstName = dr["FirstName"].ToString();
@@ -39,7 +39,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult AdminProfile(Admin model)
         {
             model.EmployeeId = Session["Pk_EmployeeId"].ToString();
@@ -58,7 +57,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult ChangePassword()
         {
             return View();
@@ -88,8 +86,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ChangePassword", "Admin");
         }
-
-
         public ActionResult VendorListForAdmin()
         {
             Admin model = new Admin();
@@ -131,7 +127,7 @@ namespace WafaTailor.Controllers
                     Admin obj = new Admin();
                     obj.FK_UserId = r["PK_UserId"].ToString();
                     obj.LoginId = r["LoginId"].ToString();
-                    obj.Password =Crypto.Decrypt(r["Password"].ToString());
+                    obj.Password = Crypto.Decrypt(r["Password"].ToString());
                     obj.Name = r["Name"].ToString();
                     obj.Address = r["Address"].ToString();
                     obj.DOB = r["DOB"].ToString();
@@ -145,8 +141,7 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
-        public ActionResult BillEntry(Admin model)
+        public ActionResult BillEntry(Admin model, string BillId, string PaymentId)
         {
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
@@ -184,9 +179,35 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
+
+            if(BillId != null && PaymentId != null)
+            {
+                model.BillId = BillId;
+                model.Pk_BillPaymentId = PaymentId;
+                model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                DataSet ds2 = model.GetBillDetails();
+                if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+                {
+                    model.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
+                    model.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
+                    model.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
+                    model.BillNo = ds2.Tables[0].Rows[0]["BillNo"].ToString();
+                    model.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.DeliveredPiece = ds2.Tables[0].Rows[0]["DeliveredPiece"].ToString();
+                    model.RemainingPiece = ds2.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                    model.OriginalPrice = ds2.Tables[0].Rows[0]["OriginalPrice"].ToString();
+                    model.FinalPrice = ds2.Tables[0].Rows[0]["FinalAmount"].ToString();
+                    model.Advance = ds2.Tables[0].Rows[0]["AdavanceAmount"].ToString();
+                    model.RemainningBalance = ds2.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                    model.BillDate = ds2.Tables[0].Rows[0]["BillDate"].ToString();
+                    model.Status = ds2.Tables[0].Rows[0]["Status"].ToString();
+                }
+            }
+
+            List<SelectListItem> Status = Common.BindStatus();
+            ViewBag.BindStatus = Status;
             return View(model);
         }
-
         [HttpPost]
         [ActionName("BillEntry")]
         [OnAction(ButtonName = "SaveBill")]
@@ -194,10 +215,10 @@ namespace WafaTailor.Controllers
         {
             try
             {
+                model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
-                DataSet ds = new DataSet();
-                ds = model.SaveBillEntry();
-                if (ds != null  && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                DataSet ds = model.SaveBillEntry();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
@@ -213,20 +234,23 @@ namespace WafaTailor.Controllers
                     TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["BillEntry"] = ex.Message;
             }
             return RedirectToAction("BillEntry", "Admin");
         }
-
         public ActionResult BillList(Admin model, string LoginId)
         {
+
             List<Admin> lst = new List<Admin>();
-            if(LoginId !="")
+            if (LoginId != "")
             {
                 model.LoginId = LoginId;
             }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+          
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -238,18 +262,79 @@ namespace WafaTailor.Controllers
                     obj.Name = r["Name"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
                     obj.OriginalPrice = r["OriginalPrice"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.BillDate = r["BillDate"].ToString();
                     obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
                     obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
                     lst.Add(obj);
                 }
                 model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece))); 
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
             return View(model);
         }
+        [HttpPost]
+        [ActionName("BillList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult BillListSearch(Admin model, string LoginId)
+        {
 
+            List<Admin> lst = new List<Admin>();
+            if (LoginId != "")
+            {
+                model.LoginId = LoginId;
+            }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            DataSet ds = model.GetBillDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.BillDate = r["BillDate"].ToString();
+                    obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece)));
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
+            }
+            return View(model);
+        }
         public ActionResult PrintBill(string BillId, string PaymentId)
         {
             List<Admin> lstbill = new List<Admin>();
@@ -277,7 +362,7 @@ namespace WafaTailor.Controllers
 
             return View(model);
         }
-        public ActionResult BillPayment(string BillId , string PaymentId)
+        public ActionResult BillPayment(string BillId, string PaymentId)
         {
             Admin model = new Admin();
             model.BillId = BillId;
@@ -300,21 +385,29 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
+
+            List<SelectListItem> ItemStatus = Common.BindStatus();
+            ViewBag.ItemStatus = ItemStatus;
+
             DataSet ds = model.GetBillDetails();
-            if (ds !=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 model.ShopId = ds.Tables[0].Rows[0]["Fk_Shopid"].ToString();
                 model.BillId = ds.Tables[0].Rows[0]["Pk_BillId"].ToString();
                 model.FinalPrice = ds.Tables[0].Rows[0]["FinalAmount"].ToString();
                 model.RemainningBalance = ds.Tables[0].Rows[0]["RemainingBalance"].ToString();
+                //model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["RemainingBalance"].ToString());
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
                 //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
+               model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                model.TotalDeliveredPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
                 model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                model.TotalPaid= ds.Tables[0].Rows[0]["TotalPaid"].ToString();
+                model.TotalPaid = ds.Tables[0].Rows[0]["TotalPaid"].ToString();
                 model.FK_UserId = ds.Tables[0].Rows[0]["Fk_UserId"].ToString();
+                model.Status = ds.Tables[0].Rows[0]["Status"].ToString();
             }
             return View(model);
         }
@@ -332,7 +425,7 @@ namespace WafaTailor.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["BillEntry"] = "Bill Entry saved Successfully !!";
+                        TempData["BillEntry"] = "Payment Successfully !!";
                     }
                     else if (ds.Tables[0].Rows[0][0].ToString() == "0")
                     {
@@ -350,12 +443,10 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillPayment", "Admin");
         }
-
         public ActionResult OrderRefund()
         {
             return View();
         }
-
         [HttpPost]
         [ActionName("OrderRefund")]
         [OnAction(ButtonName = "Save")]
@@ -364,12 +455,13 @@ namespace WafaTailor.Controllers
             try
             {
                 model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                model.RefundDate = string.IsNullOrEmpty(model.RefundDate) ? null : Common.ConvertToSystemDate(model.RefundDate, "dd/MM/yyyy");
                 DataSet ds = model.OrderRefund();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["msg"].ToString() == "1")
                     {
-                        TempData["Order"] = "Refund Order saved Successfully !!";
+                        TempData["Order"] = "Order Refund saved Successfully !!";
                     }
                     else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "0")
                     {
@@ -387,7 +479,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("OrderRefund", "Admin");
         }
-
         public ActionResult OrderRefundList(Admin model)
         {
             List<Admin> lst = new List<Admin>();
@@ -398,18 +489,18 @@ namespace WafaTailor.Controllers
                 {
                     Admin obj = new Admin();
                     obj.RefundId = r["Pk_RefundId"].ToString();
-                    obj.PieceName = r["PieceName"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.PieceName = r["PieceName"].ToString();
+                    obj.NoOfPiece = r["RefundPiece"].ToString();
                     obj.Mobile = r["Mobile"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
                     obj.Balance = Convert.ToDecimal(r["Amount"].ToString());
+                    obj.RefundDate = r["RefundDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;
             }
             return View(model);
         }
-
         public ActionResult GetAvailableBill(string BillNo)
         {
             Admin obj = new Admin();
@@ -419,16 +510,17 @@ namespace WafaTailor.Controllers
                 DataSet ds = obj.GetBill();
                 if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString()=="1")
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         obj.NoOfPiece = ds.Tables[0].Rows[0]["AvailablePiece"].ToString();
+                        obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                         obj.Result = "yes";
                     }
-                    else if(ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
                     {
                         obj.NoOfPiece = "0";
                         obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                    } 
+                    }
                 }
                 else
                 {
@@ -442,7 +534,6 @@ namespace WafaTailor.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult PrintOrderRefund(string RefundId)
         {
             Admin model = new Admin();
@@ -453,21 +544,50 @@ namespace WafaTailor.Controllers
                 ViewBag.CustomerName = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.CustomerMobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
-
-                model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
-                model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
+                //model.PieceName = ds.Tables[0].Rows[0]["PieceName"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 model.Balance = Convert.ToDecimal(ds.Tables[0].Rows[0]["Amount"].ToString());
-                model.AvailableNoOfPiece = ds.Tables[0].Rows[0]["AvailableNoOfPiece"].ToString();
-                model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                model.NoOfPiece = ds.Tables[0].Rows[0]["ReturnPiece"].ToString();
             }
             return View(model);
         }
-
-
-
-
+        [HttpPost]
+        [ActionName("BillEntry")]
+        [OnAction(ButtonName = "UpdateBill")]
+        public ActionResult UpdateBillEntry(Admin model, string BillId, string Pk_BillPaymentId)
+        {
+            try
+            {
+                if(BillId != null && Pk_BillPaymentId != null)
+                {
+                    model.BillId = BillId;
+                    model.Pk_BillPaymentId = Pk_BillPaymentId;
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    model.BillDate = string.IsNullOrEmpty(model.BillDate) ? null : Common.ConvertToSystemDate(model.BillDate, "dd/MM/yyyy");
+                    DataSet ds = model.UpdateBillEntry();
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["BillEntry"] = "Bill Details Updated Successfully !!";
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["BillEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["BillEntry"] = ex.Message;
+            }
+            return RedirectToAction("BillEntry", "Admin");
+        }
     }
-    
 }
 
