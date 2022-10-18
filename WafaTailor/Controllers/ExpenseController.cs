@@ -140,7 +140,7 @@ namespace WafaTailor.Controllers
                     Expense obj = new Expense();
                     obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
                     obj.ExpenseName = r["ExpenseName"].ToString();
-                    //obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
                     obj.Expenses = r["Expense"].ToString();
                     obj.Remark = r["Remark"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
@@ -186,7 +186,7 @@ namespace WafaTailor.Controllers
                     Expense obj = new Expense();
                     obj.Pk_ExpenseId = r["Pk_ExpenseId"].ToString();
                     obj.ExpenseName = r["ExpenseName"].ToString();
-                    //obj.OtherExpenseName = r["OtherExpenseName"].ToString();
+                    obj.OtherExpenseName = r["OtherExpenseName"].ToString();
                     obj.Expenses = r["Expense"].ToString();
                     obj.Remark = r["Remark"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
