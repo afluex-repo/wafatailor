@@ -18,7 +18,7 @@ namespace WafaTailor.Models
             {
               
                 connectionString = "Data Source=103.48.51.111,1232;Initial Catalog=wafatailordb; User Id=tailoruser; Password=tailor@*12%; Integrated Security=false;";
-             
+            
             }
             catch (Exception)
             {
