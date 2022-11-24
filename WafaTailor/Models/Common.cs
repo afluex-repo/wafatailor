@@ -91,7 +91,7 @@ namespace WafaTailor.Models
         public static List<SelectListItem> BindStatus()
         {
             List<SelectListItem> Status = new List<SelectListItem>();
-
+            Status.Add(new SelectListItem { Text = "-Select Status-", Value = "" });
             Status.Add(new SelectListItem { Text = "UnPaid/Not Delivered", Value = "UnPaid/Not Delivered" });
             Status.Add(new SelectListItem { Text = "Paid/ Not Delivered", Value = "Paid/ Not Delivered" });
             Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/ Delivered" });

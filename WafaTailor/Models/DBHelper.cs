@@ -14,6 +14,7 @@ namespace WafaTailor.Models
 
         static DBHelper()
         {
+
             try
             {
               

@@ -591,6 +591,11 @@
     <Content Include="Views\SaleOrder\SaleOrderNew.cshtml" />
     <Content Include="Views\Shop\ShopSaleOrderNew.cshtml" />
     <Content Include="Views\Shop\UpdateShopSaleOrderNew.cshtml" />
+    <Content Include="Views\Admin\ProductMaster.cshtml" />
+    <Content Include="Views\Admin\StockEntry.cshtml" />
+    <Content Include="Views\Admin\StockEntryList.cshtml" />
+    <Content Include="Views\Admin\ProductList.cshtml" />
+    <Content Include="Views\Shop\StockEntryList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

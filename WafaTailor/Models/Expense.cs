@@ -49,7 +49,9 @@ namespace WafaTailor.Models
         public string Date { get; set; }
         public string DeliveryId { get; set; }
 
-
+        public string ShopId { get; set; }
+        public string ShopName { get; set; }
+        
 
         public DataSet GetExpenseType()
         {
