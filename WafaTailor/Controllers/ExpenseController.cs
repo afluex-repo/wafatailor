@@ -417,6 +417,7 @@ namespace WafaTailor.Controllers
                     obj.Material = r["Material"].ToString();
                     obj.Other = r["Other"].ToString();
                     obj.Profit = r["Profit"].ToString();
+                    //obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstexpense = lst;

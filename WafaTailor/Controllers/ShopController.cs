@@ -1102,5 +1102,32 @@ namespace WafaTailor.Controllers
 
             return RedirectToAction("ShopSaleOrderList", "Shop");
         }
+
+        
+        public ActionResult StockEntryList(Shop model)
+        {
+            List<Shop> lst = new List<Shop>();
+            model.Fk_ShopId = Session["Pk_userId"].ToString();
+            DataSet ds = model.GetStockEntryList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Shop obj = new Shop();
+                    obj.PK_StockId = r["PK_StockId"].ToString();
+                    obj.Fk_ProductId = r["Fk_ProductId"].ToString();
+                    obj.ProductName = r["ProductName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.Amount = r["AmountPerPiece"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstStockEntry = lst;
+            }
+            return View(model);
+        }
+
+
+
     }
 }

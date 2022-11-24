@@ -1,0 +1,86 @@
+﻿@model WafaTailor.Models.Admin
+
+@{
+    ViewBag.Title = "ProductMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ProductMaster", "Admin", FormMethod.Post, new { @Id = "form", @enctype = "multipart/Form-data" }))
+{
+
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class="pull-left">
+                    </div>
+                    @*<ol class="breadcrumb page-breadcrumb pull-right">
+                            <li>
+                                <i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                                                                   href="/Admin/AdminDashBoard">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                Change Password &nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="active"> Change Password</li>
+                        </ol>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Product Master</header>
+                            <span style="color:red;">@TempData["ProductMaster"]</span>
+                            <a href="/Admin/ProductList" class="btn btn-primary pull-right mr-10 mt-1 mb-1"><i class="fa fa-arrow-left"></i> Back to List</a>
+                        </div>
+                        <div class="card-body" id="bar-parent">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="hidden" id="Pk_ProductId" name="Pk_ProductId" value="@Model.Pk_ProductId" />
+                                            <label class="col-form-label">Product Name<span style="color:red">*</span></label>
+                                            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @placeholder = "Product Name" })
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary" id="btnSave" name="btnSave" value="Save" onclick="return Validateform()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script>
+
+    var Pk_ProductId = $("#Pk_ProductId").val();
+    if (Pk_ProductId != 0) {
+        $("#btnSave").val('Update');
+    }
+
+    function Validateform() {
+        $("#Old").css({ 'display': '' })
+        $(".errortext").removeClass("errortext");
+
+        if ($("#ProductName").val() == "") {
+            $("#ProductName").addClass('errortext');
+            $("#ProductName").focus();
+            return false;
+        }
+    }
+
+</script>
+
+
