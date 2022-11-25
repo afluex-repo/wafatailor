@@ -97,7 +97,7 @@ namespace WafaTailor.Models
             Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/ Delivered" });
             Status.Add(new SelectListItem { Text = "Paid/ Delivered", Value = "Paid/ Delivered" });
             //Status.Add(new SelectListItem { Text = "Sale Order", Value = "Sale Order" });
-            Status.Add(new SelectListItem { Text = "Cancel", Value = "Cancle" });
+            Status.Add(new SelectListItem { Text = "Cancel", Value = "Cancel" });
             return Status;
         }
         public DataSet GetStateCity()
