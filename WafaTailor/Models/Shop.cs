@@ -76,6 +76,14 @@ namespace WafaTailor.Models
         public string RefundId { get; set; }
         public string AvailableNoOfPiece { get; set; }
 
+        public List<Shop> lstStockEntry { get; set; }
+        public string PK_StockId { get; set; }
+        public string Fk_ProductId { get; set; }
+        public string Fk_ShopId { get; set; }
+        public string ProductName { get; set; }
+        public string Amount { get; set; }
+        public string ShopName { get; set; }
+
         #endregion
 
         public DataSet GetCustomerDetails()
@@ -380,6 +388,75 @@ namespace WafaTailor.Models
             return ds;
         }
 
-       
+        public DataSet SaveSaleOrderNew()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@BillNo",BillNo),
+                new SqlParameter("@Fk_ShopId",AddedBy),
+                new SqlParameter("@Fk_Userid",AddedBy),
+                new SqlParameter("@NoOfPiece",NoOfPiece),
+                new SqlParameter("@OriginalPrice",OriginalPrice),
+                new SqlParameter("@Discount",Discount),
+                new SqlParameter("@NetAmount",NetAmount),
+                new SqlParameter("@SaleOrderDate",SaleOrderDate),
+                new SqlParameter("@Description",Description),
+                new SqlParameter("@Name",LoginId),
+                new SqlParameter("@Mobile",Mobile),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetailsNew", para);
+            return ds;
+        }
+
+        public DataSet GetSaleOrderDetails()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@ShopLoginId",ShopLoginId),
+                new SqlParameter("@CustomerLoginId",LoginId),
+                new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Pk_Saleorderid",SaleOrderId)
+                //new SqlParameter("@FromDate", FromDate),
+                //new SqlParameter("@ToDate", ToDate),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
+            return ds;
+        }
+
+        public DataSet UpdateShopSaleOrder()
+        {
+            SqlParameter[] para ={
+                new SqlParameter("@AddedBy",AddedBy),
+                new SqlParameter("@OriginalPrice",NetAmount),
+                new SqlParameter("@TotalDeliveredPiece",TotalDeliveredPiece),
+                 new SqlParameter("@SaleOrderId",SaleOrderId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
+            return ds;
+        }
+
+        public DataSet GetStockEntryList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_StockId",PK_StockId),
+                new SqlParameter("@Fk_ProductId",Fk_ProductId),
+                new SqlParameter("@Fk_ShopId",Fk_ShopId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetStockEntryList", para);
+            return ds;
+        }
+
+
+        public DataSet GetProductList()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetProductList");
+            return ds;
+        }
+
+      
+
+        
+   
     }
 }

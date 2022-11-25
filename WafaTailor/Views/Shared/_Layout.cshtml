@@ -23,7 +23,7 @@
     <!--bootstrap -->
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Start datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">*@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
@@ -166,6 +166,17 @@
                                             </span>
                                         </a>
                                     </li>
+
+
+                                    <li class="nav-item">
+                                        <a href="/Admin/ProductMaster" class="nav-link ">
+                                            <span class="title">
+                                                Product Master
+                                            </span>
+                                        </a>
+                                    </li>
+
+
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -174,7 +185,7 @@
                                     <span class="title">Registration</span><span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a href="/Employee/EmployeeRegistration" class="nav-link ">
                                             <span class="title">
                                                 Employee Registration
@@ -187,7 +198,7 @@
                                                 Employee Attendance
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     @*<li class="nav-item">
                                         <a href="/Vendor/VendorRegistration" class="nav-link ">
                                             <span class="title">
@@ -279,13 +290,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="/Admin/BillList" class="nav-link ">
-                                            <span class="title">
-                                                Bill List
-                                            </span>
-                                        </a>
-                                    </li>
+                               
                                     <li class="nav-item">
                                         <a href="/Admin/OrderRefund" class="nav-link ">
                                             <span class="title">
@@ -387,7 +392,13 @@
                                             </span>
                                         </a>
                                     </li>
-                                
+                                    <li class="nav-item">
+                                        <a href="/Admin/BillList" class="nav-link ">
+                                            <span class="title">
+                                                Bill List
+                                            </span>
+                                        </a>
+                                    </li>
                                     @*<li class="nav-item">
                                         <a href="/Employee/DateWiseAttendanceReport" class="nav-link ">
                                             <span class="title">
@@ -404,6 +415,38 @@
                                     </li>
                                 </ul>
                             </li>
+
+
+
+
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link nav-toggle">
+                                    <i data-feather="users"></i>
+                                    <span class="title">Stock</span><span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="/Admin/StockEntry" class="nav-link ">
+                                            <span class="title">
+                                                Stock Entry
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Admin/StockEntryList" class="nav-link ">
+                                            <span class="title">
+                                                Stock Entry List
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+
+
                         </ul>
                     </div>
                 </div>
@@ -437,7 +480,7 @@
     <script src="~/assets/plugins/feather/feather.min.js"></script>
     <!-- bootstrap -->
     <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    @*<script src="~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>*@
     <!-- jquery latest version -->
     <script src="~/assets/js-1/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
@@ -451,7 +494,6 @@
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     <!-- others plugins -->
     <script src="~/assets/js-1/plugins.js"></script>
     <script src="~/assets/js-1/scripts.js"></script>

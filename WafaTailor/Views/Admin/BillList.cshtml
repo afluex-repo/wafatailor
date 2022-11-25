@@ -7,19 +7,20 @@
 <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
 <link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 <style>
+  
     /*.dataTables_scrollHead {
         position: sticky !important;
         top: 60px;
         z-index: 99;
         background-color: white;
     }
-    .dataTables_scrollBody
-    {
-        max-height:540px !important;
+
+    .dataTables_scrollBody {
+        max-height: 540px !important;
     }
-    .card .dataTable td
-    {
-        padding:3px 5px !important;
+
+    .card .dataTable td {
+        padding: 3px 5px !important;
     }*/
 </style>
 
@@ -64,7 +65,13 @@
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label>Mobile Number</label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile Number" , @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile Number", @onkeypress = "return isNumberKey(event);", @Maxlength = "8", @Minlength = "8" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Bill No</label>
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control", @Placeholder = "Bill No" })
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-3">
@@ -79,6 +86,7 @@
                                 <table id="dataTable">
                                     <thead>
                                         <tr>
+                                            <th>Sr No.</th>
                                             <th>Customer</th>
                                             <th>Mobile</th>
                                             <th>Generated Piece</th>
@@ -91,6 +99,8 @@
                                             <th>Bill Date</th>
                                             <th>Status</th>
                                             <th>Action</th>
+                                            <th>Bill Status</th>
+                                            <th>Recently</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -103,7 +113,7 @@
                                                 foreach (var item in Model.lstList)
                                                 {
                                                     <tr>
-                                                        @*<td>@i</td>*@
+                                                        <td>@i</td>
                                                         <td>@item.Name</td>
                                                         <td>@item.Mobile</td>
                                                         <td>@item.GeneratedPiece</td>
@@ -116,17 +126,66 @@
                                                         <td>@item.BillDate</td>
                                                         <td>@item.Status</td>
                                                         <td>
+                                                            @*<a href="/SaleOrder/SaleOrder?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
+                                                                    <i class="btn btn-secoundry" title="Print">Sale</i>
+                                                                </a>*@
                                                             <a href="/Admin/BillEntry?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
                                                                 <i class="btn btn-primary" title="Print">Edit</i>
                                                             </a>
+                                                            @*<a target="_blank" href="/Admin/PrintBill?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn">
+                                                                    <i class="btn btn-primary" title="Print">Print</i>
+                                                                </a>*@
+                                                        </td>
+                                                        <td>
                                                             @if (item.Balance > 0)
                                                             {
                                                                 <a target="_blank" href="/Admin/BillPayment?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
                                                                     <i class="btn btn-danger" title="Paid Bill">Paid Bill</i>
                                                                 </a>
                                                             }
+                                                            else
+                                                            {
+                                                                <p>UnPaid</p>
+                                                            }
                                                         </td>
+                                                        @if (item.CreatedDate == item.Today)
+                                                        {
+                                                            <td><span style="color:red;">Today Bill Entry</span></td>
+                                                        }
+                                                        else if (item.CreatedDate == item.Yesterday)
+                                                        {
+                                                            <td><span style="color:green;">Yesterday Bill Entry</span></td>
+                                                        }
+                                                        else if (item.UpdatedDateBD == item.Today)
+                                                        {
+                                                            <td><span style="color:red;">Today Update Bill Entry</span></td>
+                                                        }
+                                                        else if (item.UpdatedDateBP == item.Today)
+                                                        {
+                                                            <td><span style="color:red;">Today Update Bill Entry</span></td>
+                                                        }
+                                                        else if (item.UpdatedDateBP == item.Yesterday)
+                                                        {
+                                                            <td><span style="color:green;">Yesterday Update Bill Entry</span></td>
+                                                        }
+                                                        else if (item.UpdatedDateBP == item.Yesterday)
+                                                        {
+                                                            <td><span style="color:green;">Yesterday Update Bill Entry</span></td>
+                                                        }
+                                                        else if (item.CreatedDate == item.Today && item.UpdatedDateBD == item.Today)
+                                                        {
+                                                            <td><span style="color:black;">Today Bill Entry And Update Bill Entry</span></td>
+                                                        }
+                                                        else if (item.CreatedDate == item.Today && item.UpdatedDateBP == item.Today)
+                                                        {
+                                                            <td><span style="color:red;">Today Bill Entry And Update Bill Entry</span></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="color:blue;">@item.CreatedDateNew</td>
+                                                        }
                                                         <td></td>
+
                                                     </tr>
                                                     i = i + 1;
                                                 }
@@ -134,10 +193,11 @@
                                         }
 
                                     </tbody>
-                                    <tfoot>
+                                    @*<tfoot>
                                         <tr>
                                             <th></th>
-                                            <th>Total</th>
+                                            <th></th>
+                                            <th style="text-align:left;">Total</th>
                                             <th>@ViewBag.NoOfPiece</th>
                                             <th>@ViewBag.DeliveredPiece</th>
                                             <th>@ViewBag.RemainingPiece</th>
@@ -148,12 +208,11 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot>*@
                                 </table>
-                                </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,3 +270,12 @@
             maxDate: 0
         });
     </script>*@
+
+@*<script>
+    $(document).ready(function () {
+        $('#exampleee').DataTable({
+            scrollX: true,
+        });
+    });
+</script>*@
+

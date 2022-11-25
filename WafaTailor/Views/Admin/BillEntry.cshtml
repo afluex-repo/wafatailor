@@ -296,6 +296,14 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+        if ($('#Status').val() == '0') {
+            $("#Status").addClass('errortext');
+            $('#Status').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+        
     }
 
     function isNumberOrDecimal(evt) {

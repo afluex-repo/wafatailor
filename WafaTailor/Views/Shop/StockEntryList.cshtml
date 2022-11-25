@@ -1,11 +1,11 @@
 ﻿@model WafaTailor.Models.Shop
 
 @{
-    ViewBag.Title = "RefundShopSaleOrderList";
+    ViewBag.Title = "StockEntryList";
     Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
-@using (Html.BeginForm("RefundShopSaleOrderList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("StockEntryList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
     <div class="page-content-wrapper">
@@ -22,47 +22,40 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Refund SaleOrder List</header>
+                            <header>Stock Entry List</header>
                             <span class="text-danger">
-                                @TempData["Order"]
+                                @TempData["StockEntry"]
                             </span>
-                            <a href="/Shop/RefundShopSaleOrder" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back TO Refund Order</a>
+                            @*<a href="/Admin/StockEntry" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i>Add New</a>*@
                         </div>
-
+                    
                         <div class="card-body">
                             <table style="width: 100%" id="dataTable">
                                 <thead>
                                     <tr>
                                         <th>Sr.No.</th>
-                                        <th>Bill Number</th>
-                                        <th>Return Piece</th>
-                                        @*<th>Contact Number</th>*@
-                                        <th>Amount</th>
-                                        <th>Refund Date</th>
-                                        <th>Action</th>
+                                        <th>Product Name</th>
+                                        <th>No Of Piece</th>
+                                        <th>Amount/Piece</th>
+                                        <th>Shop Name</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (Model != null)
                                     {
-                                        if (Model.lstList != null)
+                                        if (Model.lstStockEntry != null)
                                         {
                                             int i = 1;
-                                            foreach (var item in Model.lstList)
+                                            foreach (var item in Model.lstStockEntry)
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.BillNo</td>
+                                                    <td>@item.ProductName</td>
                                                     <td>@item.NoOfPiece</td>
-                                                    @*<td>@item.Mobile</td>*@
-                                                    <td>@item.Balance</td>
-                                                    <td>@item.RefundDate</td>
-                                                    <td>
-                                                        <a target="_blank" href="/Shop/PrintRefundShopSaleOrder?RefundId=@item.RefundId" class="tblDelBtn">
-                                                            <i class="btn btn-primary" title="Print">Print</i>
-                                                        </a>
-
-                                                    </td>
+                                                    <td>@item.Amount</td>
+                                                    <td>@item.ShopName</td>
+                                                   
                                                 </tr>
                                                 i = i + 1;
                                             }
@@ -78,10 +71,5 @@
         </div>
     </div>
 }
-
-
-
-
-
 
 

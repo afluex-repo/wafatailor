@@ -1,11 +1,12 @@
-﻿@model WafaTailor.Models.Shop
+﻿@model WafaTailor.Models.Admin
 
 @{
-    ViewBag.Title = "RefundShopSaleOrderList";
-    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("RefundShopSaleOrderList", "Shop", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("ProductList", "Admin", FormMethod.Post, new { @id = "form", @enctype = "multipart/form-data" }))
 {
    <!-- start page content -->
     <div class="page-content-wrapper">
@@ -22,45 +23,37 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-head">
-                            <header>Refund SaleOrder List</header>
+                            <header>Product List</header>
                             <span class="text-danger">
-                                @TempData["Order"]
+                                @TempData["msg"]
                             </span>
-                            <a href="/Shop/RefundShopSaleOrder" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Back TO Refund Order</a>
+                            <a href="/Admin/ProductMaster" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i>Add New</a>
                         </div>
-
+                      
                         <div class="card-body">
                             <table style="width: 100%" id="dataTable">
                                 <thead>
                                     <tr>
                                         <th>Sr.No.</th>
-                                        <th>Bill Number</th>
-                                        <th>Return Piece</th>
-                                        @*<th>Contact Number</th>*@
-                                        <th>Amount</th>
-                                        <th>Refund Date</th>
+                                        <th>Product Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (Model != null)
                                     {
-                                        if (Model.lstList != null)
+                                        if (Model.lstProduct != null)
                                         {
                                             int i = 1;
-                                            foreach (var item in Model.lstList)
+                                            foreach (var item in Model.lstProduct)
                                             {
                                                 <tr>
                                                     <td>@i</td>
-                                                    <td>@item.BillNo</td>
-                                                    <td>@item.NoOfPiece</td>
-                                                    @*<td>@item.Mobile</td>*@
-                                                    <td>@item.Balance</td>
-                                                    <td>@item.RefundDate</td>
+                                                    <td>@item.ProductName</td>
                                                     <td>
-                                                        <a target="_blank" href="/Shop/PrintRefundShopSaleOrder?RefundId=@item.RefundId" class="tblDelBtn">
-                                                            <i class="btn btn-primary" title="Print">Print</i>
-                                                        </a>
+                                                        <a href="/Admin/DeleteProduct?Id=@item.Pk_ProductId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product ?');">Delete</a>
+
+                                                        <a href="/Admin/ProductMaster?Id=@item.Pk_ProductId" class="btn btn-primary btn-sm">Edit</a>
 
                                                     </td>
                                                 </tr>
@@ -78,10 +71,3 @@
         </div>
     </div>
 }
-
-
-
-
-
-
-
