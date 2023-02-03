@@ -28,23 +28,18 @@ namespace WafaTailor.Models
         public string Email { get; set; }
         public string Mobile { get; set; }
         public DataTable dtSaleOrderDetails { get; set; }
-
         public string CustomerName { get; set; }
         //public DataTable CustomerName { get; set; }
         public DataTable CustomerAddress { get; set; }
-
         public string SaleDate { get; set; }
         public string PieceName{ get; set; }
         public string NoOfPiece { get; set; }
         public string OriginalPrice { get; set; }
         public string Discount { get; set; }
         public string FinalPrice { get; set; }
-
         public string ShopName { get; set; }
         public string BillNo { get; set; }
         public string SalesOrderNo { get; set; }
-
-
         public string SaleOrderNoEncrypt { get; set; }
         public string PriceName { get; set; }
         public string NetAmount { get; set; }
@@ -59,14 +54,12 @@ namespace WafaTailor.Models
         public string ToDate { get; set; }
         public string BillId { get; set; }
         public string PaymentId { get; set; }
-            
         public string AvailableNoOfPiece { get; set; }
         public decimal Balance { get; set; }
         public string RefundDate { get; set; }
         public string RefundId { get; set; }
         public string PieceQuantity { get; set; }
         public string OriginalRate { get; set; }
-
         //public DataSet SaveSaleOrderDetails()
         //{
         //    SqlParameter[] para =
@@ -89,8 +82,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetUserDetails", para);
             return ds;
         }
-
-
         public DataSet GetSaleOrderDetails()
         {
             SqlParameter[] para =
@@ -106,7 +97,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderForShop", para);
             return ds;
         }
-
         public DataSet PrintSO()
         {
             SqlParameter[] para =
@@ -116,7 +106,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrder", para);
             return ds;
         }
-
         //public DataSet GenerateInvoiceNo()
         //{
         //    SqlParameter[] para = { new SqlParameter("@AddedBy", AddedBy), };
@@ -140,7 +129,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetCustomerForSaleOrder", para);
             return ds;
         }
-
         public DataSet SaveSaleOrder()
         {
             SqlParameter[] para ={
@@ -163,7 +151,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetShopNameDetails");
             return ds;
         }
-
         public DataSet GetBillDetails()
         {
             SqlParameter[] para =
@@ -174,7 +161,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
         }
-
         public DataSet RefundSaleOrder()
         {
             SqlParameter[] para =
@@ -190,7 +176,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("RefundSaleOrder", para);
             return ds;
         }
-
         public DataSet GetOrderRefundDetails()
         {
             SqlParameter[] para =
@@ -209,8 +194,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("GetPrintSaleOrderRefund", para);
             return ds;
         }
-
-      
         public DataSet UpdateSaleOrder()
         {
             SqlParameter[] para ={
@@ -222,7 +205,6 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
             return ds;
         }
-
         public DataSet SaveSaleOrdernew()
         {
             SqlParameter[] para ={

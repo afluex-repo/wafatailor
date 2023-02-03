@@ -201,7 +201,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
-
             if (BillId != null && PaymentId != null)
             {
                 model.BillId = BillId;
@@ -233,7 +232,6 @@ namespace WafaTailor.Controllers
                 List<SelectListItem> Status = Common.BindStatus();
                 ViewBag.BindStatus = Status;
             }
-
             return View(model);
         }
         [HttpPost]
@@ -320,9 +318,6 @@ namespace WafaTailor.Controllers
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
-
-
-
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds1 = model.GetShopNameDetails();
@@ -341,9 +336,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
-
-
             return View(model);
         }
         [HttpPost]
@@ -351,7 +343,6 @@ namespace WafaTailor.Controllers
         [OnAction(ButtonName = "btnSearch")]
         public ActionResult BillListSearch(Admin model, string LoginId)
         {
-
             List<Admin> lst = new List<Admin>();
             if (LoginId != "")
             {
@@ -407,9 +398,6 @@ namespace WafaTailor.Controllers
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
-
-
-
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds1 = model.GetShopNameDetails();
@@ -428,9 +416,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
-
-
             return View(model);
         }
         public ActionResult PrintBill(string BillId, string PaymentId)
@@ -447,7 +432,6 @@ namespace WafaTailor.Controllers
                 //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                 //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
-
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
                 model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
@@ -457,7 +441,6 @@ namespace WafaTailor.Controllers
                 lstbill.Add(model);
             }
             model.lstList = lstbill;
-
             return View(model);
         }
         public ActionResult BillPayment(string BillId, string PaymentId)
@@ -483,10 +466,8 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
             List<SelectListItem> ItemStatus = Common.BindStatus();
             ViewBag.ItemStatus = ItemStatus;
-
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -686,7 +667,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("BillEntry", "Admin");
         }
-
         public ActionResult ProductMaster(string Id)
         {
             Admin model = new Admin();
@@ -699,10 +679,8 @@ namespace WafaTailor.Controllers
                     model.ProductName = ds.Tables[0].Rows[0]["ProductName"].ToString();
                 }
             }
-
             return View(model);
         }
-
         [HttpPost]
         [ActionName("ProductMaster")]
         public ActionResult ProductMaster(Admin model)
@@ -756,7 +734,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ProductMaster", "Admin");
         }
-
         public ActionResult ProductList(Admin model)
         {
             List<Admin> lst = new List<Admin>();
@@ -774,7 +751,6 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-
         public ActionResult DeleteProduct(string Id)
         {
             Admin model = new Admin();
@@ -805,8 +781,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("ProductList", "Admin");
         }
-
-
         public ActionResult StockEntry(string Id)
         {
             Admin model = new Admin();
@@ -821,8 +795,6 @@ namespace WafaTailor.Controllers
                     model.Fk_ShopId = ds2.Tables[0].Rows[0]["Fk_ShopId"].ToString();
                     model.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
                     model.Amount = ds2.Tables[0].Rows[0]["AmountPerPiece"].ToString();
-
-
                 }
             }
             #region ProductMaster
@@ -843,7 +815,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlproduct = ddlproduct;
             #endregion
-
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds = model.GetShopNameDetails();
@@ -864,8 +835,6 @@ namespace WafaTailor.Controllers
             #endregion
             return View(model);
         }
-
-
         [HttpPost]
         [ActionName("StockEntry")]
         [OnAction(ButtonName = "btnSave")]
@@ -897,8 +866,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("StockEntry", "Admin");
         }
-
-
         public ActionResult StockEntryList(Admin model)
         {
             List<Admin> lst = new List<Admin>();
@@ -918,7 +885,6 @@ namespace WafaTailor.Controllers
                 }
                 model.lstStockEntry = lst;
             }
-
             #region ProductMaster
             List<SelectListItem> ddlproduct = new List<SelectListItem>();
             DataSet ds1 = model.GetProductList();
@@ -937,7 +903,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlproduct = ddlproduct;
             #endregion
-
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds2 = model.GetShopNameDetails();
@@ -956,10 +921,8 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
             return View(model);
         }
-
         //[HttpPost]
         //[ActionName("StockEntryList")]
         //[OnAction(ButtonName = "btnSearch")]
@@ -1027,8 +990,6 @@ namespace WafaTailor.Controllers
 
         //    return View(model);
         //}
-
-
         public ActionResult DeleteStockEntry(string Id)
         {
             try
@@ -1059,8 +1020,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("StockEntryList", "Admin");
         }
-
-
         [HttpPost]
         [ActionName("StockEntry")]
         [OnAction(ButtonName = "btnUpdate")]
@@ -1092,10 +1051,6 @@ namespace WafaTailor.Controllers
             }
             return RedirectToAction("StockEntry", "Admin");
         }
-
-
-
-
     }
 }
 
