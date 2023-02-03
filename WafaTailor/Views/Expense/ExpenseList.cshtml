@@ -66,6 +66,12 @@
                                         @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "DD/MM/YYYY", @readonly = "true" })
                                     </div>
                                 </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>Shop Name</label>
+                                        @Html.DropDownListFor(m => m.Fk_ShopId, new SelectList(ViewBag.ddlShop, "Value", "Text"), new { @class = "form-control", @placeholder = "Shop Name" })
+                                    </div>
+                                </div>
                                 <div class="col-lg-2 col-md-3 mt-4">
                                     <div class="form-group">
                                         <input class="btn btn-success pull-left" type="submit" value="Search" id="btnSearch" name="btnSearch" />
@@ -80,6 +86,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
+                                        <th>Shop Name</th>
                                         <th>Expense Name </th>
                                         <th>Expense</th>
                                         <th>Expense</th>
@@ -98,6 +105,7 @@
                                             {
                                                 <tr>
                                                     <td>@i</td>
+                                                    <td>@item.ShopName</td>
                                                     <td>@item.ExpenseName</td>
                                                     <td>@item.OtherExpenseName</td>
                                                     <td>@item.Expenses</td>

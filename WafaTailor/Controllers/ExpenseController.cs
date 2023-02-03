@@ -162,6 +162,7 @@ namespace WafaTailor.Controllers
                     obj.Expenses = r["Expense"].ToString();
                     obj.Remark = r["Remark"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstexpense = lst;
@@ -184,6 +185,28 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlExpensetype = ddlExpensetype;
             #endregion
+
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds11 = model.GetShopNameDetails();
+            if (ds11 != null && ds11.Tables.Count > 0 && ds11.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds11.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
+
+
             return View(model);
         }
         [HttpPost]
@@ -192,10 +215,10 @@ namespace WafaTailor.Controllers
         public ActionResult ExpenseList(Expense model)
         {
             List<Expense> lst = new List<Expense>();
-            model.Expensetype = model.Expensetype == "0" ? null : model.Expensetype;
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-           
+            model.Expensetype = model.Expensetype == "0" ? null : model.Expensetype;
+            model.Fk_ShopId = model.Fk_ShopId == "0" ? null : model.Fk_ShopId;
             DataSet ds = model.GetExpenseList();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -209,6 +232,7 @@ namespace WafaTailor.Controllers
                     obj.Remark = r["Remark"].ToString();
                     //obj.Vendor = r["Vendor"].ToString();
                     obj.ExpenseDate = r["ExpenseDate"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstexpense = lst;
@@ -231,6 +255,26 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlExpensetype = ddlExpensetype;
             #endregion
+
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds11 = model.GetShopNameDetails();
+            if (ds11 != null && ds11.Tables.Count > 0 && ds11.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds11.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
             return View(model);
         }
         public ActionResult DeleteExpense(string Id)
@@ -403,6 +447,7 @@ namespace WafaTailor.Controllers
             List<Expense> lst = new List<Expense>();
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            model.Fk_ShopId = model.Fk_ShopId == "0" ? null : model.Fk_ShopId;
             DataSet ds = model.GetDailyExpenseReport();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -417,7 +462,7 @@ namespace WafaTailor.Controllers
                     obj.Material = r["Material"].ToString();
                     obj.Other = r["Other"].ToString();
                     obj.Profit = r["Profit"].ToString();
-                    //obj.ShopName = r["ShopName"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstexpense = lst;
@@ -431,6 +476,10 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+
+
+
         public ActionResult DeliveryExpense()
         {
             return View();
@@ -494,6 +543,7 @@ namespace WafaTailor.Controllers
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
                     Expense obj = new Expense();
+                    obj.ShopName = r["ShopName"].ToString();
                     obj.DeliveryId = r["Pk_DeliveryId"].ToString();
                     obj.CrAmount = r["CrAmount"].ToString();
                     obj.DrAmount = r["DrAmount"].ToString();
@@ -503,6 +553,32 @@ namespace WafaTailor.Controllers
                 }
                 model.lstexpense = lst;
             }
+
+
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
+
+
+
+
+
             return View(model);
         }
         public ActionResult DeleteDeliveryExpense(string DeliveryId)

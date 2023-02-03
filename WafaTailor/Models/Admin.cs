@@ -180,7 +180,9 @@ namespace WafaTailor.Models
                 new SqlParameter("@ToDate", ToDate),
                  new SqlParameter("@Mobile", Mobile),
                 //new SqlParameter("@Customername",Name)
-                new SqlParameter("@BillNo",BillNo)
+                new SqlParameter("@BillNo",BillNo),
+                 new SqlParameter("@Fk_Shopid",Fk_ShopId)
+
             };
             DataSet ds = DBHelper.ExecuteQuery("GetBillDetails", para);
             return ds;
@@ -244,8 +246,8 @@ namespace WafaTailor.Models
             {
                 new SqlParameter("@BillNo",BillNo)
             };
-            //DataSet ds = DBHelper.ExecuteQuery("GetAvailableOrder", para);
-            DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderrefund", para);
+            DataSet ds = DBHelper.ExecuteQuery("GetAvailableOrder", para);
+            //DataSet ds = DBHelper.ExecuteQuery("GetSaleOrderrefund", para);
             return ds;
         }
         public DataSet PrintOrderRefundBill()

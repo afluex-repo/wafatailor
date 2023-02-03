@@ -65,6 +65,7 @@ namespace WafaTailor.Controllers
             if (ds != null && ds.Tables.Count > 0)
             {
                 ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+
                 ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
                 ViewBag.Name = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.Address = ds.Tables[0].Rows[0]["Address"].ToString();
@@ -76,6 +77,8 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+
         public ActionResult ChangePassword()
         {
             return View();
@@ -198,7 +201,7 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
-            
+
             if (BillId != null && PaymentId != null)
             {
                 model.BillId = BillId;
@@ -207,6 +210,7 @@ namespace WafaTailor.Controllers
                 DataSet ds2 = model.GetBillDetails();
                 if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
                 {
+                    model.Pk_UserId = ds2.Tables[0].Rows[0]["FK_UserId"].ToString();
                     model.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
                     model.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
                     model.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
@@ -229,7 +233,7 @@ namespace WafaTailor.Controllers
                 List<SelectListItem> Status = Common.BindStatus();
                 ViewBag.BindStatus = Status;
             }
-           
+
             return View(model);
         }
         [HttpPost]
@@ -274,37 +278,38 @@ namespace WafaTailor.Controllers
             }
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-            
+
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
-                    Admin obj = new Admin();
-                    obj.BillId = r["Pk_BillId"].ToString();
-                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
-                    obj.Name = r["Name"].ToString();
-                    obj.Mobile = r["Mobile"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
-                    obj.BillNo = r["BillNo"].ToString();
-                    obj.BillDate = r["BillDate"].ToString();
-                    obj.Advance = r["AdavanceAmount"].ToString();
-                    obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
-                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
-                    obj.Status = r["Status"].ToString();
-                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
-                    obj.Today = r["Today"].ToString();
-                    obj.Yesterday = r["Yesterday"].ToString();
-                    obj.CreatedDate = r["CreatedDate"].ToString();
-                    obj.UpdatedDateBD = r["UpdatedDateBD"].ToString();
-                    obj.UpdatedDateBP = r["UpdatedDateBP"].ToString();
-                    obj.CreatedDateNew = r["CreatedDateNew"].ToString();
-                    obj.BillNo = r["BillNo"].ToString();
+                       Admin obj = new Admin();
+                        obj.BillId = r["Pk_BillId"].ToString();
+                        obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                        obj.Name = r["Name"].ToString();
+                        obj.Mobile = r["Mobile"].ToString();
+                        obj.NoOfPiece = r["NoOfPiece"].ToString();
+                        //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                        //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                        obj.OriginalPrice = r["OriginalPrice"].ToString();
+                        obj.BillNo = r["BillNo"].ToString();
+                        obj.BillDate = r["BillDate"].ToString();
+                        obj.Advance = r["AdavanceAmount"].ToString();
+                        obj.RemainingPiece = r["RemainingPiece"].ToString();
+                        obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                        obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                        obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                        obj.Status = r["Status"].ToString();
+                        obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                        obj.Today = r["Today"].ToString();
+                        obj.Yesterday = r["Yesterday"].ToString();
+                        obj.CreatedDate = r["CreatedDate"].ToString();
+                        obj.UpdatedDateBD = r["UpdatedDateBD"].ToString();
+                        obj.UpdatedDateBP = r["UpdatedDateBP"].ToString();
+                        obj.CreatedDateNew = r["CreatedDateNew"].ToString();
+                        obj.BillNo = r["BillNo"].ToString();
+                        obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;
@@ -315,6 +320,30 @@ namespace WafaTailor.Controllers
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
+
+
+
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
+
+
             return View(model);
         }
         [HttpPost]
@@ -331,6 +360,12 @@ namespace WafaTailor.Controllers
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
 
+            model.Pk_BillId = model.Pk_BillId == "0" ? null : model.Pk_BillId;
+            model.Pk_BillPaymentId = model.Pk_BillPaymentId == "0" ? null : model.Pk_BillPaymentId;
+            model.LoginId = model.LoginId == "" ? null : model.LoginId;
+            model.Mobile = model.Mobile == "" ? null : model.Mobile;
+            model.BillNo = model.BillNo == "" ? null : model.BillNo;
+            model.Fk_ShopId = model.Fk_ShopId == "0" ? null : model.Fk_ShopId;
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
@@ -361,6 +396,7 @@ namespace WafaTailor.Controllers
                     obj.UpdatedDateBP = r["UpdatedDateBP"].ToString();
                     obj.CreatedDateNew = r["CreatedDateNew"].ToString();
                     obj.BillNo = r["BillNo"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;
@@ -371,6 +407,30 @@ namespace WafaTailor.Controllers
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
+
+
+
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+
+
+
             return View(model);
         }
         public ActionResult PrintBill(string BillId, string PaymentId)
@@ -630,7 +690,7 @@ namespace WafaTailor.Controllers
         public ActionResult ProductMaster(string Id)
         {
             Admin model = new Admin();
-            if(Id!=null)
+            if (Id != null)
             {
                 model.Pk_ProductId = Id;
                 DataSet ds = model.ProductList();
@@ -639,7 +699,7 @@ namespace WafaTailor.Controllers
                     model.ProductName = ds.Tables[0].Rows[0]["ProductName"].ToString();
                 }
             }
-          
+
             return View(model);
         }
 
@@ -649,7 +709,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                if(model.Pk_ProductId==null)
+                if (model.Pk_ProductId == null)
                 {
                     model.AddedBy = Session["Pk_EmployeeId"].ToString();
                     DataSet ds = model.SaveProductMaster();
@@ -714,7 +774,7 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
-        
+
         public ActionResult DeleteProduct(string Id)
         {
             Admin model = new Admin();
@@ -746,7 +806,7 @@ namespace WafaTailor.Controllers
             return RedirectToAction("ProductList", "Admin");
         }
 
-        
+
         public ActionResult StockEntry(string Id)
         {
             Admin model = new Admin();
@@ -762,7 +822,7 @@ namespace WafaTailor.Controllers
                     model.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
                     model.Amount = ds2.Tables[0].Rows[0]["AmountPerPiece"].ToString();
 
-                    
+
                 }
             }
             #region ProductMaster
@@ -783,7 +843,7 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlproduct = ddlproduct;
             #endregion
-            
+
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds = model.GetShopNameDetails();
@@ -896,7 +956,7 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-            
+
             return View(model);
         }
 

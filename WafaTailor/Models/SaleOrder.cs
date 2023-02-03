@@ -64,8 +64,8 @@ namespace WafaTailor.Models
         public decimal Balance { get; set; }
         public string RefundDate { get; set; }
         public string RefundId { get; set; }
-        
-
+        public string PieceQuantity { get; set; }
+        public string OriginalRate { get; set; }
 
         //public DataSet SaveSaleOrderDetails()
         //{
