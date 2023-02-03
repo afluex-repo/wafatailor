@@ -553,8 +553,6 @@ namespace WafaTailor.Controllers
                 }
                 model.lstexpense = lst;
             }
-
-
             #region Shop
             List<SelectListItem> ddlShop = new List<SelectListItem>();
             DataSet ds1 = model.GetShopNameDetails();
@@ -573,12 +571,6 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
-
-
-
-
-
             return View(model);
         }
         public ActionResult DeleteDeliveryExpense(string DeliveryId)
