@@ -1098,11 +1098,11 @@ div.dt-button:last-child {
   width: 60px;
 }
 td.details-control {
-  background: url("../img/details_open.png") no-repeat center center;
+  background: url("/assets/images/details_open.png") no-repeat center center;
   cursor: pointer;
 }
 tr.shown td.details-control {
-  background: url("../img/details_close.png") no-repeat center center;
+  background: url("/assets/images/details_close.png") no-repeat center center;
 }
 /*******************************
 	10. Dropzone

@@ -59,8 +59,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body table-responsive">
-                            <table class="table table-striped table-bordered" id="example">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered" id="dataTable">
                                 <thead>
                                     <tr>
                                         @*<th>Sr No.</th>*@
@@ -99,7 +99,7 @@
                                                     <td>@item.BillNo</td>
                                                     <td>@item.BillDate</td>
                                                     <td>@item.Status</td>
-                                                    <td class="d-flex">
+                                                    <td>
                                                         <a href="/Employee/EmployeeBillEntry?BillId=@item.BillId&&PaymentId=@item.Pk_BillPaymentId" class="tblDelBtn btn-sm">
                                                             <i class="btn btn-primary" title="Print">Edit</i>
                                                         </a>

@@ -591,6 +591,11 @@
     <Content Include="Views\SaleOrder\SaleOrderNew.cshtml" />
     <Content Include="Views\Shop\ShopSaleOrderNew.cshtml" />
     <Content Include="Views\Shop\UpdateShopSaleOrderNew.cshtml" />
+    <Content Include="Views\Admin\ProductMaster.cshtml" />
+    <Content Include="Views\Admin\StockEntry.cshtml" />
+    <Content Include="Views\Admin\StockEntryList.cshtml" />
+    <Content Include="Views\Admin\ProductList.cshtml" />
+    <Content Include="Views\Shop\StockEntryList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -620,7 +625,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51134</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51136/</IISUrl>
+          <IISUrl>http://localhost:51135/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

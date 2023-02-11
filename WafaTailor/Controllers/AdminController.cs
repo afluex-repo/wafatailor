@@ -37,6 +37,25 @@ namespace WafaTailor.Controllers
                 }
                 model.lstsaleorder = lst;
             }
+
+            List<Admin> lstshop = new List<Admin>();
+            DataSet ds1 = model.GetShopMaster();
+            if (ds1 != null && ds1.Tables[0].Rows.Count > 0 && ds1.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    Admin obj1 = new Admin();
+                    obj1.ShopId = r["Pk_ShopId"].ToString();
+                    obj1.ShopName = r["ShopName"].ToString();
+                    obj1.Address = r["ShopAddress"].ToString();
+                    obj1.Status = r["Status"].ToString();
+                    obj1.LoginId = r["LoginId"].ToString();
+                    obj1.Password = r["Password"].ToString();
+                    lstshop.Add(obj1);
+                }
+                model.lstRegistration = lstshop;
+            }
+
             return View(model);
         }
         public ActionResult AdminProfile(Admin model)
@@ -46,6 +65,7 @@ namespace WafaTailor.Controllers
             if (ds != null && ds.Tables.Count > 0)
             {
                 ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+
                 ViewBag.Password = ds.Tables[0].Rows[0]["Password"].ToString();
                 ViewBag.Name = ds.Tables[0].Rows[0]["Name"].ToString();
                 ViewBag.Address = ds.Tables[0].Rows[0]["Address"].ToString();
@@ -57,6 +77,8 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+
         public ActionResult ChangePassword()
         {
             return View();
@@ -179,8 +201,7 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlcustomer = ddlcustomer;
             #endregion
-
-            if(BillId != null && PaymentId != null)
+            if (BillId != null && PaymentId != null)
             {
                 model.BillId = BillId;
                 model.Pk_BillPaymentId = PaymentId;
@@ -188,6 +209,7 @@ namespace WafaTailor.Controllers
                 DataSet ds2 = model.GetBillDetails();
                 if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
                 {
+                    model.Pk_UserId = ds2.Tables[0].Rows[0]["FK_UserId"].ToString();
                     model.ShopId = ds2.Tables[0].Rows[0]["Fk_Shopid"].ToString();
                     model.LoginId = ds2.Tables[0].Rows[0]["Name"].ToString();
                     model.Mobile = ds2.Tables[0].Rows[0]["Mobile"].ToString();
@@ -201,11 +223,15 @@ namespace WafaTailor.Controllers
                     model.RemainningBalance = ds2.Tables[0].Rows[0]["RemainingBalance"].ToString();
                     model.BillDate = ds2.Tables[0].Rows[0]["BillDate"].ToString();
                     model.Status = ds2.Tables[0].Rows[0]["Status"].ToString();
+                    List<SelectListItem> Status = Common.BindStatus();
+                    ViewBag.BindStatus = Status;
                 }
             }
-
-            List<SelectListItem> Status = Common.BindStatus();
-            ViewBag.BindStatus = Status;
+            else
+            {
+                List<SelectListItem> Status = Common.BindStatus();
+                ViewBag.BindStatus = Status;
+            }
             return View(model);
         }
         [HttpPost]
@@ -250,79 +276,38 @@ namespace WafaTailor.Controllers
             }
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
-          
-            DataSet ds = model.GetBillDetails();
-            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
-            {
-                foreach (DataRow r in ds.Tables[0].Rows)
-                {
-                    Admin obj = new Admin();
-                    obj.BillId = r["Pk_BillId"].ToString();
-                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
-                    obj.Name = r["Name"].ToString();
-                    obj.Mobile = r["Mobile"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
-                    obj.BillNo = r["BillNo"].ToString();
-                    obj.BillDate = r["BillDate"].ToString();
-                    obj.Advance = r["AdavanceAmount"].ToString();
-                    obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
-                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
-                    obj.Status = r["Status"].ToString();
-                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
-                    lst.Add(obj);
-                }
-                model.lstList = lst;
-                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
-                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
-                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece))); 
-                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
-                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
-                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
-            }
-            return View(model);
-        }
-        [HttpPost]
-        [ActionName("BillList")]
-        [OnAction(ButtonName = "btnSearch")]
-        public ActionResult BillListSearch(Admin model, string LoginId)
-        {
-
-            List<Admin> lst = new List<Admin>();
-            if (LoginId != "")
-            {
-                model.LoginId = LoginId;
-            }
-            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
-            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
 
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
             {
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
-                    Admin obj = new Admin();
-                    obj.BillId = r["Pk_BillId"].ToString();
-                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
-                    obj.Name = r["Name"].ToString();
-                    obj.Mobile = r["Mobile"].ToString();
-                    obj.NoOfPiece = r["NoOfPiece"].ToString();
-                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.OriginalPrice = r["OriginalPrice"].ToString();
-                    obj.BillNo = r["BillNo"].ToString();
-                    obj.BillDate = r["BillDate"].ToString();
-                    obj.Advance = r["AdavanceAmount"].ToString();
-                    obj.RemainingPiece = r["RemainingPiece"].ToString();
-                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
-                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
-                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
-                    obj.Status = r["Status"].ToString();
-                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                       Admin obj = new Admin();
+                        obj.BillId = r["Pk_BillId"].ToString();
+                        obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                        obj.Name = r["Name"].ToString();
+                        obj.Mobile = r["Mobile"].ToString();
+                        obj.NoOfPiece = r["NoOfPiece"].ToString();
+                        //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                        //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                        obj.OriginalPrice = r["OriginalPrice"].ToString();
+                        obj.BillNo = r["BillNo"].ToString();
+                        obj.BillDate = r["BillDate"].ToString();
+                        obj.Advance = r["AdavanceAmount"].ToString();
+                        obj.RemainingPiece = r["RemainingPiece"].ToString();
+                        obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                        obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                        obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                        obj.Status = r["Status"].ToString();
+                        obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                        obj.Today = r["Today"].ToString();
+                        obj.Yesterday = r["Yesterday"].ToString();
+                        obj.CreatedDate = r["CreatedDate"].ToString();
+                        obj.UpdatedDateBD = r["UpdatedDateBD"].ToString();
+                        obj.UpdatedDateBP = r["UpdatedDateBP"].ToString();
+                        obj.CreatedDateNew = r["CreatedDateNew"].ToString();
+                        obj.BillNo = r["BillNo"].ToString();
+                        obj.ShopName = r["ShopName"].ToString();
                     lst.Add(obj);
                 }
                 model.lstList = lst;
@@ -333,6 +318,104 @@ namespace WafaTailor.Controllers
                 ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
                 ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
             }
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("BillList")]
+        [OnAction(ButtonName = "btnSearch")]
+        public ActionResult BillListSearch(Admin model, string LoginId)
+        {
+            List<Admin> lst = new List<Admin>();
+            if (LoginId != "")
+            {
+                model.LoginId = LoginId;
+            }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            model.Pk_BillId = model.Pk_BillId == "0" ? null : model.Pk_BillId;
+            model.Pk_BillPaymentId = model.Pk_BillPaymentId == "0" ? null : model.Pk_BillPaymentId;
+            model.LoginId = model.LoginId == "" ? null : model.LoginId;
+            model.Mobile = model.Mobile == "" ? null : model.Mobile;
+            model.BillNo = model.BillNo == "" ? null : model.BillNo;
+            model.Fk_ShopId = model.Fk_ShopId == "0" ? null : model.Fk_ShopId;
+            DataSet ds = model.GetBillDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.BillId = r["Pk_BillId"].ToString();
+                    obj.Pk_BillPaymentId = r["Pk_BillPaymentId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Mobile = r["Mobile"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    //obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    //obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.OriginalPrice = r["OriginalPrice"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.BillDate = r["BillDate"].ToString();
+                    obj.Advance = r["AdavanceAmount"].ToString();
+                    obj.RemainingPiece = r["RemainingPiece"].ToString();
+                    obj.DeliveredPiece = r["DeliveredPiece"].ToString();
+                    obj.GeneratedAmount = r["GeneratedAmount"].ToString();
+                    obj.GeneratedPiece = r["GeneratedPiece"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    obj.Balance = Convert.ToDecimal(r["RemainingBalance"].ToString());
+                    obj.Today = r["Today"].ToString();
+                    obj.Yesterday = r["Yesterday"].ToString();
+                    obj.CreatedDate = r["CreatedDate"].ToString();
+                    obj.UpdatedDateBD = r["UpdatedDateBD"].ToString();
+                    obj.UpdatedDateBP = r["UpdatedDateBP"].ToString();
+                    obj.CreatedDateNew = r["CreatedDateNew"].ToString();
+                    obj.BillNo = r["BillNo"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstList = lst;
+                ViewBag.NoOfPiece = double.Parse(ds.Tables[1].Rows[0]["TotalPiece"].ToString());
+                ViewBag.DeliveredPiece = ds.Tables[0].Compute("sum(DeliveredPiece)", "").ToString();
+                ViewBag.RemainingPiece = (Convert.ToInt32((ViewBag.NoOfPiece)) - Convert.ToInt32((ViewBag.DeliveredPiece)));
+                ViewBag.OriginalPrice = double.Parse(ds.Tables[1].Rows[0]["TotalOriginalPrice"].ToString()).ToString("n2");
+                ViewBag.Advance = double.Parse(ds.Tables[0].Compute("sum(AdavanceAmount)", "").ToString()).ToString("n2");
+                ViewBag.Balance = (Convert.ToDecimal((ViewBag.OriginalPrice)) - Convert.ToDecimal((ViewBag.Advance)));
+            }
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds1 = model.GetShopNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
             return View(model);
         }
         public ActionResult PrintBill(string BillId, string PaymentId)
@@ -349,7 +432,6 @@ namespace WafaTailor.Controllers
                 //ViewBag.CustomerAddress = ds.Tables[0].Rows[0]["Address"].ToString();
                 //ViewBag.Email = ds.Tables[0].Rows[0]["Email"].ToString();
                 ViewBag.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
-
                 model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
                 model.Advance = ds.Tables[0].Rows[0]["AdavanceAmount"].ToString();
                 model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
@@ -359,7 +441,6 @@ namespace WafaTailor.Controllers
                 lstbill.Add(model);
             }
             model.lstList = lstbill;
-
             return View(model);
         }
         public ActionResult BillPayment(string BillId, string PaymentId)
@@ -385,10 +466,8 @@ namespace WafaTailor.Controllers
             }
             ViewBag.ddlShop = ddlShop;
             #endregion
-
             List<SelectListItem> ItemStatus = Common.BindStatus();
             ViewBag.ItemStatus = ItemStatus;
-
             DataSet ds = model.GetBillDetails();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -401,7 +480,7 @@ namespace WafaTailor.Controllers
                 model.OriginalPrice = ds.Tables[0].Rows[0]["OriginalPrice"].ToString();
                 model.BillNo = ds.Tables[0].Rows[0]["BillNo"].ToString();
                 //model.BillDate = ds.Tables[0].Rows[0]["BillDate"].ToString();
-               model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
+                model.RemainingPiece = ds.Tables[0].Rows[0]["RemainingPiece"].ToString();
                 model.TotalDeliveredPiece = ds.Tables[0].Rows[0]["TotalDeliveredPiece"].ToString();
                 model.LoginId = ds.Tables[0].Rows[0]["Name"].ToString();
                 model.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
@@ -558,7 +637,7 @@ namespace WafaTailor.Controllers
         {
             try
             {
-                if(BillId != null && Pk_BillPaymentId != null)
+                if (BillId != null && Pk_BillPaymentId != null)
                 {
                     model.BillId = BillId;
                     model.Pk_BillPaymentId = Pk_BillPaymentId;
@@ -587,6 +666,390 @@ namespace WafaTailor.Controllers
                 TempData["BillEntry"] = ex.Message;
             }
             return RedirectToAction("BillEntry", "Admin");
+        }
+        public ActionResult ProductMaster(string Id)
+        {
+            Admin model = new Admin();
+            if (Id != null)
+            {
+                model.Pk_ProductId = Id;
+                DataSet ds = model.ProductList();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.ProductName = ds.Tables[0].Rows[0]["ProductName"].ToString();
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("ProductMaster")]
+        public ActionResult ProductMaster(Admin model)
+        {
+            try
+            {
+                if (model.Pk_ProductId == null)
+                {
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.SaveProductMaster();
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["ProductMaster"] = "Product save successfully !!";
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            TempData["ProductMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["ProductMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                    DataSet ds = model.UpateProductMaster();
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["ProductMaster"] = "Product updated successfully !!";
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            TempData["ProductMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["ProductMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ProductMaster"] = ex.Message;
+            }
+            return RedirectToAction("ProductMaster", "Admin");
+        }
+        public ActionResult ProductList(Admin model)
+        {
+            List<Admin> lst = new List<Admin>();
+            DataSet ds = model.ProductList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.Pk_ProductId = r["Pk_ProductId"].ToString();
+                    obj.ProductName = r["ProductName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstProduct = lst;
+            }
+            return View(model);
+        }
+        public ActionResult DeleteProduct(string Id)
+        {
+            Admin model = new Admin();
+            try
+            {
+                model.Pk_ProductId = Id;
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.DeleteProduct();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["msg"] = "Product deleted successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["msg"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+            return RedirectToAction("ProductList", "Admin");
+        }
+        public ActionResult StockEntry(string Id)
+        {
+            Admin model = new Admin();
+
+            if (Id != null)
+            {
+                model.PK_StockId = Id;
+                DataSet ds2 = model.GetStockEntryList();
+                if (ds2 != null && ds2.Tables[0].Rows.Count > 0 && ds2.Tables.Count > 0)
+                {
+                    model.Fk_ProductId = ds2.Tables[0].Rows[0]["Fk_ProductId"].ToString();
+                    model.Fk_ShopId = ds2.Tables[0].Rows[0]["Fk_ShopId"].ToString();
+                    model.NoOfPiece = ds2.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                    model.Amount = ds2.Tables[0].Rows[0]["AmountPerPiece"].ToString();
+                }
+            }
+            #region ProductMaster
+            List<SelectListItem> ddlproduct = new List<SelectListItem>();
+            DataSet ds1 = model.GetProductList();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlproduct.Add(new SelectListItem { Text = "Select Product", Value = "0" });
+                    }
+                    ddlproduct.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["Pk_ProductId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlproduct = ddlproduct;
+            #endregion
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds = model.GetShopNameDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("StockEntry")]
+        [OnAction(ButtonName = "btnSave")]
+        public ActionResult SaveStockEntry(Admin model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.SaveStockEntry();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["StockEntry"] = "Stock details save successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["StockEntry"] = ex.Message;
+            }
+            return RedirectToAction("StockEntry", "Admin");
+        }
+        public ActionResult StockEntryList(Admin model)
+        {
+            List<Admin> lst = new List<Admin>();
+            DataSet ds = model.GetStockEntryList();
+            if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Admin obj = new Admin();
+                    obj.PK_StockId = r["PK_StockId"].ToString();
+                    obj.Fk_ProductId = r["Fk_ProductId"].ToString();
+                    obj.ProductName = r["ProductName"].ToString();
+                    obj.NoOfPiece = r["NoOfPiece"].ToString();
+                    obj.Amount = r["AmountPerPiece"].ToString();
+                    obj.ShopName = r["ShopName"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstStockEntry = lst;
+            }
+            #region ProductMaster
+            List<SelectListItem> ddlproduct = new List<SelectListItem>();
+            DataSet ds1 = model.GetProductList();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlproduct.Add(new SelectListItem { Text = "Select Product", Value = "0" });
+                    }
+                    ddlproduct.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["Pk_ProductId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlproduct = ddlproduct;
+            #endregion
+            #region Shop
+            List<SelectListItem> ddlShop = new List<SelectListItem>();
+            DataSet ds2 = model.GetShopNameDetails();
+            if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds2.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+                    }
+                    ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlShop = ddlShop;
+            #endregion
+            return View(model);
+        }
+        //[HttpPost]
+        //[ActionName("StockEntryList")]
+        //[OnAction(ButtonName = "btnSearch")]
+        //public ActionResult StockEntryList()
+        //{
+        //    Admin model = new Admin();
+        //    List<Admin> lst = new List<Admin>();
+        //    model.PK_StockId = model.PK_StockId == "0" ? null : model.PK_StockId;
+        //    model.Fk_ProductId = model.Fk_ProductId == "0" ? null : model.Fk_ProductId;
+        //    model.Fk_ShopId = model.Fk_ShopId == "0" ? null : model.Fk_ShopId;
+        //    DataSet ds = model.GetStockEntryList();
+        //    if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+        //    {
+        //        foreach (DataRow r in ds.Tables[0].Rows)
+        //        {
+        //            Admin obj = new Admin();
+        //            obj.PK_StockId = r["PK_StockId"].ToString();
+        //            obj.Fk_ProductId = r["Fk_ProductId"].ToString();
+        //            obj.ProductName = r["ProductName"].ToString();
+        //            obj.NoOfPiece = r["NoOfPiece"].ToString();
+        //            obj.Amount = r["AmountPerPiece"].ToString();
+        //            obj.ShopName = r["ShopName"].ToString();
+        //            lst.Add(obj);
+        //        }
+        //        model.lstStockEntry = lst;
+        //    }
+        //    #region ProductMaster
+        //    List<SelectListItem> ddlproduct = new List<SelectListItem>();
+        //    DataSet ds1 = model.GetProductList();
+        //    if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+        //    {
+        //        int count = 0;
+        //        foreach (DataRow r in ds1.Tables[0].Rows)
+        //        {
+        //            if (count == 0)
+        //            {
+        //                ddlproduct.Add(new SelectListItem { Text = "Select Product", Value = "0" });
+        //            }
+        //            ddlproduct.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["Pk_ProductId"].ToString() });
+        //            count++;
+        //        }
+        //    }
+        //    ViewBag.ddlproduct = ddlproduct;
+        //    #endregion
+
+        //    #region Shop
+        //    List<SelectListItem> ddlShop = new List<SelectListItem>();
+        //    DataSet ds2 = model.GetShopNameDetails();
+        //    if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+        //    {
+        //        int count = 0;
+        //        foreach (DataRow r in ds2.Tables[0].Rows)
+        //        {
+        //            if (count == 0)
+        //            {
+        //                ddlShop.Add(new SelectListItem { Text = "Select Shop", Value = "0" });
+        //            }
+        //            ddlShop.Add(new SelectListItem { Text = r["ShopName"].ToString(), Value = r["Pk_ShopId"].ToString() });
+        //            count++;
+        //        }
+        //    }
+        //    ViewBag.ddlShop = ddlShop;
+        //    #endregion
+
+
+        //    return View(model);
+        //}
+        public ActionResult DeleteStockEntry(string Id)
+        {
+            try
+            {
+                Admin model = new Admin();
+                model.PK_StockId = Id;
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.DeleteStockEntry();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["StockEntry"] = "Stock details deleted successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["StockEntry"] = ex.Message;
+            }
+            return RedirectToAction("StockEntryList", "Admin");
+        }
+        [HttpPost]
+        [ActionName("StockEntry")]
+        [OnAction(ButtonName = "btnUpdate")]
+        public ActionResult UpdateStockEntry(Admin model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_EmployeeId"].ToString();
+                DataSet ds = model.UpdateStockEntry();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["StockEntry"] = "Stock details update successfully !!";
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                    {
+                        TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    TempData["StockEntry"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["StockEntry"] = ex.Message;
+            }
+            return RedirectToAction("StockEntry", "Admin");
         }
     }
 }

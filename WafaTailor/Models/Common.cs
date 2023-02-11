@@ -91,13 +91,13 @@ namespace WafaTailor.Models
         public static List<SelectListItem> BindStatus()
         {
             List<SelectListItem> Status = new List<SelectListItem>();
-
+            Status.Add(new SelectListItem { Text = "-Select Status-", Value = "" });
             Status.Add(new SelectListItem { Text = "UnPaid/Not Delivered", Value = "UnPaid/Not Delivered" });
             Status.Add(new SelectListItem { Text = "Paid/ Not Delivered", Value = "Paid/ Not Delivered" });
             Status.Add(new SelectListItem { Text = "UnPaid/ Delivered", Value = "UnPaid/ Delivered" });
             Status.Add(new SelectListItem { Text = "Paid/ Delivered", Value = "Paid/ Delivered" });
             //Status.Add(new SelectListItem { Text = "Sale Order", Value = "Sale Order" });
-            Status.Add(new SelectListItem { Text = "Cancel", Value = "Cancle" });
+            Status.Add(new SelectListItem { Text = "Cancel", Value = "Cancel" });
             return Status;
         }
         public DataSet GetStateCity()

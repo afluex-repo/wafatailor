@@ -76,6 +76,18 @@ namespace WafaTailor.Models
         public string RefundId { get; set; }
         public string AvailableNoOfPiece { get; set; }
 
+        public List<Shop> lstStockEntry { get; set; }
+        public string PK_StockId { get; set; }
+        public string Fk_ProductId { get; set; }
+        public string Fk_ShopId { get; set; }
+        public string ProductName { get; set; }
+        public string Amount { get; set; }
+        public string ShopName { get; set; }
+        public string ProductId { get; set; }
+        public string AvailableStockQuantity { get; set; }
+        public string PricePerUnit { get; set; }
+        
+
         #endregion
 
         public DataSet GetCustomerDetails()
@@ -395,6 +407,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Description",Description),
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Fk_ProductId",Fk_ProductId),                
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetailsNew", para);
             return ds;
@@ -426,5 +439,37 @@ namespace WafaTailor.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateShopSaleOrderDetails", para);
             return ds;
         }
+
+        public DataSet GetStockEntryList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_StockId",PK_StockId),
+                new SqlParameter("@Fk_ProductId",Fk_ProductId),
+                new SqlParameter("@Fk_ShopId",Fk_ShopId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetStockEntryList", para);
+            return ds;
+        }
+
+
+        public DataSet GetProductList()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetProductList");
+            return ds;
+        }
+
+        public DataSet GetProductQuantity()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@ProductId",ProductId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetProductQuantity", para);
+            return ds;
+        }
+
+
+
     }
 }

@@ -57,6 +57,34 @@
                                          @Html.TextBoxFor(m => m.PriceName, new { @class = "form-control", @placeholder =    "Price Name"})
                                      </div>
                                  </div>*@
+
+
+
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Product Name<span style="color:red">*</span></label>
+                                        @Html.DropDownListFor(m => m.Fk_ProductId, new SelectList(ViewBag.ddlproduct, "Value", "Text"), new { @class = "form-control", @placeholder = "Product Name",@onchange= "return changeProduct()" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Available Stock Quantity</label>
+                                        @Html.TextBoxFor(m => m.AvailableStockQuantity, new { @class = "form-control", @placeholder = "Available Stock Quantity", @disabled= "disabled" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label for="simpleFormEmail">Price Per Unit</label>
+                                        @Html.TextBoxFor(m => m.PricePerUnit, new { @class = "form-control", @placeholder = "Price Per Unit", @disabled = "disabled" })
+                                    </div>
+                                </div>
+
+
+
+
+
                                 <div class="form-group col-sm-4">
                                     <div class="form-group">
                                         <label for="simpleFormEmail">No Of Piece<span style="color:red">*</span></label>
@@ -131,6 +159,13 @@
         if ($('#BillNo').val() == "") {
             $("#BillNo").addClass('errortext');
             $('#BillNo').focus();
+            $("#divload").css({ 'display': 'none' }); 
+            return false;
+        }
+
+        if ($('#Fk_ProductId').val() == '0') {
+            $("#Fk_ProductId").addClass('errortext');
+            $('#Fk_ProductId').focus();
             $("#divload").css({ 'display': 'none' });
             return false;
         }
@@ -172,15 +207,51 @@
             return false;
         }
     }
+
+    function changeProduct() {
+        $("#divload").css({ 'display': '' });
+        debugger;
+        var ProductId = $('#Fk_ProductId').val();
+        $.ajax({
+            url: '/Shop/GetProductQuantity', type: 'post', dataType: 'json',
+            data: { 'ProductId': ProductId },
+            success: function (data) {
+
+                //$("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    //$("#Fk_ProductId").val(data.Fk_ProductId);
+                    $("#AvailableStockQuantity").val(data.NoOfPiece); 
+                    $("#PricePerUnit").val(data.PricePerUnit);
+                }
+                else if (data.Result == "no") {
+                    alert("This product not found !!");
+                    $("#ProductId").addClass('errortext');
+                    $('#ProductId').focus();
+
+                }
+            }
+        });
+    }
    
     function calculatefinalamount()
     {
-        var NoofPiece = $("#NoOfPiece").val();
+        debugger;
+        var AvailableStockQuantity = $("#AvailableStockQuantity").val();
+        var NoOfPiece = $("#NoOfPiece").val();
+        var PricePerUnit = $("#PricePerUnit").val();
         var originalprice = $("#OriginalPrice").val();
         var Discount = $("#Discount").val();
 
+        if (Number(NoOfPiece) > Number(AvailableStockQuantity)) {
+            alert('Pieces should be less then Available Stock Quantity !!')
+            $("#NoOfPiece").val("");
+            $("#NoOfPiece").addClass('errortext');
+            $('#NoOfPiece').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
 
-        if(Number(NoofPiece)=="")
+        if (Number(NoOfPiece) == "" || Number(NoOfPiece) == null)
         {
             $("#NoOfPiece").val("");
             $("#NoOfPiece").addClass('errortext');
@@ -188,15 +259,21 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
-        if (Discount == "") {
-            Discount = 0;
-        }
+       
         if(originalprice=="")
         {
             originalprice = 0;
         }
-       var finalAmount = ((Number(NoofPiece) * Number(originalprice) - Number(Discount)))
-        //var finalAmount = (Number(originalprice) - Number(Discount))
+        if (Discount == "") {
+            Discount = 0;
+        }
+
+        var originalAmount = ((Number(NoOfPiece) * Number(PricePerUnit)))
+        $("#OriginalPrice").val(originalAmount);
+
+
+        //var finalAmount = ((Number(NoOfPiece) * Number(originalAmount) - Number(Discount)))
+        var finalAmount = (Number(originalAmount) - Number(Discount))
             $("#NetAmount").val(finalAmount);
 
     }
