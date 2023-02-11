@@ -973,6 +973,24 @@ namespace WafaTailor.Controllers
 
         public ActionResult ShopSaleOrderNew(Shop obj)
         {
+            #region ProductMaster
+            List<SelectListItem> ddlproduct = new List<SelectListItem>();
+            DataSet ds = obj.GetProductList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                int count = 0;
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlproduct.Add(new SelectListItem { Text = "Select Product", Value = "0" });
+                    }
+                    ddlproduct.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["Pk_ProductId"].ToString() });
+                    count++;
+                }
+            }
+            ViewBag.ddlproduct = ddlproduct;
+            #endregion
             #region Customer
             List<SelectListItem> ddlcustomer = new List<SelectListItem>();
             DataSet ds1 = obj.GetCustomerDetails();
@@ -1126,6 +1144,41 @@ namespace WafaTailor.Controllers
             }
             return View(model);
         }
+
+        public ActionResult GetProductQuantity(string ProductId)
+        {
+            Shop model = new Shop();
+           try
+            {
+                model.ProductId = ProductId;
+                DataSet ds = model.GetProductQuantity();
+                if (ds != null && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        model.Result = "yes";
+                        model.Fk_ProductId = ds.Tables[0].Rows[0]["Fk_ProductId"].ToString();
+                        model.NoOfPiece = ds.Tables[0].Rows[0]["NoOfPiece"].ToString();
+                        model.PricePerUnit = ds.Tables[0].Rows[0]["AmountPerPiece"].ToString();
+                    }
+                    else
+                    {
+                        model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                else
+                {
+                    model.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                model.Result = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
 
 
 

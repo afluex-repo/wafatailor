@@ -83,6 +83,10 @@ namespace WafaTailor.Models
         public string ProductName { get; set; }
         public string Amount { get; set; }
         public string ShopName { get; set; }
+        public string ProductId { get; set; }
+        public string AvailableStockQuantity { get; set; }
+        public string PricePerUnit { get; set; }
+        
 
         #endregion
 
@@ -403,6 +407,7 @@ namespace WafaTailor.Models
                 new SqlParameter("@Description",Description),
                 new SqlParameter("@Name",LoginId),
                 new SqlParameter("@Mobile",Mobile),
+                new SqlParameter("@Fk_ProductId",Fk_ProductId),                
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveShopSaleOrderDetailsNew", para);
             return ds;
@@ -454,9 +459,17 @@ namespace WafaTailor.Models
             return ds;
         }
 
-      
+        public DataSet GetProductQuantity()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@ProductId",ProductId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetProductQuantity", para);
+            return ds;
+        }
 
-        
-   
+
+
     }
 }
